@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import { facebook } from './facebookResource'
 
 const rootReducer = combineReducers({
-  
+  facebook
 });
 
 export default (state, action) => {
