@@ -3,6 +3,24 @@ import produce from 'immer';
 import * as types from './types';
 
 const initialState = {
+  connected: false,
+  user: {
+    accessToken: null,
+    data_access_expiration_time: 0,
+    email: null,
+    expiresIn: 0,
+    graphDomain: null,
+    id: null,
+    name: null,
+    picture: {
+      height: 50,
+      is_silhouette: false,
+      url: null,
+      width: 50
+    },
+    signedRequest: null,
+    userID: null
+  },
   campaign: {
     account: null,
     page: null,
@@ -18,6 +36,11 @@ export const facebook = (state = initialState, action) => {
     switch (type) {
       case types.CREATE_CAMPAIGN_SUCCESS:
         draft.campaign = payload
+        break;
+      case types.SAVE_FACEBOOK_USER:
+        draft.user = payload.data
+        draft.connected = true
+        console.log(draft.user, '##############################')
         break;
       case types.GET_CAMPAIGN_LIST_SUCCESS:
         draft.campaignList = payload
