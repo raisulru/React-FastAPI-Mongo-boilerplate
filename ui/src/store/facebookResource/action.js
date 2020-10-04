@@ -41,3 +41,15 @@ export const getCampaigns = () => ({
     errorMessage: 'Campaigns not found',
   },
 });
+
+export const saveFacebookUser = (payload) => ({
+  type: types.SAVE_FACEBOOK_USER,
+  payload: {
+    data: payload,
+  },
+  meta: {
+    api: false,
+    successMessage: 'User connected successfully',
+    errorMessage: "User coudn't connect",
+  },
+});

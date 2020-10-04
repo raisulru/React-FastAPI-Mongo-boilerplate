@@ -13,18 +13,18 @@ import { createCampaign, getCampaigns } from '../../store/facebookResource'
 class CreateFacebookContent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = { value: '' };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.getCampaigns()
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
   }
 
   handleSubmit(event) {
@@ -36,22 +36,22 @@ class CreateFacebookContent extends React.Component {
     return (
       <div>
         <h1>Ceate Facebook Content</h1>
-      <button type="button" className="btn btn-success">
-        <Link to="/ads/facebook/target-audience">Audience Targeting</Link>
-      </button>
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Title:
+        <button type="button" className="btn btn-success">
+          <Link to="/ads/facebook/target-audience">Audience Targeting</Link>
+        </button>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Title:
           <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ( 
+const mapStateToProps = state => (
   {
     campaign: state.facebook.campaign,
     campaignList: state.facebook.campaignList
