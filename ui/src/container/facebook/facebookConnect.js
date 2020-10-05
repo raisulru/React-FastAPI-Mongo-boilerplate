@@ -20,7 +20,6 @@ class FacebookConnect extends React.Component {
   }
 
   render() {
-    console.log(facebookAppId, '#################################')
     return (
       <div>
         <h1>{this.props.facebookConnected ? this.props.faceBookUser.name : "User Not Connected"}</h1>
@@ -50,7 +49,8 @@ const mapStateToProps = state => (
 const mapActionToProps = dispatch => {
   return bindActionCreators(
     {
-      saveFacebookUser
+      saveFacebookUser,
+      getFacebookPages
     },
     dispatch
   );
