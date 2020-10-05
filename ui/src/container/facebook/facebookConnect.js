@@ -8,6 +8,11 @@ import { saveFacebookUser } from '../../store/facebookResource';
 
 
 class FacebookConnect extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleAuthorization = this.handleAuthorization.bind(this);
+  }
 
   handleAuthorization(response) {
     this.props.saveFacebookUser(response)
