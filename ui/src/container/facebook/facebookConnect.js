@@ -1,21 +1,15 @@
-
 import React from 'react';
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import FacebookAuth from 'react-facebook-auth';
-import { FacebookButton } from './components/button'
-import { saveFacebookUser } from '../../store/facebookResource'
+import { FacebookButton } from './components/button';
+import { saveFacebookUser } from '../../store/facebookResource';
 
 
-class OnBoardingProcess extends React.Component {
-  constructor(props) {
-    super(props);
+class FacebookConnect extends React.Component {
 
-    this.handleAuthenticate = this.handleAuthenticate.bind(this);
-  }
-
-  handleAuthenticate(response) {
+  handleAuthorization(response) {
     this.props.saveFacebookUser(response)
   }
 
@@ -25,11 +19,14 @@ class OnBoardingProcess extends React.Component {
         <h1>{this.props.facebookConnected ? this.props.faceBookUser.name : "User Not Connected"}</h1>
         <FacebookAuth
           appId="373086590539630"
-          callback={this.handleAuthenticate}
+          callback={this.handleAuthorization}
           component={FacebookButton}
         />
         <button>
-          <Link to="/ads/dashboard">Dashboard</Link>
+          <Link to="/ads/onboarding">Cancel</Link>
+        </button>
+        <button>
+          <Link to="/ads/facebook/lead-sync">Next</Link>
         </button>
       </div>
     );
@@ -52,4 +49,4 @@ const mapActionToProps = dispatch => {
   );
 };
 
-export default connect(mapStateToProps, mapActionToProps)(OnBoardingProcess)
+export default connect(mapStateToProps, mapActionToProps)(FacebookConnect)
