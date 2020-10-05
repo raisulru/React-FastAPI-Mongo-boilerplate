@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
 
 class LandingPage extends React.Component {
   state = { show: false };
@@ -27,4 +29,20 @@ class LandingPage extends React.Component {
   }
 }
 
-export default LandingPage;
+
+const mapStateToProps = state => (
+  {
+    
+  }
+)
+
+const mapActionToProps = dispatch => {
+  return bindActionCreators(
+    {
+      
+    },
+    dispatch
+  );
+};
+
+export default connect(mapStateToProps, mapActionToProps)(LandingPage)

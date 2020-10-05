@@ -1,5 +1,5 @@
 import axios from 'axios';
-import apiBaseURL from '../../settings';
+import { apiBaseURL } from '../../settings';
 
 const apiMiddleware = () => (next) => (action) => {
   next(action);

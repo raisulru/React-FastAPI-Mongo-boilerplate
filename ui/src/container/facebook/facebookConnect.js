@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import FacebookAuth from 'react-facebook-auth';
 import { FacebookButton } from './components/button';
 import { saveFacebookUser } from '../../store/facebookResource';
+import { facebookAppId } from '../../settings';
 
 
 class FacebookConnect extends React.Component {
@@ -19,11 +20,12 @@ class FacebookConnect extends React.Component {
   }
 
   render() {
+    console.log(facebookAppId, '#################################')
     return (
       <div>
         <h1>{this.props.facebookConnected ? this.props.faceBookUser.name : "User Not Connected"}</h1>
         <FacebookAuth
-          appId="373086590539630"
+          appId={facebookAppId}
           callback={this.handleAuthorization}
           component={FacebookButton}
         />
