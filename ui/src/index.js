@@ -5,10 +5,14 @@ import * as serviceWorker from './serviceWorker';
 import store from './store'
 import App from './App'
 import 'bootstrap/dist/css/bootstrap.css';
+import { PersistGate } from 'redux-persist/integration/react'
+import persistor from './store/reduxPersist'
 
 render(
   <Provider store={store}>
-    <App />
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>,
   document.getElementById('root')
 )
