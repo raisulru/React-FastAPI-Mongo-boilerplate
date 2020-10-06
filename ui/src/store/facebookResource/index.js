@@ -2,7 +2,8 @@ export {
   createCampaign,
   getCampaigns,
   updateCampaign,
-  saveFacebookUser
+  saveFacebookUser,
+  getFacebookPages
   } from './action';
   
 export { facebook } from './reducer';

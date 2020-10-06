@@ -53,3 +53,15 @@ export const saveFacebookUser = (payload) => ({
     errorMessage: "User coudn't connect",
   },
 });
+
+export const getFacebookPages = (accessToken, userId) => ({
+  type: types.GET_FACEBOOK_PAGES,
+  payload: {
+    path: `/facebook/pages?access_token=${accessToken}&user_id=${userId}`,
+    method: 'GET',
+  },
+  meta: {
+    api: true,
+    errorMessage: "Facebook pages list not found",
+  },
+});

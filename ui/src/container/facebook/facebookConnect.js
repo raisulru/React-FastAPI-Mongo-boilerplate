@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import FacebookAuth from 'react-facebook-auth';
 import { FacebookButton } from './components/button';
-import { saveFacebookUser } from '../../store/facebookResource';
+import { saveFacebookUser, getFacebookPages } from '../../store/facebookResource';
 import { facebookAppId } from '../../settings';
 
 
@@ -17,9 +17,13 @@ class FacebookConnect extends React.Component {
 
   handleAuthorization(response) {
     this.props.saveFacebookUser(response)
+    if (response.accessToken && response.userID) {
+      this.props.getFacebookPages(response.accessToken, response.userID)
+    }
   }
 
   render() {
+    console.log(this.props.facebookPages, '###################')
     return (
       <div>
         <h1>{this.props.facebookConnected ? this.props.faceBookUser.name : "User Not Connected"}</h1>
@@ -42,7 +46,8 @@ class FacebookConnect extends React.Component {
 const mapStateToProps = state => (
   {
     faceBookUser: state.facebook.user,
-    facebookConnected: state.facebook.connected
+    facebookConnected: state.facebook.connected,
+    facebookPages: state.facebook.facebookPages
   }
 )
 

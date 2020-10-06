@@ -1,2 +1,2 @@
 #!/bin/bash
-uvicorn main:app --reload
+HTTPS=true uvicorn main:app --reload

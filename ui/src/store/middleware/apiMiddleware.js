@@ -28,7 +28,7 @@ const apiMiddleware = () => (next) => (action) => {
     })
     .catch((error) => {
       console.log(
-        error.response.data.error || errorMessage || 'Something went wrong'
+        error.response || errorMessage || 'Something went wrong'
       );
       console.error(error);
       next({

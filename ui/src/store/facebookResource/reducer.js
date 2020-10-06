@@ -27,6 +27,7 @@ const initialState = {
     title: null,
     body: null
   },
+  facebookPages: [],
   campaignList: []
 };
 
@@ -37,10 +38,12 @@ export const facebook = (state = initialState, action) => {
       case types.CREATE_CAMPAIGN_SUCCESS:
         draft.campaign = payload
         break;
+      case types.GET_FACEBOOK_PAGES_SUCCESS:
+        draft.facebookPages = payload
+        break;
       case types.SAVE_FACEBOOK_USER:
         draft.user = payload.data
         draft.connected = true
-        console.log(draft.user, '##############################')
         break;
       case types.GET_CAMPAIGN_LIST_SUCCESS:
         draft.campaignList = payload
