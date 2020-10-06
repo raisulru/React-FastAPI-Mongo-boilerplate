@@ -23,7 +23,7 @@ class FacebookConnect extends React.Component {
   }
 
   render() {
-    console.log(this.props.facebookPages, '###################')
+    console.log(this.props.facebookPages, '##########################')
     return (
       <div>
         <h1>{this.props.facebookConnected ? this.props.faceBookUser.name : "User Not Connected"}</h1>
@@ -32,6 +32,17 @@ class FacebookConnect extends React.Component {
           callback={this.handleAuthorization}
           component={FacebookButton}
         />
+        {this.props.facebookPages && (
+          <div>
+            <h2>Select Facebook pages you want to connect</h2>
+            <ul className='list-group'>
+              <li className='list-group-item'>
+                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"/>
+                <label htmlFor="vehicle1"> I have a bike</label>
+              </li>
+            </ul>
+          </div>
+        )}
         <button>
           <Link to="/ads/onboarding">Cancel</Link>
         </button>

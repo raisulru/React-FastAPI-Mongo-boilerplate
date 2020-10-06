@@ -39,7 +39,7 @@ export const facebook = (state = initialState, action) => {
         draft.campaign = payload
         break;
       case types.GET_FACEBOOK_PAGES_SUCCESS:
-        draft.facebookPages = payload
+        draft.facebookPages = payload.data
         break;
       case types.SAVE_FACEBOOK_USER:
         draft.user = payload.data
