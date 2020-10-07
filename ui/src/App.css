@@ -4,9 +4,9 @@ body {
 }
 body {
   height: 100%;
-  background-image: url("roboket.jpg");
+  /* background-image: url("roboket.jpg");
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: center center; */
 }
 
 .App {

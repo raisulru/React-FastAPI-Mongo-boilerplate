@@ -54,14 +54,28 @@ export const saveFacebookUser = (payload) => ({
   },
 });
 
-export const getFacebookPages = (accessToken, userId) => ({
-  type: types.GET_FACEBOOK_PAGES,
+export const getFacebookAdAccounts = (accessToken) => ({
+  type: types.GET_FACEBOOK_AD_ACCOUNTS,
   payload: {
-    path: `/facebook/pages?access_token=${accessToken}&user_id=${userId}`,
+    path: `/facebook/adaccounts?access_token=${accessToken}`,
     method: 'GET',
   },
   meta: {
     api: true,
-    errorMessage: "Facebook pages list not found",
+    errorMessage: "Facebook ad accounts list not found",
   },
 });
+
+export const saveFacebookAdsAccount = (payload) => ({
+  type: types.SAVE_FACEBOOK_AD_ACCOUNT,
+  payload: {
+    path: `/campaigns`,
+    method: 'POST',
+    data: payload,
+  },
+  meta: {
+    api: true,
+    successMessage: 'Campaign created successfully',
+    errorMessage: 'Campaign not created',
+  },
+})

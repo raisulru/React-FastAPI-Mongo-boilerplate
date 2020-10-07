@@ -1,5 +1,5 @@
 import produce from 'immer';
-// import _ from 'lodash';
+import _ from 'lodash';
 import * as types from './types';
 
 const initialState = {
@@ -27,7 +27,7 @@ const initialState = {
     title: null,
     body: null
   },
-  facebookPages: [],
+  adAccounts: [],
   campaignList: []
 };
 
@@ -38,8 +38,13 @@ export const facebook = (state = initialState, action) => {
       case types.CREATE_CAMPAIGN_SUCCESS:
         draft.campaign = payload
         break;
-      case types.GET_FACEBOOK_PAGES_SUCCESS:
-        draft.facebookPages = payload.data
+      case types.GET_FACEBOOK_AD_ACCOUNTS_SUCCESS:
+        const modifiedAdAccounts = _.map(payload.data, (account) => {
+          account.connected = false
+          account.auto_track = false
+          return account
+        })
+        draft.adAccounts = modifiedAdAccounts
         break;
       case types.SAVE_FACEBOOK_USER:
         draft.user = payload.data
