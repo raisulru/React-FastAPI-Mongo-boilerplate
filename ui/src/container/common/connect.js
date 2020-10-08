@@ -3,16 +3,34 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
+import FacebookAuth from 'react-facebook-auth';
+import { saveFacebookUser } from '../../store/facebookResource';
+import { facebookAppId } from '../../settings';
+import { FacebookButton } from './components/button';
 
 
 class OnBoardingProcess extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleAuthorization = this.handleAuthorization.bind(this)
+  }
+
+  handleAuthorization(response) {
+    this.props.saveFacebookUser(response)
+    if (this.props.facebookConnected) {
+      this.props.history.push("/ads/facebook/connect")
+    }
+  }
 
   render() {
     return (
       <div>        
-        <button>
-          <Link to="/ads/facebook/connect">Facebook</Link>
-        </button>
+          <FacebookAuth
+            appId={facebookAppId}
+            callback={this.handleAuthorization}
+            component={FacebookButton}
+          />
         <button>
           <Link to="/ads/dashboard">Google Ads</Link>
         </button>
@@ -26,14 +44,14 @@ class OnBoardingProcess extends React.Component {
 
 const mapStateToProps = state => (
   {
-    
+    facebookConnected: state.facebook.connected
   }
 )
 
 const mapActionToProps = dispatch => {
   return bindActionCreators(
     {
-      
+      saveFacebookUser
     },
     dispatch
   );

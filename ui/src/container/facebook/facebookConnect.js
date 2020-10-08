@@ -2,10 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
-import FacebookAuth from 'react-facebook-auth';
-import { FacebookButton } from './components/button';
-import { saveFacebookUser, getFacebookAdAccounts, saveFacebookAdsAccount } from '../../store/facebookResource';
-import { facebookAppId } from '../../settings';
+import { getFacebookAdAccounts, saveFacebookAdsAccount } from '../../store/facebookResource';
 
 
 class FacebookConnect extends React.Component {
@@ -15,21 +12,12 @@ class FacebookConnect extends React.Component {
       adAccounts: props.adAccounts
     }
 
-    this.handleAuthorization = this.handleAuthorization.bind(this);
     this.handleAccountConnection = this.handleAccountConnection.bind(this);
     this.handleAccountAutoTracking = this.handleAccountAutoTracking.bind(this);
   }
 
-  handleAuthorization(response) {
-    this.props.saveFacebookUser(response)
-    if (response.accessToken) {
-      this.props.getFacebookAdAccounts(response.accessToken)
-    }
-  }
-
   handleAccountAutoTracking(event) {
-    let adAccounts = this.state.adAccounts
-    console.log(event.target, 'auto tracking')
+    let adAccounts = JSON.parse(JSON.stringify(this.state.adAccounts))
     adAccounts.map(adAccount => {
       if (adAccount.id === event.target.id) {
         adAccount.auto_track = event.target.checked
@@ -40,7 +28,7 @@ class FacebookConnect extends React.Component {
   }
 
   handleAccountConnection(event) {
-    let adAccounts = this.state.adAccounts
+    let adAccounts = JSON.parse(JSON.stringify(this.state.adAccounts))
     adAccounts.map(adAccount => {
       if (adAccount.id === event.target.id) {
         adAccount.connected = event.target.checked
@@ -58,16 +46,12 @@ class FacebookConnect extends React.Component {
 
   render() {
     const user = this.props.faceBookUser
-    const adAccounts = this.state.adAccounts
+    const {adAccounts} = this.state
 
     return (
       <div>
         <h1>{this.props.facebookConnected ? user.name : "User Not Connected"}</h1>
-        <FacebookAuth
-          appId={facebookAppId}
-          callback={this.handleAuthorization}
-          component={FacebookButton}
-        />
+
         {adAccounts && (
           <div>
             <table className="table table-bordered">
@@ -118,7 +102,6 @@ class FacebookConnect extends React.Component {
 }
 
 const mapStateToProps = state => (
-  console.log(state),
   {
     faceBookUser: state.facebook.user,
     facebookConnected: state.facebook.connected,
@@ -129,7 +112,6 @@ const mapStateToProps = state => (
 const mapActionToProps = dispatch => {
   return bindActionCreators(
     {
-      saveFacebookUser,
       getFacebookAdAccounts,
       saveFacebookAdsAccount
     },

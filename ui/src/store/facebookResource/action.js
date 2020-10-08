@@ -45,10 +45,12 @@ export const getCampaigns = () => ({
 export const saveFacebookUser = (payload) => ({
   type: types.SAVE_FACEBOOK_USER,
   payload: {
+    path: `/facebook/save-adaccounts`,
+    method: 'POST',
     data: payload,
   },
   meta: {
-    api: false,
+    api: true,
     successMessage: 'User connected successfully',
     errorMessage: "User coudn't connect",
   },
@@ -69,13 +71,13 @@ export const getFacebookAdAccounts = (accessToken) => ({
 export const saveFacebookAdsAccount = (payload) => ({
   type: types.SAVE_FACEBOOK_AD_ACCOUNT,
   payload: {
-    path: `/campaigns`,
+    path: `/facebook/save-adaccounts`,
     method: 'POST',
     data: payload,
   },
   meta: {
     api: true,
-    successMessage: 'Campaign created successfully',
-    errorMessage: 'Campaign not created',
+    successMessage: 'Facebook ad account created successfully',
+    errorMessage: 'Facebook ad account not created',
   },
 })

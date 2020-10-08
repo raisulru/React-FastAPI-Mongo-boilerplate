@@ -1,28 +1,22 @@
 import requests
+import uuid
 from typing import Optional
 from fastapi import APIRouter, Depends, Form, Query
+from resources.models.facebook import FacebookUser
+from . import db
+
+facebook_user_collection = db['facebook_user']
 
 facebook_router = APIRouter()
 
 @facebook_router.get("/adaccounts")
-async def facebook_pages(access_token: str = None):
+async def get_facebook_ad_accounts(access_token: str = None):
     url = 'https://graph.facebook.com/v8.0/me/adaccounts?access_token={}'.format(access_token)
     response = requests.get(url)
-    return {
-        "data": [
-            {
-                "account_id": "336523120419968",
-                "id": "act_336523120419968"
-            },
-            {
-                "account_id": "336523120419967",
-                "id": "act_336523120419967"
-            }
-        ],
-        "paging": {
-            "cursors": {
-                "before": "MjM4NDI5NDQ3MzAyMDAxNjQZD",
-                "after": "MjM4NDI5NDQ3MzAyMDAxNjQZD"
-            }
-        }
-    }
+    return response.json()
+
+
+@facebook_router.post("/save-adaccounts")
+async def create_facebook_adaccounts(user: FacebookUser):
+    created_user = facebook_user_collection.insert_one(user.dict(by_alias=True))
+    return user

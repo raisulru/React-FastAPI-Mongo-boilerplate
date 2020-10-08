@@ -7,7 +7,7 @@ import { CommonRouter, FacebookRouter } from './router'
 function App() {
   return (
     <Router className='App'>
-      {/* <Redirect to="/ads/onboarding" /> */}
+      <Redirect to="/ads/onboarding" />
       <Route path='/ads' component={CommonRouter} />
       <Route path='/ads/facebook' component={FacebookRouter} />
     </Router>
