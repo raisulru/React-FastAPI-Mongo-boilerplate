@@ -1,48 +1,62 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { bindActionCreators } from "redux";
-import { connect } from 'react-redux';
+import targetIcon from "../../images/target-icon.png"
+
 
 class LandingPage extends React.Component {
-  state = { show: false };
 
-  showModal = () => {
-    this.setState({ show: true });
-  };
-
-  hideModal = () => {
-    this.setState({ show: false });
-  };
 
   render() {
     return (
       <div>
-        <h1>Landing Page</h1>
-        {/* <Modal show={this.state.show} handleClose={this.hideModal}>
-          <FacebookConnect />
-        </Modal> */}
-        <button type="button">
-        <Link to="/ads/onboarding-process">Connect</Link>
-        </button>
-      </div>
+
+        <div className="ads-area">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12">
+                <h3 className="py-4">ADS</h3>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div className="welcome-section py-3">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6">
+                <div className="connect">
+                  <h4 className="py-4">See which ads are turning <br/>visitors into customers </h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore </p>
+                    <p>magna aliqua. Ut enim ad minim veniam magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        </p>
+                    <div className="btn-group mt-4">
+                        <Link to="/ads/onboarding-process">
+                          <button type="button" className="btn btn-secondary mr-3 bg-brand">
+                          Connect Accounts
+                        </button>
+                          </Link>
+                      
+                      <button type="button" className="btn btn-secondary bg-brand-border">see a quick demo</button>
+
+                    </div>
+                    <div className="col-md-8 text-center mt-4">
+                      <a className="bg-transparent btn-create">Create ad account</a>
+                    </div>
+                    </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="target-image">
+                    <img src={targetIcon} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
     );
   }
 }
 
 
-const mapStateToProps = state => (
-  {
-    
-  }
-)
-
-const mapActionToProps = dispatch => {
-  return bindActionCreators(
-    {
-      
-    },
-    dispatch
-  );
-};
-
-export default connect(mapStateToProps, mapActionToProps)(LandingPage)
+export default LandingPage
