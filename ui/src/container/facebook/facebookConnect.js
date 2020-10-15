@@ -47,12 +47,80 @@ class FacebookConnect extends React.Component {
   render() {
     const user = this.props.faceBookUser
     const {adAccounts} = this.state
-
+    
     return (
-      <div>
-        <h1>{this.props.facebookConnected ? user.name : "User Not Connected"}</h1>
+      <>
+        <div className="connect-section py-5">
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-2">
+                    </div>
+                    <div className="col-md-8 py-5">
+                        <div className="connect-ad-account">
+                            <div className="col-md-12  mt-4">
+                                <h6 className="connect-title mb-4 text-left">Select Facebook ads accounts</h6>
+                                <p>select the bellow account(s) you want to connect ROBOKET.<small className="learn-more"> <a href="#">Learn more </a></small></p>
+                                <p>You can connects up to 2 ads account</p>
+                                <table className="table account-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">AD ACCOUNTAD</th>
+                                            <th scope="col">ACCOUNT ID</th>
+                                            <th scope="col">AUTO TRACKING <i className="fas fa-info-circle"></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {adAccounts.map((adAccount) => 
+                                      <tr key={adAccount.id}>
+                                        <td>
+                                          <input id={adAccount.id} checked={adAccount.connected} onChange={(e) => this.handleAccountConnection(e)} type="checkbox" name="add-acount" value="Bike"/> 
+                                          <label htmlFor={adAccount.id}> {user.name}'s Ad Account</label>
+                                          <br/>
+                                        </td>
+                                        <td>
+                                        {adAccount.account_id}
+                                        </td>
+                                        <td>
+                                            <label className="switch">
+                                                <input id={adAccount.account_id} checked={adAccount.auto_track} onChange={(e) => this.handleAccountAutoTracking(e)} type="checkbox"/>
+                                                <span htmlFor={adAccount.account_id} className="slider round"></span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    )}
+                                    </tbody>
+                                </table>
+                                <div className="btn-group">
+                                    <button type="button" className="btn btn-connect-border mr-3">Connect</button>
+                                    <button type="button" className="btn btn-connect-border red-border mr-3">Cancel</button>
+                                    <a className="connect-link" href="#">Create ad account <i className="fas fa-external-link-alt"></i> </a>
+                                </div>
+                            </div>
 
-        {adAccounts && (
+                        </div>
+
+                    </div>
+                    <div className="col-md-2">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div className="back-next">
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-lg-6 text-center text-lg-left ">
+                      <Link to="/ads/onboarding">
+                          Cancel
+                      </Link>
+                    </div>
+                    <div className="col-lg-6 text-center text-lg-right">
+                    <Link to="/ads/facebook/lead-sync" onClick={() => this.submitConnectedAdAccounts()}>Next</Link>
+                    </div>
+                </div>
+            </div>
+            {/* {adAccounts && (
           <div>
             <table className="table table-bordered">
               <thead>
@@ -83,20 +151,9 @@ class FacebookConnect extends React.Component {
               </tbody>
             </table>
           </div>
-        )}
-        <Link to="/ads/onboarding">
-          <button className='btn btn-success'>
-            Cancel
-        </button>
-        </Link>
-
-        <Link to="/ads/facebook/lead-sync" onClick={() => this.submitConnectedAdAccounts()}>
-          <button className='btn btn-success float-right'>
-            Next
-            </button>
-        </Link>
-
-      </div>
+        )} */}
+        </div>
+      </>
     );
   }
 }

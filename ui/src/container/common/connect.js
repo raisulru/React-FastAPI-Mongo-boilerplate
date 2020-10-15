@@ -7,6 +7,8 @@ import FacebookAuth from 'react-facebook-auth';
 import { saveFacebookUser } from '../../store/facebookResource';
 import { facebookAppId } from '../../settings';
 import { FacebookButton } from './components/button';
+import GoogleLogo from '../../images/google-ads.png'
+import LinkedinLogo from '../../images/linkedin.png'
 
 
 class OnBoardingProcess extends React.Component {
@@ -25,18 +27,53 @@ class OnBoardingProcess extends React.Component {
 
   render() {
     return (
-      <div>        
-          <FacebookAuth
-            appId={facebookAppId}
-            callback={this.handleAuthorization}
-            component={FacebookButton}
-          />
-        <button>
-          <Link to="/ads/dashboard">Google Ads</Link>
-        </button>
-        <button>
-          <Link to="/ads/dashboard">Linkedin</Link>
-        </button>
+      <div>
+        <div className="ads-area">
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-12">
+                        <h3 className="py-4">ADS</h3>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div className="connect-create-section py-5">
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-12 text-center py-5">
+                        <div className="connect-ad-account">
+                            <div className="col-md-12  text-center mt-4">
+                                <h6 className="connect-title mb-4">Create ad account</h6>
+                            </div>
+                            <div className="btn-group text-center">
+                                <FacebookAuth
+                                  appId={facebookAppId}
+                                  callback={this.handleAuthorization}
+                                  component={FacebookButton}
+                                />
+                                <button type="button" className="btn btn-connect mr-2"><img src={GoogleLogo}/>Google ads</button>
+                                <button type="button" className="btn btn-connect"><img src={LinkedinLogo}/>Linkedin</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div className="back-next">
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-lg-6 text-center text-lg-left ">
+                        <a className="cancel" href="#">Cancel</a>
+                    </div>
+                    <div className="col-lg-6 text-center text-lg-right">
+                        <a className="next" href="#">Next</a>
+                    </div>
+                </div>
+            </div>
+        </div>
       </div>
     );
   }
