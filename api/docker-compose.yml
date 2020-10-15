@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+
+  lead_generation_api:
+    container_name: lead_generation_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:.'
+    ports:
+      - 8000:8000
+networks:
+   lead_generation:
