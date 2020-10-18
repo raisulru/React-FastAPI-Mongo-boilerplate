@@ -16,6 +16,11 @@ class FacebookConnect extends React.Component {
     this.handleAccountAutoTracking = this.handleAccountAutoTracking.bind(this);
   }
 
+  componentDidMount () {
+    const { accessToken } = this.props.faceBookUser
+    this.props.getFacebookAdAccounts(`access_token=${accessToken}`)
+  }
+
   handleAccountAutoTracking(event) {
     let adAccounts = JSON.parse(JSON.stringify(this.state.adAccounts))
     adAccounts.map(adAccount => {
@@ -50,6 +55,15 @@ class FacebookConnect extends React.Component {
     
     return (
       <>
+        <div className="ads-area">
+          <div className="container">
+              <div className="row">
+                  <div className="col-md-12">
+                      <h3 className="py-4">ADS</h3>
+                  </div>
+              </div>
+          </div>
+        </div>
         <div className="connect-section py-5">
             <div className="container">
                 <div className="row">
@@ -120,38 +134,6 @@ class FacebookConnect extends React.Component {
                     </div>
                 </div>
             </div>
-            {/* {adAccounts && (
-          <div>
-            <table className="table table-bordered">
-              <thead>
-                <tr>
-                  <th scope="col">AD ACCOUNT</th>
-                  <th scope="col">AD ACCOUNT ID</th>
-                  <th scope="col">AUTO TRACK</th>
-                </tr>
-              </thead>
-              <tbody>
-                {adAccounts.map((adAccount) =>
-                  <tr key={adAccount.id}>
-                    <td>
-                      <div className="custom-control custom-checkbox">
-                        <input id={adAccount.id} type="checkbox" className="custom-control-input" checked={adAccount.connected} onChange={(e) => this.handleAccountConnection(e)} />
-                        <label className="custom-control-label" htmlFor={adAccount.id}>{user.name}'s Ad Account</label>
-                      </div>
-                    </td>
-                    <td>{adAccount.account_id}</td>
-                    <td>
-                      <div className="custom-control custom-switch">
-                        <input id={adAccount.account_id} type="checkbox" className="custom-control-input" checked={adAccount.auto_track} onChange={(e) => this.handleAccountAutoTracking(e)} />
-                        <label className="custom-control-label" htmlFor={adAccount.account_id}></label>
-                      </div>
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        )} */}
         </div>
       </>
     );
