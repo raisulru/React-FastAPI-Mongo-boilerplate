@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  lead_ui:
+    container_name: lead_ui
+    build:
+      context: ./ui
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    volumes:
+      - ./ui:/usr/src/app/lead_ui
+      - /usr/src/app/lead_ui/node_modules
+
+networks:
+   lead_generation:

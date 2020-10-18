@@ -5,3 +5,9 @@ build
 **/.git
 **/.DS_Store
 **/node_modules
+*
+!README.md
+!package.json
+!public
+!src
+!yarn.lock
