@@ -80,7 +80,7 @@ class FacebookConnect extends React.Component {
                                       <tr key={adAccount.id}>
                                         <td>
                                           <input id={adAccount.id} checked={adAccount.connected} onChange={(e) => this.handleAccountConnection(e)} type="checkbox" name="add-acount" value="Bike"/> 
-                                          <label htmlFor={adAccount.id}> {user.name}'s Ad Account</label>
+                                          <label className="ml-2" htmlFor={adAccount.id}> {user.name}'s Ad Account</label>
                                           <br/>
                                         </td>
                                         <td>
@@ -99,7 +99,7 @@ class FacebookConnect extends React.Component {
                                 <div className="btn-group">
                                     <button type="button" className="btn btn-connect-border mr-3">Connect</button>
                                     <button type="button" className="btn btn-connect-border red-border mr-3">Cancel</button>
-                                    <a className="connect-link" href="#">Create ad account <i className="fas fa-external-link-alt"></i> </a>
+                                    <a className="connect-link" href="https://www.facebook.com/business/help/910137316041095?id=420299598837059" target="_blank">Create ad account <i className="fas fa-external-link-alt"></i> </a>
                                 </div>
                             </div>
 
