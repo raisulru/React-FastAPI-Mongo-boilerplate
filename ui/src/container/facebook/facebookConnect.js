@@ -9,7 +9,7 @@ class FacebookConnect extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      adAccounts: props.adAccounts
+      adAccounts: this.props.adAccounts
     }
 
     this.handleAccountConnection = this.handleAccountConnection.bind(this);
@@ -51,8 +51,8 @@ class FacebookConnect extends React.Component {
 
   render() {
     const user = this.props.faceBookUser
-    const {adAccounts} = this.state
-    
+    const { adAccounts } = this.state
+    console.log(this.state, '######################')
     return (
       <>
       <AdsBar />
