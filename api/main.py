@@ -6,7 +6,8 @@ from resources.facebook import facebook_router
 app = FastAPI()
 
 origins = [
-    "https://localhost:3000"
+    "https://localhost:3000",
+    "https://dev.roboket.com",
 ]
 
 app.add_middleware(

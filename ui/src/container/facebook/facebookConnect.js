@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import { getFacebookAdAccounts, saveFacebookAdsAccount } from '../../store/facebookResource';
-
+import { AdsBar } from '../common/components/adsBar'
 
 class FacebookConnect extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class FacebookConnect extends React.Component {
 
   componentDidMount () {
     const { accessToken } = this.props.faceBookUser
-    this.props.getFacebookAdAccounts(`access_token=${accessToken}`)
+    this.props.getFacebookAdAccounts(accessToken)
   }
 
   handleAccountAutoTracking(event) {
@@ -55,15 +55,7 @@ class FacebookConnect extends React.Component {
     
     return (
       <>
-        <div className="ads-area">
-          <div className="container">
-              <div className="row">
-                  <div className="col-md-12">
-                      <h3 className="py-4">ADS</h3>
-                  </div>
-              </div>
-          </div>
-        </div>
+      <AdsBar />
         <div className="connect-section py-5">
             <div className="container">
                 <div className="row">

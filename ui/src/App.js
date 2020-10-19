@@ -8,14 +8,14 @@ import keycloak from './utils/keycloak'
 
 function App() {
 
-  // keycloak.init({
-  //   onLoad: 'login-required',
-  //   promiseType: 'native'
-  // }).then(function(authenticated) {
-  //     console.log(authenticated ? 'authenticated' : 'not authenticated');
-  // }).catch(function() {
-  //     console.log('failed to initialize');
-  // });
+  keycloak.init({
+    onLoad: 'login-required',
+    promiseType: 'native'
+  }).then(function(authenticated) {
+      console.log(authenticated ? 'authenticated' : 'not authenticated');
+  }).catch(function() {
+      console.log('failed to initialize');
+  });
 
   return (
     <>

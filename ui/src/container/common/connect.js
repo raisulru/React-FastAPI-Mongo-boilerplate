@@ -9,6 +9,7 @@ import { facebookAppId } from '../../settings';
 import { FacebookButton } from './components/button';
 import GoogleLogo from '../../images/google-ads.png'
 import LinkedinLogo from '../../images/linkedin.png'
+import { AdsBar } from './components/adsBar';
 
 
 class OnBoardingProcess extends React.Component {
@@ -28,16 +29,7 @@ class OnBoardingProcess extends React.Component {
   render() {
     return (
       <div>
-        <div className="ads-area">
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-12">
-                        <h3 className="py-4">ADS</h3>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        <AdsBar />
         <div className="connect-create-section py-5">
             <div className="container">
                 <div className="row">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import targetIcon from "../../images/target-icon.png"
+import { AdsBar } from './components/adsBar';
 
 
 class LandingPage extends React.Component {
@@ -9,18 +10,7 @@ class LandingPage extends React.Component {
   render() {
     return (
       <div>
-
-        <div className="ads-area">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12">
-                <h3 className="py-4">ADS</h3>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
+        <AdsBar />
         <div className="welcome-section py-3">
           <div className="container">
             <div className="row">
