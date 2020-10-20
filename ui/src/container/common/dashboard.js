@@ -2,11 +2,20 @@
 //CONTAINER
 import React from 'react';
 import { Link } from "react-router-dom";
+import SortIcon from "../../images/sort.png"
+import FacebookLogo from '../../images/fb-icon.png'
+
 
 /**
  * PROPERTIES & FUNCTION 
  * 
  */
+
+function TableHead(name) {
+  return (
+    <th className="table-title">{name.name} <span><button className="btn-short" type="btn"><img src={SortIcon}/></button></span></th>
+  )
+}
 
 function DashBoard() {
 
@@ -206,19 +215,19 @@ function DashBoard() {
                                                         <table className="table table-striped table-bordered dashboard-table">
                                                             <thead>
                                                                 <tr>
-                                                                    <th className="table-title">Name <span><button className="btn-short" type="btn"><img src="../code/images/short.png"/></button></span></th>
-                                                                    <th className="table-title">Account Name <span><button className="btn-short" type="btn"><img src="../code/images/short.png"/></button></span></th>
-                                                                    <th className="table-title">Type <span><button className="btn-short" type="btn"><img src="../code/images/short.png"/></button></span></th>
-                                                                    <th className="table-title">Impressions <i className="fas fa-info-circle"></i> <span><button className="btn-short" type="btn"><img src="../code/images/short.png"/></button></span></th>
-                                                                    <th className="table-title">Clicks <i className="fas fa-info-circle"></i> <span><button className="btn-short" type="btn"><img src="../code/images/short.png"/></button></span></th>
-                                                                    <th className="table-title">Total Contacts <i className="fas fa-info-circle"></i> <span><button className="btn-short" type="btn"><img src="../code/images/short.png"/></button></span></th>
+                                                                  <TableHead name="Name" />
+                                                                  <TableHead name="Account Name" />
+                                                                  <TableHead name="Type" />
+                                                                  <TableHead name="Impressions" />
+                                                                  <TableHead name="Clicks" />
+                                                                  <TableHead name="Total Contacts" />
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <tr>
                                                                     <td>
                                                                         <div className="input-group">
-                                                                            <a className="btn table-social-btn m-r-30"> <img src="images/linkedin.png" className="mr-2"/>Default Campaign Group</a>
+                                                                            <a className="btn table-social-btn m-r-30"> <img src={FacebookLogo} className="mr-2"/>Default Campaign Group</a>
                                                                             <label className="switch">
                                                                             <input type="checkbox"/>
                                                                             <span className="slider round"></span>
