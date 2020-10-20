@@ -9,7 +9,7 @@ class LandingPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         <AdsBar />
         <div className="welcome-section py-3">
           <div className="container">
@@ -43,7 +43,7 @@ class LandingPage extends React.Component {
                 </div>
               </div>
             </div>
-          </div>
+          </>
     );
   }
 }

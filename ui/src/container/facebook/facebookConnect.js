@@ -9,7 +9,7 @@ class FacebookConnect extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      adAccounts: this.props.adAccounts
+      adAccounts: props.adAccounts
     }
 
     this.handleAccountConnection = this.handleAccountConnection.bind(this);
@@ -18,6 +18,9 @@ class FacebookConnect extends React.Component {
 
   componentDidMount () {
     const { accessToken } = this.props.faceBookUser
+    if (!accessToken) {
+      this.props.history.push("/ads/onboarding-process")
+    }
     this.props.getFacebookAdAccounts(accessToken)
   }
 
@@ -52,7 +55,7 @@ class FacebookConnect extends React.Component {
   render() {
     const user = this.props.faceBookUser
     const { adAccounts } = this.state
-    console.log(this.state, '######################')
+    
     return (
       <>
       <AdsBar />
@@ -97,8 +100,8 @@ class FacebookConnect extends React.Component {
                                     </tbody>
                                 </table>
                                 <div className="btn-group">
-                                    <button type="button" className="btn btn-connect-border mr-3">Connect</button>
-                                    <button type="button" className="btn btn-connect-border red-border mr-3">Cancel</button>
+                                    {/* <button type="button" className="btn btn-connect-border mr-3">Connect</button>
+                                    <button type="button" className="btn btn-connect-border red-border mr-3">Cancel</button> */}
                                     <a className="connect-link" href="https://www.facebook.com/business/help/910137316041095?id=420299598837059" target="_blank">Create ad account <i className="fas fa-external-link-alt"></i> </a>
                                 </div>
                             </div>

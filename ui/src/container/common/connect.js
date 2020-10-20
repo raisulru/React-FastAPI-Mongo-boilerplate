@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
@@ -58,10 +57,7 @@ class OnBoardingProcess extends React.Component {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-lg-6 text-center text-lg-left ">
-                        <a className="cancel" href="#">Cancel</a>
-                    </div>
-                    <div className="col-lg-6 text-center text-lg-right">
-                        <a className="next" href="#">Next</a>
+                        <Link to='/ads/onboarding'>Cancel</Link>
                     </div>
                 </div>
             </div>

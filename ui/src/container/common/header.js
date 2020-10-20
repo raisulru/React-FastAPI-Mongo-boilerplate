@@ -3,9 +3,8 @@ import userImage from '../../images/user.png'
 import LogoImage from '../../images/pictogram.svg'
 import keycloak from '../../utils/keycloak'
 
-class Header extends React.Component {
-
-  render() {
+function Header (props) {
+  const userInfo = props.userInfo
     return (
       <div className="menu_area">
         <div className="container-fluid">
@@ -85,11 +84,12 @@ class Header extends React.Component {
                     <li className="nav-item dropdown">
                       <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <img className="mr-2 img-profile rounded-circle" src={userImage} />
-                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">Raisul Islam</span>
+                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">{userInfo.preferred_username}</span>
                       </a>
                       <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                        
                         <a className="dropdown-item" href="#">
-                          <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+                          <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> <strong>{userInfo.email}</strong>
                         </a>
                         <a className="dropdown-item" href="#">
                           <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
@@ -111,10 +111,7 @@ class Header extends React.Component {
       </div>
     </div >
     );
-  }
 }
-
-
 
 
 export default Header

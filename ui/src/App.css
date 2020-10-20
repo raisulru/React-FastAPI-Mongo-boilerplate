@@ -112,6 +112,10 @@ menu area
 .menu_area .nav-item {
     padding: 0px 15px!important;
 }
+
+.menu_area .fa-bell {
+    margin-top: 13px;
+}
 /* .nav-item .far,
 .nav-item .fas {
     font-size: 24px;
@@ -121,7 +125,7 @@ menu area
     display: inline-block;
     margin-left: 4px;
     vertical-align: .255em;
-    content: url(../img/down_arrow.svg);
+    content: url(../images/down_arrow.svg);
     border-top: .0em solid;
     border-right: .0em solid transparent;
     border-bottom: 0;
@@ -462,14 +466,14 @@ welcome and connect  area
 .btn-connect {
     background: #fff;
     padding: 7px 15px;
-    border: .5px solid #c7c8ca;
+    border: .5px solid #62626c;
     border-radius: 3px!important;
 }
 
 .btn-signin {
     background: #fff;
     padding: 7px 26px;
-    border: .5px solid #c7c8ca;
+    border: .5px solid #62626c;
     width: 94px;
     border-radius: 0px!important;
 }
@@ -651,7 +655,7 @@ footer and top footer
 .back-next .cancel {
     padding: 17px 0px 0px 0px;
     text-decoration: underline!important;
-    color: #c7c8ca;
+    color: #62626c;
     font-size: 14px;
 }
 
@@ -770,7 +774,7 @@ login page
 }
 /*
 =======================================================================
-media query
+media query 1
 =======================================================================
 */
 
@@ -780,16 +784,16 @@ media query
         min-height: calc( 100vh - 300px);
     }
     .welcome-section {
-        min-height: calc( 100vh - 300px);
+        min-height: calc( 100vh - 273px);
     }
     .connect-create-section {
-        min-height: calc( 100vh - 300px);
+        min-height: calc( 100vh - 273px);
     }
     .connect-section {
-        min-height: calc( 100vh - 300px);
+        min-height: calc( 100vh - 273px);
     }
     .connect-section-linked {
-        min-height: calc( 100vh - 300px);
+        min-height: calc( 100vh - 273px);
     }
     .dashboard-section {
         min-height: calc( 100vh - 245px);

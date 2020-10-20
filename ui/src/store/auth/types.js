@@ -1,0 +1,1 @@
+export const SAVE_USER_INFO = 'AUTH/SAVE_USER_INFO';

@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import { facebook } from './facebookResource'
+import { authInfo } from './auth'
 
 const rootReducer = combineReducers({
-  facebook
+  facebook,
+  authInfo
 });
 
 export default (state, action) => {
