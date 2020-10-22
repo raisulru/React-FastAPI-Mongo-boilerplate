@@ -28,7 +28,7 @@ class OnBoardingProcess extends React.Component {
   render() {
     return (
       <div>
-        <AdsBar />
+        <AdsBar name="Ads Platform"/>
         <div className="connect-create-section py-5">
             <div className="container">
                 <div className="row">

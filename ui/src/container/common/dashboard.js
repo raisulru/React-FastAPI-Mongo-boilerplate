@@ -4,6 +4,8 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import SortIcon from "../../images/sort.png"
 import FacebookLogo from '../../images/fb-icon.png'
+import GoogleLogo from '../../images/google-ads.png'
+import LinkedinLogo from '../../images/linkedin.png'
 
 
 /**
@@ -26,7 +28,7 @@ function DashBoard() {
             <div className="row">
 
                 <div className="col-md-6">
-                    <h3 className="py-4">ADS</h3>
+                    <h3 className="py-4">Ads Dashboard</h3>
                 </div>
 
                 <div className="col-md-6">
@@ -34,14 +36,24 @@ function DashBoard() {
                         <div className="btn-group mt-4">
                             <button type="button" className="btn create-audiance mr-2">Create Audience</button>
                             <div className="dropdown show">
-                                <a className="btn btn-secondary create-ad-campaign dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <Link className="btn btn-secondary create-ad-campaign dropdown-toggle" to="/ads/onboarding" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Create Ad campaign
-                            </a>
+                            </Link>
 
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a className="dropdown-item" href="#">Action</a>
-                                    <a className="dropdown-item" href="#">Another action</a>
-                                    <a className="dropdown-item" href="#">Something else here</a>
+                                    <Link className="dropdown-item" to="/ads/facebook/create-content">
+                                        <img src={FacebookLogo} alt="Facebook"/>
+                                        Facebook Ads
+                                    </Link>
+                                    <Link className="dropdown-item" to="/ads/facebook/create-content">
+                                        <img src={GoogleLogo} alt="Google"/>
+                                        Google Ads
+                                    </Link>
+                                    <Link className="dropdown-item" to="/ads/facebook/create-content">
+                                        <img src={LinkedinLogo} alt="Linkedin"/>
+                                        Linkedin Ads
+                                    </Link>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -57,10 +69,10 @@ function DashBoard() {
                 <div className="col-md-12">
                     <nav>
                         <div className="nav nav-tabs p-l-15 border-0 tab-nabs-robokate" id="nav-tab" role="tablist">
-                            <a className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#manage" role="tab" aria-controls="nav-home" aria-selected="true">Manage</a>
-                            <a className="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#audiance" role="tab" aria-controls="nav-profile" aria-selected="false">Audiance</a>
-                            <a className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#events" role="tab" aria-controls="nav-contact" aria-selected="false">Events</a>
-                            <a className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#analize" role="tab" aria-controls="nav-contact" aria-selected="false">Analize</a>
+                            <Link className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" to="#manage" role="tab" aria-controls="nav-home" aria-selected="true">Manage</Link>
+                            <Link className="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" to="#audiance" role="tab" aria-controls="nav-profile" aria-selected="false">Audiance</Link>
+                            <Link className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" to="#events" role="tab" aria-controls="nav-contact" aria-selected="false">Events</Link>
+                            <Link className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" to="#analize" role="tab" aria-controls="nav-contact" aria-selected="false">Analize</Link>
                         </div>
                     </nav>
                     <div className="tab-content first-tab" id="nav-tabContent">
@@ -69,8 +81,8 @@ function DashBoard() {
                                 <div className="row">
                                     <div className="col-md-2 p-l-0">
                                         <div className="nav flex-column nav-pills p-l-15" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                            <a className="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#manage-campaign" role="tab" aria-controls="v-pills-home" aria-selected="true">Mange </a>
-                                            <a className="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#draft" role="tab" aria-controls="v-pills-profile" aria-selected="false">Draft</a>
+                                            <Link className="nav-link active" id="v-pills-home-tab" data-toggle="pill" to="#manage-campaign" role="tab" aria-controls="v-pills-home" aria-selected="true">Mange </Link>
+                                            <Link className="nav-link" id="v-pills-profile-tab" data-toggle="pill" to="#draft" role="tab" aria-controls="v-pills-profile" aria-selected="false">Draft</Link>
                                         </div>
                                     </div>
                                     <div className="col-md-10 p-r-0">
@@ -96,8 +108,8 @@ function DashBoard() {
                                                                         </select>
                                                                     </div>
                                                                     <div className="form-group  m-r-40">
-                                                                        <label htmlFor="exampleFormControlSelect1">Attribute Reports: </label>
-                                                                        <select className="form-control ml-2" id="exampleFormControlSelect1">
+                                                                        <label htmlFor="exampleFormControlSelect2">Attribute Reports: </label>
+                                                                        <select className="form-control ml-2" id="exampleFormControlSelect2">
                                                                                 <option>First Form Submission</option>
                                                                                 <option>Last 30 days</option>
                                                                                 <option>Last 30 days</option>
@@ -105,8 +117,8 @@ function DashBoard() {
                                                                             </select>
                                                                     </div>
                                                                     <div className="form-group  m-r-30">
-                                                                        <label htmlFor="exampleFormControlSelect1">Status: </label>
-                                                                        <select className="form-control ml-2" id="exampleFormControlSelect1">
+                                                                        <label htmlFor="exampleFormControlSelect3">Status: </label>
+                                                                        <select className="form-control ml-2" id="exampleFormControlSelect3">
                                                                                 <option>2 Status</option>
                                                                                 
                                                                             </select>
@@ -227,7 +239,7 @@ function DashBoard() {
                                                                 <tr>
                                                                     <td>
                                                                         <div className="input-group">
-                                                                            <a className="btn table-social-btn m-r-30"> <img src={FacebookLogo} className="mr-2"/>Default Campaign Group</a>
+                                                                            <Link to="/" className="btn table-social-btn m-r-30"> <img src={FacebookLogo} className="mr-2"/>Default Campaign Group</Link>
                                                                             <label className="switch">
                                                                             <input type="checkbox"/>
                                                                             <span className="slider round"></span>
@@ -257,11 +269,11 @@ function DashBoard() {
                                                             <div className="pagination-area text-center">
                                                                 <nav aria-label="Page navigation example">
                                                                     <ul className="pagination justify-content-center">
-                                                                        <li className="page-item"><a className="page-link" href="#"><i className="fas fa-chevron-left mr-2"></i> Previous</a></li>
-                                                                        <li className="page-item"><a className="page-link" href="#">1</a></li>
-                                                                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                                                                        <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                                                        <li className="page-item"><a className="page-link" href="#">Next <i className="fas fa-chevron-right ml-2"></i></a></li>
+                                                                        <li className="page-item"><Link className="page-link" to="/ads/onboarding"><i className="fas fa-chevron-left mr-2"></i> Previous</Link></li>
+                                                                        <li className="page-item"><Link className="page-link" to="/ads/onboarding">1</Link></li>
+                                                                        <li className="page-item"><Link className="page-link" to="/ads/onboarding">2</Link></li>
+                                                                        <li className="page-item"><Link className="page-link" to="/ads/onboarding">3</Link></li>
+                                                                        <li className="page-item"><Link className="page-link" to="/ads/onboarding">Next <i className="fas fa-chevron-right ml-2"></i></Link></li>
                                                                     </ul>
                                                                 </nav>
                                                             </div>

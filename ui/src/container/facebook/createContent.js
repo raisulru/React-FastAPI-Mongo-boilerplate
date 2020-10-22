@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { createCampaign, getCampaigns } from '../../store/facebookResource'
+import { AdsBar } from '../common/components/adsBar';
 /**
  * PROPERTIES & FUNCTION 
  * 
@@ -34,19 +35,41 @@ class CreateFacebookContent extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Ceate Facebook Content</h1>
-        <button type="button" className="btn btn-success">
-          <Link to="/ads/facebook/target-audience">Audience Targeting</Link>
-        </button>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Title:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
+      <>
+        <AdsBar name="Create Content"/>
+        <div className="connect-section py-5">
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-6">
+                    <form onSubmit={this.handleSubmit}>
+                      <label>
+                        Title:
+                      <input type="text" value={this.state.value} onChange={this.handleChange} />
+                      </label>
+                      <input type="submit" value="Submit" />
+                    </form>
+                    </div>
+                    <div className="col-md-6">
+                    </div>
+                </div>
+              </div>
+        </div>
+
+        <div className="back-next">
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-lg-6 text-center text-lg-left ">
+                      <Link to="/ads/onboarding">
+                          Cancel
+                      </Link>
+                    </div>
+                    <div className="col-lg-6 text-center text-lg-right">
+                    <Link to="/ads/facebook/target-audience">Next</Link>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </>
     );
   }
 }

@@ -29,8 +29,8 @@ function App() {
  
   return (
     <>
-      <Header userInfo={userInfo}/>
         <Router className='App'>
+          <Header userInfo={userInfo}/>
           <Route exact path="/">
             <Redirect to="/ads/onboarding" />
           </Route>

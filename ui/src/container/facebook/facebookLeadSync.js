@@ -11,7 +11,7 @@ class FacebookLeadSync extends React.Component {
   render() {
     return (
       <>
-        <AdsBar />
+        <AdsBar name="Lead Sync"/>
         <div className="connect-section-linked py-5">
           <div className="container">
             <div className="row">
@@ -29,8 +29,7 @@ class FacebookLeadSync extends React.Component {
                         <tr>
                           <th scope="col">PAGE NAME</th>
                           <th scope="col">PAGE ID</th>
-                          <th scope="col">AUTO TRACKING <i className="fas fa-info-circle"></i></th>
-
+                          <th scope="col">LEAD SYNC <i className="fas fa-info-circle"></i></th>
                         </tr>
                       </thead>
                       <tbody>

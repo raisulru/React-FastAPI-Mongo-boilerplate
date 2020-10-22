@@ -58,7 +58,7 @@ class FacebookConnect extends React.Component {
     
     return (
       <>
-      <AdsBar />
+      <AdsBar name="Ads Account"/>
         <div className="connect-section py-5">
             <div className="container">
                 <div className="row">
@@ -68,7 +68,7 @@ class FacebookConnect extends React.Component {
                         <div className="connect-ad-account">
                             <div className="col-md-12  mt-4">
                                 <h6 className="connect-title mb-4 text-left">Select Facebook ads accounts</h6>
-                                <p>select the bellow account(s) you want to connect ROBOKET.<small className="learn-more"> <a href="#">Learn more </a></small></p>
+                                <p>select the bellow account(s) you want to connect ROBOKET.<small className="learn-more"> <Link to="/ads/onboarding">Learn more </Link></small></p>
                                 <p>You can connects up to 2 ads account</p>
                                 <table className="table account-table">
                                     <thead>
@@ -102,7 +102,7 @@ class FacebookConnect extends React.Component {
                                 <div className="btn-group">
                                     {/* <button type="button" className="btn btn-connect-border mr-3">Connect</button>
                                     <button type="button" className="btn btn-connect-border red-border mr-3">Cancel</button> */}
-                                    <a className="connect-link" href="https://www.facebook.com/business/help/910137316041095?id=420299598837059" target="_blank">Create ad account <i className="fas fa-external-link-alt"></i> </a>
+                                    <Link className="connect-link" href="https://www.facebook.com/business/help/910137316041095?id=420299598837059" target="_blank">Create ad account <i className="fas fa-external-link-alt"></i> </Link>
                                 </div>
                             </div>
 

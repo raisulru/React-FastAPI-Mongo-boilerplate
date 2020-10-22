@@ -10,7 +10,7 @@ class FacebookPixel extends React.Component {
   render() {
     return (
       <>
-        <AdsBar/>
+        <AdsBar name="Track Visitors"/>
         <div className="connect-section-linked py-5">
           <div className="container">
             <div className="row">
