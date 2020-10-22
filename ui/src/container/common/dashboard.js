@@ -15,7 +15,7 @@ import LinkedinLogo from '../../images/linkedin.png'
 
 function TableHead(name) {
   return (
-    <th className="table-title">{name.name} <span><button className="btn-short" type="btn"><img src={SortIcon}/></button></span></th>
+    <th className="table-title">{name.name} <span><button className="btn-short" type="btn"><img src={SortIcon} alt="sort"/></button></span></th>
   )
 }
 
@@ -42,11 +42,11 @@ function DashBoard() {
 
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <Link className="dropdown-item" to="/ads/facebook/create-content">
-                                        <img src={FacebookLogo} alt="Facebook"/>
+                                        <img src={FacebookLogo} alt="Facebook" />
                                         Facebook Ads
                                     </Link>
                                     <Link className="dropdown-item" to="/ads/facebook/create-content">
-                                        <img src={GoogleLogo} alt="Google"/>
+                                        <img src={GoogleLogo} alt="Google" />
                                         Google Ads
                                     </Link>
                                     <Link className="dropdown-item" to="/ads/facebook/create-content">
@@ -239,7 +239,7 @@ function DashBoard() {
                                                                 <tr>
                                                                     <td>
                                                                         <div className="input-group">
-                                                                            <Link to="/" className="btn table-social-btn m-r-30"> <img src={FacebookLogo} className="mr-2"/>Default Campaign Group</Link>
+                                                                            <Link to="/" className="btn table-social-btn m-r-30"> <img src={FacebookLogo} className="mr-2" alt="Facebook"/>Default Campaign Group</Link>
                                                                             <label className="switch">
                                                                             <input type="checkbox"/>
                                                                             <span className="slider round"></span>

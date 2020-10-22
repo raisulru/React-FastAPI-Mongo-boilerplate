@@ -255,6 +255,30 @@ welcome and connect  area
     right: -40px;
 }
 
+.lead-generation-ad {
+    background-color: #fff;
+}
+
+.lead-generation-ad label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    color: #747474;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.lead-generation-ad .form-group,
+.lead-generation-ad .campaign {
+    margin-bottom: 26px;
+}
+
+.lead-generation-ad input[type="file" i] {
+    padding: 50px 100px;
+    border-radius: 0px;
+    border: 1px dotted #ddd;
+    text-align: center;
+}
+
 .btn-search {
     background: transparent;
     color: #00aa86;
@@ -466,14 +490,14 @@ welcome and connect  area
 .btn-connect {
     background: #fff;
     padding: 7px 15px;
-    border: .5px solid #62626c;
+    border: .5px solid #c7c8ca;
     border-radius: 3px!important;
 }
 
 .btn-signin {
     background: #fff;
     padding: 7px 26px;
-    border: .5px solid #62626c;
+    border: .5px solid #c7c8ca;
     width: 94px;
     border-radius: 0px!important;
 }
@@ -655,7 +679,7 @@ footer and top footer
 .back-next .cancel {
     padding: 17px 0px 0px 0px;
     text-decoration: underline!important;
-    color: #62626c;
+    color: #c7c8ca;
     font-size: 14px;
 }
 
@@ -774,6 +798,47 @@ login page
 }
 /*
 =======================================================================
+facebook post style
+=======================================================================
+*/
+/*-- Content Style --*/
+
+.post-footer-option li {
+    float: left;
+    margin-right: 50px;
+    padding-bottom: 15px;
+}
+
+.post-footer-option li a {
+    color: #AFB4BD;
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+.photo-profile {
+    border: 0px solid #DDD;
+}
+
+.sponsored {
+    position: relative;
+    top: -8px;
+    font-size: 13px;
+}
+
+.anchor-username h4 {
+    font-weight: bold;
+}
+
+.anchor-time {
+    color: #ADB2BB;
+    font-size: 1.2rem;
+}
+
+.post-footer-comment-wrapper {
+    background-color: #F6F7F8;
+}
+/*
+=======================================================================
 media query 1
 =======================================================================
 */
@@ -787,6 +852,9 @@ media query 1
         min-height: calc( 100vh - 273px);
     }
     .connect-create-section {
+        min-height: calc( 100vh - 273px);
+    }
+    .lead-generation-ad {
         min-height: calc( 100vh - 273px);
     }
     .connect-section {

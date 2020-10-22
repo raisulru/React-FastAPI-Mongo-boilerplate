@@ -43,8 +43,8 @@ class OnBoardingProcess extends React.Component {
                                   callback={this.handleAuthorization}
                                   component={FacebookButton}
                                 />
-                                <button type="button" className="btn btn-connect mr-2"><img src={GoogleLogo}/>Google ads</button>
-                                <button type="button" className="btn btn-connect"><img src={LinkedinLogo}/>Linkedin</button>
+                                <button type="button" className="btn btn-connect mr-2"><img src={GoogleLogo} alt="Google"/>Google ads</button>
+                                <button type="button" className="btn btn-connect"><img src={LinkedinLogo} alt="Likedin"/>Linkedin</button>
                             </div>
                         </div>
                     </div>

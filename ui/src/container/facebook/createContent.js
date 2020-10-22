@@ -1,10 +1,8 @@
-
-//CONTAINER
 import React from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import { createCampaign, getCampaigns } from '../../store/facebookResource'
+import { createCampaign } from '../../store/facebookResource'
 import { AdsBar } from '../common/components/adsBar';
 /**
  * PROPERTIES & FUNCTION 
@@ -21,7 +19,6 @@ class CreateFacebookContent extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getCampaigns()
   }
 
   handleChange(event) {
@@ -37,23 +34,135 @@ class CreateFacebookContent extends React.Component {
     return (
       <>
         <AdsBar name="Create Content"/>
-        <div className="connect-section py-5">
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-6">
-                    <form onSubmit={this.handleSubmit}>
-                      <label>
-                        Title:
-                      <input type="text" value={this.state.value} onChange={this.handleChange} />
-                      </label>
-                      <input type="submit" value="Submit" />
-                    </form>
-                    </div>
-                    <div className="col-md-6">
+        <div className="lead-generation-ad py-5">
+        <div className="container">
+            <div className="row">
+                <div className="col-md-5">
+                    <div className="left-ad-generation-area">
+                        <form action="#">
+                            <div className="form-group">
+                                <label htmlFor="adaccount">Ad account*</label>
+                                <select className="form-control" id="adaccount">
+                                  <option>Select ad account</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="adaccount">Facebook page* <i className="fas fa-info-circle"></i> </label>
+                                <select className="form-control" id="adaccount">
+                                  <option>Select ad account</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                </select>
+                            </div>
+                            <div className="campaign">
+                                <label htmlFor="Campaign">Campaign* </label> <br/>
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="createnewcampgaing" value="option1"/>
+                                    <label className="form-check-label" htmlFor="createnewcampgaing">Create new campaign</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="existingone"/>
+                                    <label className="form-check-label" htmlFor="existingone">Select from existing </label>
+                                </div>
+                                <select className="form-control" id="leadgeneration-ad">
+                                    <option >Lead generation ad- 22/ 10/202 5:00pm</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                  </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="image-video">image/video*  <i className="fas fa-info-circle"></i></label>
+                                <input type="file" className="form-control-file" id="image-video"/>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="text-body-copy"> Text body copy  <i className="fas fa-info-circle"></i></label>
+                                <textarea className="form-control" rows="5" id="text-body-copy" placeholder="write a message that clearly tells people about what you are promoting"></textarea>
+
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="adaccount">Headline* <i className="fas fa-info-circle"></i> </label>
+                                <select className="form-control" id="adaccount">
+                                  <option>Write a clear and consise headline to capital views attention</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="adaccount">Call to action* </label>
+                                <select className="form-control" id="adaccount">
+                                  <option>Learn more</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                </select>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
-              </div>
+                <div className="col-md-2">
+                </div>
+                <div className="col-md-5">
+                    <div className="right-ad-generation-area">
+                        <div className="container">
+                            <div className="col-md-12">
+                                <div className="panel panel-default">
+                                    <div className="panel-body">
+                                        <div className="post-heading">
+                                            <div className="row">
+                                                <div className="col-md-12">
+                                                    <div className="media">
+                                                        <div className="media-left mr-2">
+                                                            <a href="https://dev.roboket.com/">
+                                                                <img className="media-object photo-profile" src="images/page-profile.svg" width="40" height="40" alt="page"/>
+                                                            </a>
+                                                        </div>
+                                                        <div className="media-body">
+                                                            <a href="https://dev.roboket.com/" className="anchor-username">
+                                                                <h6 className="media-heading">Select Page</h6>
+                                                            </a>
+                                                            <span className="sponsored">Sponsored</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="post-body">
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit </p>
+                                                        <img src="images/fb-image-post.png" alt="facebook-post"></img>
+                                                    </div>
+                                                    <div className="d-flex">
+                                                        <div className="post title">
+                                                            <h6>
+                                                                write a clear and consoluted post to capture audiance attention
+                                                            </h6>
+                                                        </div>
+                                                        <div className="readmore">
+                                                            <a href="https://dev.roboket.com/">
+                                                            readmore
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 
         <div className="back-next">
             <div className="container-fluid">
@@ -84,7 +193,6 @@ const mapStateToProps = state => (
 const mapActionToProps = dispatch => {
   return bindActionCreators(
     {
-      getCampaigns,
       createCampaign
     },
     dispatch

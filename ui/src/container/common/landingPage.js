@@ -37,7 +37,7 @@ class LandingPage extends React.Component {
                 </div>
                 <div className="col-md-6">
                   <div className="target-image">
-                    <img src={targetIcon} />
+                    <img src={targetIcon} alt="Target"/>
                     </div>
                   </div>
                 </div>

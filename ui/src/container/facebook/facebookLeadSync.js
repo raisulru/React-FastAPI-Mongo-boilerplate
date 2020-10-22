@@ -34,7 +34,7 @@ class FacebookLeadSync extends React.Component {
                       </thead>
                       <tbody>
                         <tr>
-                          <td><button type="button" className="btn table-social-btn"><img src={FacebookLogo} />Facebook pages name</button></td>
+                          <td><button type="button" className="btn table-social-btn"><img src={FacebookLogo} alt="Facebook"/>Facebook pages name</button></td>
                           <td><label for="add-acount">23346578356433</label><br /></td>
                           <td>
                             <label className="switch">

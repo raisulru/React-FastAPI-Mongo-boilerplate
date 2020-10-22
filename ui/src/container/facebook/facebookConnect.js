@@ -31,6 +31,7 @@ class FacebookConnect extends React.Component {
         adAccount.auto_track = event.target.checked
         return adAccount
       }
+      return adAccount
     })
     this.setState({ adAccounts: adAccounts })
   }
@@ -43,13 +44,14 @@ class FacebookConnect extends React.Component {
         adAccount.auto_track = event.target.checked
         return adAccount
       }
+      return adAccount
     })
     this.setState({ adAccounts: adAccounts })
   }
 
   submitConnectedAdAccounts () {
     const adAccounts = this.state.adAccounts
-    this.props.saveFacebookAdsAccount()
+    this.props.saveFacebookAdsAccount(adAccounts)
   }
 
   render() {

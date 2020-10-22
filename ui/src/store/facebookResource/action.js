@@ -37,7 +37,7 @@ export const getCampaigns = () => ({
     method: 'GET',
   },
   meta: {
-    api: true,
+    api: false,
     errorMessage: 'Campaigns not found',
   },
 });

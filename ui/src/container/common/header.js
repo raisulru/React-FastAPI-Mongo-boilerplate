@@ -12,7 +12,7 @@ function Header (props) {
           <div className="row">
             <nav className="navbar navbar-expand-lg navbar-light bg-light menu-width">
               <Link className="navbar-brand" to="/ads/onboarding">
-                <img src={LogoImage} />
+                <img src={LogoImage} alt="Roboket Logo"/>
               </Link>
               <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
@@ -84,7 +84,7 @@ function Header (props) {
                     </li>
                     <li className="nav-item dropdown">
                       <Link className="nav-link dropdown-toggle" to="/ads/onboarding" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <img className="mr-2 img-profile rounded-circle" src={userImage} />
+                        <img className="mr-2 img-profile rounded-circle" src={userImage} alt="User"/>
                         <span className="mr-2 d-none d-lg-inline text-gray-600 small">{userInfo.name ? userInfo.name : userInfo.preferred_username}</span>
                       </Link>
                       <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
