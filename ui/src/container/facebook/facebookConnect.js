@@ -104,7 +104,7 @@ class FacebookConnect extends React.Component {
                                 <div className="btn-group">
                                     {/* <button type="button" className="btn btn-connect-border mr-3">Connect</button>
                                     <button type="button" className="btn btn-connect-border red-border mr-3">Cancel</button> */}
-                                    <Link className="connect-link" href="https://www.facebook.com/business/help/910137316041095?id=420299598837059" target="_blank">Create ad account <i className="fas fa-external-link-alt"></i> </Link>
+                                    <a className="connect-link" href="https://www.facebook.com/business/help/910137316041095?id=420299598837059" target="_blank">Create ad account <i className="fas fa-external-link-alt"></i> </a>
                                 </div>
                             </div>
 

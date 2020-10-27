@@ -35,7 +35,7 @@ class FacebookPixel extends React.Component {
                       <tbody>
                         <tr>
                           <td><button type="button" className="btn table-social-btn">Facebook pages name</button></td>
-                          <td><label for="add-acount">23346578356433</label><br /></td>
+                          <td><label htmlFor="add-acount">23346578356433</label><br /></td>
                           <td>
                             <label className="switch">
                               <input type="checkbox" />

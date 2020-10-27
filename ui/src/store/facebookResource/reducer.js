@@ -21,12 +21,7 @@ const initialState = {
     signedRequest: null,
     userID: null
   },
-  campaign: {
-    account: null,
-    page: null,
-    title: null,
-    body: null
-  },
+  campaigns: [],
   adAccounts: [],
   campaignList: []
 };
@@ -46,6 +41,9 @@ export const facebook = (state = initialState, action) => {
         })
         draft.adAccounts = modifiedAdAccounts
         break;
+      case type.GET_CAMPAIGN_LIST_SUCCESS:
+        draft.campaigns = payload.data
+        break
       case types.SAVE_FACEBOOK_USER:
         draft.user = payload.data
         draft.connected = true

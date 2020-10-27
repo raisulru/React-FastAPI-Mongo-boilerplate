@@ -1,17 +1,14 @@
 
 //CONTAINER
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import SortIcon from "../../images/sort.png"
 import FacebookLogo from '../../images/fb-icon.png'
 import GoogleLogo from '../../images/google-ads.png'
 import LinkedinLogo from '../../images/linkedin.png'
+import { getFacebookCampaigns } from '../../store/facebookResource'
 
-
-/**
- * PROPERTIES & FUNCTION 
- * 
- */
 
 function TableHead(name) {
   return (
@@ -20,6 +17,16 @@ function TableHead(name) {
 }
 
 function DashBoard() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFacebookCampaigns())
+  }, [dispatch]);
+
+  const { campaigns, adAccounts } = useSelector((state) => state.facebook);
+
+  console.log(adAccounts, '####################')
 
   return (
     <>
