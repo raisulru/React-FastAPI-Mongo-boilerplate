@@ -31,8 +31,9 @@ class FacebookUser(BaseModel):
 
 class AdAccounts(BaseModel):
     uuid: str = str(uuid.uuid4())
-    account_id: str
+    name: str
     act_account_id: str
+    account_id: str
     userID: str
     auto_track: bool
     connected: bool

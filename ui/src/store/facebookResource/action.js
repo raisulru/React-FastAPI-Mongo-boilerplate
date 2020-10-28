@@ -59,7 +59,7 @@ export const saveFacebookUser = (payload) => ({
 export const getFacebookAdAccounts = (accessToken) => ({
   type: types.GET_FACEBOOK_AD_ACCOUNTS,
   payload: {
-    path: `/facebook/adaccounts?access_token=${accessToken}`,
+    path: `/facebook/adaccounts?access_token=${accessToken}&fields=name,insights,account_id`,
     method: 'GET',
   },
   meta: {
@@ -82,11 +82,12 @@ export const saveFacebookAdsAccount = (payload) => ({
   },
 })
 
-export const getFacebookCampaigns = (accessToken, campaignaActID) => ({
+export const getFacebookCampaigns = (accessToken, adsAccountIdList) => ({
   type: types.GET_FACEBOOK_CAMPAIGN_LIST,
   payload: {
-    path: `/facebook/campaigns?access_token=${accessToken}&&campaign_id=${campaignaActID}`,
-    method: 'GET',
+    path: `/facebook/campaigns?access_token=${accessToken}&fields=id,name,account_id,insights,objective`,
+    method: 'POST',
+    data: adsAccountIdList
   },
   meta: {
     api: true,

@@ -1,8 +1,7 @@
-
-//CONTAINER
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
+import _ from "lodash"
 import SortIcon from "../../images/sort.png"
 import FacebookLogo from '../../images/fb-icon.png'
 import GoogleLogo from '../../images/google-ads.png'
@@ -21,12 +20,14 @@ function DashBoard() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getFacebookCampaigns())
+      let adsAccountIdList = []
+      _.forEach(adAccounts, adAccount => {
+          adsAccountIdList.push(adAccount.id)
+      })
+    dispatch(getFacebookCampaigns(user.accessToken, adsAccountIdList))
   }, [dispatch]);
 
-  const { campaigns, adAccounts } = useSelector((state) => state.facebook);
-
-  console.log(adAccounts, '####################')
+  const { campaignList, adAccounts, user } = useSelector((state) => state.facebook);
 
   return (
     <>
@@ -235,30 +236,47 @@ function DashBoard() {
                                                             <thead>
                                                                 <tr>
                                                                   <TableHead name="Name" />
+                                                                  <th></th>
                                                                   <TableHead name="Account Name" />
                                                                   <TableHead name="Type" />
                                                                   <TableHead name="Impressions" />
-                                                                  <TableHead name="Clicks" />
-                                                                  <TableHead name="Total Contacts" />
+                                                                  <TableHead name="Stop Date" />
+                                                                  <TableHead name="Spend" />
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>
-                                                                        <div className="input-group">
-                                                                            <Link to="/" className="btn table-social-btn m-r-30"> <img src={FacebookLogo} className="mr-2" alt="Facebook"/>Default Campaign Group</Link>
+                                                                {campaignList.map(campaign => 
+                                                                    
+                                                                    <tr key={campaign.id}>
+                                                                        <td>
+                                                                            <div className="input-group">
+                                                                                <Link to="/" className="btn table-social-btn m-r-30"> 
+                                                                                    <img src={FacebookLogo} className="mr-2" alt="Facebook"/>
+                                                                                    {campaign.name}
+                                                                                </Link>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
                                                                             <label className="switch">
-                                                                            <input type="checkbox"/>
-                                                                            <span className="slider round"></span>
+                                                                                <input defaultChecked={1} type="checkbox"/>
+                                                                                <span className="slider round"></span>
                                                                             </label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>System Architect</td>
-                                                                    <td>Edinburgh</td>
-                                                                    <td>61</td>
-                                                                    <td>2011/04/25</td>
-                                                                    <td>$320,800</td>
-                                                                </tr>
+                                                                        </td>
+                                                                        <td>
+                                                                            {adAccounts.map(adAccount => {
+                                                                                if (adAccount.account_id === campaign.account_id) {
+                                                                                    return adAccount.name
+                                                                                }
+                                                                                return
+                                                                            })}
+                                                                        </td>
+                                                                        <td>{campaign.objective.replace('_',' ').toLowerCase()}</td>
+                                                                        <td>{campaign.insights ? campaign.insights.data[0].impressions:0}</td>
+                                                                        <td>{campaign.insights ? campaign.insights.data[0].date_stop:'-'}</td>
+                                                                        <td>${campaign.insights ? campaign.insights.data[0].spend:0}</td>
+                                                                    </tr>
+                                                                )}
+                                                                
                                                             </tbody>
                                                             <tfoot>
                                                                 <tr>

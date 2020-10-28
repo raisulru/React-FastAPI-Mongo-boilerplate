@@ -51,11 +51,18 @@ class FacebookConnect extends React.Component {
 
   submitConnectedAdAccounts () {
     const adAccounts = this.state.adAccounts
-    this.props.saveFacebookAdsAccount(adAccounts)
+    adAccounts.map(adAccount => {
+      adAccount.userID = this.props.faceBookUser.id
+      adAccount.act_account_id = adAccount.id
+      return adAccount
+    })
+
+    this.props.saveFacebookAdsAccount({
+      "ads_account_list": adAccounts
+    })
   }
 
   render() {
-    const user = this.props.faceBookUser
     const { adAccounts } = this.state
     
     return (
@@ -85,7 +92,7 @@ class FacebookConnect extends React.Component {
                                       <tr key={adAccount.id}>
                                         <td>
                                           <input id={adAccount.id} checked={adAccount.connected} onChange={(e) => this.handleAccountConnection(e)} type="checkbox" name="add-acount" value="Bike"/> 
-                                          <label className="ml-2" htmlFor={adAccount.id}> {user.name}'s Ad Account</label>
+                                          <label className="ml-2" htmlFor={adAccount.id}> {adAccount.name}'s Ad Account</label>
                                           <br/>
                                         </td>
                                         <td>
@@ -127,7 +134,7 @@ class FacebookConnect extends React.Component {
                       </Link>
                     </div>
                     <div className="col-lg-6 text-center text-lg-right">
-                    <Link to="/ads/facebook/lead-sync" onClick={() => this.submitConnectedAdAccounts()}>Next</Link>
+                      <Link to="/ads/facebook/lead-sync" onClick={() => this.submitConnectedAdAccounts()}>Next</Link>
                     </div>
                 </div>
             </div>

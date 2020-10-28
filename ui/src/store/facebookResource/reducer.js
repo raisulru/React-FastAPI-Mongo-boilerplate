@@ -21,7 +21,6 @@ const initialState = {
     signedRequest: null,
     userID: null
   },
-  campaigns: [],
   adAccounts: [],
   campaignList: []
 };
@@ -41,14 +40,11 @@ export const facebook = (state = initialState, action) => {
         })
         draft.adAccounts = modifiedAdAccounts
         break;
-      case type.GET_CAMPAIGN_LIST_SUCCESS:
-        draft.campaigns = payload.data
-        break
       case types.SAVE_FACEBOOK_USER:
         draft.user = payload.data
         draft.connected = true
         break;
-      case types.GET_CAMPAIGN_LIST_SUCCESS:
+      case types.GET_FACEBOOK_CAMPAIGN_LIST_SUCCESS:
         draft.campaignList = payload
         break
       default:
