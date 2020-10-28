@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import userImage from '../../images/user.png'
+import userImage from '../../images/user.svg'
 import LogoImage from '../../images/pictogram.svg'
 import keycloak from '../../utils/keycloak'
 

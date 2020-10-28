@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { createCampaign } from '../../store/facebookResource'
 import { AdsBar } from '../common/components/adsBar';
-/**
- * PROPERTIES & FUNCTION 
- * 
- */
+import PostProfile from '../../images/user.svg'
+import FbPostImage from '../../images/fb-image-post.png'
+
 
 class CreateFacebookContent extends React.Component {
   constructor(props) {
@@ -35,10 +34,10 @@ class CreateFacebookContent extends React.Component {
       <>
         <AdsBar name="Create Content"/>
         <div className="lead-generation-ad py-5">
-        <div className="container">
+        <div className="">
             <div className="row">
-                <div className="col-md-5">
-                    <div className="left-ad-generation-area">
+                <div className="col-md-6">
+                    <div className="left-ad-generation-area mr-5 ml-5">
                         <form action="#">
                             <div className="form-group">
                                 <label htmlFor="adaccount">Ad account*</label>
@@ -68,10 +67,10 @@ class CreateFacebookContent extends React.Component {
                                 </div>
                                 <div className="form-check form-check-inline">
                                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="existingone"/>
-                                    <label className="form-check-label" htmlFor="existingone">Select from existing </label>
+                                    <label className="form-check-label" htmlFor="inlineRadio2">Select from existing </label>
                                 </div>
                                 <select className="form-control" id="leadgeneration-ad">
-                                    <option >Lead generation ad- 22/ 10/202 5:00pm</option>
+                                    <option>Lead generation ad- 22/ 10/202 5:00pm</option>
                                     <option>2</option>
                                     <option>3</option>
                                     <option>4</option>
@@ -111,51 +110,35 @@ class CreateFacebookContent extends React.Component {
                         </form>
                     </div>
                 </div>
-                <div className="col-md-2">
-                </div>
-                <div className="col-md-5">
-                    <div className="right-ad-generation-area">
-                        <div className="container">
-                            <div className="col-md-12">
-                                <div className="panel panel-default">
-                                    <div className="panel-body">
-                                        <div className="post-heading">
-                                            <div className="row">
-                                                <div className="col-md-12">
-                                                    <div className="media">
-                                                        <div className="media-left mr-2">
-                                                            <a href="https://dev.roboket.com/">
-                                                                <img className="media-object photo-profile" src="images/page-profile.svg" width="40" height="40" alt="page"/>
-                                                            </a>
-                                                        </div>
-                                                        <div className="media-body">
-                                                            <a href="https://dev.roboket.com/" className="anchor-username">
-                                                                <h6 className="media-heading">Select Page</h6>
-                                                            </a>
-                                                            <span className="sponsored">Sponsored</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="post-body">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit </p>
-                                                        <img src="images/fb-image-post.png" alt="facebook-post"></img>
-                                                    </div>
-                                                    <div className="d-flex">
-                                                        <div className="post title">
-                                                            <h6>
-                                                                write a clear and consoluted post to capture audiance attention
-                                                            </h6>
-                                                        </div>
-                                                        <div className="readmore">
-                                                            <a href="https://dev.roboket.com/">
-                                                            readmore
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                <div className="col-md-6">
+                    <div className="right-ad-generation-area mr-5 ml-5">
+                        <div className="media">
+                            <div className="media-left mr-2">
+                                <a href="https://dev.roboket.com/">
+                                    <img className="media-object photo-profile" src={PostProfile} width="40" height="40" alt="page"/>
+                                </a>
+                            </div>
+                            <div className="media-body">
+                                <a href="https://dev.roboket.com/" className="anchor-username">
+                                    <h6 className="media-heading">Select Page</h6>
+                                </a>
+                                <span className="sponsored">Sponsored</span>
+                            </div>
+                        </div>
+                        <div className="post-body">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit </p>
+                            <img src={FbPostImage} alt="facebook-post"></img>
+                        </div>
+                        <div className="d-flex">
+                            <div className="post title">
+                                <h6>
+                                    Grow your business by the help of analytics
+                                </h6>
+                            </div>
+                            <div className="readmore text-right">
+                                <button>
+                                    readmore
+                                </button>
                             </div>
                         </div>
                     </div>
