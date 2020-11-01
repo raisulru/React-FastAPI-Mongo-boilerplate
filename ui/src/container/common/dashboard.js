@@ -328,12 +328,12 @@ function DashBoard() {
 
                         <div className="tab-pane fade" id="events" role="tabpanel" aria-labelledby="nav-contact-tab">
                             <div className="col-md-12 p-l-0 text-center">
-                                Events
+                                Events1
                             </div>
                         </div>
                         <div className="tab-pane fade" id="analize" role="tabpanel" aria-labelledby="nav-contact-tab">
                             <div className="col-md-12 p-l-0 text-center">
-                                Analize
+                                Analize1
                             </div>
                         </div>
                     </div>
