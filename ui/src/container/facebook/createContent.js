@@ -151,7 +151,7 @@ class CreateFacebookContent extends React.Component {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-lg-6 text-center text-lg-left ">
-                      <Link to="/ads/onboarding">
+                      <Link to="/ads/dasboard">
                           Cancel
                       </Link>
                     </div>

@@ -23,7 +23,7 @@ function Header (props) {
                   <li className="nav-item dropdown">
                     <Link className="nav-link dropdown-toggle" to="/ads/onboarding" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Contacts
-                </Link>
+                    </Link>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                       <Link className="dropdown-item" to="/ads/onboarding">Action</Link>
 
@@ -34,7 +34,7 @@ function Header (props) {
                       Marketing
               </Link>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <Link className="dropdown-item" to="/ads/onboarding">Ads</Link>
+                      <Link className="dropdown-item" to="/">Ads</Link>
 
                     </div>
                   </li>

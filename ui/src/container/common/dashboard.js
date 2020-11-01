@@ -7,6 +7,7 @@ import FacebookLogo from '../../images/fb-icon.png'
 import GoogleLogo from '../../images/google-ads.png'
 import LinkedinLogo from '../../images/linkedin.png'
 import { getFacebookCampaigns } from '../../store/facebookResource'
+import formatNumber from '../../utils/formatNumber'
 
 
 function TableHead(name) {
@@ -16,6 +17,8 @@ function TableHead(name) {
 }
 
 function DashBoard() {
+  let totalImpressions = 0
+  let totalAmmountSpent = 0
 
   const dispatch = useDispatch();
 
@@ -28,6 +31,13 @@ function DashBoard() {
   }, [dispatch]);
 
   const { campaignList, adAccounts, user } = useSelector((state) => state.facebook);
+
+  _.forEach(adAccounts, adAccount => {
+      if (adAccount.insights) {
+        totalImpressions += adAccount.insights.data[0].impressions
+        totalAmmountSpent += adAccount.insights.data[0].spend
+      }
+  })
 
   return (
     <>
@@ -151,7 +161,7 @@ function DashBoard() {
                                                                             <div className="row no-gutters align-items-center">
                                                                                 <div className="col mr-2">
                                                                                     <div className="text-xs text-cart-title text-uppercase mb-1 text-center">Imporessions</div>
-                                                                                    <div className="h5 mb-0 font-weight-bold text-gray-800 text-center">0</div>
+                                                                                    <div className="h5 mb-0 font-weight-bold text-gray-800 text-center">{formatNumber(Number(totalImpressions))} </div>
                                                                                 </div>
 
                                                                             </div>
@@ -186,7 +196,7 @@ function DashBoard() {
                                                                             <div className="row no-gutters align-items-center">
                                                                                 <div className="col mr-2">
                                                                                     <div className="text-xs text-cart-title text-uppercase mb-1 text-center">Amounts Spent</div>
-                                                                                    <div className="h5 mb-0 font-weight-bold text-gray-800 text-center">0</div>
+                                                                                    <div className="h5 mb-0 font-weight-bold text-gray-800 text-center">${Number(totalAmmountSpent)}</div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -198,7 +208,6 @@ function DashBoard() {
                                                                                     <div className="text-xs text-cart-title text-uppercase mb-1 text-center">Roi</div>
                                                                                     <div className="text-center">
                                                                                         <label className="calculate">Calculate <i className="fas fa-lock"></i> </label>
-                                                                                      
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

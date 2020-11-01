@@ -25,14 +25,13 @@ function App() {
 
   }, [dispatch]);
 
-  const { userInfo } = useSelector((state) => state.authInfo);
- 
+  const { authInfo, facebook } = useSelector((state) => state);
   return (
     <>
         <Router className='App'>
-          <Header userInfo={userInfo}/>
+          <Header userInfo={authInfo.userInfo}/>
           <Route exact path="/">
-            <Redirect to="/ads/onboarding" />
+            {facebook.connected ? <Redirect to="/ads/dashboard" />:<Redirect to="/ads/onboarding" />}
           </Route>
           <Route path='/ads' component={CommonRouter} />
           <Route path='/ads/facebook' component={FacebookRouter} />
