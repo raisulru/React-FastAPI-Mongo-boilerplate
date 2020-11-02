@@ -49,14 +49,19 @@ function DashBoard() {
                     <h3 className="py-4">Ads Dashboard</h3>
                 </div>
 
-                <div className="col-md-6">
+                <div className="col-md-6 create-audiance-group-btn">
                     <div className="float-right p-r-15">
                         <div className="btn-group mt-4">
                             <button type="button" className="btn create-audiance mr-2">Create Audience</button>
                             <div className="dropdown show">
                                 <Link className="btn btn-secondary create-ad-campaign dropdown-toggle" to="/ads/onboarding" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<<<<<<< HEAD
                                     Create Ad campaign
                                 </Link>
+=======
+                                  Create Ad campaign
+                                 </Link>
+>>>>>>> dashboard page ui
 
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <Link className="dropdown-item" to="/ads/facebook/create-content">
@@ -96,7 +101,7 @@ function DashBoard() {
                         <div className="tab-pane fade show active" id="manage" role="tabpanel" aria-labelledby="nav-home-tab">
                                                 <div className="row">
                                                     <div className="col-md-12 p-r-0">
-                                                        <div className="top-info-n-data">
+                                                        <div className="top-info-n-data p-l-30">
                                                             <form className="form-inline p-r-0">
                                                                 <div className="row">
                                                                     <div className="form-group  m-r-40">
@@ -125,9 +130,9 @@ function DashBoard() {
                                                                     <div className="form-group  m-r-30">
                                                                         <label htmlFor="exampleFormControlSelect3">Status: </label>
                                                                         <select className="form-control ml-2" id="exampleFormControlSelect3">
-                                                                                <option>2 Status</option>
-                                                                                
-                                                                            </select>
+                                                                                <option>Published</option>
+                                                                                <option>Draft</option>                                            
+                                                                        </select>
                                                                     </div>
                                                                     <div className="form-group">
                                                                         <button className="btn btn-primary btn-export">Export</button>
@@ -229,7 +234,7 @@ function DashBoard() {
                                                 </div>
                                                 <div className="col-md-12 m-t-30">
                                                     <div className="data">
-                                                        <table className="table table-striped table-bordered dashboard-table">
+                                                        <table className="table table-striped dashboard-table">
                                                             <thead>
                                                                 <tr>
                                                                   <TableHead name="Name" />
