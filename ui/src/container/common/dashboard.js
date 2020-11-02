@@ -55,8 +55,8 @@ function DashBoard() {
                             <button type="button" className="btn create-audiance mr-2">Create Audience</button>
                             <div className="dropdown show">
                                 <Link className="btn btn-secondary create-ad-campaign dropdown-toggle" to="/ads/onboarding" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Create Ad campaign
-                            </Link>
+                                    Create Ad campaign
+                                </Link>
 
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <Link className="dropdown-item" to="/ads/facebook/create-content">
@@ -71,7 +71,6 @@ function DashBoard() {
                                         <img src={LinkedinLogo} alt="Linkedin"/>
                                         Linkedin Ads
                                     </Link>
-                                    
                                 </div>
                             </div>
                         </div>
