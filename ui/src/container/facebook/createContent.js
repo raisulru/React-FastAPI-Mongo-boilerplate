@@ -29,10 +29,14 @@ class CreateFacebookContent extends React.Component {
     return (
       <>
         <AdsBar name="Create Content"/>
-        <div className="lead-generation-ad py-5">
+        <div className="lead-generation-ad">
         <div className="">
             <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-6 bg-white py-5">
+                    <div className="col-md-1">
+                      
+                    </div>
+                    <div className="col-md-10">
                     <div className="left-ad-generation-area mr-5 ml-5">
                         <form action="#">
                             <div className="form-group">
@@ -105,10 +109,17 @@ class CreateFacebookContent extends React.Component {
 
                         </form>
                     </div>
+                    </div>
                 </div>
-                <div className="col-md-6">
-                    <PostPreview/>
+                <div className="col-md-6 bg-body py-5">
+                    <div className="row">
+                      <div className="col-md-1">
+                      </div>
+                      <div className="col-md-10">
+                      <PostPreview/>
+                      </div>
                 </div>
+            </div>
             </div>
         </div>
     </div>
