@@ -55,13 +55,8 @@ function DashBoard() {
                             <button type="button" className="btn create-audiance mr-2">Create Audience</button>
                             <div className="dropdown show">
                                 <Link className="btn btn-secondary create-ad-campaign dropdown-toggle" to="/ads/onboarding" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-<<<<<<< HEAD
-                                    Create Ad campaign
-                                </Link>
-=======
                                   Create Ad campaign
                                  </Link>
->>>>>>> dashboard page ui
 
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <Link className="dropdown-item" to="/ads/facebook/create-content">

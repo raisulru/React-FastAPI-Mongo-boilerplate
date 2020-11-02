@@ -147,13 +147,19 @@ menu area
         }
         
         .tab-nabs-robokate {
-            margin-top: -6px;
+            margin-top: -4px;
+        }
+        
+        .tab-nabs-robokate .nav-link.active {
+            color: #495057;
+            background-color: #f0f7f1!important;
+            border-color: transparent;
         }
         
         .tab-nabs-robokate .nav-link:focus,
         .tab-nabs-robokate .nav-link:hover {
-            border-color: #e9ecef #e9ecef #dee2e6;
-            background: white;
+            border-color: transparent;
+            background: #f0f7f1!important;
             color: #222!important;
         }
         /*
@@ -223,6 +229,7 @@ welcome and connect  area
         
         .dashboard-section .card-body {
             padding: 30px 0px!important;
+            border-right: 1px solid #f1f1f1;
         }
         
         .dashboard-section .card-deck {
