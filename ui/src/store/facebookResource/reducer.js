@@ -12,17 +12,12 @@ const initialState = {
     graphDomain: null,
     id: null,
     name: null,
-    picture: {
-      height: 50,
-      is_silhouette: false,
-      url: null,
-      width: 50
-    },
     signedRequest: null,
     userID: null
   },
   adAccounts: [],
-  campaignList: []
+  campaignList: [],
+  facebookPages: []
 };
 
 export const facebook = (state = initialState, action) => {
@@ -44,6 +39,9 @@ export const facebook = (state = initialState, action) => {
         draft.user = payload.data
         draft.connected = true
         break;
+      case types.GET_FACEBOOK_PAGES_SUCCESS:
+          draft.facebookPages = payload
+          break;
       case types.GET_FACEBOOK_CAMPAIGN_LIST_SUCCESS:
         draft.campaignList = payload
         break

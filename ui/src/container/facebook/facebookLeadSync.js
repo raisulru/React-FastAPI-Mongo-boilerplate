@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
-import { bindActionCreators } from "redux";
-import { connect } from 'react-redux';
 import { AdsBar } from '../common/components/adsBar';
 import FacebookLogo from '../../images/fb-icon.png'
+import { getFacebookPages } from '../../store/facebookResource'
 
 
-class FacebookLeadSync extends React.Component {
+function FacebookLeadSync () {
+  const dispatch = useDispatch();
 
-  render() {
+  useEffect(() => {
+    dispatch(getFacebookPages(user.id, user.accessToken))
+  }, [dispatch]);
+
+  const { facebookPages, user } = useSelector((state) => state.facebook);
+  console.log(facebookPages, '##############################')
     return (
       <>
         <AdsBar name="Lead Sync"/>
@@ -77,21 +83,5 @@ class FacebookLeadSync extends React.Component {
       </>
     );
   }
-}
 
-const mapStateToProps = state => (
-  {
-
-  }
-)
-
-const mapActionToProps = dispatch => {
-  return bindActionCreators(
-    {
-
-    },
-    dispatch
-  );
-};
-
-export default connect(mapStateToProps, mapActionToProps)(FacebookLeadSync)
+export default FacebookLeadSync

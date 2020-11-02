@@ -94,3 +94,15 @@ export const getFacebookCampaigns = (accessToken, adsAccountIdList) => ({
     errorMessage: "Facebook ad accounts list not found",
   },
 });
+
+export const getFacebookPages = (userID, accessToken) => ({
+  type: types.GET_FACEBOOK_PAGES,
+  payload: {
+    path: `/facebook/pages?userID=${userID}&access_token=${accessToken}fields=id,name,about,category,access_token,tasks`,
+    method: 'GET'
+  },
+  meta: {
+    api: true,
+    errorMessage: "Facebook pages not found",
+  },
+});

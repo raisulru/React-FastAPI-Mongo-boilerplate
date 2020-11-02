@@ -12,7 +12,13 @@ import formatNumber from '../../utils/formatNumber'
 
 function TableHead(name) {
   return (
-    <th className="table-title">{name.name} <span><button className="btn-short" type="btn"><img src={SortIcon} alt="sort"/></button></span></th>
+    <th className="table-title">{name.name} 
+        <span>
+            <button className="btn-short" type="btn">
+                <img src={SortIcon} alt="sort"/>
+            </button>
+        </span>
+    </th>
   )
 }
 
