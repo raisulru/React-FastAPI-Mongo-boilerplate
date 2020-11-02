@@ -16,9 +16,6 @@ class CreateFacebookContent extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-  }
-
   handleChange(event) {
     this.setState({ value: event.target.value });
   }
