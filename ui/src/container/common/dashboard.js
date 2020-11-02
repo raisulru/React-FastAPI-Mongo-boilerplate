@@ -86,25 +86,14 @@ function DashBoard() {
                 <div className="col-md-12">
                     <nav>
                         <div className="nav nav-tabs p-l-15 border-0 tab-nabs-robokate" id="nav-tab" role="tablist">
-                            <Link className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" to="#manage" role="tab" aria-controls="nav-home" aria-selected="true">Manage</Link>
-                            <Link className="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" to="#audiance" role="tab" aria-controls="nav-profile" aria-selected="false">Audiance</Link>
-                            <Link className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" to="#events" role="tab" aria-controls="nav-contact" aria-selected="false">Events</Link>
-                            <Link className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" to="#analize" role="tab" aria-controls="nav-contact" aria-selected="false">Analize</Link>
+                            <a className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#manage" role="tab" aria-controls="nav-home" aria-selected="true">Manage</a>
+                            <a className="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#audiance" role="tab" aria-controls="nav-profile" aria-selected="false">Audiance</a>
+                            <a className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#events" role="tab" aria-controls="nav-contact" aria-selected="false">Events</a>
+                            <a className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#analize" role="tab" aria-controls="nav-contact" aria-selected="false">Analize</a>
                         </div>
                     </nav>
                     <div className="tab-content first-tab" id="nav-tabContent">
                         <div className="tab-pane fade show active" id="manage" role="tabpanel" aria-labelledby="nav-home-tab">
-                            <div className="container-fluid">
-                                <div className="row">
-                                    <div className="col-md-2 p-l-0">
-                                        <div className="nav flex-column nav-pills p-l-15" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                            <Link className="nav-link active" id="v-pills-home-tab" data-toggle="pill" to="#manage-campaign" role="tab" aria-controls="v-pills-home" aria-selected="true">Mange </Link>
-                                            <Link className="nav-link" id="v-pills-profile-tab" data-toggle="pill" to="#draft" role="tab" aria-controls="v-pills-profile" aria-selected="false">Draft</Link>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-10 p-r-0">
-                                        <div className="tab-content" id="v-pills-tab">
-                                            <div className="tab-pane fade show active" id="manage-campaign" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                                 <div className="row">
                                                     <div className="col-md-12 p-r-0">
                                                         <div className="top-info-n-data">
@@ -313,12 +302,6 @@ function DashBoard() {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="tab-pane fade" id="draft" role="tabpanel" aria-labelledby="v-pills-profile-tab">draft</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div className="tab-pane fade" id="audiance" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <div className="col-md-12 p-l-0 text-center">
@@ -336,11 +319,14 @@ function DashBoard() {
                                 Analize1
                             </div>
                         </div>
+                               
+                    </div>
+                       
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+  
     </>
   );
 }
