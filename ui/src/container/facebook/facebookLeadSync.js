@@ -1,22 +1,52 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
+import { useAlert } from 'react-alert'
+import _ from 'lodash'
 import { AdsBar } from '../common/components/adsBar';
 import FacebookLogo from '../../images/fb-icon.png'
-import { getFacebookPages } from '../../store/facebookResource'
+import { getFacebookPages, saveFacebookPagesSettings } from '../../store/facebookResource'
 
 
 function FacebookLeadSync () {
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getFacebookPages(user.id, user.accessToken))
-  }, [dispatch]);
+  }, [dispatch])
 
   const { facebookPages, user } = useSelector((state) => state.facebook);
-  console.log(facebookPages, '##############################')
-    return (
-      <>
+  const [allChecked, setAllChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState([]);
+  const [formData, setFormData] = useState(facebookPages);
+
+  const handleCheck = e => {
+    const { id } = e.target;
+    if (isChecked.includes(id)) {
+      setIsChecked(isChecked.filter(checked_name => checked_name !== id));
+      return setAllChecked(false);
+    }
+    isChecked.push(id);
+    setIsChecked([...isChecked]);
+    setAllChecked(isChecked.length === formData.length)
+  };
+
+  const handleSubmit = () => {
+    let leadSyncSettings = JSON.parse(JSON.stringify(facebookPages))
+    leadSyncSettings.map(page => {
+      if (_.includes(isChecked, page.id)) {
+        page.lead_sync = true
+      }
+      page.page_id = page.id
+      page.user_id = user.id
+      return
+    })
+    dispatch(saveFacebookPagesSettings({"page_list": leadSyncSettings}))
+  }
+  
+  
+  return (
+    <>
         <AdsBar name="Lead Sync"/>
         <div className="connect-section-linked py-5">
           <div className="container">
@@ -39,16 +69,29 @@ function FacebookLeadSync () {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td><button type="button" className="btn table-social-btn"><img src={FacebookLogo} alt="Facebook"/>Facebook pages name</button></td>
-                          <td><label htmlFor="add-acount">23346578356433</label><br /></td>
-                          <td>
-                            <label className="switch">
-                              <input type="checkbox" />
-                              <span className="slider round"></span>
-                            </label>
-                          </td>
-                        </tr>
+                        {
+                          formData.map(page => 
+                            <tr key={page.id}>
+                              <td>
+                                  <img src={FacebookLogo} alt="Facebook"/>
+                                  {page.name}
+                              </td>
+                              <td>
+                                  {page.id}
+                              </td>
+                              <td>
+                                <label className="switch">
+                                <input type="checkbox"
+                                      id={page.id}
+                                      checked={isChecked.includes(page.id)}
+                                      onChange={handleCheck} />
+                                  <span className="slider round"></span>
+                                </label>
+                              </td>
+                            </tr>
+                            )
+                        }
+                        
                       </tbody>
                     </table>
                   </div>
@@ -75,7 +118,7 @@ function FacebookLeadSync () {
                       <Link to="/ads/dashboard" className="mr-2">
                         Skip
                       </Link>
-                      <Link to="/ads/facebook/pixel">Next</Link>
+                      <Link onClick={handleSubmit} >Next</Link>
                     </div>
                 </div>
             </div>

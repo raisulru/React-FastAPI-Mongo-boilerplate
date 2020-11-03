@@ -22,9 +22,9 @@ export function App() {
       promiseType: 'native'
     }).then(function(authenticated) {
       if(authenticated) {
-        alert.show('authenticated')
+        console.log('authenticated')
       } else {
-        alert.error('Not Authenticated')
+        console.log('Not Authenticated')
       }
         dispatch(saveAuthUser(keycloak));
     }).catch(function() {

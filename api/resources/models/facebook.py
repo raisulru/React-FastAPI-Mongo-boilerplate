@@ -41,3 +41,18 @@ class AdAccounts(BaseModel):
 
 class FacebookAdAccountlist(BaseModel):
     ads_account_list: List[AdAccounts]
+
+
+class PageList(BaseModel):
+    uuid: str = str(uuid.uuid4())
+    user_id: str
+    access_token: str
+    category: str
+    page_id: str
+    lead_sync: bool
+    name: str
+    tasks: List[str]
+
+
+class FacebookPages(BaseModel):
+    page_list: List[PageList]

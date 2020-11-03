@@ -2,11 +2,12 @@ import requests
 import uuid
 from typing import Optional, Set, List
 from fastapi import APIRouter, Depends, Form, Query
-from resources.models.facebook import FacebookUser, FacebookAdAccountlist
+from resources.models.facebook import FacebookUser, FacebookAdAccountlist, FacebookPages
 from . import db
 
 facebook_user_collection = db['facebook_user']
 facebook_ad_accounts_collection = db['facebook_user_ad_accounts']
+facebook_pages = db['facebook_pages']
 
 facebook_router = APIRouter()
 
@@ -46,10 +47,22 @@ async def create_facebook_adaccounts(ad_accounts: FacebookAdAccountlist):
 
 
 @facebook_router.get("/pages")
-async def get_facebook_pages(userID: str, access_token: str, fields: str):
+async def get_facebook_pages(userID: str, access_token: str, fields: str=None):
     try:
         url = 'https://graph.facebook.com/v8.0/{}/accounts?access_token={}&fields={}'.format(userID, access_token, fields)
         response = requests.get(url)
-        return response.json()
+        if response.status_code==200:
+            return response.json()
+        print(response.json())
+        return {'data': []}
     except Exception as e:
         return {'error': str(e)}
+
+
+@facebook_router.post("/pages/settings")
+async def save_facebook_pages_settings(pages: FacebookPages):
+    page_list_with_settings = []
+    for item in pages.page_list:
+        page_list_with_settings.append(item.dict(by_alias=True))
+    page_list_created = facebook_pages.insert_many(page_list_with_settings)
+    return page_list_with_settings
