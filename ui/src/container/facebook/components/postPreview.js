@@ -23,14 +23,14 @@ function PostPreview() {
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit </p>
                 <img src={FbPostImage} alt="facebook-post"></img>
             </div>
-            <div className="d-flex">
-                <div className="post title">
-                    <h6>
-                        Grow your business by the help of analytics
-                    </h6>
+            <div className="d-flex py-2">
+                <div className="flex-grow-1 post title">
+                    <p>
+                        Write a clear and concice headline to capture the targeted audience
+                    </p>
                 </div>
-                <div className="readmore text-right">
-                    <button>
+                <div className="flex-grow-2 text-right">
+                    <button className="btn preview-readmore">
                         readmore
                     </button>
                 </div>
