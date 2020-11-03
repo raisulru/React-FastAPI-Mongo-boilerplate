@@ -43,3 +43,13 @@ async def create_facebook_adaccounts(ad_accounts: FacebookAdAccountlist):
         ad_account_list.append(item.dict(by_alias=True))
     created_ad_accounts = facebook_ad_accounts_collection.insert_many(ad_account_list)
     return ad_accounts
+
+
+@facebook_router.get("/pages")
+async def get_facebook_pages(userID: str, access_token: str, fields: str):
+    try:
+        url = 'https://graph.facebook.com/v8.0/{}/accounts?access_token={}&fields={}'.format(userID, access_token, fields)
+        response = requests.get(url)
+        return response.json()
+    except Exception as e:
+        return {'error': str(e)}

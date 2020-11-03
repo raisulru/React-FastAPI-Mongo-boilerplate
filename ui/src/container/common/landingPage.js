@@ -18,7 +18,7 @@ class LandingPage extends React.Component {
                 <div className="connect">
                   <h4 className="py-4">See which ads are turning <br/>visitors into customers </h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore </p>
-                    <p>magna aliqua. Ut enim ad minim veniam magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    <p>magna aliqua.a Ut enim ad minim veniam magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                         </p>
                     <div className="btn-group mt-4">
                         <Link to="/ads/onboarding-process">

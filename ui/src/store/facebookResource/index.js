@@ -5,7 +5,8 @@ export {
   saveFacebookUser,
   getFacebookAdAccounts,
   saveFacebookAdsAccount,
-  getFacebookCampaigns
+  getFacebookCampaigns,
+  getFacebookPages
   } from './action';
   
 export { facebook } from './reducer';

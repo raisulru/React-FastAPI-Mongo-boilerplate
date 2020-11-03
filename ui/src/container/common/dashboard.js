@@ -12,7 +12,13 @@ import formatNumber from '../../utils/formatNumber'
 
 function TableHead(name) {
   return (
-    <th className="table-title">{name.name} <span><button className="btn-short" type="btn"><img src={SortIcon} alt="sort"/></button></span></th>
+    <th className="table-title">{name.name} 
+        <span>
+            <button className="btn-short" type="btn">
+                <img src={SortIcon} alt="sort"/>
+            </button>
+        </span>
+    </th>
   )
 }
 
@@ -49,14 +55,14 @@ function DashBoard() {
                     <h3 className="py-4">Ads Dashboard</h3>
                 </div>
 
-                <div className="col-md-6">
+                <div className="col-md-6 create-audiance-group-btn">
                     <div className="float-right p-r-15">
                         <div className="btn-group mt-4">
                             <button type="button" className="btn create-audiance mr-2">Create Audience</button>
                             <div className="dropdown show">
                                 <Link className="btn btn-secondary create-ad-campaign dropdown-toggle" to="/ads/onboarding" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Create Ad campaign
-                                </Link>
+                                  Create Ad campaign
+                                 </Link>
 
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <Link className="dropdown-item" to="/ads/facebook/create-content">
@@ -86,28 +92,17 @@ function DashBoard() {
                 <div className="col-md-12">
                     <nav>
                         <div className="nav nav-tabs p-l-15 border-0 tab-nabs-robokate" id="nav-tab" role="tablist">
-                            <Link className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" to="#manage" role="tab" aria-controls="nav-home" aria-selected="true">Manage</Link>
-                            <Link className="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" to="#audiance" role="tab" aria-controls="nav-profile" aria-selected="false">Audiance</Link>
-                            <Link className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" to="#events" role="tab" aria-controls="nav-contact" aria-selected="false">Events</Link>
-                            <Link className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" to="#analize" role="tab" aria-controls="nav-contact" aria-selected="false">Analize</Link>
+                            <a className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#manage" role="tab" aria-controls="nav-home" aria-selected="true">Manage</a>
+                            <a className="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#audiance" role="tab" aria-controls="nav-profile" aria-selected="false">Audiance</a>
+                            <a className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#events" role="tab" aria-controls="nav-contact" aria-selected="false">Events</a>
+                            <a className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#analize" role="tab" aria-controls="nav-contact" aria-selected="false">Analize</a>
                         </div>
                     </nav>
                     <div className="tab-content first-tab" id="nav-tabContent">
                         <div className="tab-pane fade show active" id="manage" role="tabpanel" aria-labelledby="nav-home-tab">
-                            <div className="container-fluid">
-                                <div className="row">
-                                    <div className="col-md-2 p-l-0">
-                                        <div className="nav flex-column nav-pills p-l-15" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                            <Link className="nav-link active" id="v-pills-home-tab" data-toggle="pill" to="#manage-campaign" role="tab" aria-controls="v-pills-home" aria-selected="true">Mange </Link>
-                                            <Link className="nav-link" id="v-pills-profile-tab" data-toggle="pill" to="#draft" role="tab" aria-controls="v-pills-profile" aria-selected="false">Draft</Link>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-10 p-r-0">
-                                        <div className="tab-content" id="v-pills-tab">
-                                            <div className="tab-pane fade show active" id="manage-campaign" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                                 <div className="row">
                                                     <div className="col-md-12 p-r-0">
-                                                        <div className="top-info-n-data">
+                                                        <div className="top-info-n-data p-l-30">
                                                             <form className="form-inline p-r-0">
                                                                 <div className="row">
                                                                     <div className="form-group  m-r-40">
@@ -136,9 +131,9 @@ function DashBoard() {
                                                                     <div className="form-group  m-r-30">
                                                                         <label htmlFor="exampleFormControlSelect3">Status: </label>
                                                                         <select className="form-control ml-2" id="exampleFormControlSelect3">
-                                                                                <option>2 Status</option>
-                                                                                
-                                                                            </select>
+                                                                                <option>Published</option>
+                                                                                <option>Draft</option>                                            
+                                                                        </select>
                                                                     </div>
                                                                     <div className="form-group">
                                                                         <button className="btn btn-primary btn-export">Export</button>
@@ -240,7 +235,7 @@ function DashBoard() {
                                                 </div>
                                                 <div className="col-md-12 m-t-30">
                                                     <div className="data">
-                                                        <table className="table table-striped table-bordered dashboard-table">
+                                                        <table className="table table-striped dashboard-table">
                                                             <thead>
                                                                 <tr>
                                                                   <TableHead name="Name" />
@@ -313,12 +308,6 @@ function DashBoard() {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="tab-pane fade" id="draft" role="tabpanel" aria-labelledby="v-pills-profile-tab">draft</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div className="tab-pane fade" id="audiance" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <div className="col-md-12 p-l-0 text-center">
@@ -328,19 +317,22 @@ function DashBoard() {
 
                         <div className="tab-pane fade" id="events" role="tabpanel" aria-labelledby="nav-contact-tab">
                             <div className="col-md-12 p-l-0 text-center">
-                                Events
+                                Events1
                             </div>
                         </div>
                         <div className="tab-pane fade" id="analize" role="tabpanel" aria-labelledby="nav-contact-tab">
                             <div className="col-md-12 p-l-0 text-center">
-                                Analize
+                                Analize1
                             </div>
                         </div>
+                               
+                    </div>
+                       
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+  
     </>
   );
 }
