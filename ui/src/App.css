@@ -937,7 +937,7 @@ media query 1
             min-height: calc( 100vh - 300px);
         }
         .welcome-section {
-            min-height: calc( 100vh - 273px);
+            min-height: calc( 100vh - 225px);
         }
         .connect-create-section {
             min-height: calc( 100vh - 273px);
