@@ -65,4 +65,4 @@ async def save_facebook_pages_settings(pages: FacebookPages):
     for item in pages.page_list:
         page_list_with_settings.append(item.dict(by_alias=True))
     page_list_created = facebook_pages.insert_many(page_list_with_settings)
-    return page_list_with_settings
+    return pages

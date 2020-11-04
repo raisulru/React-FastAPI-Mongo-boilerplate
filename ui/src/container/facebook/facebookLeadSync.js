@@ -118,7 +118,7 @@ function FacebookLeadSync () {
                       <Link to="/ads/dashboard" className="mr-2">
                         Skip
                       </Link>
-                      <Link onClick={handleSubmit} >Next</Link>
+                      <Link onClick={handleSubmit} to="/ads/facebook/pixel">Next</Link>
                     </div>
                 </div>
             </div>

@@ -47,7 +47,8 @@ export const facebook = (state = initialState, action) => {
         draft.facebookPages = initialLeadSync
         break;
       case types.SAVE_FACEBOOK_PAGES_SETTINGS_SUCCESS:
-        draft.facebookPages = payload.data
+        console.log(payload, '####################')
+        draft.facebookPages = payload.page_list
         break;
       case types.GET_FACEBOOK_CAMPAIGN_LIST_SUCCESS:
         draft.campaignList = payload
