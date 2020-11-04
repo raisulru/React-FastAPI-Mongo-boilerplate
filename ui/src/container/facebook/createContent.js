@@ -1,31 +1,12 @@
 import React from 'react';
-import { bindActionCreators } from "redux";
-import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { createCampaign } from '../../store/facebookResource'
 import { AdsBar } from '../common/components/adsBar';
 import PostPreview from './components/postPreview';
 
 
-class CreateFacebookContent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: '' };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
-
-  handleSubmit(event) {
-    alert('A title was submitted: ' + this.state.value);
-    event.preventDefault();
-  }
-
-  render() {
+function CreateFacebookContent () {
+  
     return (
       <>
         <AdsBar name="Create Content"/>
@@ -140,23 +121,6 @@ class CreateFacebookContent extends React.Component {
         </div>
       </>
     );
-  }
 }
 
-const mapStateToProps = state => (
-  {
-    campaign: state.facebook.campaign,
-    campaignList: state.facebook.campaignList
-  }
-)
-
-const mapActionToProps = dispatch => {
-  return bindActionCreators(
-    {
-      createCampaign
-    },
-    dispatch
-  );
-};
-
-export default connect(mapStateToProps, mapActionToProps)(CreateFacebookContent)
+export default CreateFacebookContent

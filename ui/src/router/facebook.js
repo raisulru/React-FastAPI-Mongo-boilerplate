@@ -7,7 +7,9 @@ import {
     FacebookPublish,
     FacebookLeadSync,
     FacebookPixel,
-    FacebookConnect
+    FacebookConnect,
+    FacebookAdSet,
+    FacebookAds
 } from '../container/facebook'
 
 
@@ -21,6 +23,8 @@ const FacebookRouter = ({ match: { url } }) => {
       <Route path={`${url}/connect`} component={FacebookConnect} />
       <Route path={`${url}/lead-sync`} component={FacebookLeadSync} />
       <Route path={`${url}/pixel`} component={FacebookPixel} />
+      <Route path={`${url}/adset`} component={FacebookAdSet} />
+      <Route path={`${url}/ads-list`} component={FacebookAds} />
     </Switch>
   );
 };
