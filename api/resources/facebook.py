@@ -4,6 +4,7 @@ from typing import Optional, Set, List
 from fastapi import APIRouter, Depends, Form, Query
 from resources.models.facebook import FacebookUser, FacebookAdAccountlist, FacebookPages
 from . import db
+from .enums import facebook_click_to_action
 
 facebook_user_collection = db['facebook_user']
 facebook_ad_accounts_collection = db['facebook_user_ad_accounts']
@@ -66,3 +67,9 @@ async def save_facebook_pages_settings(pages: FacebookPages):
         page_list_with_settings.append(item.dict(by_alias=True))
     page_list_created = facebook_pages.insert_many(page_list_with_settings)
     return pages
+
+
+@facebook_router.get("/cta")
+async def get_facebook_click_to_action_enum():
+    
+    return {'data': facebook_click_to_action}

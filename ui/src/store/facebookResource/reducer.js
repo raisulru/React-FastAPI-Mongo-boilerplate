@@ -17,7 +17,8 @@ const initialState = {
   },
   adAccounts: [],
   campaignList: [],
-  facebookPages: []
+  facebookPages: [],
+  CTA: []
 };
 
 export const facebook = (state = initialState, action) => {
@@ -47,11 +48,13 @@ export const facebook = (state = initialState, action) => {
         draft.facebookPages = initialLeadSync
         break;
       case types.SAVE_FACEBOOK_PAGES_SETTINGS_SUCCESS:
-        console.log(payload, '####################')
         draft.facebookPages = payload.page_list
         break;
       case types.GET_FACEBOOK_CAMPAIGN_LIST_SUCCESS:
         draft.campaignList = payload
+        break
+      case types.GET_FACEBOOK_CTA_SUCCESS:
+        draft.CTA = payload.data
         break
       default:
         return state;

@@ -119,3 +119,15 @@ export const saveFacebookPagesSettings = (data) => ({
     errorMessage: "Facebook ad accounts list not found",
   },
 });
+
+export const getFacebookCallToActionEnums = () => ({
+  type: types.GET_FACEBOOK_CTA,
+  payload: {
+    path: `/facebook/cta`,
+    method: 'GET'
+  },
+  meta: {
+    api: true,
+    errorMessage: "Facebook pages not found",
+  },
+});

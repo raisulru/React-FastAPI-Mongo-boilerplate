@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
-import { createCampaign } from '../../store/facebookResource'
 import { AdsBar } from '../common/components/adsBar';
 import PostPreview from './components/postPreview';
+import { getFacebookAdAccounts, getFacebookPages, getFacebookCallToActionEnums } from '../../store/facebookResource';
+
 
 
 function CreateFacebookContent () {
-  
+  const dispatch = useDispatch()
+  const [campaign, setCampaign] = useState('new')
+
+  useEffect(() => {
+    dispatch(getFacebookPages(user.id, user.accessToken))
+    dispatch(getFacebookAdAccounts(user.accessToken))
+    dispatch(getFacebookCallToActionEnums())
+  }, [dispatch])
+
+  const { facebookPages, user, adAccounts, CTA } = useSelector((state) => state.facebook);
+  console.log(CTA, '#######################')
     return (
       <>
         <AdsBar name="Create Content"/>
@@ -23,68 +35,74 @@ function CreateFacebookContent () {
                             <div className="form-group">
                                 <label htmlFor="adaccount">Ad account*</label>
                                 <select className="form-control" id="adaccount">
-                                  <option>Select ad account</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
+                                  <option>Select Ad Account</option>
+                                  {
+                                    adAccounts.map(adAccount => 
+                                      <option key={adAccount.id}>{adAccount.name}</option>
+                                    )
+                                  }
                                 </select>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="adaccount">Facebook page* <i className="fas fa-info-circle"></i> </label>
                                 <select className="form-control" id="adaccount">
-                                  <option>Select ad account</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
+                                  <option>Select Page</option>
+                                  {
+                                    facebookPages.map(page => 
+                                      <option key={page.id}>{page.name}</option>
+                                    )
+                                  }
                                 </select>
                             </div>
                             <div className="campaign">
                                 <label htmlFor="Campaign">Campaign* </label> <br/>
                                 <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="createnewcampgaing" value="option1"/>
-                                    <label className="form-check-label" htmlFor="createnewcampgaing">Create new campaign</label>
+                                    <input className="form-check-input" type="radio" id="new" checked={campaign === 'new'} value="new" onChange={() => setCampaign('new')}/>
+                                    <label className="form-check-label" htmlFor="new">Create new campaign</label>
                                 </div>
                                 <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="existingone"/>
-                                    <label className="form-check-label" htmlFor="inlineRadio2">Select from existing </label>
+                                    <input className="form-check-input" type='radio' id="existing" checked={campaign === 'existing'} value="existing" onChange={() => setCampaign('existing')}/>
+                                    <label className="form-check-label" htmlFor="existing">Select from existing </label>
                                 </div>
-                                <select className="form-control" id="leadgeneration-ad">
-                                    <option>Lead generation ad- 22/ 10/202 5:00pm</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                  </select>
+                                <div className="form-group">
+                                  {
+                                    campaign === 'new' ? 
+                                    <input type='text' className="form-control" /> 
+                                    : 
+                                    <select className="form-control" id="leadgeneration-ad">
+                                      <option>Lead generation ad- 22/ 10/202 5:00pm</option>
+                                      <option>2</option>
+                                      <option>3</option>
+                                      <option>4</option>
+                                      <option>5</option>
+                                    </select>
+                                  }
+                                  
+                                </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="image-video">image/video*  <i className="fas fa-info-circle"></i></label>
+                                <label htmlFor="image-video">
+                                  image/video*
+                                <i className="fas fa-info-circle"></i>
+                                </label>
                                 <input type="file" className="form-control-file" id="image-video"/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="text-body-copy"> Text body copy  <i className="fas fa-info-circle"></i></label>
                                 <textarea className="form-control" rows="5" id="text-body-copy" placeholder="write a message that clearly tells people about what you are promoting"></textarea>
-
                             </div>
                             <div className="form-group">
                                 <label htmlFor="adaccount">Headline* <i className="fas fa-info-circle"></i> </label>
-                                <select className="form-control" id="adaccount">
-                                  <option>Write a clear and consise headline to capital views attention</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
-                                </select>
+                                <input type='text' className="form-control" />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="adaccount">Call to action* </label>
                                 <select className="form-control" id="adaccount">
-                                  <option>Learn more</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
+                                  {
+                                    CTA.map(ct => 
+                                    <option>{ct.name}</option>
+                                    )
+                                  }
                                 </select>
                             </div>
 
