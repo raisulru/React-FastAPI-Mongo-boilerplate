@@ -9,16 +9,59 @@ import { getFacebookAdAccounts, getFacebookPages, getFacebookCallToActionEnums }
 
 function CreateFacebookContent () {
   const dispatch = useDispatch()
-  const [campaign, setCampaign] = useState('new')
-
+  const [campaignType, setCampaignType] = useState('new')
+  const [adAccount, setAdAccount] = useState('')
+  const [page, setPage] = useState('')
+  const [campaign, setCampaign] = useState('')
+  const [textBody, setTextBody] = useState('')
+  const [heading, setHeading] = useState('')
+  const [ctaValue, setCtaValue] = useState('')
+  
   useEffect(() => {
     dispatch(getFacebookPages(user.id, user.accessToken))
     dispatch(getFacebookAdAccounts(user.accessToken))
     dispatch(getFacebookCallToActionEnums())
   }, [dispatch])
-
+  
   const { facebookPages, user, adAccounts, CTA } = useSelector((state) => state.facebook);
-  console.log(CTA, '#######################')
+
+  const pageHandler = (e) => {
+    setPage(e.target.value)
+  }
+
+  const adAccountHandler = (e) => {
+    setAdAccount(e.target.value)
+  }
+
+  const campaignHandler = (e) => {
+    setCampaign(e.target.value)
+  }
+
+  const bodyHandler = (e) => {
+    setTextBody(e.target.value)
+  }
+
+  const headingHandler = (e) => {
+    setHeading(e.target.value)
+  }
+
+  const ctaHandler = (e) => {
+    setCtaValue(e.target.value)
+  }
+
+  const handleNext = () => {
+    const payload = {
+      ad_account: adAccount,
+      page: page,
+      campaign: campaign,
+      body_text: textBody,
+      heading: heading,
+      cta: ctaValue
+    }
+    console.log(payload)
+  }
+
+  
     return (
       <>
         <AdsBar name="Create Content"/>
@@ -35,22 +78,22 @@ function CreateFacebookContent () {
                         <form action="#">
                             <div className="form-group">
                                 <label htmlFor="adaccount">Ad account*</label>
-                                <select className="form-control" id="adaccount">
+                                <select onChange={adAccountHandler} className="form-control" id="adaccount">
                                   <option>Select Ad Account</option>
                                   {
                                     adAccounts.map(adAccount => 
-                                      <option key={adAccount.id}>{adAccount.name}</option>
+                                      <option key={adAccount.id} value={adAccount.id}>{adAccount.name}</option>
                                     )
                                   }
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="adaccount">Facebook page* <i className="fas fa-info-circle"></i> </label>
-                                <select className="form-control" id="adaccount">
-                                  <option>Select Page</option>
+                                <label htmlFor="pages">Facebook page* <i className="fas fa-info-circle"></i> </label>
+                                <select className="form-control" onChange={pageHandler} id="pages">
+                                  <option selected_value={undefined}>Select Page</option>
                                   {
                                     facebookPages.map(page => 
-                                      <option key={page.id}>{page.name}</option>
+                                      <option key={page.id} value={page.id}>{page.name}</option>
                                     )
                                   }
                                 </select>
@@ -58,24 +101,22 @@ function CreateFacebookContent () {
                             <div className="campaign">
                                 <label htmlFor="Campaign">Campaign* </label> <br/>
                                 <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type="radio" id="new" checked={campaign === 'new'} value="new" onChange={() => setCampaign('new')}/>
+                                    <input className="form-check-input" type="radio" id="new" checked={campaignType === 'new'} value="new" onChange={() => setCampaignType('new')}/>
                                     <label className="form-check-label" htmlFor="new">Create new campaign</label>
                                 </div>
                                 <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type='radio' id="existing" checked={campaign === 'existing'} value="existing" onChange={() => setCampaign('existing')}/>
+                                    <input className="form-check-input" type='radio' id="existing" checked={campaignType === 'existing'} value="existing" onChange={() => setCampaignType('existing')}/>
                                     <label className="form-check-label" htmlFor="existing">Select from existing </label>
                                 </div>
                                 <div className="form-group">
                                   {
-                                    campaign === 'new' ? 
-                                    <input type='text' className="form-control" /> 
+                                    campaignType === 'new' ? 
+                                    <input onChange={campaignHandler} type='text' className="form-control" /> 
                                     : 
-                                    <select className="form-control" id="leadgeneration-ad">
-                                      <option>Lead generation ad- 22/ 10/202 5:00pm</option>
-                                      <option>2</option>
-                                      <option>3</option>
-                                      <option>4</option>
-                                      <option>5</option>
+                                    <select onChange={campaignHandler} className="form-control" id="leadgeneration-ad">
+                                      <option>Lead generation ad- 22/ 10/2020 5:00pm</option>
+                                      <option>Lead generation ad- 23/ 10/2020 5:00pm</option>
+                                      <option>Lead generation ad- 24/ 10/2020 5:00pm</option>
                                     </select>
                                   }
                                   
@@ -90,18 +131,18 @@ function CreateFacebookContent () {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="text-body-copy"> Text body copy  <i className="fas fa-info-circle"></i></label>
-                                <textarea className="form-control" rows="5" id="text-body-copy" placeholder="write a message that clearly tells people about what you are promoting"></textarea>
+                                <textarea onChange={bodyHandler} className="form-control" rows="5" id="text-body-copy" placeholder="write a message that clearly tells people about what you are promoting"></textarea>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="adaccount">Headline* <i className="fas fa-info-circle"></i> </label>
-                                <input type='text' className="form-control" />
+                                <input onChange={headingHandler} type='text' className="form-control" />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="adaccount">Call to action* </label>
-                                <select className="form-control" id="adaccount">
+                                <select onChange={ctaHandler} className="form-control" id="adaccount">
                                    {
                                     CTA.map(ct => 
-                                    <option>{ct.name}</option>
+                                    <option key={ct.name} value={ct.value}>{ct.name}</option>
                                     )
                                   } 
                                 </select>
@@ -134,7 +175,8 @@ function CreateFacebookContent () {
                       </Link>
                     </div>
                     <div className="col-lg-6 text-center text-lg-right">
-                    <Link to="/ads/facebook/target-audience">Next</Link>
+                    <Link onClick={handleNext} >Next</Link>
+                    {/* to="/ads/facebook/target-audience" */}
                     </div>
                 </div>
             </div>
