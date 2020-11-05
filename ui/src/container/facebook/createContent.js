@@ -99,11 +99,11 @@ function CreateFacebookContent () {
                             <div className="form-group">
                                 <label htmlFor="adaccount">Call to action* </label>
                                 <select className="form-control" id="adaccount">
-                                  {/* {
+                                   {
                                     CTA.map(ct => 
                                     <option>{ct.name}</option>
                                     )
-                                  } */}
+                                  } 
                                 </select>
                             </div>
 
