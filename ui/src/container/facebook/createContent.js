@@ -103,7 +103,7 @@ function CreateFacebookContent () {
                                     CTA.map(ct => 
                                     <option>{ct.name}</option>
                                     )
-                                  } 
+                                  }  
                                 </select>
                             </div>
 
