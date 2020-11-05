@@ -144,7 +144,7 @@ function CreateFacebookContent () {
                                 <label htmlFor="adaccount">Call to action* </label>
                                 <select onChange={ctaHandler} className="form-control" id="adaccount">
                                    {
-                                    CTA.map(ct => 
+                                    CTA && CTA.map(ct => 
                                     <option key={ct.name} value={ct.value}>{ct.name}</option>
                                     )
                                   } 
