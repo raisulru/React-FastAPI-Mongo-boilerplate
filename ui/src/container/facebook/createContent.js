@@ -77,7 +77,6 @@ function CreateFacebookContent () {
                                       <option>4</option>
                                       <option>5</option>
                                     </select>
-<<<<<<< HEAD
                                   }
                                   
                                 </div>
@@ -100,53 +99,18 @@ function CreateFacebookContent () {
                             <div className="form-group">
                                 <label htmlFor="adaccount">Call to action* </label>
                                 <select className="form-control" id="adaccount">
-                                  {
+                                  {/* {
                                     CTA.map(ct => 
                                     <option>{ct.name}</option>
                                     )
-                                  }
+                                  } */}
                                 </select>
                             </div>
 
                         </form>
                     </div>
-=======
-                              </div>
-                              <div className="form-group">
-                                  <label htmlFor="image-video">image/video*  <i className="fas fa-info-circle"></i></label>
-                                  <input type="file" className="form-control-file" id="image-video"/>
-                              </div>
-                              <div className="form-group">
-                                  <label htmlFor="text-body-copy"> Text body copy  <i className="fas fa-info-circle"></i></label>
-                                  <textarea className="form-control" rows="5" id="text-body-copy" placeholder="write a message that clearly tells people about what you are promoting"></textarea>
-  
-                              </div>
-                              <div className="form-group">
-                                  <label htmlFor="adaccount">Headline* <i className="fas fa-info-circle"></i> </label>
-                                  <select className="form-control" id="adaccount">
-                                    <option>Write a clear and consise headline to capital views attention</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                  </select>
-                              </div>
-                              <div className="form-group">
-                                  <label htmlFor="adaccount">Call to action* </label>
-                                  <select className="form-control" id="adaccount">
-                                    <option>Learn more</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                  </select>
-                              </div>
-  
-                          </form>
-                      </div>
-                      </div>
->>>>>>> postPrevie
                     </div>
+                </div>
                 </div>
                 <div className="col-md-6 bg-body py-5">
                     <div className="row">
