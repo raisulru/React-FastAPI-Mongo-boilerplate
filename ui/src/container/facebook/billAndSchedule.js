@@ -15,9 +15,11 @@ function FacebookBillAndSchedule() {
     <>
     <AdsBar name="Budget and Schedule"/>
     <div className="lead-generation-ad">
-    <div className="">
+    <div className="container-fluid">
         <div className="row">
             <div className="col-md-6 bg-white py-5">
+                <div className="row">
+                    
                 <div className="col-md-1">
                   
                 </div>
@@ -64,6 +66,7 @@ function FacebookBillAndSchedule() {
                             
                         </div>
                     </form>
+                </div>
                 </div>
                 </div>
             </div>

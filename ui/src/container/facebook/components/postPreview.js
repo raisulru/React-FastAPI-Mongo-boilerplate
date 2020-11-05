@@ -23,7 +23,7 @@ function PostPreview() {
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit </p>
                 <img src={FbPostImage} alt="facebook-post"></img>
             </div>
-            <div className="d-flex py-2">
+            <div className="d-flex py-2 title-readmore">
                 <div className="flex-grow-1 post title">
                     <p>
                         Write a clear and concice headline to capture the targeted audience
@@ -31,7 +31,7 @@ function PostPreview() {
                 </div>
                 <div className="flex-grow-2 text-right">
                     <button className="btn preview-readmore">
-                        readmore
+                        learn more
                     </button>
                 </div>
             </div>
