@@ -6,7 +6,7 @@
     
     @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@500;600;700;800;900&display=swap');
     body {
-        background: #f0f7f1;
+        background: #F9FCF9;
         font-family: 'Work Sans', sans-serif;
     }
     
@@ -54,7 +54,15 @@ Commons
         margin-bottom: 30px;
     }
     
-    .p-l-15 {
+    .m-b-10 {
+        margin-bottom: 10px;
+    }
+    
+    .m-b-15 {
+        margin-bottom: 15px;
+    }
+    
+    .m .p-l-15 {
         padding-left: 15px!important;
     }
     
@@ -260,7 +268,7 @@ welcome and connect  area
     
     .lead-generation-ad label {
         display: inline-block;
-        color: #747474;
+        color: #1D3D6F;
         font-size: 14px;
         font-weight: bold;
     }
@@ -811,18 +819,131 @@ login page
         text-decoration: none;
     }
     
-    .form-control {
-        display: block;
-        width: 100%;
-        height: calc(1.5em + .75rem + 2px);
-        padding: .375rem .75rem;
+    .publish-btn {
+        color: #00AA86;
+        background-color: #FCFCFD;
+        background-clip: padding-box;
+        border: 1px solid #d9d9d9;
+        padding: 8px 100px;
+        height: 40px;
+        border-radius: 0px;
+    }
+    
+    .publish-btn-yes {
+        color: #00AA86;
+        background-color: #FCFCFD;
+        background-clip: padding-box;
+        border: 0px solid #d9d9d9;
+        padding: 8px 20px;
+        height: 40px;
+        border-radius: 0px;
+        width: 200px;
+    }
+    
+    .input-group img {
+        width: 20px;
+    }
+    
+    .timeicon {
+        position: relative;
+        left: 50%;
+        top: -50px;
+        margin-left: 20px;
+    }
+    
+    .time {
+        border-left: 0px!important;
+    }
+    
+    .opecity-0 {
+        color: transparent!important;
+    }
+    
+    .form-control:focus {
+        background-color: transparent;
+        border: 1px solid #d7d5d5;
+        outline: 0;
+        box-shadow: none;
+    }
+    
+    .input-group-text {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        padding: 5px 0px 5px 8px;
+        margin-bottom: 0;
         font-size: 1rem;
         font-weight: 400;
         line-height: 1.5;
         color: #495057;
-        background-color: #fcfcfd;
+        text-align: center;
+        white-space: nowrap;
+        background-color: transparent;
+        border: 1px solid #d7d5d5;
+        border-radius: 0px;
+        border-right: none;
+    }
+    
+    .timeicon:after {
+        background-image: url(images/clock.svg);
+        background-size: 17px;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        content: "";
+        background-origin: content-box;
+        border-top: 0px;
+        position: relative;
+        top: 10px;
+        left: -6px;
+        background-repeat: no-repeat;
+        background-position: left;
+    }
+    
+    .publish-btn-no {
+        color: red;
+        background-color: #FCFCFD;
         background-clip: padding-box;
-        border: 1px solid #e8e8e9;
+        border: 0px solid #d9d9d9;
+        padding: 8px 20px;
+        height: 40px;
+        border-radius: 0px;
+        width: 200px;
+    }
+    
+    .publish .modal-dialog {
+        margin-top: 0;
+        margin-bottom: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 300px;
+    }
+    
+    .publish .modal-content {
+        border: none!important;
+        background-color: transparent!important;
+    }
+    
+    .publish {
+        background: rgb(0 0 0 / 50%);
+    }
+    
+    .form-control {
+        display: block;
+        width: 100%;
+        height: 40px;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #62626C;
+        background-color: #FCFCFD;
+        background-clip: padding-box;
+        border: 1px solid #d9d9d9;
+        background-clip: padding-box;
         border-radius: 0px;
         transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     }
@@ -841,7 +962,7 @@ login page
     }
     
     .bg-body {
-        background: #f0f7f1;
+        background: #F9FCF9;
     }
     
     .preview-readmore {
@@ -862,8 +983,8 @@ login page
         font-size: 1rem;
         font-weight: 400;
         line-height: 1.5;
-        color: #495057;
-        background-color: #f1f1f1;
+        color: #62626C;
+        background-color: #FCFCFD;
         background-clip: padding-box;
         border: 1px solid #d9d9d9;
         border-radius: 0px;
@@ -937,7 +1058,7 @@ media query 1
             min-height: calc( 100vh - 300px);
         }
         .welcome-section {
-            min-height: calc( 100vh - 273px);
+            min-height: calc( 100vh - 225px);
         }
         .connect-create-section {
             min-height: calc( 100vh - 273px);

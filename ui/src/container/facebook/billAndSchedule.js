@@ -4,6 +4,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { AdsBar } from '../common/components/adsBar';
 import PostPreview from './components/postPreview';
+import Clock from '../../images/clock.svg'
 /**
  * PROPERTIES & FUNCTION 
  * 
@@ -12,7 +13,7 @@ import PostPreview from './components/postPreview';
 function FacebookBillAndSchedule() {
   return (
     <>
-    <AdsBar name="Create Content"/>
+    <AdsBar name="Budget and Schedule"/>
     <div className="lead-generation-ad">
     <div className="">
         <div className="row">
@@ -23,47 +24,45 @@ function FacebookBillAndSchedule() {
                 <div className="col-md-10">
                 <div className="left-ad-generation-area mr-5 ml-5">
                     <form action="#">
-                    <div className="form-group">
-                            <label htmlFor="Audience">Target people who matched the following criteria  </label> <br/> 
-                          <div  className="location">
-                              <div className="form-group">
-                                <label htmlFor="Location">Location*</label> <br/>
-                                <span>People living in any of the following</span>
-                                <select className="form-control-location" id="Location">
-                                  <option>Bangladesh</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
-                                </select>
-                              </div>
-                          </div>
-                          <label htmlFor="Audience"> Or </label> <br/> 
-                          <div  className="location ">
-                              <div className="form-group">
-                                <label htmlFor="Location">Age range *</label> <br/>
-                               <div className="form-inline">
-                               <select className="form-control-location w-70" id="Location">
-                                  <option>22</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
-                                </select>
-                                <label htmlFor="to" className="p-r-15 p-l-15">To</label>
-                                <select className="form-control-location w-70" id="Location">
-                                  <option>30s</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
-                                </select>
-                               </div>
-                                
-                              </div>
-                          </div>
+                       <div className="form-group">
+                            <label htmlFor="Budget">Budget*  </label> <br/> 
+                            <div className="input-group">                                  
+                                  <select className="form-control" id="ammount">
+                                    <option>Daily (USD $10.00)</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                  </select>
+                                  <span class="input-group-text opecity-0"> dol</span>  
+                                  <input type="text" className="form-control time" value="$10"/>                        
+                            </div>
                         </div>
 
+                        <div className="form-group">
+                            <label htmlFor="Audience">Schedule*  </label> <br/> 
+                            <div className="input-group m-b-10 date">                                  
+                              <input type='date' className="form-control" />
+                                  <span className="input-group-addon">
+                                        <span className="glyphicon glyphicon-calendar">     
+                                        </span>
+                                  </span>
+                                <span class="input-group-text"><img src={Clock} alt="clock"/></span>  
+                               <input type="text" className="form-control time" value="6.00PM"/>                        
+                            </div>
+
+                            <div className="input-group m-b-10 date">                                  
+                                  <input type='date' className="form-control" />
+                                  <span class="input-group-text"><img src={Clock} alt="clock"/></span>                                         
+                                  <input type="text" className="form-control time" value="6.00PM"/> 
+                                                         
+                            </div>
+                          
+                            <div className="text-center m-t-30">
+                                    <button className="btn publish-btn" type="button" data-toggle="modal" data-target="#publishModal">Publish</button>
+                            </div>
+                            
+                        </div>
                     </form>
                 </div>
                 </div>
@@ -95,6 +94,21 @@ function FacebookBillAndSchedule() {
             </div>
         </div>
     </div>
+
+
+
+
+<div className="modal fade publish" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+      <div className="modal-content">
+          <div className="text-center">
+              <button className="btn publish-btn-yes m-b-10" type="button">Yes</button>
+              <button className="btn publish-btn-no" type="button">No</button>
+          </div>  
+      </div>
+  </div>
+</div>
+
   </>
   );
 }
