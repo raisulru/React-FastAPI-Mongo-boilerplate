@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
+import _ from 'lodash';
 import { AdsBar } from '../common/components/adsBar';
 import PostPreview from './components/postPreview';
 import { getFacebookAdAccounts, getFacebookPages, getFacebookCallToActionEnums } from '../../store/facebookResource';
@@ -10,12 +11,12 @@ import { getFacebookAdAccounts, getFacebookPages, getFacebookCallToActionEnums }
 function CreateFacebookContent () {
   const dispatch = useDispatch()
   const [campaignType, setCampaignType] = useState('new')
-  const [adAccount, setAdAccount] = useState('')
-  const [page, setPage] = useState('')
+  const [adAccount, setAdAccount] = useState({})
+  const [page, setPage] = useState({})
   const [campaign, setCampaign] = useState('')
   const [textBody, setTextBody] = useState('')
   const [heading, setHeading] = useState('')
-  const [ctaValue, setCtaValue] = useState('')
+  const [ctaValue, setCtaValue] = useState({})
   
   useEffect(() => {
     dispatch(getFacebookPages(user.id, user.accessToken))
@@ -26,11 +27,13 @@ function CreateFacebookContent () {
   const { facebookPages, user, adAccounts, CTA } = useSelector((state) => state.facebook);
 
   const pageHandler = (e) => {
-    setPage(e.target.value)
+    const value = _.find(facebookPages, ['id', e.target.value])
+    setPage(value)
   }
 
   const adAccountHandler = (e) => {
-    setAdAccount(e.target.value)
+    const value = _.find(adAccounts, ['id', e.target.value])
+    setAdAccount(value)
   }
 
   const campaignHandler = (e) => {
@@ -46,7 +49,8 @@ function CreateFacebookContent () {
   }
 
   const ctaHandler = (e) => {
-    setCtaValue(e.target.value)
+    const value = _.find(CTA, ['value', e.target.value])
+    setCtaValue(value)
   }
 
   const handleNext = () => {
@@ -58,7 +62,6 @@ function CreateFacebookContent () {
       heading: heading,
       cta: ctaValue
     }
-    console.log(payload)
   }
 
   
@@ -158,7 +161,13 @@ function CreateFacebookContent () {
                       <div className="col-md-1">
                       </div>
                       <div className="col-md-10">
-                      <PostPreview/>
+                        <PostPreview 
+                        page={page} 
+                        adAccount={adAccount} 
+                        cta={ctaValue}
+                        heading={heading}
+                        text={textBody}
+                        />
                       </div>
                 </div>
             </div>
