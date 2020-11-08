@@ -2,10 +2,10 @@
 import * as types from './types';
 
 
-export const createCampaign = (payload) => ({
+export const createFacebookAds = (payload) => ({
   type: types.CREATE_CAMPAIGN,
   payload: {
-    path: `/campaigns`,
+    path: `/facebook/campaign/create`,
     method: 'POST',
     data: payload,
   },
@@ -19,7 +19,7 @@ export const createCampaign = (payload) => ({
 export const updateCampaign = (campaignID, payload) => ({
   type: types.UPDATE_CAMPAIGN,
   payload: {
-    path: `/campaigns/${campaignID}`,
+    path: `/facebook/campaigns/${campaignID}`,
     method: 'PUT',
     data: payload,
   },

@@ -35,7 +35,7 @@ class OnBoardingProcess extends React.Component {
                     <div className="col-md-12 text-center py-5">
                         <div className="connect-ad-account">
                             <div className="col-md-12  text-center mt-4">
-                                <h6 className="connect-title mb-4">Create ad account</h6>
+                                <h6 className="connect-title mb-4">Connect Accounts</h6>
                             </div>
                             <div className="btn-group text-center">
                                 <FacebookAuth

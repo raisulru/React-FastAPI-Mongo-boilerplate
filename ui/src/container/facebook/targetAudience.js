@@ -1,15 +1,17 @@
 
 //CONTAINER
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 import { AdsBar } from '../common/components/adsBar';
 import PostPreview from './components/postPreview';
-/**
- * PROPERTIES & FUNCTION 
- * 
- */
+
+
 
 function FacebookAudienceTargeting() {
+  
+  const { campaign } = useSelector((state) => state.facebook);
+
   return (
     <>
     <AdsBar name="Target Your Audience"/>
@@ -96,7 +98,13 @@ function FacebookAudienceTargeting() {
                   <div className="col-md-1">
                   </div>
                   <div className="col-md-10">
-                  <PostPreview/>
+                  <PostPreview 
+                    page={campaign.page} 
+                    adAccount={campaign.ad_account} 
+                    cta={campaign.cta}
+                    heading={campaign.heading}
+                    text={campaign.body_text}
+                        />
                   </div>
                 </div>
             </div>
@@ -113,7 +121,7 @@ function FacebookAudienceTargeting() {
                   </Link>
                 </div>
                 <div className="col-lg-6 text-center text-lg-right">
-                <Link to="/ads/facebook/target-audience">Next</Link>
+                <Link to="/ads/facebook/billing">Next</Link>
                 </div>
             </div>
         </div>

@@ -1,6 +1,8 @@
 
 //CONTAINER
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import { Link } from "react-router-dom";
 import { AdsBar } from '../common/components/adsBar';
 import PostPreview from './components/postPreview';
@@ -11,6 +13,8 @@ import Clock from '../../images/clock.svg'
  */
 
 function FacebookBillAndSchedule() {
+  const { campaign } = useSelector((state) => state.facebook);
+
   return (
     <>
     <AdsBar name="Budget and Schedule"/>
@@ -75,7 +79,13 @@ function FacebookBillAndSchedule() {
                   <div className="col-md-1">
                   </div>
                   <div className="col-md-10">
-                  <PostPreview/>
+                  <PostPreview 
+                    page={campaign.page} 
+                    adAccount={campaign.ad_account} 
+                    cta={campaign.cta}
+                    heading={campaign.heading}
+                    text={campaign.body_text}
+                        />
                   </div>
             </div>
         </div>
@@ -92,7 +102,6 @@ function FacebookBillAndSchedule() {
                   </Link>
                 </div>
                 <div className="col-lg-6 text-center text-lg-right">
-                <Link to="/ads/facebook/target-audience">Next</Link>
                 </div>
             </div>
         </div>

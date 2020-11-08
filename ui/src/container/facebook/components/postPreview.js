@@ -4,20 +4,15 @@ import FbPostImage from '../../../images/fb-image-post.png'
 
 
 function PostPreview(props) {
-    console.log(props, '##################')
 
     return (
         <div className="right-ad-generation-area mr-5 ml-5">
             <div className="media">
                 <div className="media-left mr-2">
-                    <a href="https://dev.roboket.com/">
-                        <img className="media-object photo-profile" src={PostProfile} width="40" height="40" alt="page"/>
-                    </a>
+                    <img className="media-object photo-profile" src={PostProfile} width="40" height="40" alt="page"/>
                 </div>
                 <div className="media-body">
-                    <a href="https://dev.roboket.com/" className="anchor-username">
-                        <h6 className="media-heading">{props.page.name ? props.page.name : 'Select Page'}</h6>
-                    </a>
+                    <h6 className="media-heading">{props.page.name ? props.page.name : 'Select Page'}</h6>
                     <span className="sponsored">Sponsored</span>
                 </div>
             </div>

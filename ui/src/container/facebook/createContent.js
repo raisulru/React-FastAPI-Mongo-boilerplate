@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 import _ from 'lodash';
 import { AdsBar } from '../common/components/adsBar';
 import PostPreview from './components/postPreview';
-import { getFacebookAdAccounts, getFacebookPages, getFacebookCallToActionEnums } from '../../store/facebookResource';
+import { 
+  getFacebookAdAccounts, 
+  getFacebookPages, 
+  getFacebookCallToActionEnums,
+  createFacebookAds
+} from '../../store/facebookResource';
 
 
 
@@ -62,6 +67,7 @@ function CreateFacebookContent () {
       heading: heading,
       cta: ctaValue
     }
+    dispatch(createFacebookAds(payload))
   }
 
   
@@ -184,7 +190,7 @@ function CreateFacebookContent () {
                       </Link>
                     </div>
                     <div className="col-lg-6 text-center text-lg-right">
-                    <Link onClick={handleNext} >Next</Link>
+                    <Link onClick={handleNext} to="/ads/facebook/target-audience">Next</Link>
                     {/* to="/ads/facebook/target-audience" */}
                     </div>
                 </div>

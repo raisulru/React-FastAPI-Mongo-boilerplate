@@ -1,5 +1,4 @@
 export {
-  createCampaign,
   getCampaigns,
   updateCampaign,
   saveFacebookUser,
@@ -8,7 +7,8 @@ export {
   getFacebookCampaigns,
   getFacebookPages,
   saveFacebookPagesSettings,
-  getFacebookCallToActionEnums
+  getFacebookCallToActionEnums,
+  createFacebookAds
   } from './action';
   
 export { facebook } from './reducer';

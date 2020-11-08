@@ -4,6 +4,14 @@ import * as types from './types';
 
 const initialState = {
   connected: false,
+  campaign: {
+    ad_account: {},
+    page: {},
+    campaign: '',
+    body_text: '',
+    heading: '',
+    cta: ''
+  },
   user: {
     accessToken: null,
     data_access_expiration_time: 0,

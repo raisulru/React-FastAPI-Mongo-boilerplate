@@ -56,3 +56,34 @@ class PageList(BaseModel):
 
 class FacebookPages(BaseModel):
     page_list: List[PageList]
+
+
+class AdAccount(BaseModel):
+    name: str
+    account_id: str
+    auto_track: bool
+    connected: bool
+
+
+class Page(BaseModel):
+    access_token: str
+    category: str
+    id: str
+    lead_sync: bool
+    name: str
+    tasks: List[str]
+
+
+class CTA(BaseModel):
+    name: str
+    value: str
+
+
+class CreateCampaign(BaseModel):
+    uuid: str = str(uuid.uuid4())
+    ad_account: AdAccount
+    page: Page
+    campaign: str
+    body_text: str
+    heading: str
+    cta: CTA

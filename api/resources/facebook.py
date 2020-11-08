@@ -2,13 +2,19 @@ import requests
 import uuid
 from typing import Optional, Set, List
 from fastapi import APIRouter, Depends, Form, Query
-from resources.models.facebook import FacebookUser, FacebookAdAccountlist, FacebookPages
+from resources.models.facebook import (
+    FacebookUser, 
+    FacebookAdAccountlist, 
+    FacebookPages, 
+    CreateCampaign
+)
 from . import db
 from .enums import facebook_click_to_action
 
 facebook_user_collection = db['facebook_user']
 facebook_ad_accounts_collection = db['facebook_user_ad_accounts']
 facebook_pages = db['facebook_pages']
+facebook_campaign = db['facebook_campaign']
 
 facebook_router = APIRouter()
 
@@ -73,3 +79,9 @@ async def save_facebook_pages_settings(pages: FacebookPages):
 async def get_facebook_click_to_action_enum():
     
     return {'data': facebook_click_to_action}
+
+
+@facebook_router.post("/campaign/create")
+async def create_campaign(campaign: CreateCampaign):
+    created_campaign = facebook_campaign.insert_one(campaign.dict(by_alias=True))
+    return campaign
