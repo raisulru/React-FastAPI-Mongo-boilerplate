@@ -71,7 +71,7 @@ function CreateFacebookContent () {
         <div className="lead-generation-ad">
         <div className="container-fluid">
             <div className="row">
-                <div className="col-md-6 bg-white py-5">
+                <div className="col-md-6 bg-white py-5 create-scroll ">
                     <div className="row">
                     <div className="col-md-1">
                       
