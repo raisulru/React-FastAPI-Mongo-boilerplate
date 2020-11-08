@@ -70,7 +70,7 @@ function FacebookLeadSync () {
                       </thead>
                       <tbody>
                         {
-                          formData.map(page => 
+                          formData ? formData.map(page => 
                             <tr key={page.id}>
                               <td>
                                   <img src={FacebookLogo} alt="Facebook"/>
@@ -89,7 +89,7 @@ function FacebookLeadSync () {
                                 </label>
                               </td>
                             </tr>
-                            )
+                            ): ""
                         }
                         
                       </tbody>

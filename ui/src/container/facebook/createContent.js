@@ -142,20 +142,12 @@ function CreateFacebookContent () {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="adaccount">Call to action* </label>
-<<<<<<< HEAD
-                                <select className="form-control" id="adaccount">
-=======
                                 <select onChange={ctaHandler} className="form-control" id="adaccount">
->>>>>>> 58198cc7f5289a0dd2f74b367f22a7d975e06757
                                    {
-                                    CTA && CTA.map(ct => 
+                                    CTA ? CTA.map(ct => 
                                     <option key={ct.name} value={ct.value}>{ct.name}</option>
-                                    )
-<<<<<<< HEAD
-                                  }  
-=======
+                                    ) : ""
                                   } 
->>>>>>> 58198cc7f5289a0dd2f74b367f22a7d975e06757
                                 </select>
                             </div>
 
