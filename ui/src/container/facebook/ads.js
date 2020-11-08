@@ -72,8 +72,8 @@ function FacebookAds() {
                                                             <form className="form-inline p-r-0">
                                                                 <div className="row">                                                               
                                                                     <div className="form-group  m-r-40">
-                                                                        <label htmlFor="exampleFormControlSelect1 mr-2">Date Range: </label>
-                                                                        <select className="form-control ml-2" id="exampleFormControlSelect1">
+                                                                        <label htmlFor="daterange mr-2">Date Range: </label>
+                                                                        <select className="form-control ml-2" id="daterange">
                                                                             <option>Last 30 days</option>
                                                                             <option>Last 30 days</option>
                                                                             <option>Last 30 days</option>
@@ -81,8 +81,8 @@ function FacebookAds() {
                                                                         </select>
                                                                     </div>
                                                                     <div className="form-group  m-r-40">
-                                                                        <label htmlFor="exampleFormControlSelect2">Attribute Reports: </label>
-                                                                        <select className="form-control ml-2" id="exampleFormControlSelect2">
+                                                                        <label htmlFor="attributeReport">Attribute Reports: </label>
+                                                                        <select className="form-control ml-2" id="attributeReport">
                                                                                 <option>First Form Submission</option>
                                                                                 <option>Last 30 days</option>
                                                                                 <option>Last 30 days</option>
@@ -90,8 +90,8 @@ function FacebookAds() {
                                                                             </select>
                                                                     </div>
                                                                     <div className="form-group  m-r-30">
-                                                                        <label htmlFor="exampleFormControlSelect3">Status: </label>
-                                                                        <select className="form-control ml-2" id="exampleFormControlSelect3">
+                                                                        <label htmlFor="status">Status: </label>
+                                                                        <select className="form-control ml-2" id="status">
                                                                                 <option>Published</option>
                                                                                 <option>Draft</option>                                            
                                                                         </select>
@@ -197,11 +197,11 @@ function FacebookAds() {
                                                             <thead>
                                                                 <tr>
                                                                     <th className="table-title">Name <span><button className="btn-short" type="btn"></button></span></th>
-                                                                    <th className="table-title">Account Name <span><button className="btn-short" type="btn"></button></span></th>
-                                                                    <th className="table-title">Type <span><button className="btn-short" type="btn"></button></span></th>
+                                                                    <th className="table-title">CRT<span><button className="btn-short" type="btn"></button></span></th>                                                                 
                                                                     <th className="table-title">Impressions <i className="fas fa-info-circle"></i> <span><button className="btn-short" type="btn"></button></span></th>
                                                                     <th className="table-title">Clicks <i className="fas fa-info-circle"></i> <span><button className="btn-short" type="btn"></button></span></th>
                                                                     <th className="table-title">Total Contacts <i className="fas fa-info-circle"></i> <span><button className="btn-short" type="btn"></button></span></th>
+                                                                    <th className="table-title">Type <span><button className="btn-short" type="btn"></button></span></th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
