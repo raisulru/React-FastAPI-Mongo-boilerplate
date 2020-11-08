@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import { AdsBar } from '../common/components/adsBar';
-
-
+import Select from 'react-select';
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+]
 class FacebookPixel extends React.Component {
 
   render() {
@@ -23,28 +27,14 @@ class FacebookPixel extends React.Component {
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
                                   a type specimen book. It has survived not only five centuries,</p>
 
-                    {/* <table className="table account-table">
-                      <thead>
-                        <tr>
-                          <th scope="col">PAGE NAME</th>
-                          <th scope="col">PAGE ID</th>
-                          <th scope="col">AUTO TRACKING <i className="fas fa-info-circle"></i></th>
-
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><button type="button" className="btn table-social-btn">Facebook pages name</button></td>
-                          <td><label htmlFor="add-acount">23346578356433</label><br /></td>
-                          <td>
-                            <label className="switch">
-                              <input type="checkbox" />
-                              <span className="slider round"></span>
-                            </label>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table> */}
+                                  <Select
+                                      defaultValue={[options[2]]}
+                                      isMulti
+                                      name="colors"
+                                      options={options}
+                                      className="basic-multi-select"
+                                      classNamePrefix="select"
+                                    />
                   </div>
                 </div>
               </div>
