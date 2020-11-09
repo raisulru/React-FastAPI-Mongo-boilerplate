@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
@@ -11,9 +11,10 @@ import {AlertTemplate} from './utils/allertMessages'
 import { useAlert } from 'react-alert'
 
 
-export function App() {
+function AppRouter() {
 
   const dispatch = useDispatch();
+  const [authenticated, setAuthenticated] = useState(false)
   const alert = useAlert()
 
   useEffect(() => {
@@ -22,6 +23,7 @@ export function App() {
       promiseType: 'native'
     }).then(function(authenticated) {
       if(authenticated) {
+        setAuthenticated(true)
         console.log('authenticated')
       } else {
         console.log('Not Authenticated')
@@ -35,6 +37,7 @@ export function App() {
 
   const { authInfo, facebook } = useSelector((state) => state);
   return (
+    authenticated ? 
     <>
         <Router className='App'>
           <Header userInfo={authInfo.userInfo}/>
@@ -46,6 +49,8 @@ export function App() {
         </Router>
         <Footer/>
     </>
+    : 
+    <div className="spinner-border text-success"></div>
   );
 }
 
@@ -61,12 +66,12 @@ const alertOptions = {
 
 }
 
-export function AppWithAlert() {
+export default function App() {
 
   return (
     <>
       <AlertProvider template={AlertTemplate} {...alertOptions}>
-          <App/>
+          <AppRouter/>
       </AlertProvider>
     </>
   );
