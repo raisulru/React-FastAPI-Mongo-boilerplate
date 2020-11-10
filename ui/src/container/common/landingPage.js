@@ -45,7 +45,7 @@ class LandingPage extends React.Component {
             </div>
 
 
-            <div className="modal fade create-ad-modal" id="createacmodal" tabindex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
+            <div className="modal fade create-ad-modal" id="createacmodal" tabIndex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                       <div className="modal-header">

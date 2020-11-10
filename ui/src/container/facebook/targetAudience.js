@@ -28,7 +28,6 @@ function FacebookAudienceTargeting() {
 
   return (
     <>
-    <AdsBar name="Target Your Audience"/>
     <div className="lead-generation-ad">
     <div className="container-fluid">
         <div className="row">
@@ -128,21 +127,6 @@ function FacebookAudienceTargeting() {
         </div>
     </div>
 </div>
-
-    <div className="back-next">
-        <div className="container-fluid">
-            <div className="row">
-                <div className="col-lg-6 text-center text-lg-left ">
-                  <Link to="/ads/dasboard">
-                      Cancel
-                  </Link>
-                </div>
-                <div className="col-lg-6 text-center text-lg-right">
-                <Link to="/ads/facebook/billing">Next</Link>
-                </div>
-            </div>
-        </div>
-    </div>
   </>
   );
 }

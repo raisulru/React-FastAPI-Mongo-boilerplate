@@ -17,7 +17,6 @@ function FacebookBillAndSchedule() {
 
   return (
     <>
-    <AdsBar name="Budget and Schedule"/>
     <div className="lead-generation-ad">
     <div className="container-fluid">
         <div className="row">
@@ -40,7 +39,7 @@ function FacebookBillAndSchedule() {
                                     <option>4</option>
                                     <option>5</option>
                                   </select>
-                                  <span class="input-group-text opecity-0"> dol</span>  
+                                  <span className="input-group-text opecity-0"> dol</span>  
                                   <input type="text" className="form-control time" value="$10"/>                        
                             </div>
                         </div>
@@ -53,13 +52,13 @@ function FacebookBillAndSchedule() {
                                         <span className="glyphicon glyphicon-calendar">     
                                         </span>
                                   </span>
-                                <span class="input-group-text"><img src={Clock} alt="clock"/></span>  
+                                <span className="input-group-text"><img src={Clock} alt="clock"/></span>  
                                <input type="text" className="form-control time" value="6.00PM"/>                        
                             </div>
 
                             <div className="input-group m-b-10 date">                                  
                                   <input type='date' className="form-control" />
-                                  <span class="input-group-text"><img src={Clock} alt="clock"/></span>                                         
+                                  <span className="input-group-text"><img src={Clock} alt="clock"/></span>                                         
                                   <input type="text" className="form-control time" value="6.00PM"/> 
                                                          
                             </div>
@@ -93,24 +92,7 @@ function FacebookBillAndSchedule() {
     </div>
 </div>
 
-    <div className="back-next">
-        <div className="container-fluid">
-            <div className="row">
-                <div className="col-lg-6 text-center text-lg-left ">
-                  <Link to="/ads/dasboard">
-                      Cancel
-                  </Link>
-                </div>
-                <div className="col-lg-6 text-center text-lg-right">
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-<div className="modal fade publish" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
+<div className="modal fade publish" id="publishModal" tabIndex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
   <div className="modal-dialog" role="document">
       <div className="modal-content">
           <div className="text-center">

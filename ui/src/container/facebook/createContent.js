@@ -73,7 +73,6 @@ function CreateFacebookContent () {
   
     return (
       <>
-        <AdsBar name="Create Content"/>
         <div className="lead-generation-ad">
         <div className="container-fluid">
             <div className="row">
@@ -180,22 +179,6 @@ function CreateFacebookContent () {
             </div>
         </div>
     </div>
-
-        <div className="back-next">
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-lg-6 text-center text-lg-left ">
-                      <Link to="/ads/dasboard">
-                          Cancel
-                      </Link>
-                    </div>
-                    <div className="col-lg-6 text-center text-lg-right">
-                    <Link onClick={handleNext} to="/ads/facebook/target-audience">Next</Link>
-                    {/* to="/ads/facebook/target-audience" */}
-                    </div>
-                </div>
-            </div>
-        </div>
       </>
     );
 }
