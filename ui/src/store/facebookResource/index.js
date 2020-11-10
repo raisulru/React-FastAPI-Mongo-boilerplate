@@ -8,7 +8,8 @@ export {
   getFacebookPages,
   saveFacebookPagesSettings,
   getFacebookCallToActionEnums,
-  createFacebookAds
+  createFacebookAds,
+  searchFacebookLocation
   } from './action';
   
 export { facebook } from './reducer';

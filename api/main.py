@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from resources.facebook import facebook_router
+from resources.facebook.facebook_api import facebook_router
+from resources.facebook.internal_api import facebook_internal_router
 
 
 app = FastAPI()
@@ -19,6 +20,7 @@ app.add_middleware(
 )
 
 app.include_router(facebook_router, prefix='/facebook')
+app.include_router(facebook_internal_router, prefix='/facebook')
 
 @app.get("/")
 def read_root():

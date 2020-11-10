@@ -1,16 +1,30 @@
 
 //CONTAINER
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
+import Select from 'react-select';
 import { AdsBar } from '../common/components/adsBar';
 import PostPreview from './components/postPreview';
-
+import {
+  searchFacebookLocation
+} from '../../store/facebookResource';
 
 
 function FacebookAudienceTargeting() {
+  const dispatch = useDispatch()
+
+  // useEffect(() => {
+  //   dispatch(searchFacebookLocation(user.accessToken, keyword))
+  // }, [dispatch])
+
+  const locationSearchHandler = (e) => {
+    console.log(e.target.value, '#############')
+    // dispatch(searchFacebookLocation(user.accessToken, e.target.value))
+  }
   
-  const { campaign } = useSelector((state) => state.facebook);
+  const { campaign, user, location } = useSelector((state) => state.facebook);
+  console.log(location, '#############')
 
   return (
     <>
@@ -49,18 +63,21 @@ function FacebookAudienceTargeting() {
                           
                         </div>
                         <div className="form-group">
-                            <label htmlFor="Audience">Target people who matched the following criteria  </label> <br/> 
+                            <label htmlFor="Audience">Target people who matched the following criteria </label> <br/> 
                           <div  className="location">
                               <div className="form-group">
                                 <label htmlFor="Location">Location*</label> <br/>
                                 <span>People living in any of the following</span>
-                                <select className="form-control-location" id="Location">
-                                  <option>Bangladesh</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
-                                </select>
+                                <Select
+                                  closeMenuOnSelect={false}
+                                  // onChange={locationSearchHandler}
+                                  // defaultValue={location}
+                                  options={location}
+                                  isClearable={true}
+                                  isSearchable={true}
+                                  value={location.name}
+                                  isMulti
+                                />
                               </div>
                           </div>
                           <label htmlFor="Audience"> Or </label> <br/> 
