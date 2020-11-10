@@ -65,9 +65,8 @@ function DashBoard() {
                                  </Link>
 
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <Link className="dropdown-item" to="/ads/facebook/create-content">
-                                        <img src={FacebookLogo} alt="Facebook" />
-                                        Facebook Ads
+                                    <button className="btn create-ac-btn" type="button" data-toggle="modal" data-target="#run-ads"> <img src={FacebookLogo} alt="Facebook" />Facebook ads</button>
+                                    <Link className="dropdown-item" to="/ads/facebook/create-content" >     
                                     </Link>
                                     <Link className="dropdown-item" to="/ads/facebook/create-content">
                                         <img src={GoogleLogo} alt="Google" />
@@ -332,6 +331,52 @@ function DashBoard() {
                 </div>
             </div>
         </div>
+
+        <div className="modal fade run-ads" id="run-ads" tabindex="-1" role="dialog" aria-labelledby="run-ads" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content"> 
+                        <div className="modal-header">
+                                <div className="container-fluid">
+                                    <div className="row">
+                                        <div className="col-md-4">
+                                            <div className="run-ads-edit-exit">                                          
+                                                <div class="btn-group mr-2" role="group">
+                                                    <button type="button" class="btn btn-secondary mr-2 run-ads-save-btn">Edit</button>
+                                                    <button type="button" class="btn btn-secondary mr-2 run-ads-save-btn">Save</button>                                                           
+                                                </div>                                         
+                                            </div>
+                                        </div>
+                                        <div className="col-md-4">
+                                            <div className="facebook-ad-creation">
+                                                <h6 className="text-center text-white">Facebook ad creation </h6>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-4">
+                                            <div className="run-ads-edit-exit float-right">                                                                                                                       
+                                                <button type="button" class="btn ad-publish-btn">Publish</button>                                                  
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                   
+                        <div className="container-fluid">
+                            <nav>
+                                <div className="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+                                    <a className="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+                                    <a className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                                </div>
+                            </nav>
+                            <div className="tab-content" id="nav-tabContent">
+                                <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
+                                <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+                                <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+            </div>
   
     </>
   );

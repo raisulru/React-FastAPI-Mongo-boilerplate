@@ -14,7 +14,7 @@ import { useAlert } from 'react-alert'
 function AppRouter() {
 
   const dispatch = useDispatch();
-  const [authenticated, setAuthenticated] = useState(false)
+  const [authenticated, setAuthenticated] = useState(true)
   const alert = useAlert()
 
   useEffect(() => {
@@ -50,7 +50,7 @@ function AppRouter() {
         <Footer/>
     </>
     : 
-    <div className="spinner-border text-success"></div>
+    <div className="spinner-border text-success spinner"></div>
   );
 }
 
