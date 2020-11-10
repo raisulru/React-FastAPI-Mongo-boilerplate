@@ -9,8 +9,6 @@ import keycloak from './utils/keycloak'
 import { saveAuthUser } from './store/auth'
 import {AlertTemplate} from './utils/allertMessages'
 import { useAlert } from 'react-alert'
-
-
 function AppRouter() {
 
   const dispatch = useDispatch();
@@ -50,7 +48,7 @@ function AppRouter() {
         <Footer/>
     </>
     : 
-    <div className="spinner-border text-success"></div>
+    <div className="spinner-border text-success spinner"></div>
   );
 }
 
