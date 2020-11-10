@@ -341,14 +341,14 @@ function DashBoard() {
                                         <div className="col-md-4">
                                             <div className="run-ads-edit-exit">                                          
                                                 <div class="btn-group mr-2" role="group">
-                                                    <button type="button" class="btn btn-secondary mr-2 run-ads-save-btn">Edit</button>
-                                                    <button type="button" class="btn btn-secondary mr-2 run-ads-save-btn">Save</button>                                                           
+                                                    <button type="button" className="run-ads-save-btn mr-2" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" className="">Exit</span></button>
+                                                    <button type="button" className="btn btn-secondary  run-ads-save-btn">Save</button>                                                           
                                                 </div>                                         
                                             </div>
                                         </div>
                                         <div className="col-md-4">
                                             <div className="facebook-ad-creation">
-                                                <h6 className="text-center text-white">Facebook ad creation </h6>
+                                                <h6 className="text-center text-white mt-2">Facebook ad creation </h6>
                                             </div>
                                         </div>
                                         <div className="col-md-4">
@@ -361,17 +361,25 @@ function DashBoard() {
                         </div>
                    
                         <div className="container-fluid">
-                            <nav>
-                                <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <a className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-                                    <a className="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-                                    <a className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                            <div className="row">
+                            
+                                <div className="col-md-12">
+                                    <div className="text-center">
+                                        <nav>
+                                            <div className="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                                                <a className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#ad" role="tab" aria-controls="ad" aria-selected="true">AD</a>
+                                                <a className="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#targeting" role="tab" aria-controls="targeting" aria-selected="false">Targeting</a>
+                                                <a className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#budgetnschedule" role="tab" aria-controls="budgetnschedule" aria-selected="false">Budget and Schedule</a>
+                                            </div>
+                                        </nav>
+                                    </div>
+                                    <div className="tab-content" id="nav-tabContent">
+                                        <div className="tab-pane fade show active" id="ad" role="tabpanel" aria-labelledby="ad-tab">ad</div>
+                                        <div className="tab-pane fade" id="targeting" role="tabpanel" aria-labelledby="targeting-tab">targeting</div>
+                                        <div className="tab-pane fade" id="budgetnschedule" role="tabpanel" aria-labelledby="budgetnschedule-tab">budgetnschedule</div>
+                                    </div>
                                 </div>
-                            </nav>
-                            <div className="tab-content" id="nav-tabContent">
-                                <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
-                                <div className="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-                                <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+
                             </div>
                         </div>
                      </div>

@@ -9,8 +9,6 @@ import keycloak from './utils/keycloak'
 import { saveAuthUser } from './store/auth'
 import {AlertTemplate} from './utils/allertMessages'
 import { useAlert } from 'react-alert'
-
-
 function AppRouter() {
 
   const dispatch = useDispatch();
