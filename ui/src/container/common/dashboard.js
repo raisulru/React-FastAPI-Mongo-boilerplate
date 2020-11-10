@@ -92,9 +92,9 @@ function DashBoard() {
                     <nav>
                         <div className="nav nav-tabs p-l-15 border-0 tab-nabs-robokate" id="nav-tab" role="tablist">
                             <a className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#manage" role="tab" aria-controls="nav-home" aria-selected="true">Manage</a>
-                            <a className="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#audiance" role="tab" aria-controls="nav-profile" aria-selected="false">Audiance</a>
-                            <a className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#events" role="tab" aria-controls="nav-contact" aria-selected="false">Events</a>
-                            <a className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#analize" role="tab" aria-controls="nav-contact" aria-selected="false">Analize</a>
+                            <a className="nav-item nav-link disabled" id="nav-profile-tab" data-toggle="tab" href="#audiance" role="tab" aria-controls="nav-profile" aria-selected="false" disabled>Audiance</a>
+                            <a className="nav-item nav-link disabled" id="nav-contact-tab" data-toggle="tab" href="#events" role="tab" aria-controls="nav-contact" aria-selected="false" disabled>Events</a>
+                            <a className="nav-item nav-link disabled" id="nav-contact-tab" data-toggle="tab" href="#analize" role="tab" aria-controls="nav-contact" aria-selected="false" disabled>Analize</a>
                         </div>
                     </nav>
                     <div className="tab-content first-tab" id="nav-tabContent">
