@@ -8,7 +8,11 @@ facebook_base_url = 'https://graph.facebook.com/v8.0'
 
 @facebook_router.get("/adaccounts")
 async def get_facebook_ad_accounts(access_token: str, fields: str):
-    url = '{}/me/adaccounts?access_token={}&fields={}'.format(facebook_base_url, access_token, fields)
+    url = '{}/me/adaccounts?access_token={}&fields={}'.format(
+        facebook_base_url, 
+        access_token, 
+        fields
+    )
     response = requests.get(url)
     return response.json()
 
@@ -17,7 +21,12 @@ async def get_facebook_ad_accounts(access_token: str, fields: str):
 async def get_facebook_campaigns(access_token: str, ads_account_list: List[str], fields: str):
     response = []
     for ads_account_id in ads_account_list:
-        url = '{}/{}/campaigns?access_token={}&&fields={}'.format(facebook_base_url, ads_account_id, access_token, fields)
+        url = '{}/{}/campaigns?access_token={}&&fields={}'.format(
+            facebook_base_url, 
+            ads_account_id, 
+            access_token, 
+            fields
+        )
         res = requests.get(url)
         if res.status_code == 200:
             response += res.json()['data']
@@ -29,7 +38,12 @@ async def get_facebook_campaigns(access_token: str, ads_account_list: List[str],
 @facebook_router.get("/pages")
 async def get_facebook_pages(userID: str, access_token: str, fields: str=None):
     try:
-        url = '{}/{}/accounts?access_token={}&fields={}'.format(facebook_base_url, userID, access_token, fields)
+        url = '{}/{}/accounts?access_token={}&fields={}'.format(
+            facebook_base_url, 
+            userID, 
+            access_token, 
+            fields
+        )
         response = requests.get(url)
         if response.status_code==200:
             return response.json()
@@ -47,6 +61,22 @@ async def get_facebook_click_to_action_enum():
 
 @facebook_router.get("/location/search")
 async def search_location(access_token: str, search: str):
-    url = '{}/search?type=adgeolocation&access_token={}&q={}'.format(facebook_base_url, access_token, search)
+    url = '{}/search?type=adgeolocation&access_token={}&q={}'.format(
+        facebook_base_url, 
+        access_token, 
+        search
+    )
+    response = requests.get(url)
+    return response.json()
+
+
+@facebook_router.get("/audience-size")
+async def target_audience_size(adaccount_id: str, access_token: str, specification: str):
+    url = '{}/{}/reachestimate?access_token={}&targeting_spec={}'.format(
+        facebook_base_url, 
+        adaccount_id, 
+        access_token, 
+        specification
+    )
     response = requests.get(url)
     return response.json()

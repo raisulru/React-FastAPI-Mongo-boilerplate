@@ -4,29 +4,8 @@ import * as types from './types';
 
 const initialState = {
   connected: false,
-  location: [
-    {
-      "key": "159886",
-      "name": "Khulna",
-      "type": "city",
-      "country_code": "BD",
-      "country_name": "Bangladesh",
-      "region": "Khulna Division",
-      "region_id": 4374,
-      "supports_region": true,
-      "supports_city": true
-  },
-  {
-      "key": "158135",
-      "name": "Kalaroa, Khulna",
-      "type": "city",
-      "country_code": "BD",
-      "country_name": "Bangladesh",
-      "region": "Khulna Division",
-      "region_id": 4374,
-      "supports_region": true,
-      "supports_city": true
-  }
+  locations: [
+    
   ],
   campaign: {
     ad_account: {},
@@ -89,7 +68,7 @@ export const facebook = (state = initialState, action) => {
           draft.campaignList = payload
           break
       case types.SEARCH_FACEBOOK_LOCATION_SUCCESS:
-        draft.location = payload.data
+        draft.locations = payload.data
         break
       default:
         return state;
