@@ -4,6 +4,10 @@ import * as types from './types';
 
 const initialState = {
   connected: false,
+  estimatedAudienceSize: {
+    users: 0,
+    estimate_ready: true
+  },
   locations: [
     
   ],
@@ -69,6 +73,10 @@ export const facebook = (state = initialState, action) => {
           break
       case types.SEARCH_FACEBOOK_LOCATION_SUCCESS:
         draft.locations = payload.data
+        break
+      case type.GET_ESTIMATED_AUDIENCE_SIZE_SUCCESS:
+        console.log(payload, '#####################')
+        draft.estimatedAudienceSize = payload.data
         break
       default:
         return state;

@@ -6,6 +6,11 @@ import FbPostImage from '../../../images/fb-image-post.png'
 function PostPreview(props) {
 
     return (
+    <>
+    <div className="right-ad-generation-area mr-5 ml-5 mb-5 text-center">
+        <p>Estimated audience size</p>
+        <span>{35000}</span>
+    </div>
         <div className="right-ad-generation-area mr-5 ml-5">
             <div className="media">
                 <div className="media-left mr-2">
@@ -33,6 +38,7 @@ function PostPreview(props) {
                 </div>
             </div>
         </div>
+    </>
     )
 }
 

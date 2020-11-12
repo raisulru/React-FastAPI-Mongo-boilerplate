@@ -9,7 +9,8 @@ export {
   saveFacebookPagesSettings,
   getFacebookCallToActionEnums,
   createFacebookAds,
-  searchFacebookLocation
+  searchFacebookLocation,
+  getEstimatedAudienceSize
   } from './action';
   
 export { facebook } from './reducer';

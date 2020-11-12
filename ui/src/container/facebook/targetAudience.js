@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import Select from 'react-select';
 import PostPreview from './components/postPreview';
 import {
-  searchFacebookLocation
+  searchFacebookLocation,
+  getEstimatedAudienceSize
 } from '../../store/facebookResource';
 
 
@@ -16,9 +17,15 @@ function FacebookAudienceTargeting() {
 
   const SpecialCategory = ['HOUSING', 'CREDIT', 'EMPLOYMENT', 'ISSUES_ELECTIONS_POLITICS', 'NONE']
 
-  // useEffect(() => {
-  //   dispatch(searchFacebookLocation(user.accessToken, "Dhaka"))
-  // }, [dispatch])
+  useEffect(() => {
+
+  }, [dispatch])
+
+  const estimatedAudienceSizeHandler = () => {
+    const accountID = 'act_552899645070172'
+    const specification = '{"geo_locations": {"countries": ["BD"]},"age_min": 20,"age_max": 40}'
+    dispatch(getEstimatedAudienceSize(user.accessToken, accountID, specification))
+  }
 
   const geoLocationHandler = (e) => {
     console.log(e)
@@ -32,8 +39,8 @@ function FacebookAudienceTargeting() {
     dispatch(searchFacebookLocation(user.accessToken, string))
   }
   
-  const { campaign, user, locations } = useSelector((state) => state.facebook);
-  
+  const { campaign, user, locations, estimatedAudienceSize } = useSelector((state) => state.facebook);
+  // console.log(estimatedAudienceSize, '#####################')
   return (
     <>
     <div className="lead-generation-ad">
@@ -41,6 +48,7 @@ function FacebookAudienceTargeting() {
         <div className="row">
             <div className="col-md-6 bg-white py-5">
                 <div className="row">
+                  <button onClick={estimatedAudienceSizeHandler}>audience</button>
                    <div className="col-md-1">                  
                    </div>
                     <div className="col-md-10">

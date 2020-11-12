@@ -143,3 +143,15 @@ export const searchFacebookLocation = (access_token, search) => ({
     errorMessage: "Facebook pages not found",
   },
 });
+
+export const getEstimatedAudienceSize = (access_token, adaccount_id, specification) => ({
+  type: types.GET_ESTIMATED_AUDIENCE_SIZE,
+  payload: {
+    path: `/facebook/audience-size?access_token=${access_token}&adaccount_id=${adaccount_id}&specification=${specification}`,
+    method: 'GET'
+  },
+  meta: {
+    api: true,
+    errorMessage: "Facebook Audience size not found",
+  },
+});
