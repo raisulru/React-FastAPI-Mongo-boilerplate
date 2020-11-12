@@ -108,10 +108,9 @@ class FacebookConnect extends React.Component {
                                     )}
                                     </tbody>
                                 </table>
-                                <div className="btn-group">
-                                    {/* <button type="button" className="btn btn-connect-border mr-3">Connect</button>
-                                    <button type="button" className="btn btn-connect-border red-border mr-3">Cancel</button> */}
-                                    <a className="connect-link" href="https://www.facebook.com/business/help/910137316041095?id=420299598837059" target="_blank">Create ad account <i className="fas fa-external-link-alt"></i> </a>
+                                <div className="cancel-next-button">                            
+                                      <Link to="/ads/onboarding" className="btn bg-brand-border float-left"> Cancel </Link>                                   
+                                      <Link to="/ads/facebook/lead-sync" onClick={() => this.submitConnectedAdAccounts()} className="btn btn-secondary bg-brand float-right">Next</Link>
                                 </div>
                             </div>
 
@@ -119,22 +118,6 @@ class FacebookConnect extends React.Component {
 
                     </div>
                     <div className="col-md-2">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div className="back-next">
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-lg-6 text-center text-lg-left ">
-                      <Link to="/ads/onboarding">
-                          Cancel
-                      </Link>
-                    </div>
-                    <div className="col-lg-6 text-center text-lg-right">
-                      <Link to="/ads/facebook/lead-sync" onClick={() => this.submitConnectedAdAccounts()}>Next</Link>
                     </div>
                 </div>
             </div>

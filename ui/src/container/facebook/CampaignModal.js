@@ -34,10 +34,9 @@ function CampaignModal () {
                     </div>
                 
                     <div className="container-fluid">
-                        <div className="row">
-                        
+                        <div className="row"> 
                             <div className="col-md-12">
-                                <div className="text-center">
+                                <div className="create-campaign-modal">                          
                                     <nav>
                                         <div className="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
                                             <a className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#ad" role="tab" aria-controls="ad" aria-selected="true">Create Content</a>
