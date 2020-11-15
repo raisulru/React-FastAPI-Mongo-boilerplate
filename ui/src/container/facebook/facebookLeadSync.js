@@ -94,6 +94,10 @@ function FacebookLeadSync () {
                         
                       </tbody>
                     </table>
+                    <div className="cancel-next-button">                            
+                          <Link to="/ads/onboarding" className="btn bg-brand-border float-left"> Cancel </Link>                                   
+                          <Link onClick={handleSubmit} to="/ads/facebook/pixel" className="btn btn-secondary bg-brand float-right">Next</Link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -101,27 +105,6 @@ function FacebookLeadSync () {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="back-next">
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-lg-6 text-center text-lg-left ">
-                      <Link to="/ads/dashboard" className="mr-2">
-                          Back
-                      </Link>
-                      <Link to="/ads/onboarding">
-                          Cancel
-                      </Link>
-                    </div>
-                    <div className="col-lg-6 text-center text-lg-right">
-                      <Link to="/ads/dashboard" className="mr-2">
-                        Skip
-                      </Link>
-                      <Link onClick={handleSubmit} to="/ads/facebook/pixel">Next</Link>
-                    </div>
-                </div>
-            </div>
         </div>
       </>
     );

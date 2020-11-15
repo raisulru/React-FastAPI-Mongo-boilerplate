@@ -50,6 +50,9 @@ class LandingPage extends React.Component {
                     <div className="modal-content">
                       <div className="modal-header">
                           <h2 className="create-ac-head">Create ad accoount</h2>
+                          <button type="button" class="close text-white opacity-1" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                       </div>
                       <p className="m-b-20">Select the network you'd will like to create an account for </p>
                       <a href="#" target="_blank" className="create-ad-ac"><img src={FacebookLogo} className="create-social-icon" alt="Facebook"/>Facebook <img src={ExternalLink} className="float-right external-link" alt="ExternalLink"/></a>
