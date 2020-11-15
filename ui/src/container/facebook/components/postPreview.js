@@ -7,11 +7,13 @@ function PostPreview(props) {
 
     return (
     <>
-    <div className="right-ad-generation-area mr-5 ml-5 mb-5 text-center">
-        <p>Estimated audience size</p>
-        <span>{props.audienceSize.users}</span>
+    <div className="right-ad-generation-area mr-5 ml-5 mb-5">
+        <div className="estimated-audience py-3 px-3">
+            <p>Estimated audience size</p>
+            <span>{props.audienceSize.users}</span>
+        </div>
     </div>
-        <div className="right-ad-generation-area mr-5 ml-5">
+    <div className="right-ad-generation-area mr-5 ml-5">
             <div className="media">
                 <div className="media-left mr-2">
                     <img className="media-object photo-profile" src={PostProfile} width="40" height="40" alt="page"/>

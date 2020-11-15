@@ -40,8 +40,7 @@ function FacebookBillAndSchedule() {
                                     <option>4</option>
                                     <option>5</option>
                                   </select>
-                                  <span className="input-group-text opecity-0"> dol</span>  
-                                  <input type="text" className="form-control time" value="$10"/>                        
+                                  <input type="text" className="form-control" value="$10"/>                        
                             </div>
                         </div>
 
@@ -53,22 +52,16 @@ function FacebookBillAndSchedule() {
                                         <span className="glyphicon glyphicon-calendar">     
                                         </span>
                                   </span>
-                                <span className="input-group-text"><img src={Clock} alt="clock"/></span>  
-                               <input type="text" className="form-control time" value="6.00PM"/>                        
-                            </div>
-
+                               <input type="time" className="form-control"  id="appt" name="appt"/>                        
+                            </div>                        
                             <div className="input-group m-b-10 date">                                  
-                                  <input type='date' className="form-control" />
-                                  <span className="input-group-text"><img src={Clock} alt="clock"/></span>                                         
-                                  <input type="text" className="form-control time" value="6.00PM"/> 
-                                                         
-                            </div>
-                          
-                            <div className="text-center m-t-30">
-                                    <button className="btn publish-btn" type="button" data-toggle="modal" data-target="#publishModal">Publish</button>
-                            </div>
-                            
+                                <input type='date' className="form-control" />                                   
+                                <input type="time" className="form-control" id="appt2" name="appt2"/>                                                         
+                            </div> 
+                            <p>Your add will run for todays and will cost no more than $10 </p>                        
+                                          
                         </div>
+                        
                     </form>
                 </div>
                 </div>
@@ -94,16 +87,6 @@ function FacebookBillAndSchedule() {
     </div>
 </div>
 
-<div className="modal fade publish" id="publishModal" tabIndex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
-  <div className="modal-dialog" role="document">
-      <div className="modal-content">
-          <div className="text-center">
-              <button className="btn publish-btn-yes m-b-10" type="button">Yes</button>
-              <button className="btn publish-btn-no" type="button">No</button>
-          </div>  
-      </div>
-  </div>
-</div>
 
   </>
   );
