@@ -1,7 +1,17 @@
 import requests
 from typing import List
 from fastapi import APIRouter
+from typing import Optional
+from facebookads.api import FacebookAdsApi
+from facebookads.adobjects.targetingsearch import TargetingSearch
 from .enums import facebook_click_to_action
+
+# my_app_id = '<APP_ID>'
+# my_app_secret = '<APP_SECRET>'
+# my_access_token = '<ACCESS_TOKEN>'
+# proxies = {'http': '<HTTP_PROXY>', 'https': '<HTTPS_PROXY>'}
+# FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token, proxies)
+
 
 facebook_router = APIRouter()
 facebook_base_url = 'https://graph.facebook.com/v8.0'
@@ -77,6 +87,40 @@ async def target_audience_size(adaccount_id: str, access_token: str, specificati
         adaccount_id, 
         access_token, 
         specification
+    )
+    response = requests.get(url)
+    return response.json()
+
+
+@facebook_router.get("/targetting-category/browse")
+async def browse_targetting_category(access_token: str):
+    url = '{}/search?type=adTargetingCategory&access_token={}&class={}'.format(
+        facebook_base_url,
+        access_token
+    )
+    response = requests.get(url)
+    return response.json()
+
+
+@facebook_router.get("/targetting-category/search")
+async def search_targetting_category(access_token: str, class_type: str, search: str):
+    url = '{}/search?type={}&access_token={}&q={}'.format(
+        facebook_base_url,
+        class_type,
+        access_token,
+        search
+    )
+    response = requests.get(url)
+    return response.json()
+
+
+@facebook_router.get("/custom-audience")
+async def custom_audience(access_token: str, adaccount: str, fields: str):
+    url = '{}/{}/customaudiences?fields={}&access_token={}'.format(
+        facebook_base_url,
+        adaccount,
+        fields,
+        access_token
     )
     response = requests.get(url)
     return response.json()

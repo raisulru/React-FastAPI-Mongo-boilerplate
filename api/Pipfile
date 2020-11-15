@@ -11,6 +11,8 @@ uvicorn = "*"
 requests = "*"
 pymongo = "*"
 python-dotenv = "==0.14.0"
+facebook-business = "*"
+facebookads = "*"
 
 [requires]
 python_version = "3.8"
