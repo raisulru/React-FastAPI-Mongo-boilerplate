@@ -6,6 +6,7 @@ import SortIcon from "../../images/sort.png"
 import FacebookLogo from '../../images/fb-icon.png'
 import GoogleLogo from '../../images/google-ads.png'
 import LinkedinLogo from '../../images/linkedin.png'
+import SearchIcon from '../../images/search.svg'
 import { getFacebookCampaigns } from '../../store/facebookResource'
 import formatNumber from '../../utils/formatNumber'
 import CampaignModal from '../facebook/CampaignModal';
@@ -212,8 +213,8 @@ function DashBoard() {
                                                     <input type="text" className="form-control search-control" name="exampleFormControlSelect1" placeholder="Search for ad campaign"/>
                                                     <div className="input-group-append">
                                                         <button className="btn btn-search" type="button">
-                                                            <i className="fa fa-search "></i>
-                                                            </button>
+                                                            <img src={SearchIcon} className="search-icon" alt="Search"/>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
