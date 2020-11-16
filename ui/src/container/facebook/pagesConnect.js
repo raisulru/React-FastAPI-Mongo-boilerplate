@@ -8,7 +8,7 @@ import FacebookLogo from '../../images/fb-icon.png'
 import { getFacebookPages, saveFacebookPagesSettings } from '../../store/facebookResource'
 
 
-function FacebookLeadSync () {
+function PagesConnect () {
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -96,7 +96,7 @@ function FacebookLeadSync () {
                     </table>
                     <div className="cancel-next-button">                            
                           <Link to="/ads/onboarding" className="btn bg-brand-border float-left"> Cancel </Link>                                   
-                          <Link onClick={handleSubmit} to="/ads/facebook/pixel" className="btn btn-secondary bg-brand float-right">Next</Link>
+                          <Link onClick={handleSubmit} to="/ads/dashboard" className="btn btn-secondary bg-brand float-right">Next</Link>
                     </div>
                   </div>
                 </div>
@@ -110,4 +110,4 @@ function FacebookLeadSync () {
     );
   }
 
-export default FacebookLeadSync
+export default PagesConnect

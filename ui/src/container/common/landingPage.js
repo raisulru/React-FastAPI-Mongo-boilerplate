@@ -50,7 +50,7 @@ class LandingPage extends React.Component {
                     <div className="modal-content">
                       <div className="modal-header">
                           <h2 className="create-ac-head">Create ad accoount</h2>
-                          <button type="button" class="close text-white opacity-1" aria-label="Close">
+                          <button type="button" className="close text-white opacity-1" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                       </div>
