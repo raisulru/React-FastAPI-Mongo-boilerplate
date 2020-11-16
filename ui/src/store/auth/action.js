@@ -10,3 +10,13 @@ export const saveAuthUser = (payload) => ({
     errorMessage: "User coudn't connect",
   },
 });
+
+
+export const clearState = () => ({
+  type: 'RESET_APP',
+  meta: {
+    api: false,
+    successMessage: 'Successfully State Clear',
+    errorMessage: "State not clear",
+  },
+});

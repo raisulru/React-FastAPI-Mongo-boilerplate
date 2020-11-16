@@ -1,21 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from "react-router-dom";
+import _ from 'lodash'
 import { getFacebookAdAccounts, saveFacebookAdsAccount } from '../../store/facebookResource';
 import { AdsBar } from '../common/components/adsBar'
 
-function AdAccountConnect () {
+function AdAccountConnect (props) {
 
   const dispatch = useDispatch()
   const { connected, user, adAccounts } = useSelector((state) => state.facebook);
   
   useEffect(() => {
     if (!user.accessToken) {
-      this.props.history.push("/ads/onboarding-process")
+      props.history.push("/ads/onboarding-process")
     }
     dispatch(getFacebookAdAccounts(user.accessToken))
   }, [dispatch])
   
-  let adAccountsCopy = JSON.parse(JSON.stringify(adAccounts))
+  
+  let adAccountsCopy = []
+
+  _.forEach(adAccounts, (adAccount) => {
+    console.log(adAccount, '###############')
+    adAccountsCopy.push({
+      name: adAccount.name,
+      id: adAccount.id,
+      account_id: adAccount.account_id,
+      connected: false,
+      auto_track: false
+    })
+  })
+
   const [adAccountList, setadAccountList] = useState(adAccountsCopy)
 
   const handleAccountAutoTracking = (event) => {
@@ -66,7 +81,6 @@ function AdAccountConnect () {
                             <div className="col-md-12  mt-4">
                                 <h6 className="connect-title mb-4 text-left">Select Facebook ads accounts</h6>
                                 <p>select the bellow account(s) you want to connect ROBOKET.<small className="learn-more"> <Link to="/ads/onboarding">Learn more </Link></small></p>
-                                <p>You can connects up to 2 ads account</p>
                                 <table className="table account-table">
                                     <thead>
                                         <tr>

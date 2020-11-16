@@ -1,11 +1,23 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+
 import { Link } from "react-router-dom";
 import userImage from '../../images/user.svg'
 import LogoImage from '../../images/pictogram.svg'
 import keycloak from '../../utils/keycloak'
+import {clearState} from '../../store/auth'
 
 function Header (props) {
+  const dispatch = useDispatch()
+
+  const logoutAndClear = () => {
+    keycloak.logout()
+    dispatch(clearState())
+  }
+
+
   const userInfo = props.userInfo
+
     return (
       <div className="menu_area">
         <div className="container-fluid">
@@ -99,7 +111,7 @@ function Header (props) {
                           <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> Activity Log
                         </Link>
                         <div className="dropdown-divider"></div>
-                        <Link className="dropdown-item" to="/ads/onboarding" data-toggle="modal" data-target="#logoutModal" onClick={() => keycloak.logout()}>
+                        <Link className="dropdown-item" to="/ads/onboarding" data-toggle="modal" data-target="#logoutModal" onClick={logoutAndClear}>
                           <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
                         </Link>
                       </div>

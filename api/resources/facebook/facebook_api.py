@@ -92,18 +92,29 @@ async def target_audience_size(adaccount_id: str, access_token: str, specificati
     return response.json()
 
 
-@facebook_router.get("/targetting-category/browse")
-async def browse_targetting_category(access_token: str):
-    url = '{}/search?type=adTargetingCategory&access_token={}&class={}'.format(
+@facebook_router.get("/targeting-category/browse/all")
+async def browse_targeting_category(access_token: str):
+    url = '{}/search?type=adTargetingCategory&access_token={}'.format(
         facebook_base_url,
-        access_token
+        access_token,
     )
     response = requests.get(url)
     return response.json()
 
 
-@facebook_router.get("/targetting-category/search")
-async def search_targetting_category(access_token: str, class_type: str, search: str):
+@facebook_router.get("/targeting-category/browse")
+async def browse_targeting_category_with_class(access_token: str, class_type: str):
+    url = '{}/search?type=adTargetingCategory&access_token={}&class={}'.format(
+        facebook_base_url,
+        access_token,
+        class_type
+    )
+    response = requests.get(url)
+    return response.json()
+
+
+@facebook_router.get("/targeting-category/search")
+async def search_targeting_category(access_token: str, class_type: str, search: str):
     url = '{}/search?type={}&access_token={}&q={}'.format(
         facebook_base_url,
         class_type,
@@ -116,7 +127,7 @@ async def search_targetting_category(access_token: str, class_type: str, search:
 
 @facebook_router.get("/custom-audience")
 async def custom_audience(access_token: str, adaccount: str, fields: str):
-    url = '{}/{}/customaudiences?fields={}&access_token={}'.format(
+    url = '{}/{}/customaudiences?fields={}&access_token={}&limit=1000'.format(
         facebook_base_url,
         adaccount,
         fields,

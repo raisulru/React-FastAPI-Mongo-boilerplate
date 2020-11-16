@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from "react-router-dom";
 import _ from 'lodash';
-import { AdsBar } from '../common/components/adsBar';
 import PostPreview from './components/postPreview';
 import { 
   getFacebookAdAccounts, 

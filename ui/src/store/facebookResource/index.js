@@ -13,4 +13,4 @@ export {
   getEstimatedAudienceSize
   } from './action';
   
-export { facebook } from './reducer';
+export { facebook, facebookSearch } from './reducer';
