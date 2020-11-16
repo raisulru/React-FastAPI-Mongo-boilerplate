@@ -1,44 +1,36 @@
-import React from 'react';
-import { Link } from "react-router-dom";
-import { bindActionCreators } from "redux";
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';import { Link } from "react-router-dom";
 import { getFacebookAdAccounts, saveFacebookAdsAccount } from '../../store/facebookResource';
 import { AdsBar } from '../common/components/adsBar'
 
-class FacebookConnect extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      adAccounts: props.adAccounts
-    }
+function AdAccountConnect () {
 
-    this.handleAccountConnection = this.handleAccountConnection.bind(this);
-    this.handleAccountAutoTracking = this.handleAccountAutoTracking.bind(this);
-  }
-
-  componentDidMount () {
-    const { accessToken } = this.props.faceBookUser
-    if (!accessToken) {
+  const dispatch = useDispatch()
+  const { connected, user, adAccounts } = useSelector((state) => state.facebook);
+  
+  useEffect(() => {
+    if (!user.accessToken) {
       this.props.history.push("/ads/onboarding-process")
     }
-    this.props.getFacebookAdAccounts(accessToken)
-  }
+    dispatch(getFacebookAdAccounts(user.accessToken))
+  }, [dispatch])
+  
+  let adAccountsCopy = JSON.parse(JSON.stringify(adAccounts))
+  const [adAccountList, setadAccountList] = useState(adAccountsCopy)
 
-  handleAccountAutoTracking(event) {
-    let adAccounts = JSON.parse(JSON.stringify(this.state.adAccounts))
-    adAccounts.map(adAccount => {
+  const handleAccountAutoTracking = (event) => {
+    const adAccountTracking = adAccountList.map(adAccount => {
       if (adAccount.id === event.target.id) {
         adAccount.auto_track = event.target.checked
         return adAccount
       }
       return adAccount
     })
-    this.setState({ adAccounts: adAccounts })
+    setadAccountList(adAccountTracking)
   }
 
-  handleAccountConnection(event) {
-    let adAccounts = JSON.parse(JSON.stringify(this.state.adAccounts))
-    adAccounts.map(adAccount => {
+  const handleAccountConnection = (event) => {
+    const adAccountConnection = adAccountList.map(adAccount => {
       if (adAccount.id === event.target.id) {
         adAccount.connected = event.target.checked
         adAccount.auto_track = event.target.checked
@@ -46,25 +38,21 @@ class FacebookConnect extends React.Component {
       }
       return adAccount
     })
-    this.setState({ adAccounts: adAccounts })
+    setadAccountList(adAccountConnection)
   }
 
-  submitConnectedAdAccounts () {
-    const adAccounts = this.state.adAccounts
-    adAccounts.map(adAccount => {
-      adAccount.userID = this.props.faceBookUser.id
+  const submitConnectedAdAccounts = () => {
+    adAccountList.map(adAccount => {
+      adAccount.userID = user.id
       adAccount.act_account_id = adAccount.id
       return adAccount
     })
 
-    this.props.saveFacebookAdsAccount({
-      "ads_account_list": adAccounts
-    })
+    dispatch(saveFacebookAdsAccount({
+      "ads_account_list": adAccountList
+    }))
   }
 
-  render() {
-    const { adAccounts } = this.state
-    
     return (
       <>
       <AdsBar name="Ads Account"/>
@@ -88,19 +76,19 @@ class FacebookConnect extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {adAccounts.map((adAccount) => 
+                                    {adAccountList.map((adAccount) => 
                                       <tr key={adAccount.id}>
                                         <td>
-                                          <input id={adAccount.id} checked={adAccount.connected} onChange={(e) => this.handleAccountConnection(e)} type="checkbox" name="add-acount" value="Bike"/> 
+                                          <input id={adAccount.id} checked={adAccount.connected} onChange={handleAccountConnection} type="checkbox" name="add-acount-connection"/>
                                           <label className="ml-2" htmlFor={adAccount.id}> {adAccount.name}'s Ad Account</label>
                                           <br/>
                                         </td>
                                         <td>
-                                        {adAccount.account_id}
+                                          {adAccount.account_id}
                                         </td>
                                         <td>
                                             <label className="switch">
-                                                <input id={adAccount.account_id} checked={adAccount.auto_track} onChange={(e) => this.handleAccountAutoTracking(e)} type="checkbox"/>
+                                                <input id={adAccount.account_id} checked={adAccount.auto_track} onChange={handleAccountAutoTracking} type="checkbox" name="ad-account-tracking"/>
                                                 <span htmlFor={adAccount.account_id} className="slider round"></span>
                                             </label>
                                         </td>
@@ -110,7 +98,7 @@ class FacebookConnect extends React.Component {
                                 </table>
                                 <div className="cancel-next-button">                            
                                       <Link to="/ads/onboarding" className="btn bg-brand-border float-left"> Cancel </Link>                                   
-                                      <Link to="/ads/facebook/lead-sync" onClick={() => this.submitConnectedAdAccounts()} className="btn btn-secondary bg-brand float-right">Next</Link>
+                                      <Link to="/ads/facebook/lead-sync" onClick={submitConnectedAdAccounts} className="btn btn-secondary bg-brand float-right">Next</Link>
                                 </div>
                             </div>
 
@@ -125,24 +113,5 @@ class FacebookConnect extends React.Component {
       </>
     );
   }
-}
 
-const mapStateToProps = state => (
-  {
-    faceBookUser: state.facebook.user,
-    facebookConnected: state.facebook.connected,
-    adAccounts: state.facebook.adAccounts
-  }
-)
-
-const mapActionToProps = dispatch => {
-  return bindActionCreators(
-    {
-      getFacebookAdAccounts,
-      saveFacebookAdsAccount
-    },
-    dispatch
-  );
-};
-
-export default connect(mapStateToProps, mapActionToProps)(FacebookConnect)
+export default AdAccountConnect

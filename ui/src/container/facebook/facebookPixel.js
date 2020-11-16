@@ -1,17 +1,16 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { bindActionCreators } from "redux";
-import { connect } from 'react-redux';
 import { AdsBar } from '../common/components/adsBar';
 import Select from 'react-select';
+
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'strawberry', label: 'Strawberry' },
   { value: 'vanilla', label: 'Vanilla' }
 ]
-class FacebookPixel extends React.Component {
 
-  render() {
+function FacebookPixel () {
+
     return (
       <>
         <AdsBar name="Track Visitors"/>
@@ -24,17 +23,20 @@ class FacebookPixel extends React.Component {
                 <div className="connect-ad-account">
                   <div className="col-md-12  mt-4">
                     <h6 className="connect-title mb-4 text-center">Add Pixel</h6>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                                  a type specimen book. It has survived not only five centuries,</p>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                      when an unknown printer took a galley of type and scrambled it to make
+                        a type specimen book. It has survived not only five centuries,
+                    </p>
 
-                                  <Select
-                                      defaultValue={[options[2]]}
-                                      isMulti
-                                      name="colors"
-                                      options={options}
-                                      className="basic-multi-select"
-                                      classNamePrefix="select"
-                                    />
+                      <Select
+                          defaultValue={[options[2]]}
+                          isMulti
+                          name="colors"
+                          options={options}
+                          className="basic-multi-select"
+                          classNamePrefix="select"
+                        />
                   </div>
                 </div>
               </div>
@@ -66,21 +68,5 @@ class FacebookPixel extends React.Component {
       </>
     );
   }
-}
 
-const mapStateToProps = state => (
-  {
-    
-  }
-)
-
-const mapActionToProps = dispatch => {
-  return bindActionCreators(
-    {
-      
-    },
-    dispatch
-  );
-};
-
-export default connect(mapStateToProps, mapActionToProps)(FacebookPixel)
+export default FacebookPixel

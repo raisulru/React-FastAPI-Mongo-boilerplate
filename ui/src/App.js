@@ -12,7 +12,7 @@ import { useAlert } from 'react-alert'
 function AppRouter() {
 
   const dispatch = useDispatch();
-  const [authenticated, setAuthenticated] = useState(true)
+  const [authenticated, setAuthenticated] = useState(false)
   const alert = useAlert()
 
   useEffect(() => {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import {
-    FacebookLeadSync,
+    PagesConnect,
     FacebookPixel,
-    FacebookConnect,
+    AdAccountConnect,
     FacebookAdSet,
     FacebookAds
 } from '../container/facebook'
@@ -12,8 +12,8 @@ import {
 const FacebookRouter = ({ match: { url } }) => {
   return (
     <Switch>
-      <Route path={`${url}/connect`} component={FacebookConnect} />
-      <Route path={`${url}/lead-sync`} component={FacebookLeadSync} />
+      <Route path={`${url}/connect`} component={AdAccountConnect} />
+      <Route path={`${url}/lead-sync`} component={PagesConnect} />
       <Route path={`${url}/pixel`} component={FacebookPixel} />
       <Route path={`${url}/adset`} component={FacebookAdSet} />
       <Route path={`${url}/ads-list`} component={FacebookAds} />
