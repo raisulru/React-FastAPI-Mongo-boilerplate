@@ -74,8 +74,7 @@ export const facebook = (state = initialState, action) => {
       case types.SEARCH_FACEBOOK_LOCATION_SUCCESS:
         draft.locations = payload.data
         break
-      case type.GET_ESTIMATED_AUDIENCE_SIZE_SUCCESS:
-        console.log(payload, '#####################')
+      case types.GET_AUDIENCE_SIZE_SUCCESS:
         draft.estimatedAudienceSize = payload.data
         break
       default:

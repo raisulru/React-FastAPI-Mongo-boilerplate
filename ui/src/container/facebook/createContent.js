@@ -29,7 +29,7 @@ function CreateFacebookContent () {
     dispatch(getFacebookCallToActionEnums())
   }, [dispatch])
   
-  const { facebookPages, user, adAccounts, CTA } = useSelector((state) => state.facebook);
+  const { facebookPages, user, adAccounts, CTA, estimatedAudienceSize } = useSelector((state) => state.facebook);
 
   const pageHandler = (e) => {
     const value = _.find(facebookPages, ['id', e.target.value])
@@ -172,6 +172,7 @@ function CreateFacebookContent () {
                         cta={ctaValue}
                         heading={heading}
                         text={textBody}
+                        audienceSize={estimatedAudienceSize}
                         />
                       </div>
                 </div>

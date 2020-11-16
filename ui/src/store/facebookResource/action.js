@@ -145,7 +145,7 @@ export const searchFacebookLocation = (access_token, search) => ({
 });
 
 export const getEstimatedAudienceSize = (access_token, adaccount_id, specification) => ({
-  type: types.GET_ESTIMATED_AUDIENCE_SIZE,
+  type: types.GET_AUDIENCE_SIZE,
   payload: {
     path: `/facebook/audience-size?access_token=${access_token}&adaccount_id=${adaccount_id}&specification=${specification}`,
     method: 'GET'

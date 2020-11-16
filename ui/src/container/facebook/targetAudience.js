@@ -23,7 +23,7 @@ function FacebookAudienceTargeting() {
 
   const estimatedAudienceSizeHandler = () => {
     const accountID = 'act_552899645070172'
-    const specification = '{"geo_locations": {"countries": ["BD"]},"age_min": 20,"age_max": 40}'
+    const specification = '{"geo_locations": {"countries": ["BD"]},"age_min": 18,"age_max": 65}'
     dispatch(getEstimatedAudienceSize(user.accessToken, accountID, specification))
   }
 
@@ -40,7 +40,6 @@ function FacebookAudienceTargeting() {
   }
   
   const { campaign, user, locations, estimatedAudienceSize } = useSelector((state) => state.facebook);
-  // console.log(estimatedAudienceSize, '#####################')
   return (
     <>
     <div className="lead-generation-ad">
@@ -152,6 +151,7 @@ function FacebookAudienceTargeting() {
                     cta={campaign.cta}
                     heading={campaign.heading}
                     text={campaign.body_text}
+                    audienceSize={estimatedAudienceSize}
                         />
                   </div>
                 </div>

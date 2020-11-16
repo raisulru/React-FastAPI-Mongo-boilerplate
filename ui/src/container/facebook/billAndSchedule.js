@@ -13,7 +13,7 @@ import Clock from '../../images/clock.svg'
  */
 
 function FacebookBillAndSchedule() {
-  const { campaign } = useSelector((state) => state.facebook);
+  const { campaign, estimatedAudienceSize } = useSelector((state) => state.facebook);
 
   return (
     <>
@@ -84,6 +84,7 @@ function FacebookBillAndSchedule() {
                     cta={campaign.cta}
                     heading={campaign.heading}
                     text={campaign.body_text}
+                    audienceSize={estimatedAudienceSize}
                         />
                   </div>
             </div>

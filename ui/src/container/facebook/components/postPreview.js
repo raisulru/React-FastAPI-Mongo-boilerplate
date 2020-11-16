@@ -9,7 +9,7 @@ function PostPreview(props) {
     <>
     <div className="right-ad-generation-area mr-5 ml-5 mb-5 text-center">
         <p>Estimated audience size</p>
-        <span>{35000}</span>
+        <span>{props.audienceSize.users}</span>
     </div>
         <div className="right-ad-generation-area mr-5 ml-5">
             <div className="media">
