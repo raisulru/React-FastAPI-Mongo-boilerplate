@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import Select from 'react-select';
 import PostPreview from './components/postPreview';
+import RemoveIcon from '../../images/delete.svg'
 import {
   searchFacebookLocation,
   getEstimatedAudienceSize
@@ -49,7 +50,7 @@ function FacebookAudienceTargeting() {
         <div className="row">
             <div className="col-md-6 bg-white py-5">
                 <div className="row">
-                  <button onClick={estimatedAudienceSizeHandler}>audience</button>
+                  <button onClick={estimatedAudienceSizeHandler} className="d-none">audience</button>
                    <div className="col-md-1">                  
                    </div>
                     <div className="col-md-10">
@@ -84,7 +85,7 @@ function FacebookAudienceTargeting() {
                         <div  className="location">
                             <div className="form-group">
                               <label htmlFor="Location">Location*</label> <br/>
-                              <span>People living in any of the following</span>
+                              <span className="location-span">People living in any of the following</span>
                               <Select
                                 closeMenuOnSelect={false}
                                 onChange={geoLocationHandler}
@@ -100,8 +101,8 @@ function FacebookAudienceTargeting() {
                               />
                             </div>
                         </div>
-                        <label htmlFor="Audience"> And </label> <br/> 
-                        <div  className="location ">
+                        <label htmlFor="and"> And </label> <br/> 
+                        <div  className="location m-b-10 ">
                             <div className="form-group">
                               <label htmlFor="Location">Age range *</label> <br/>
                              <div className="form-inline">
@@ -126,6 +127,86 @@ function FacebookAudienceTargeting() {
                               
                             </div>
                         </div>
+                        <div  className="audience-filter m-b-10">
+                            <div className="form-group">
+                                <span className="location-span">Have any of the following:</span>  <button type="button" className="btn float-right"> <img src={RemoveIcon} className="reomve-filter" alt="Remove"/></button> <br/>
+                                <label>Contact List audience</label> <br/>
+                                <span className="tag label label-info">
+                                    <span>ADN Workshop_PIIT_audience_file_Custom</span>
+                                      <button type="button" className="btn remove">× </button>
+                                </span>     
+                                <span className="tag label label-info">
+                                      <span>ADN Servers Lead</span>
+                                      <button type="button" className="btn remove">× </button>
+                                </span>  
+
+                                <div className="add-filter-or dropdown">
+                                    <a className="dropdown-toggle add-filter-text" type="button" id="filtermenubtn1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        + Add Filter( OR )
+                                    </a>
+                                    <div className="dropdown-menu" aria-labelledby="filtermenubtn1">
+                                        <a className="dropdown-item intro" href="#">Adding filters within a group will target people that match any of these filters. Generally, this will increase your audience.</a>
+                                        <a className="dropdown-item" href="#"> <span className="filter-item-title">Retargeting and lookalike audiences</span> <br/> Contact list, website visitors, and lookalike audiences.</a>
+                                    </div>
+                                </div>                              
+                            </div>
+
+                        </div> 
+                        <label htmlFor="and"> And </label> <br/> 
+                        <div  className="audience-filter m-b-10">
+                            <div className="form-group">
+                            <span className="location-span">Have any of the following:</span>  <button type="button" className="btn float-right"> <img src={RemoveIcon} className="reomve-filter" alt="Remove"/></button> <br/>
+                                <label>Life Events</label> <br/>
+                                <span className="tag label label-info">
+                                    <span>Away from family</span>
+                                      <button type="button" className="btn remove">× </button>
+                                </span>     
+                                <span className="tag label label-info">
+                                      <span>Away from hometown</span>
+                                      <button type="button" className="btn remove">× </button>
+                                </span>  
+                                <span className="tag label label-info">
+                                      <span>Newly-engaged (6 months)</span>
+                                      <button type="button" className="btn remove">× </button>
+                                </span>  
+                            
+                                
+                                <div className="add-filter-or dropdown">
+                                    <a className="dropdown-toggle add-filter-text" type="button" id="filtermenubtn2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        + Add Filter( OR )
+                                    </a>
+                                    <div className="dropdown-menu" aria-labelledby="filtermenubtn2">
+                                        <a className="dropdown-item intro" href="#">Adding filters within a group will target people that match any of these filters. Generally, this will increase your audience.</a>
+                                        <a className="dropdown-item" href="#"> <span className="filter-item-title">Personal Attributes</span> <br/> Interests, demographics, and behaviors</a>
+                                    </div>
+                                </div>                              
+                            </div>
+
+                        </div>  
+                         <a className="add-filter-text m-b-10" type="button" id="narrow-audience-further">
+                              + Narrow audience further (AND)
+                         </a>
+                         <label>Exclude <br/> 
+                        <span className="location-span"> Do not target people who match the following criteria</span></label> 
+                        <div  className="audience-filter m-b-10">
+                            <div className="form-group">
+                            <span className="location-span">Have any of the following:</span>  <button type="button" className="btn float-right"> <img src={RemoveIcon} className="reomve-filter" alt="Remove"/></button> <br/>
+                                <label>Contact List audience</label> <br/>
+                                <span className="tag label label-info">
+                                    <span>ADN SERVERS LEADS</span>
+                                      <button type="button" className="btn remove">× </button>
+                                </span>     
+                                <span className="tag label label-info">
+                                      <span>ADN Workshop_PIIT_audience_file_Custom</span>
+                                      <button type="button" className="btn remove">× </button>
+                                </span>  
+                                <br/>
+                                <a className="add-filter-text m-b-10" type="button" id="narrow-audience-further">
+                              + Add audience exclusions
+                              </a>                             
+                            </div>
+
+                        </div>  
                       </div>
                       : 
                       <Select
@@ -161,8 +242,39 @@ function FacebookAudienceTargeting() {
         </div>
     </div>
 </div>
+
+
+<button type="button" className="btn m-5 btn-primary" data-toggle="modal" data-target="#rightDrawer">
+  Right Side Drawer 
+</button>
+<div className="modal fade drawer right-align" id="rightDrawer" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title text-white" id="exampleModalLabel">Add interests, demographics, behaviors</h5>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div className="modal-body">
+      Data will show here
+      </div>
+      <div className="modal-footer">
+       
+        <button type="button" className="btn btn-primary">Save</button>
+        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
   </>
   );
 }
 
 export default FacebookAudienceTargeting;
+
+

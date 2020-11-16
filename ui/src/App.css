@@ -310,7 +310,7 @@ welcome and connect  area
 
 .lead-generation-ad .form-group,
 .lead-generation-ad .campaign {
-    margin-bottom: 26px;
+    margin-bottom: 10px;
 }
 
 .lead-generation-ad input[type="file" i] {
@@ -477,7 +477,7 @@ welcome and connect  area
     box-shadow: none!important;
 }
 
-.location span {
+.location-span {
     font-size: 11px;
 }
 
@@ -883,6 +883,7 @@ login page
 }
 
 .publish-btn {
+<<<<<<< HEAD
     color: #fff;
     background-color: #00AA86;
     background-clip: padding-box;
@@ -890,6 +891,15 @@ login page
     padding: 8px 100px;
     height: 40px;
     border-radius: 3px;
+=======
+    color: #00AA86;
+    background-color: #FCFCFD;
+    background-clip: padding-box;
+    border: 1px solid #d9d9d9;
+    padding: 8px 100px;
+    height: 40px;
+    border-radius: 0px;
+>>>>>>> target audience
 }
 
 .ad-publish-btn {
@@ -898,7 +908,11 @@ login page
     background-clip: padding-box;
     border: 0px solid #d9d9d9;
     padding: 7px 20px;
+<<<<<<< HEAD
     border-radius: 0px;
+=======
+    border-radius: 4px;
+>>>>>>> target audience
 }
 
 .publish-btn-yes {
@@ -988,11 +1002,18 @@ login page
 .publish .modal-dialog {
     margin-top: 0;
     margin-bottom: 0;
+<<<<<<< HEAD
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     max-width: 500px;
+=======
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 300px;
+>>>>>>> target audience
 }
 
 .run-ads {
@@ -1018,7 +1039,11 @@ login page
 }
 
 @media (min-width: 576px) {
+<<<<<<< HEAD
     .run-ads .modal-dialog {
+=======
+    .run-ads-dialog {
+>>>>>>> target audience
         max-width: 100%!important;
         margin: 0px;
     }
@@ -1111,6 +1136,55 @@ login page
     background: #f1f1f1;
 }
 
+<<<<<<< HEAD
+=======
+.add-filter-text {
+    color: #00AA86;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.add-filter-text:hover {
+    color: #2bc2e8;
+}
+
+.audience-filter {
+    padding: 13px 30px 1px 30px;
+    background: #f1f1f1;
+}
+
+.add-filter-or .dropdown-item {
+    width: 500px;
+    white-space: pre-wrap!important;
+    border-bottom: 1px solid #c8c8c8;
+    font-size: 12px;
+    color: #1D3D6F;
+}
+
+.add-filter-or .intro {
+    cursor: auto;
+}
+
+.add-filter-or .dropdown-item:last-child {
+    border-bottom: 0px solid #c8c8c8;
+}
+
+.filter-item-title {
+    font-size: 13px!important;
+    font-weight: 600;
+}
+
+.add-filter-or .dropdown-item.active,
+.add-filter-or .dropdown-item:active {
+    color: #1D3D6F;
+    background-color: transparent;
+}
+
+.reomve-filter {
+    width: 12px;
+}
+
+>>>>>>> target audience
 .w-70 {
     width: 70px!important;
 }
@@ -1251,6 +1325,121 @@ facebook post style
 
 
 /*
+<<<<<<< HEAD
+=======
+======================================================================
+modal drawer
+======================================================================
+*/
+
+.modal {
+    /*From Right/Left */
+}
+
+.modal.drawer {
+    display: flex !important;
+    pointer-events: none;
+}
+
+.modal.drawer * {
+    pointer-events: none;
+}
+
+.modal.drawer .modal-dialog {
+    margin: 0px;
+    display: flex;
+    flex: auto;
+    transform: translate(25%, 0);
+}
+
+.modal.drawer .modal-dialog .modal-content {
+    border: none;
+    border-radius: 0px;
+}
+
+.modal.drawer .modal-dialog .modal-content .modal-body {
+    overflow: auto;
+}
+
+
+/* 
+.drawer.show {
+    pointer-events: auto;
+}
+*/
+
+.drawer.show * {
+    pointer-events: auto;
+}
+
+.modal.drawer.show .modal-dialog {
+    transform: translate(0, 0);
+}
+
+.modal.drawer.right-align {
+    flex-direction: row-reverse;
+}
+
+.modal.drawer.left-align:not(.show) .modal-dialog {
+    transform: translate(-25%, 0);
+}
+
+
+/*
+======================================================================
+target audience filter
+======================================================================
+*/
+
+.tag {
+    font-size: 12px;
+    background-color: #d6d6d659;
+    border: 1px solid #1D3D6F;
+    color: #1D3D6F;
+    line-height: 22px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 8px;
+    position: relative;
+    cursor: inherit;
+    display: inline-flex;
+    font-weight: 600;
+    max-width: 100%;
+    overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+    vertical-align: 8px;
+    padding: 3px 4px 0px 5px;
+    padding-right: 6px !important;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.tag>span {
+    display: inline-block;
+    max-width: 94%;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    color: #1D3D6F;
+}
+
+.remove {
+    vertical-align: bottom;
+    top: -3px;
+    padding: 0px!important;
+    display: inline-block;
+    color: #1D3D6F;
+    cursor: pointer;
+    margin: 0 0 0 0.3em;
+    position: relative;
+}
+
+
+/*
+>>>>>>> target audience
 =======================================================================
 media query 1
 =======================================================================
