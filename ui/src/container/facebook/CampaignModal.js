@@ -5,6 +5,7 @@ import FacebookBillAndSchedule from './billAndSchedule'
 
 function CampaignModal () {
     return (
+        <>
         <div className="modal fade run-ads" id="run-ads" tabIndex="-1" role="dialog" aria-labelledby="run-ads" aria-hidden="true">
             <div className="modal-dialog" role="document">
                 <div className="modal-content"> 
@@ -26,7 +27,7 @@ function CampaignModal () {
                                 </div>
                                 <div className="col-md-4">
                                     <div className="run-ads-edit-exit float-right">                                                                                                                       
-                                        <button type="button" className="btn ad-publish-btn">Publish</button>                                                  
+                                        <button className="btn ad-publish-btn" type="button" data-toggle="modal" data-target="#publishModal">Publish</button>                                                
                                     </div>
                                 </div>
                             </div>
@@ -63,6 +64,18 @@ function CampaignModal () {
                 </div>
             </div>
         </div>
+        <div className="modal fade publish" id="publishModal" tabIndex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
+            <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                    <div className="text-center">
+                        <button className="btn publish-btn-yes mr-2" type="button">Yes</button>
+                        <button className="btn publish-btn-no" type="button">No</button>
+                    </div>  
+                </div>
+            </div>
+        </div>
+        </>
+        
     )
 }
 
