@@ -1,6 +1,5 @@
 export {
-  getCampaigns,
-  updateCampaign,
+  saveFacebookCampaign,
   saveFacebookUser,
   getFacebookAdAccounts,
   saveFacebookAdsAccount,

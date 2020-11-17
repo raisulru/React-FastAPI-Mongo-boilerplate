@@ -10,7 +10,7 @@ const facebookState = {
     campaign: '',
     body_text: '',
     heading: '',
-    cta: ''
+    cta: {}
   },
   user: {
     accessToken: null,
@@ -33,7 +33,7 @@ export const facebook = (state = facebookState, action) => {
   const { type, payload } = action;
   return produce(state, (draft) => {
     switch (type) {
-      case types.CREATE_CAMPAIGN_SUCCESS:
+      case types.SAVE_FACEBOOK_CAMPAIGN:
         draft.campaign = payload
         break;
       case types.GET_FACEBOOK_AD_ACCOUNTS_SUCCESS:
@@ -61,6 +61,9 @@ export const facebook = (state = facebookState, action) => {
         draft.user = payload.data
         draft.connected = true
         break;
+      case types.GET_FACEBOOK_CTA_SUCCESS:
+        draft.CTA = payload.data
+        break;
       case types.GET_FACEBOOK_PAGES_SUCCESS:
         const initialLeadSync = payload.data.map((page) => {
           page.lead_sync = false;
@@ -75,8 +78,8 @@ export const facebook = (state = facebookState, action) => {
         draft.campaignList = payload
         break
       case types.GET_FACEBOOK_CAMPAIGN_LIST_SUCCESS:
-          draft.campaignList = payload
-          break
+        draft.campaignList = payload
+        break
       default:
         return state;
     }

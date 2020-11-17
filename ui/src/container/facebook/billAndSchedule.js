@@ -3,10 +3,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { Link } from "react-router-dom";
-import { AdsBar } from '../common/components/adsBar';
 import PostPreview from './components/postPreview';
-import Clock from '../../images/clock.svg'
 /**
  * PROPERTIES & FUNCTION 
  * 
@@ -72,14 +69,7 @@ function FacebookBillAndSchedule() {
                   <div className="col-md-1">
                   </div>
                   <div className="col-md-10">
-                  <PostPreview 
-                    page={campaign.page} 
-                    adAccount={campaign.ad_account} 
-                    cta={campaign.cta}
-                    heading={campaign.heading}
-                    text={campaign.body_text}
-                    audienceSize={estimatedAudienceSize}
-                        />
+                  <PostPreview />
                   </div>
             </div>
         </div>

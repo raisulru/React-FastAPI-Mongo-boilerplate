@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Select from 'react-select';
+import { useAlert } from 'react-alert'
+
 import PostPreview from './components/postPreview';
 import RemoveIcon from '../../images/delete.svg'
 import {
@@ -14,16 +16,51 @@ import CustomeAudience from './components/customAudience'
 import PersonalAttributes from './components/personalAttribute'
 import CustomAudienceExclude from './components/customAudienceExclude'
 
+function CardComponent () {
+    return (
+        <div  className="audience-filter m-b-10">
+            <div className="form-group">
+                <span className="location-span">Have any of the following:</span>  <button type="button" className="btn float-right"> <img src={RemoveIcon} className="reomve-filter" alt="Remove"/></button> <br/>
+                <label>Contact List audience</label> <br/>
+                <span className="tag label label-info">
+                    <span>ADN Workshop_PIIT_audience_file_Custom</span>
+                    <button type="button" className="btn remove">× </button>
+                </span>     
+                <span className="tag label label-info">
+                    <span>ADN Servers Lead</span>
+                    <button type="button" className="btn remove">× </button>
+                </span>  
+
+                <div className="add-filter-or dropdown">
+                    <a className="dropdown-toggle add-filter-text" type="button" id="filtermenubtn1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        + Add Filter( OR )
+                    </a>
+                    <div className="dropdown-menu" aria-labelledby="filtermenubtn1">
+                        <a className="dropdown-item intro" href="#">Adding filters within a group will target people that match any of these filters. Generally, this will increase your audience.</a>
+                        <button type="button" className="dropdown-item add-exlusions-btn" data-toggle="modal" data-target="#custom-audience">
+                        <span className="filter-item-title">Retargeting and lookalike audiences</span> <br/> Contact list, website visitors, and lookalike audiences.
+                    </button> 
+                        <a className="dropdown-item" href="#"> <span className="filter-item-title">Personal attributes</span> <br/> Interests, demographics, and behaviors</a>
+                    </div>
+                </div>                              
+            </div>
+        </div> 
+    )
+}
+
 function FacebookAudienceTargeting() {
   const SpecialCategory = ['HOUSING', 'CREDIT', 'EMPLOYMENT', 'ISSUES_ELECTIONS_POLITICS', 'NONE']
   const dispatch = useDispatch()
+  const alert = useAlert()
+  const [cards, setCards] = useState([0])
+
   const [audienceType, setAudienceType] = useState('new')
 
   const { campaign, user } = useSelector((state) => state.facebook);
   const { estimatedAudienceSize, locations, customAudience } = useSelector((state) => state.facebookSearch);
 
   useEffect(() => {
-      dispatch(getFacebookCustomAudience(user.accessToken))
+      
   }, [dispatch])
 
   const estimatedAudienceSizeHandler = () => {
@@ -31,6 +68,21 @@ function FacebookAudienceTargeting() {
     const specification = '{"geo_locations": {"countries": ["BD"]},"age_min": 18,"age_max": 65}'
     dispatch(getEstimatedAudienceSize(user.accessToken, accountID, specification))
   }
+
+  const getCustomAudience = () => {
+      if (!campaign.ad_account) {
+          return
+      }
+    dispatch(getFacebookCustomAudience(user.accessToken, campaign.ad_account.id))
+  }
+
+  const customAudienceHandler = (e) => {
+      console.log(e.target.value)
+  }
+
+  const customAudienceSearchHandler = (e) => {
+    console.log(e.target.value)
+}
 
   const geoLocationHandler = (e) => {
     console.log(e)
@@ -43,9 +95,17 @@ function FacebookAudienceTargeting() {
   const locationSearchHandler = (string) => {
     dispatch(searchFacebookLocation(user.accessToken, string))
   }
+
+  const addCard = () => {
+      let lastItem = cards[cards.length-1]
+    
+      cards.push(
+        lastItem += 1
+      )
+      setCards(cards)
+      console.log(cards, '#####################')
+  }
   
-
-
   return (
     <>
     <div className="lead-generation-ad">
@@ -73,12 +133,31 @@ function FacebookAudienceTargeting() {
                         <div className="form-group">
                             <label htmlFor="Audience">Audience* </label> <br/>
                             <div className="form-check form-check-inline">
-                                <input className="form-check-input" type="radio" id="newAudience" checked={audienceType === 'new'} value="new" onChange={() => setAudienceType('new')}/>
+                                <input 
+                                    className="form-check-input" 
+                                    type="radio" id="newAudience" 
+                                    checked={audienceType === 'new'} 
+                                    value="new" 
+                                    onChange={() => setAudienceType('new')}
+                                    />
                                 <label className="form-check-label" htmlFor="newAudience">New Audience</label>
                             </div>
                             <div className="form-check form-check-inline">
-                                <input className="form-check-input" type='radio' id="existingAudience" checked={audienceType === 'existing'} value="existing" onChange={() => setAudienceType('existing')}/>
-                                <label className="form-check-label" htmlFor="existingAudience">Select a saved audience</label>
+                                <input 
+                                    className="form-check-input" 
+                                    type='radio' 
+                                    id="existingAudience" 
+                                    checked={audienceType === 'existing'} 
+                                    value="existing" 
+                                    onChange={() => setAudienceType('existing')}
+                                    disabled={!campaign.ad_account ? true:false}
+                                    onClick={getCustomAudience}
+                                    />
+                                <label data-toggle="tooltip" 
+                                    data-placement="top" 
+                                    title={!campaign.ad_account ? "Please ad an account!":''} 
+                                    className="form-check-label" 
+                                    htmlFor="existingAudience">Select a saved audience</label>
                             </div>
                           
                         </div>
@@ -130,71 +209,48 @@ function FacebookAudienceTargeting() {
                               
                             </div>
                         </div>
-                        <div  className="audience-filter m-b-10">
-                            <div className="form-group">
-                                <span className="location-span">Have any of the following:</span>  <button type="button" className="btn float-right"> <img src={RemoveIcon} className="reomve-filter" alt="Remove"/></button> <br/>
-                                <label>Contact List audience</label> <br/>
-                                <span className="tag label label-info">
-                                    <span>ADN Workshop_PIIT_audience_file_Custom</span>
-                                      <button type="button" className="btn remove">× </button>
-                                </span>     
-                                <span className="tag label label-info">
-                                      <span>ADN Servers Lead</span>
-                                      <button type="button" className="btn remove">× </button>
-                                </span>  
-
-                                <div className="add-filter-or dropdown">
-                                    <a className="dropdown-toggle add-filter-text" type="button" id="filtermenubtn1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        + Add Filter( OR )
-                                    </a>
-                                    <div className="dropdown-menu" aria-labelledby="filtermenubtn1">
-                                        <a className="dropdown-item intro" href="#">Adding filters within a group will target people that match any of these filters. Generally, this will increase your audience.</a>
-                                        <button type="button" className="dropdown-item add-exlusions-btn" data-toggle="modal" data-target="#custom-audience">
-                                        <span className="filter-item-title">Retargeting and lookalike audiences</span> <br/> Contact list, website visitors, and lookalike audiences.
-                                    </button> 
-                                        <a className="dropdown-item" href="#"> <span className="filter-item-title">Personal attributes</span> <br/> Interests, demographics, and behaviors</a>
-                                    </div>
-                                </div>                              
-                            </div>
-
-                        </div> 
+                        
                         <label htmlFor="and"> And </label> <br/> 
-                        <div  className="audience-filter m-b-10">
-                            <div className="form-group">
-                            <span className="location-span">Have any of the following:</span>  <button type="button" className="btn float-right"> <img src={RemoveIcon} className="reomve-filter" alt="Remove"/></button> <br/>
-                                <label>Life Events</label> <br/>
-                                <span className="tag label label-info">
-                                    <span>Away from family</span>
-                                      <button type="button" className="btn remove">× </button>
-                                </span>     
-                                <span className="tag label label-info">
-                                      <span>Away from hometown</span>
-                                      <button type="button" className="btn remove">× </button>
-                                </span>  
-                                <span className="tag label label-info">
-                                      <span>Newly-engaged (6 months)</span>
-                                      <button type="button" className="btn remove">× </button>
-                                </span>  
-                            
-                                
-                                <div className="add-filter-or dropdown">
-                                    <a className="dropdown-toggle add-filter-text" type="button" id="filtermenubtn2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        + Add Filter( OR )
-                                    </a>
-                                    <div className="dropdown-menu" aria-labelledby="filtermenubtn2">
-                                    <a className="dropdown-item intro" href="#">Adding filters within a group will target people that match any of these filters. Generally, this will increase your audience.</a>
-                                        <a className="dropdown-item" href="#"> <span className="filter-item-title">Retargeting and lookalike audiences</span> <br/> Contact list, website visitors, and lookalike audiences.</a>
-                                        <a className="dropdown-item" href="#"> <span className="filter-item-title">Personal attributes</span> <br/> Interests, demographics, and behaviors</a>
-                                    </div>
-                                </div>                              
-                            </div>
+                        {
+                            cards.map(card => 
+                                <div  className="audience-filter m-b-10" key={card}>
+                                    <h1>{card}</h1>
+                                    <div className="form-group">
+                                        <span className="location-span">Have any of the following:</span>  <button type="button" className="btn float-right"> <img src={RemoveIcon} className="reomve-filter" alt="Remove"/></button> <br/>
+                                        <label>Contact List audience</label> <br/>
+                                        <span className="tag label label-info">
+                                            <span>ADN Workshop_PIIT_audience_file_Custom</span>
+                                            <button type="button" className="btn remove">× </button>
+                                        </span>     
+                                        <span className="tag label label-info">
+                                            <span>ADN Servers Lead</span>
+                                            <button type="button" className="btn remove">× </button>
+                                        </span>  
 
-                        </div>  
-                         <a className="add-filter-text m-b-10" type="button" id="narrow-audience-further">
+                                        <div className="add-filter-or dropdown">
+                                            <a className="dropdown-toggle add-filter-text" type="button" id="filtermenubtn1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                + Add Filter( OR )
+                                            </a>
+                                            <div className="dropdown-menu" aria-labelledby="filtermenubtn1">
+                                                <a className="dropdown-item intro" href="#">Adding filters within a group will target people that match any of these filters. Generally, this will increase your audience.</a>
+                                                <button type="button" className="dropdown-item add-exlusions-btn" data-toggle="modal" data-target="#custom-audience">
+                                                <span className="filter-item-title">Retargeting and lookalike audiences</span> <br/> Contact list, website visitors, and lookalike audiences.
+                                            </button> 
+                                                <a className="dropdown-item" href="#"> <span className="filter-item-title">Personal attributes</span> <br/> Interests, demographics, and behaviors</a>
+                                            </div>
+                                        </div>                              
+                                    </div>
+                                </div> 
+                                )
+                        }
+                        <div>
+                        <a className="add-filter-text m-b-10" onClick={addCard} type="button" id="narrow-audience-further">
                               + Narrow audience further (AND)
                          </a>
-                         <label>Exclude <br/> 
-                        <span className="location-span"> Do not target people who match the following criteria</span></label> 
+                        </div>
+                         <div>
+                         <label>Exclude </label>
+                         </div>
                         <div  className="audience-filter m-b-10">
                             <div className="form-group">
                                 <span className="location-span">Have any of the following:</span>  <button type="button" className="btn float-right"> <img src={RemoveIcon} className="reomve-filter" alt="Remove"/></button> <br/>
@@ -218,12 +274,16 @@ function FacebookAudienceTargeting() {
                       </div>
                       : 
                       <Select
-                            closeMenuOnSelect={false}
-                            onChange={geoLocationHandler}
-                            options={locations}
-                            isClearable={true}
-                            isSearchable={true}
-                            isMulti
+                        closeMenuOnSelect={true}
+                        // onChange={customAudienceHandler}
+                        options={customAudience}
+                        getOptionLabel={option =>
+                            `${option.name}`
+                        }
+                        getOptionValue={option => `${option.name}`}
+                        // onInputChange={customAudienceSearchHandler}
+                        isClearable={true}
+                        isSearchable={true}
                           />
                         }
                     </form>
@@ -236,14 +296,7 @@ function FacebookAudienceTargeting() {
                   <div className="col-md-1">
                   </div>
                   <div className="col-md-10">
-                  <PostPreview 
-                    page={campaign.page} 
-                    adAccount={campaign.ad_account} 
-                    cta={campaign.cta}
-                    heading={campaign.heading}
-                    text={campaign.body_text}
-                    audienceSize={estimatedAudienceSize}
-                        />
+                  <PostPreview />
                   </div>
                 </div>
             </div>

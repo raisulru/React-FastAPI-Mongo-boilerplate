@@ -6,71 +6,41 @@ import {
   getFacebookAdAccounts, 
   getFacebookPages, 
   getFacebookCallToActionEnums,
-  createFacebookAds
+  saveFacebookCampaign
 } from '../../store/facebookResource';
+import copyObject from '../../utils/copyObject'
 
 
 
 function CreateFacebookContent () {
   const dispatch = useDispatch()
   const [campaignType, setCampaignType] = useState('new')
-  const [adAccount, setAdAccount] = useState({})
-  const [page, setPage] = useState({})
-  const [campaign, setCampaign] = useState('')
-  const [textBody, setTextBody] = useState('')
-  const [heading, setHeading] = useState('')
-  const [ctaValue, setCtaValue] = useState({})
-  
+
   useEffect(() => {
     dispatch(getFacebookPages(user.id, user.accessToken))
     dispatch(getFacebookAdAccounts(user.accessToken))
     dispatch(getFacebookCallToActionEnums())
   }, [dispatch])
   
-  const { facebookPages, user, adAccounts, CTA } = useSelector((state) => state.facebook);
+  const { facebookPages, user, adAccounts, CTA, campaign } = useSelector((state) => state.facebook);
   const { estimatedAudienceSize } = useSelector((state) => state.facebookSearch);
 
-  const pageHandler = (e) => {
-    const value = _.find(facebookPages, ['id', e.target.value])
-    setPage(value)
-  }
+  const inputHandler = (e) => {
+    let value = e.target.value
+    const name = e.target.name
 
-  const adAccountHandler = (e) => {
-    const value = _.find(adAccounts, ['id', e.target.value])
-    setAdAccount(value)
-  }
-
-  const campaignHandler = (e) => {
-    setCampaign(e.target.value)
-  }
-
-  const bodyHandler = (e) => {
-    setTextBody(e.target.value)
-  }
-
-  const headingHandler = (e) => {
-    setHeading(e.target.value)
-  }
-
-  const ctaHandler = (e) => {
-    const value = _.find(CTA, ['value', e.target.value])
-    setCtaValue(value)
-  }
-
-  const handleNext = () => {
-    const payload = {
-      ad_account: adAccount,
-      page: page,
-      campaign: campaign,
-      body_text: textBody,
-      heading: heading,
-      cta: ctaValue
+    if (name==='ad_account') {
+      value = _.find(adAccounts, ['id', value])
+    } else if (name==='page') {
+      value = _.find(facebookPages, ['id', value])
+    } else if (name==='cta') {
+      value = _.find(CTA, ['value', value])
     }
-    dispatch(createFacebookAds(payload))
+    const payload = copyObject(campaign)
+    payload[name] = value
+    dispatch(saveFacebookCampaign(payload))
   }
-
-  
-    return (
+  return (
       <>
         <div className="lead-generation-ad">
         <div className="container-fluid">
@@ -85,7 +55,7 @@ function CreateFacebookContent () {
                         <form action="#">
                             <div className="form-group">
                                 <label htmlFor="adaccount">Ad account*</label>
-                                <select onChange={adAccountHandler} className="form-control" id="adaccount">
+                                <select defaultValue={campaign.ad_account && campaign.ad_account.id} onChange={inputHandler} className="form-control" name="ad_account" id="adaccount">
                                   <option>Select Ad Account</option>
                                   {
                                    adAccounts && adAccounts.map(adAccount => 
@@ -96,7 +66,7 @@ function CreateFacebookContent () {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="pages">Facebook page* <i className="fas fa-info-circle"></i> </label>
-                                <select className="form-control" onChange={pageHandler} id="pages">
+                                <select defaultValue={campaign.page && campaign.page.id} className="form-control" onChange={inputHandler} name="page" id="pages">
                                   <option selected_value={undefined}>Select Page</option>
                                   {
                                     facebookPages.map(page => 
@@ -118,9 +88,9 @@ function CreateFacebookContent () {
                                 <div className="form-group">
                                   {
                                     campaignType === 'new' ? 
-                                    <input onChange={campaignHandler} type='text' className="form-control" /> 
+                                    <input onChange={inputHandler} type='text' value={campaign.new_campaign} name="new_campaign" className="form-control" /> 
                                     : 
-                                    <select onChange={campaignHandler} className="form-control" id="leadgeneration-ad">
+                                    <select onChange={inputHandler} className="form-control" name="campaign" id="leadgeneration-ad">
                                       <option>Lead generation ad- 22/ 10/2020 5:00pm</option>
                                       <option>Lead generation ad- 23/ 10/2020 5:00pm</option>
                                       <option>Lead generation ad- 24/ 10/2020 5:00pm</option>
@@ -134,19 +104,28 @@ function CreateFacebookContent () {
                                   image/video*
                                 <i className="fas fa-info-circle"></i>
                                 </label>
-                                <input type="file" className="form-control-file" id="image-video"/>
+                                <input type="file" className="form-control-file" onChange={inputHandler} name="image" id="image-video"/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="text-body-copy"> Text body copy  <i className="fas fa-info-circle"></i></label>
-                                <textarea onChange={bodyHandler} className="form-control" rows="5" id="text-body-copy" placeholder="write a message that clearly tells people about what you are promoting"></textarea>
+                                <textarea 
+                                onChange={inputHandler} 
+                                name="body_text" 
+                                value={campaign.body_text}
+                                className="form-control" 
+                                rows="5" 
+                                id="text-body-copy" 
+                                placeholder="write a message that clearly tells people about what you are promoting">
+
+                                </textarea>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="adaccount">Headline* <i className="fas fa-info-circle"></i> </label>
-                                <input onChange={headingHandler} type='text' className="form-control" />
+                                <input value={campaign.heading} onChange={inputHandler} name="heading" type='text' className="form-control" />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="adaccount">Call to action* </label>
-                                <select onChange={ctaHandler} className="form-control" id="adaccount">
+                                <select defaultValue={campaign.cta && campaign.cta.value} onChange={inputHandler} name="cta" className="form-control" id="adaccount">
                                    {
                                     CTA ? CTA.map(ct => 
                                     <option key={ct.name} value={ct.value}>{ct.name}</option>
@@ -165,14 +144,7 @@ function CreateFacebookContent () {
                       <div className="col-md-1">
                       </div>
                       <div className="col-md-10">
-                        <PostPreview 
-                        page={page} 
-                        adAccount={adAccount} 
-                        cta={ctaValue}
-                        heading={heading}
-                        text={textBody}
-                        audienceSize={estimatedAudienceSize}
-                        />
+                        <PostPreview />
                       </div>
                 </div>
             </div>

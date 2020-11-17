@@ -16,31 +16,15 @@ export const createFacebookAds = (payload) => ({
   },
 });
 
-export const updateCampaign = (campaignID, payload) => ({
-  type: types.UPDATE_CAMPAIGN,
-  payload: {
-    path: `/facebook/campaigns/${campaignID}`,
-    method: 'PUT',
-    data: payload,
-  },
+export const saveFacebookCampaign = (payload) => ({
+  type: types.SAVE_FACEBOOK_CAMPAIGN,
+  payload: payload,
   meta: {
-    api: true,
-    successMessage: 'Campaign Updated successfuly !',
-    errorMessage: 'Campaign not updated !',
+    api: false,
+    errorMessage: "Campaign not saved",
   },
 });
 
-export const getCampaigns = () => ({
-  type: types.GET_CAMPAIGN_LIST,
-  payload: {
-    path: `/categories`,
-    method: 'GET',
-  },
-  meta: {
-    api: false,
-    errorMessage: 'Campaigns not found',
-  },
-});
 
 export const saveFacebookUser = (payload) => ({
   type: types.SAVE_FACEBOOK_USER,
