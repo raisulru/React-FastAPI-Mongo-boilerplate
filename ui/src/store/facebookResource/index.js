@@ -11,7 +11,23 @@ export {
   createFacebookAds,
   searchFacebookLocation,
   getEstimatedAudienceSize,
-  updateAdAccountConnection
+  updateAdAccountConnection,
+  getFacebookCustomAudience,
+  getAllTargetCategory,
+  browseBehaviour,
+  browseInterest,
+  searchInterest,
+  searchEducationSchool,
+  searchEducationMajor,
+  searchWorkEmployer,
+  searchJobTitle,
+  browseDemographics,
+  browseLifeEvents,
+  browseIndustries,
+  browseIncome,
+  browseFamilyStatus,
+  browseUserDevice,
+  browseUserOS
   } from './action';
   
 export { facebook, facebookSearch } from './reducer';

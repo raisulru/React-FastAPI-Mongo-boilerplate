@@ -7,20 +7,23 @@ import PostPreview from './components/postPreview';
 import RemoveIcon from '../../images/delete.svg'
 import {
   searchFacebookLocation,
-  getEstimatedAudienceSize
+  getEstimatedAudienceSize,
+  getFacebookCustomAudience
 } from '../../store/facebookResource';
 import CustomeAudience from './components/customAudience'
 import PersonalAttributes from './components/personalAttribute'
 import CustomAudienceExclude from './components/customAudienceExclude'
 
 function FacebookAudienceTargeting() {
+  const SpecialCategory = ['HOUSING', 'CREDIT', 'EMPLOYMENT', 'ISSUES_ELECTIONS_POLITICS', 'NONE']
   const dispatch = useDispatch()
   const [audienceType, setAudienceType] = useState('new')
 
-  const SpecialCategory = ['HOUSING', 'CREDIT', 'EMPLOYMENT', 'ISSUES_ELECTIONS_POLITICS', 'NONE']
+  const { campaign, user } = useSelector((state) => state.facebook);
+  const { estimatedAudienceSize, locations, customAudience } = useSelector((state) => state.facebookSearch);
 
   useEffect(() => {
-
+      dispatch(getFacebookCustomAudience(user.accessToken))
   }, [dispatch])
 
   const estimatedAudienceSizeHandler = () => {
@@ -41,8 +44,7 @@ function FacebookAudienceTargeting() {
     dispatch(searchFacebookLocation(user.accessToken, string))
   }
   
-  const { campaign, user } = useSelector((state) => state.facebook);
-  const { estimatedAudienceSize, locations } = useSelector((state) => state.facebookSearch);
+
 
   return (
     <>

@@ -45,14 +45,15 @@ function AdAccountConnect (props) {
   }
 
   const submitConnectedAdAccounts = () => {
-    adAccounts.map(adAccount => {
-      adAccount.userID = user.id
-      adAccount.act_account_id = adAccount.id
+    const adAccountList = JSON.parse(JSON.stringify(adAccounts))
+
+    adAccountList.map(adAccount => {
+      adAccount.user_id = user.id
       return adAccount
     })
 
     dispatch(saveFacebookAdsAccount({
-      "ads_account_list": adAccounts
+      "ads_account_list": adAccountList
     }))
   }
     return (
