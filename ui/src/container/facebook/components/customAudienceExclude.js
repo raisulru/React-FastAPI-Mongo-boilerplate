@@ -1,14 +1,16 @@
 import React from 'react';
-import SearchIcon from '../../images/search.svg'
-function AdExclution() {
+import SearchIcon from '../../../images/search.svg'
+
+
+function CustomAudienceExclude() {
     return (
 
-        <div className="modal fade drawer right-align" id="add-audience-exclusion-target" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade drawer right-align" id="custom-audience-exclude" tabIndex="-1" role="dialog" aria-labelledby="custom-audience-exclude" aria-hidden="true">
         <div className="modal-dialog" role="document">
             <div className="modal-content">
             <div className="modal-header">
-                <h5 className="modal-title text-white" id="exampleModalLabel">Add audience</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <h5 className="modal-title text-white" id="custom-audience-label">Add audience</h5>
+                <button type="button" className="close" data-target="custom-audience-exclude" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -450,15 +452,12 @@ function AdExclution() {
             <div className="modal-footer">
             
                 <button type="button" className="btn btn-primary">Save</button>
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" className="btn btn-secondary" data-target="#custom-audience-exclude" data-dismiss="modal" aria-label="Close">Cancel</button>
             </div>
             </div>
         </div>
         </div>
-
-
     )
-
 }
 
-export default AdExclution
+export default CustomAudienceExclude
