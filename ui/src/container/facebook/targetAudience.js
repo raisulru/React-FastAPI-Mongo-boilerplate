@@ -39,7 +39,9 @@ function FacebookAudienceTargeting() {
     dispatch(searchFacebookLocation(user.accessToken, string))
   }
   
-  const { campaign, user, locations, estimatedAudienceSize } = useSelector((state) => state.facebook);
+  const { campaign, user } = useSelector((state) => state.facebook);
+  const { estimatedAudienceSize, locations } = useSelector((state) => state.facebookSearch);
+
   return (
     <>
     <div className="lead-generation-ad">

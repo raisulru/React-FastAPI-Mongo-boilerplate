@@ -13,7 +13,8 @@ import Clock from '../../images/clock.svg'
  */
 
 function FacebookBillAndSchedule() {
-  const { campaign, estimatedAudienceSize } = useSelector((state) => state.facebook);
+  const { campaign } = useSelector((state) => state.facebook);
+  const { estimatedAudienceSize } = useSelector((state) => state.facebookSearch);
 
   return (
     <>

@@ -10,7 +10,8 @@ export {
   getFacebookCallToActionEnums,
   createFacebookAds,
   searchFacebookLocation,
-  getEstimatedAudienceSize
+  getEstimatedAudienceSize,
+  updateAdAccountConnection
   } from './action';
   
 export { facebook, facebookSearch } from './reducer';

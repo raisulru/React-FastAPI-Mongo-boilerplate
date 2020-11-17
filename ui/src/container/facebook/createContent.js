@@ -27,7 +27,8 @@ function CreateFacebookContent () {
     dispatch(getFacebookCallToActionEnums())
   }, [dispatch])
   
-  const { facebookPages, user, adAccounts, CTA, estimatedAudienceSize } = useSelector((state) => state.facebook);
+  const { facebookPages, user, adAccounts, CTA } = useSelector((state) => state.facebook);
+  const { estimatedAudienceSize } = useSelector((state) => state.facebookSearch);
 
   const pageHandler = (e) => {
     const value = _.find(facebookPages, ['id', e.target.value])
@@ -87,7 +88,7 @@ function CreateFacebookContent () {
                                 <select onChange={adAccountHandler} className="form-control" id="adaccount">
                                   <option>Select Ad Account</option>
                                   {
-                                    adAccounts.map(adAccount => 
+                                   adAccounts && adAccounts.map(adAccount => 
                                       <option key={adAccount.id} value={adAccount.id}>{adAccount.name}</option>
                                     )
                                   }

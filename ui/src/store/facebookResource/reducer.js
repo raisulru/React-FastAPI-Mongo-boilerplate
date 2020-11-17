@@ -37,7 +37,25 @@ export const facebook = (state = facebookState, action) => {
         draft.campaign = payload
         break;
       case types.GET_FACEBOOK_AD_ACCOUNTS_SUCCESS:
-        draft.adAccounts = payload.data
+        const modifiedAdAccounts = _.map(payload.data, (account) => {
+          account.connected = false
+          account.auto_track = false
+          return account
+        })
+        draft.adAccounts = modifiedAdAccounts
+        break;
+      case types.UPDATE_AD_ACCOUNT_CONNECTION:
+        const adAccountList = JSON.parse(JSON.stringify(payload.adAccounts))
+        adAccountList.map(adAccount => {
+          if (adAccount.id === payload.data.id) {
+            adAccount.connected = payload.data.connected
+            adAccount.auto_track = payload.data.auto_track
+          } else if (adAccount.account_id === payload.data.id) {
+            adAccount.auto_track = payload.data.auto_track
+          }
+          return adAccount
+        })
+        draft.adAccounts = adAccountList
         break;
       case types.SAVE_FACEBOOK_USER:
         draft.user = payload.data

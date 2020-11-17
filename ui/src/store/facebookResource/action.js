@@ -68,6 +68,15 @@ export const getFacebookAdAccounts = (accessToken) => ({
   },
 });
 
+export const updateAdAccountConnection = (payload) => ({
+  type: types.UPDATE_AD_ACCOUNT_CONNECTION,
+  payload: payload,
+  meta: {
+    api: false,
+    errorMessage: "User coudn't connect",
+  },
+});
+
 export const saveFacebookAdsAccount = (payload) => ({
   type: types.SAVE_FACEBOOK_AD_ACCOUNT,
   payload: {

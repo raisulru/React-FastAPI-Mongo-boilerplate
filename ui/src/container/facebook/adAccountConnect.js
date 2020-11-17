@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import _ from 'lodash'
-import { getFacebookAdAccounts, saveFacebookAdsAccount } from '../../store/facebookResource';
+import { 
+  getFacebookAdAccounts, 
+  saveFacebookAdsAccount, 
+  updateAdAccountConnection 
+} from '../../store/facebookResource';
 import { AdsBar } from '../common/components/adsBar'
 
 function AdAccountConnect (props) {
@@ -17,57 +21,40 @@ function AdAccountConnect (props) {
     dispatch(getFacebookAdAccounts(user.accessToken))
   }, [dispatch])
   
-  
-  let adAccountsCopy = []
-
-  _.forEach(adAccounts, (adAccount) => {
-    console.log(adAccount, '###############')
-    adAccountsCopy.push({
-      name: adAccount.name,
-      id: adAccount.id,
-      account_id: adAccount.account_id,
-      connected: false,
-      auto_track: false
-    })
-  })
-
-  const [adAccountList, setadAccountList] = useState(adAccountsCopy)
-
   const handleAccountAutoTracking = (event) => {
-    const adAccountTracking = adAccountList.map(adAccount => {
-      if (adAccount.id === event.target.id) {
-        adAccount.auto_track = event.target.checked
-        return adAccount
+    const payload = {
+      adAccounts: adAccounts,
+      data: {
+        auto_track: event.target.checked,
+        id: event.target.id
       }
-      return adAccount
-    })
-    setadAccountList(adAccountTracking)
+    }
+    dispatch(updateAdAccountConnection(payload))
   }
 
   const handleAccountConnection = (event) => {
-    const adAccountConnection = adAccountList.map(adAccount => {
-      if (adAccount.id === event.target.id) {
-        adAccount.connected = event.target.checked
-        adAccount.auto_track = event.target.checked
-        return adAccount
+    const payload = {
+      adAccounts: adAccounts,
+      data: {
+        connected: event.target.checked,
+        auto_track: event.target.checked,
+        id: event.target.id
       }
-      return adAccount
-    })
-    setadAccountList(adAccountConnection)
+    }
+    dispatch(updateAdAccountConnection(payload))
   }
 
   const submitConnectedAdAccounts = () => {
-    adAccountList.map(adAccount => {
+    adAccounts.map(adAccount => {
       adAccount.userID = user.id
       adAccount.act_account_id = adAccount.id
       return adAccount
     })
 
     dispatch(saveFacebookAdsAccount({
-      "ads_account_list": adAccountList
+      "ads_account_list": adAccounts
     }))
   }
-
     return (
       <>
       <AdsBar name="Ads Account"/>
@@ -90,10 +77,10 @@ function AdAccountConnect (props) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {adAccountList.map((adAccount) => 
+                                    {adAccounts.map((adAccount) => 
                                       <tr key={adAccount.id}>
                                         <td>
-                                          <input id={adAccount.id} checked={adAccount.connected} onChange={handleAccountConnection} type="checkbox" name="add-acount-connection"/>
+                                          <input id={adAccount.id} checked={adAccount.connected} onChange={handleAccountConnection} type="checkbox" name={adAccount.name}/>
                                           <label className="ml-2" htmlFor={adAccount.id}> {adAccount.name}'s Ad Account</label>
                                           <br/>
                                         </td>
@@ -102,7 +89,7 @@ function AdAccountConnect (props) {
                                         </td>
                                         <td>
                                             <label className="switch">
-                                                <input id={adAccount.account_id} checked={adAccount.auto_track} onChange={handleAccountAutoTracking} type="checkbox" name="ad-account-tracking"/>
+                                                <input id={adAccount.account_id} checked={adAccount.auto_track} onChange={handleAccountAutoTracking} type="checkbox" name={adAccount.name}/>
                                                 <span htmlFor={adAccount.account_id} className="slider round"></span>
                                             </label>
                                         </td>
