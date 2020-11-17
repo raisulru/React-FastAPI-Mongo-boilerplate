@@ -7,7 +7,7 @@ function CampaignModal () {
     return (
         <>
         <div className="modal fade run-ads" id="run-ads" tabIndex="-1" role="dialog" aria-labelledby="run-ads" aria-hidden="true">
-            <div className="modal-dialog" role="document">
+            <div className="modal-dialog run-ads-dialog" role="document">
                 <div className="modal-content"> 
                     <div className="modal-header">
                         <div className="container-fluid">

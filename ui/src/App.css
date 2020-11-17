@@ -1,9 +1,9 @@
-/*!
+    /*!
 * Start Bootstrap - Landing Page v5.0.8 (https://startbootstrap.com/themes/landing-page)
 * Copyright 2013-2020 Start Bootstrap
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-landing-page/blob/master/LICENSE)
 */
-
+    
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@500;600;700;800;900&display=swap');
 body {
     background: #F9FCF9;
@@ -31,8 +31,6 @@ body p {
     font-weight: 500;
     line-height: 24px;
 }
-
-
 /*
 =======================================================================
 Commons
@@ -103,8 +101,6 @@ Commons
 .border-0 {
     border: 0px!important;
 }
-
-
 /*
 =======================================================================
 Loader area
@@ -116,8 +112,6 @@ Loader area
     top: 50%;
     left: 50%;
 }
-
-
 /*
 =======================================================================
 menu area
@@ -201,8 +195,6 @@ menu area
     background: #f0f7f1!important;
     color: #222!important;
 }
-
-
 /*
 =======================================================================
 ads area
@@ -235,8 +227,6 @@ ads area
     font-weight: 500;
     line-height: 22px;
 }
-
-
 /*
 =======================================================================
 welcome and connect  area
@@ -294,7 +284,15 @@ welcome and connect  area
     border: 1px solid rgb(231, 228, 228) !important;
     width: 300px;
     position: relative;
-    right: -20px;
+    right: -37px;
+}
+
+.search-control-filter {
+    background-clip: padding-box;
+    background-color: rgb(255, 255, 255) !important;
+    border: 1px solid rgb(231, 228, 228) !important;
+    width: 100%;
+    position: relative;
 }
 
 .lead-generation-ad {
@@ -310,7 +308,7 @@ welcome and connect  area
 
 .lead-generation-ad .form-group,
 .lead-generation-ad .campaign {
-    margin-bottom: 26px;
+    margin-bottom: 10px;
 }
 
 .lead-generation-ad input[type="file" i] {
@@ -477,7 +475,7 @@ welcome and connect  area
     box-shadow: none!important;
 }
 
-.location span {
+.location-span {
     font-size: 11px;
 }
 
@@ -686,8 +684,6 @@ input:checked+.slider:before {
     -ms-transform: translateX(26px);
     transform: translateX(26px);
 }
-
-
 /* Rounded sliders */
 
 .slider.round {
@@ -768,8 +764,6 @@ table td {
     border-bottom: 1px solid #dee2e6!important;
     color: #fff;
 }
-
-
 /*
 =======================================================================
 footer and top footer
@@ -806,8 +800,6 @@ footer and top footer
     color: #fff;
     font-size: 14px;
 }
-
-
 /*
 =========================================================================================================
 login page
@@ -883,13 +875,13 @@ login page
 }
 
 .publish-btn {
-    color: #fff;
-    background-color: #00AA86;
+    color: #00AA86;
+    background-color: #FCFCFD;
     background-clip: padding-box;
-    border: 1px solid #00AA86;
+    border: 1px solid #d9d9d9;
     padding: 8px 100px;
     height: 40px;
-    border-radius: 3px;
+    border-radius: 0px;
 }
 
 .ad-publish-btn {
@@ -898,7 +890,7 @@ login page
     background-clip: padding-box;
     border: 0px solid #d9d9d9;
     padding: 7px 20px;
-    border-radius: 0px;
+    border-radius: 4px;
 }
 
 .publish-btn-yes {
@@ -988,11 +980,10 @@ login page
 .publish .modal-dialog {
     margin-top: 0;
     margin-bottom: 0;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 500px;
+    max-width: 300px;
 }
 
 .run-ads {
@@ -1018,7 +1009,7 @@ login page
 }
 
 @media (min-width: 576px) {
-    .run-ads .modal-dialog {
+    .run-ads-dialog {
         max-width: 100%!important;
         margin: 0px;
     }
@@ -1111,6 +1102,52 @@ login page
     background: #f1f1f1;
 }
 
+.add-filter-text {
+    color: #00AA86;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.add-filter-text:hover {
+    color: #2bc2e8;
+}
+
+.audience-filter {
+    padding: 13px 30px 1px 30px;
+    background: #f1f1f1;
+}
+
+.add-filter-or .dropdown-item {
+    width: 500px;
+    white-space: pre-wrap!important;
+    border-bottom: 1px solid #c8c8c8;
+    font-size: 12px;
+    color: #1D3D6F;
+}
+
+.add-filter-or .intro {
+    cursor: auto;
+}
+
+.add-filter-or .dropdown-item:last-child {
+    border-bottom: 0px solid #c8c8c8;
+}
+
+.filter-item-title {
+    font-size: 13px!important;
+    font-weight: 600;
+}
+
+.add-filter-or .dropdown-item.active,
+.add-filter-or .dropdown-item:active {
+    color: #1D3D6F;
+    background-color: transparent;
+}
+
+.reomve-filter {
+    width: 12px;
+}
+
 .w-70 {
     width: 70px!important;
 }
@@ -1155,15 +1192,11 @@ login page
     overflow-y: scroll;
     height: 801px;
 }
-
-
 /*
 =======================================================================
 facebook post style
 =======================================================================
 */
-
-
 /*-- Content Style --*/
 
 .post-footer-option li {
@@ -1248,8 +1281,240 @@ facebook post style
     font-weight: 500;
     line-height: 22px;
 }
+/*
+======================================================================
+modal drawer
+======================================================================
+*/
 
+.modal {
+    /*From Right/Left */
+}
 
+.modal.drawer {
+    display: flex !important;
+    pointer-events: none;
+}
+
+.modal.drawer * {
+    pointer-events: none;
+}
+
+.modal.drawer .modal-dialog {
+    margin: 0px;
+    display: flex;
+    flex: auto;
+    transform: translate(25%, 0);
+}
+
+.modal.drawer .modal-dialog .modal-content {
+    border: none;
+    border-radius: 0px;
+}
+
+.modal.drawer .modal-dialog .modal-content .modal-body {
+    padding-right: 35px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.ready-box {
+    line-height: 22px;
+    margin-top: -4px;
+    margin-bottom: -4px;
+    margin-left: 30px;
+}
+
+.ready-box .ready-icon {
+    height: 10px;
+    width: 10px;
+    background-color: rgb(0, 189, 165);
+    border-radius: 100%;
+    display: inline-block;
+    margin-right: 6px;
+    top: 2px;
+    position: relative;
+}
+
+.ready-text {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.drawer .list-group-item {
+    border: 0px solid #fff;
+    width: 100%;
+}
+/* 
+.drawer.show {
+pointer-events: auto;
+}
+*/
+
+.drawer.show * {
+    pointer-events: auto;
+}
+
+.modal.drawer.show .modal-dialog {
+    transform: translate(0, 0);
+    min-width: 700px;
+}
+
+.modal.drawer.right-align {
+    flex-direction: row-reverse;
+}
+
+.modal.drawer.left-align:not(.show) .modal-dialog {
+    transform: translate(-25%, 0);
+}
+
+.drawer .badge {
+    color: rgb(124, 152, 182);
+    font-size: 12px;
+    font-weight: 400;
+}
+/*
+===========================================
+custom checkbox input 
+===============================================
+*/
+
+.checkbox {
+    width: 75%;
+}
+
+.custom-checkbox {
+    hyphens: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 0px;
+    cursor: pointer;
+    font-size: 15px;
+    -webkit-user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/* Hide the browser's default checkbox */
+
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+/* Create a custom checkbox */
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 21px;
+    width: 21px;
+    background: transparent;
+    border: 2px solid #00aa86;
+}
+/* On mouse-over, add a grey background color */
+
+.custom-checkbox:hover input~.checkmark {
+    background-color: #eee;
+}
+/* When the checkbox is checked, add a blue background */
+
+.custom-checkbox input:checked~.checkmark {
+    background-color: transparent;
+    border: 2px solid #00aa86;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+/* Show the checkmark when checked */
+
+.custom-checkbox input:checked~.checkmark:after {
+    display: block;
+}
+/* Style the checkmark/indicator */
+
+.custom-checkbox .checkmark:after {
+    left: 6px;
+    top: 1px;
+    width: 7px;
+    height: 12px;
+    border: solid #00aa86;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+/*
+======================================================================
+target audience filter
+======================================================================
+*/
+
+.tag {
+    font-size: 12px;
+    background-color: #d6d6d659;
+    border: 1px solid #1D3D6F;
+    color: #1D3D6F;
+    line-height: 22px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 8px;
+    position: relative;
+    cursor: inherit;
+    display: inline-flex;
+    font-weight: 600;
+    max-width: 100%;
+    overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+    vertical-align: 8px;
+    padding: 3px 4px 0px 5px;
+    padding-right: 6px !important;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.tag>span {
+    display: inline-block;
+    max-width: 94%;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    color: #1D3D6F;
+}
+
+.remove {
+    vertical-align: bottom;
+    top: -3px;
+    padding: 0px!important;
+    display: inline-block;
+    color: #1D3D6F;
+    cursor: pointer;
+    margin: 0 0 0 0.3em;
+    position: relative;
+}
+
+.add-exlusions-btn {
+    color: #00AA86;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.add-exlusions-btn:hover {
+    color: #2bc2e8;
+}
 /*
 =======================================================================
 media query 1
