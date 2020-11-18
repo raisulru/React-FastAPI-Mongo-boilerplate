@@ -15,53 +15,28 @@ import {
 import CustomeAudience from './components/customAudience'
 import PersonalAttributes from './components/personalAttribute'
 import CustomAudienceExclude from './components/customAudienceExclude'
+import Modal from 'react-bootstrap/Modal';
 
-function CardComponent () {
-    return (
-        <div  className="audience-filter m-b-10">
-            <div className="form-group">
-                <span className="location-span">Have any of the following:</span>  <button type="button" className="btn float-right"> <img src={RemoveIcon} className="reomve-filter" alt="Remove"/></button> <br/>
-                <label>Contact List audience</label> <br/>
-                <span className="tag label label-info">
-                    <span>ADN Workshop_PIIT_audience_file_Custom</span>
-                    <button type="button" className="btn remove">× </button>
-                </span>     
-                <span className="tag label label-info">
-                    <span>ADN Servers Lead</span>
-                    <button type="button" className="btn remove">× </button>
-                </span>  
 
-                <div className="add-filter-or dropdown">
-                    <a className="dropdown-toggle add-filter-text" type="button" id="filtermenubtn1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        + Add Filter( OR )
-                    </a>
-                    <div className="dropdown-menu" aria-labelledby="filtermenubtn1">
-                        <a className="dropdown-item intro" href="#">Adding filters within a group will target people that match any of these filters. Generally, this will increase your audience.</a>
-                        <button type="button" className="dropdown-item add-exlusions-btn" data-toggle="modal" data-target="#custom-audience">
-                        <span className="filter-item-title">Retargeting and lookalike audiences</span> <br/> Contact list, website visitors, and lookalike audiences.
-                    </button> 
-                        <a className="dropdown-item" href="#"> <span className="filter-item-title">Personal attributes</span> <br/> Interests, demographics, and behaviors</a>
-                    </div>
-                </div>                              
-            </div>
-        </div> 
-    )
-}
 
 function FacebookAudienceTargeting() {
   const SpecialCategory = ['HOUSING', 'CREDIT', 'EMPLOYMENT', 'ISSUES_ELECTIONS_POLITICS', 'NONE']
   const dispatch = useDispatch()
   const alert = useAlert()
   const [cards, setCards] = useState([0])
-
   const [audienceType, setAudienceType] = useState('new')
+
+  const [customAudienceModalShow, setcustomAudienceModalShow] = useState(false);
+  const handleCustomAudienceClose = () => setcustomAudienceModalShow(false);
+  const handleCustomAudienceShow = () => setcustomAudienceModalShow(true);
+
+  const [customAudienceExcludeModalShow, setCustomAudienceExcludeModalShow] = useState(false);
+  const handleCustomAudienceExcludeClose = () => setCustomAudienceExcludeModalShow(false);
+  const handleCustomAudienceExcludeShow = () => setCustomAudienceExcludeModalShow(true);
 
   const { campaign, user } = useSelector((state) => state.facebook);
   const { estimatedAudienceSize, locations, customAudience } = useSelector((state) => state.facebookSearch);
 
-  useEffect(() => {
-      
-  }, [dispatch])
 
   const estimatedAudienceSizeHandler = () => {
     const accountID = 'act_552899645070172'
@@ -76,14 +51,6 @@ function FacebookAudienceTargeting() {
     dispatch(getFacebookCustomAudience(user.accessToken, campaign.ad_account.id))
   }
 
-  const customAudienceHandler = (e) => {
-      console.log(e.target.value)
-  }
-
-  const customAudienceSearchHandler = (e) => {
-    console.log(e.target.value)
-}
-
   const geoLocationHandler = (e) => {
     console.log(e)
   }
@@ -97,13 +64,22 @@ function FacebookAudienceTargeting() {
   }
 
   const addCard = () => {
-      let lastItem = cards[cards.length-1]
-    
-      cards.push(
-        lastItem += 1
-      )
-      setCards(cards)
-      console.log(cards, '#####################')
+    let lastItem = cards[cards.length-1]
+    lastItem += 1
+    setCards(cards => [...cards, lastItem])
+  }
+
+  const deleteCard = (id) => {
+      cards.splice(id, 1)
+      setCards([...cards])
+  }
+
+  const personalAttributeModalShow = (id) => {
+
+  }
+
+  const personalAttributeModalClose = (id) => {
+      
   }
   
   return (
@@ -124,7 +100,7 @@ function FacebookAudienceTargeting() {
                             <select onChange={specialCategoryHandler} className="form-control" id="adaccount">
                              {
                                SpecialCategory.map(category => 
-                               <option key={category} value={category}>{category.replace('_', ' ').toLowerCase()}</option>
+                                    <option key={category} value={category}>{category.replace('_', ' ').toLowerCase()}</option>
                                 )
                              }
                             </select>
@@ -183,7 +159,7 @@ function FacebookAudienceTargeting() {
                               />
                             </div>
                         </div>
-                        <label htmlFor="and"> And </label> <br/> 
+                        <label htmlFor="and"> <strong> And </strong> </label> <br/> 
                         <div  className="location m-b-10 ">
                             <div className="form-group">
                               <label htmlFor="Location">Age range *</label> <br/>
@@ -209,79 +185,102 @@ function FacebookAudienceTargeting() {
                               
                             </div>
                         </div>
-                        
-                        <label htmlFor="and"> And </label> <br/> 
-                        {
-                            cards.map(card => 
-                                <div  className="audience-filter m-b-10" key={card}>
-                                    <h1>{card}</h1>
-                                    <div className="form-group">
-                                        <span className="location-span">Have any of the following:</span>  <button type="button" className="btn float-right"> <img src={RemoveIcon} className="reomve-filter" alt="Remove"/></button> <br/>
-                                        <label>Contact List audience</label> <br/>
-                                        <span className="tag label label-info">
-                                            <span>ADN Workshop_PIIT_audience_file_Custom</span>
-                                            <button type="button" className="btn remove">× </button>
-                                        </span>     
-                                        <span className="tag label label-info">
-                                            <span>ADN Servers Lead</span>
-                                            <button type="button" className="btn remove">× </button>
-                                        </span>  
 
-                                        <div className="add-filter-or dropdown">
-                                            <a className="dropdown-toggle add-filter-text" type="button" id="filtermenubtn1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                + Add Filter( OR )
-                                            </a>
-                                            <div className="dropdown-menu" aria-labelledby="filtermenubtn1">
-                                                <a className="dropdown-item intro" href="#">Adding filters within a group will target people that match any of these filters. Generally, this will increase your audience.</a>
-                                                <button type="button" className="dropdown-item add-exlusions-btn" data-toggle="modal" data-target="#custom-audience">
-                                                <span className="filter-item-title">Retargeting and lookalike audiences</span> <br/> Contact list, website visitors, and lookalike audiences.
+                        <label htmlFor="and"><strong> And </strong></label> <br/> 
+                        <div  className="audience-filter m-b-10">
+                            <div className="form-group">
+                                <span className="location-span">Have any of the following:</span>
+
+                                <br/>
+                                    <label>Contact List audience</label> 
+                                <br/>
+                                <span className="tag label label-info">
+                                    <span>ADN SERVERS LEADS</span>
+                                    <button type="button" className="btn remove">× </button>
+                                </span>     
+                                <span className="tag label label-info">
+                                    <span>ADN Workshop_PIIT_audience_file_Custom</span>
+                                    <button type="button" className="btn remove">× </button>
+                                </span>  
+                                <br/>
+    
+                                <button type="button" className="btn add-exlusions-btn" onClick={handleCustomAudienceShow}>
+                                    + Add Custom Audience
+                                </button>
+                            </div>
+                        </div>
+                        
+                        
+                        {
+                            cards.map((card, index) => 
+                                <div>
+                                    <label htmlFor="and"><strong> And </strong></label> <br/> 
+                                    <div  className="audience-filter m-b-10" key={card}>
+                                        <div className="form-group">
+                                            <span className="location-span">Have any of the following:</span>  
+                                            <button type="button" className="btn float-right" onClick={() => deleteCard(index)}> 
+                                                <img src={RemoveIcon} className="reomve-filter" alt="Remove"/>
                                             </button> 
-                                                <a className="dropdown-item" href="#"> <span className="filter-item-title">Personal attributes</span> <br/> Interests, demographics, and behaviors</a>
-                                            </div>
-                                        </div>                              
-                                    </div>
-                                </div> 
+                                            <br/>
+                                            <label>Personal Attributes</label> <br/>
+                                            <span className="tag label label-info">
+                                                <span>ADN Workshop_PIIT_audience_file_Custom</span>
+                                                <button type="button" className="btn remove">× </button>
+                                            </span>
+                                            <span className="tag label label-info">
+                                                <span>ADN Servers Lead</span>
+                                                <button type="button" className="btn remove">× </button>
+                                            </span>
+                                            <br/>
+                                            <button type="button" className="btn add-exlusions-btn" data-toggle="modal" data-target="#custom-audience">
+                                            + Add Filter( OR )
+                                            </button> 
+                                        </div>
+                                    </div> 
+                                </div>
                                 )
                         }
                         <div>
-                        <a className="add-filter-text m-b-10" onClick={addCard} type="button" id="narrow-audience-further">
-                              + Narrow audience further (AND)
-                         </a>
+                            <a className="add-filter-text m-b-10" onClick={addCard} type="button" id="narrow-audience-further">
+                                + Narrow audience further (AND)
+                            </a>
                         </div>
-                         <div>
-                         <label>Exclude </label>
-                         </div>
+
+                        <div>
+                            <label>Exclude </label>
+                        </div>
+
                         <div  className="audience-filter m-b-10">
                             <div className="form-group">
-                                <span className="location-span">Have any of the following:</span>  <button type="button" className="btn float-right"> <img src={RemoveIcon} className="reomve-filter" alt="Remove"/></button> <br/>
-                                    <label>Contact List audience</label> <br/>
-                                    <span className="tag label label-info">
-                                        <span>ADN SERVERS LEADS</span>
-                                          <button type="button" className="btn remove">× </button>
-                                    </span>     
-                                    <span className="tag label label-info">
-                                          <span>ADN Workshop_PIIT_audience_file_Custom</span>
-                                          <button type="button" className="btn remove">× </button>
-                                    </span>  
-                                    <br/>
-    
-                                    <button type="button" className="btn add-exlusions-btn" data-toggle="modal" data-target="#custom-audience-exclude">
-                                       + Add audience exclusions
-                                    </button>                        
-                            </div>
+                                <span className="location-span">Have any of the following:</span>
 
-                        </div>  
+                                <br/>
+                                    <label>Contact List audience</label> 
+                                <br/>
+                                <span className="tag label label-info">
+                                    <span>ADN SERVERS LEADS</span>
+                                    <button type="button" className="btn remove">× </button>
+                                </span>     
+                                <span className="tag label label-info">
+                                    <span>ADN Workshop_PIIT_audience_file_Custom</span>
+                                    <button type="button" className="btn remove">× </button>
+                                </span>  
+                                <br/>
+    
+                                <button type="button" className="btn add-exlusions-btn" onClick={handleCustomAudienceExcludeShow}>
+                                    + Add audience exclusions
+                                </button>
+                            </div>
+                        </div>
                       </div>
                       : 
                       <Select
                         closeMenuOnSelect={true}
-                        // onChange={customAudienceHandler}
                         options={customAudience}
                         getOptionLabel={option =>
                             `${option.name}`
                         }
                         getOptionValue={option => `${option.name}`}
-                        // onInputChange={customAudienceSearchHandler}
                         isClearable={true}
                         isSearchable={true}
                           />
@@ -304,8 +303,56 @@ function FacebookAudienceTargeting() {
     </div>
 </div>
 
-<CustomAudienceExclude />
-<CustomeAudience />
+{/* Modal Area */}
+<Modal 
+    show={customAudienceModalShow} 
+    onHide={handleCustomAudienceClose}
+    backdrop="static"
+    keyboard={false}
+    className="drawer modal right-align"
+    id="custom-audience"
+    >
+        <CustomeAudience />
+    
+        <Modal.Footer>
+            <button type="button" onClick={handleCustomAudienceClose} className="btn btn-primary">Save</button>
+            <button type="button" onClick={handleCustomAudienceClose} className="btn btn-secondary" >Cancel</button>
+        </Modal.Footer>
+</Modal>
+
+
+<Modal 
+    show={customAudienceExcludeModalShow} 
+    onHide={handleCustomAudienceExcludeClose}
+    backdrop="static"
+    keyboard={false}
+    className="drawer modal right-align"
+    id="custom-audience-exclude"
+    >
+        <CustomeAudience />
+    
+        <Modal.Footer>
+            <button type="button" onClick={handleCustomAudienceExcludeClose} className="btn btn-primary">Save</button>
+            <button type="button" onClick={handleCustomAudienceExcludeClose} className="btn btn-secondary" >Cancel</button>
+        </Modal.Footer>
+</Modal>
+
+<Modal 
+    show={personalAttributeModalShow} 
+    onHide={personalAttributeModalClose}
+    backdrop="static"
+    keyboard={false}
+    className="drawer modal right-align"
+    id="custom-audience-exclude"
+    >
+        <CustomeAudience />
+    
+        <Modal.Footer>
+            <button type="button" onClick={personalAttributeModalClose} className="btn btn-primary">Save</button>
+            <button type="button" onClick={personalAttributeModalClose} className="btn btn-secondary" >Cancel</button>
+        </Modal.Footer>
+</Modal>
+
 <PersonalAttributes />
 
   </>

@@ -1,20 +1,16 @@
 import React from 'react';
+import Modal from 'react-bootstrap/Modal';
 import SearchIcon from '../../../images/search.svg'
 
 
 function CustomeAudience() {
     return (
 
-        <div className="modal fade drawer right-align" id="custom-audience" tabIndex="-1" role="dialog" aria-labelledby="custom-audience" aria-hidden="true">
-        <div className="modal-dialog" role="document">
-            <div className="modal-content">
-            <div className="modal-header">
+            <>
+            <Modal.Header closeButton>
                 <h5 className="modal-title text-white" id="custom-audience-label">Add audience</h5>
-                <button type="button" className="close" data-target="custom-audience" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div className="modal-body">
+            </Modal.Header>
+            <Modal.Body>
                 <nav>
                     <div className="nav nav-tabs" id="nav-tab" role="tablist">
                         <a className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-contact-list" role="tab" aria-controls="nav-contact-list" aria-selected="true">Contact List</a>
@@ -448,15 +444,8 @@ function CustomeAudience() {
                          </div>
                     </div>
                 </div>
-            </div>
-            <div className="modal-footer">
-            
-                <button type="button" className="btn btn-primary">Save</button>
-                <button type="button" className="btn btn-secondary" data-target="custom-audience" data-dismiss="modal" aria-label="Close">Cancel</button>
-            </div>
-            </div>
-        </div>
-        </div>
+            </Modal.Body>
+            </>
     )
 }
 
