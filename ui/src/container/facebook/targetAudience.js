@@ -16,6 +16,7 @@ import CustomeAudience from './components/customAudience'
 import PersonalAttributes from './components/personalAttribute'
 import CustomAudienceExclude from './components/customAudienceExclude'
 import Modal from 'react-bootstrap/Modal';
+import _ from 'lodash'
 
 
 
@@ -23,7 +24,7 @@ function FacebookAudienceTargeting() {
   const SpecialCategory = ['HOUSING', 'CREDIT', 'EMPLOYMENT', 'ISSUES_ELECTIONS_POLITICS', 'NONE']
   const dispatch = useDispatch()
   const alert = useAlert()
-  const [cards, setCards] = useState([0])
+  const [cards, setCards] = useState([{id: 1, show: false}])
   const [audienceType, setAudienceType] = useState('new')
 
   const [customAudienceModalShow, setcustomAudienceModalShow] = useState(false);
@@ -65,21 +66,34 @@ function FacebookAudienceTargeting() {
 
   const addCard = () => {
     let lastItem = cards[cards.length-1]
-    lastItem += 1
-    setCards(cards => [...cards, lastItem])
+    cards.push({
+        id: lastItem.id+1,
+        show: false
+    })
+    setCards([...cards])
   }
 
-  const deleteCard = (id) => {
-      cards.splice(id, 1)
+  const deleteCard = (index) => {
+      cards.splice(index, 1)
       setCards([...cards])
   }
 
   const personalAttributeModalShow = (id) => {
-
+    cards.map(card => {
+        let modalObj = _.find(cards, { 'id': id })
+        modalObj.show = true
+        return modalObj
+    })
+    setCards([...cards])
   }
 
   const personalAttributeModalClose = (id) => {
-      
+    cards.map(card => {
+        let modalObj = _.find(cards, { 'id': id })
+        modalObj.show = false
+        return modalObj
+    })
+    setCards([...cards])
   }
   
   return (
@@ -214,8 +228,8 @@ function FacebookAudienceTargeting() {
                         {
                             cards.map((card, index) => 
                                 <div>
-                                    <label htmlFor="and"><strong> And </strong></label> <br/> 
-                                    <div  className="audience-filter m-b-10" key={card}>
+                                    <label htmlFor="and"><strong> And </strong>{card.id}</label> <br/> 
+                                    <div  className="audience-filter m-b-10" key={card.id}>
                                         <div className="form-group">
                                             <span className="location-span">Have any of the following:</span>  
                                             <button type="button" className="btn float-right" onClick={() => deleteCard(index)}> 
@@ -232,7 +246,7 @@ function FacebookAudienceTargeting() {
                                                 <button type="button" className="btn remove">× </button>
                                             </span>
                                             <br/>
-                                            <button type="button" className="btn add-exlusions-btn" data-toggle="modal" data-target="#custom-audience">
+                                            <button type="button" className="btn add-exlusions-btn" onClick={() => personalAttributeModalShow(card.id)}>
                                             + Add Filter( OR )
                                             </button> 
                                         </div>
@@ -310,7 +324,6 @@ function FacebookAudienceTargeting() {
     backdrop="static"
     keyboard={false}
     className="drawer modal right-align"
-    id="custom-audience"
     >
         <CustomeAudience />
     
@@ -327,7 +340,6 @@ function FacebookAudienceTargeting() {
     backdrop="static"
     keyboard={false}
     className="drawer modal right-align"
-    id="custom-audience-exclude"
     >
         <CustomeAudience />
     
@@ -336,22 +348,25 @@ function FacebookAudienceTargeting() {
             <button type="button" onClick={handleCustomAudienceExcludeClose} className="btn btn-secondary" >Cancel</button>
         </Modal.Footer>
 </Modal>
+{
+    cards.map((card, index) => 
+    <Modal 
+        show={_.find(cards, { 'id': card.id }).show}
+        onHide={() => personalAttributeModalClose(card.id)}
+        backdrop="static"
+        keyboard={false}
+        className="drawer modal right-align"
+        >
+            <CustomeAudience />
+        
+            <Modal.Footer>
+                <button type="button" onClick={() => personalAttributeModalClose(card.id)} className="btn btn-primary">Save</button>
+                <button type="button" onClick={() => personalAttributeModalClose(card.id)} className="btn btn-secondary" >Cancel</button>
+            </Modal.Footer>
+    </Modal>
+    )
+}
 
-<Modal 
-    show={personalAttributeModalShow} 
-    onHide={personalAttributeModalClose}
-    backdrop="static"
-    keyboard={false}
-    className="drawer modal right-align"
-    id="custom-audience-exclude"
-    >
-        <CustomeAudience />
-    
-        <Modal.Footer>
-            <button type="button" onClick={personalAttributeModalClose} className="btn btn-primary">Save</button>
-            <button type="button" onClick={personalAttributeModalClose} className="btn btn-secondary" >Cancel</button>
-        </Modal.Footer>
-</Modal>
 
 <PersonalAttributes />
 
