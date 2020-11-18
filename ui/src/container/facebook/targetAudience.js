@@ -228,7 +228,7 @@ function FacebookAudienceTargeting() {
                         {
                             cards.map((card, index) => 
                                 <div>
-                                    <label htmlFor="and"><strong> And </strong>{card.id}</label> <br/> 
+                                    <label htmlFor="and"><strong> And </strong></label> <br/> 
                                     <div  className="audience-filter m-b-10" key={card.id}>
                                         <div className="form-group">
                                             <span className="location-span">Have any of the following:</span>  
@@ -357,7 +357,7 @@ function FacebookAudienceTargeting() {
         keyboard={false}
         className="drawer modal right-align"
         >
-            <CustomeAudience />
+            <PersonalAttributes />
         
             <Modal.Footer>
                 <button type="button" onClick={() => personalAttributeModalClose(card.id)} className="btn btn-primary">Save</button>
@@ -368,7 +368,6 @@ function FacebookAudienceTargeting() {
 }
 
 
-<PersonalAttributes />
 
   </>
   );
