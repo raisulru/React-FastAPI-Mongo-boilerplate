@@ -1,9 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
+import _ from 'lodash';
+import { getFacebookCustomAudience } from '../../../store/facebookResource';
 import SearchIcon from '../../../images/search.svg'
 
 
 function CustomeAudience() {
+  const dispatch = useDispatch()
+
+  const { customAudience } = useSelector((state) => state.facebookSearch);
+  const { user, campaign } = useSelector((state) => state.facebook);
+
+  const [customAudiences, setCustomAudience] = useState([])
+  const [websiteAudiences, setWebsiteAudience] = useState([])
+  const [lookalikeAudiences, setLookalikeAudience] = useState([])
+
+  useEffect(() => {
+    dispatch(getFacebookCustomAudience(user.accessToken, campaign.ad_account.id))
+    const groupByAudience = _.groupBy(customAudience, audience => {
+      return audience.subtype
+    })
+    setCustomAudience(groupByAudience.CUSTOM)
+    setWebsiteAudience(groupByAudience.WEBSITE)
+    setLookalikeAudience(groupByAudience.LOOKALIKE)
+  }, [dispatch])
+
+  const customAudienceHandler = (e) => {
+      console.log(e.target.value)
+  }
+
     return (
 
             <>
@@ -18,6 +44,7 @@ function CustomeAudience() {
                         <a className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-lookalike" role="tab" aria-controls="nav-lookalike" aria-selected="false">Lookalike</a>
                     </div>
                 </nav>
+
                 <div className="tab-content" id="nav-tabContent">
                     <div className="tab-pane fade show active" id="nav-contact-list" role="tabpanel" aria-labelledby="nav-contact-list-tabe">
                          <div className="contact-list-tab-content">
@@ -36,113 +63,28 @@ function CustomeAudience() {
                                 </div>
                             </form>
                             <ul className="list-group mt-2">
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> ADN SERVERS LEADS
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> ADN SERVERS LEADS
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> ADN SERVERS LEADS
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> ADN SERVERS LEADS
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> ADN SERVERS LEADS
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> ADN SERVERS LEADS
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> ADN SERVERS LEADS
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> ADN SERVERS LEADS
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
+                                {
+                                    customAudiences.map(audience => 
+                                        <li className="list-group-item d-flex justify-content-between align-items-center" key={audience.id}>
+                                            <div className="checkbox">
+                                                <label className="custom-checkbox">
+                                                    {audience.name}
+                                                    <input type="checkbox" onChange={customAudienceHandler} value={audience.id}/>
+                                                    <span className="checkmark"></span>                                   
+                                                </label>
+                                                <div className="ready-box">
+                                                    <span className="ready-icon"></span>
+                                                    <span className="ready-text">Ready</span>
+                                                </div>
+                                            </div>
+                                            <span className="badge badge-pill">{}</span>
+                                        </li>
+                                    )
+                                }
                             </ul>  
                          </div>
                     </div>
+
                     <div className="tab-pane fade" id="nav-website" role="tabpanel" aria-labelledby="nav-website-tab">
                         <div className="website-tab-content">
                             <form className="form mt-2">
@@ -160,139 +102,28 @@ function CustomeAudience() {
                                 </div>
                             </form>
                             <ul className="list-group mt-2">
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> 20.11.18 ADN SERVERS ADD TO CART
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Below 1,000</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> 20.11.18 ADN SERVERS ADD TO CART
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Below 1,000</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> 20.11.18 ADN SERVERS ADD TO CART
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Below 1,000</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> 20.11.18 ADN SERVERS ADD TO CART
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Below 1,000</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> 20.11.18 ADN SERVERS ADD TO CART
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Below 1,000</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> 20.11.18 ADN SERVERS ADD TO CART
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Below 1,000</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> 20.11.18 ADN SERVERS ADD TO CART
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Below 1,000</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> 20.11.18 ADN SERVERS ADD TO CART
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Below 1,000</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> 20.11.18 ADN SERVERS ADD TO CART
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Below 1,000</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> 20.11.18 ADN SERVERS ADD TO CART
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Below 1,000</span>
-                                </li>
+                                {
+                                websiteAudiences.map(audience => 
+                                    <li className="list-group-item d-flex justify-content-between align-items-center" key={audience.id}>
+                                        <div className="checkbox">
+                                            <label className="custom-checkbox">
+                                                {audience.name}
+                                                <input type="checkbox" onChange={customAudienceHandler} value={audience.id}/>
+                                                <span className="checkmark"></span>                                   
+                                            </label>
+                                            <div className="ready-box">
+                                                    <span className="ready-icon"></span>
+                                                    <span className="ready-text">Ready</span>
+                                            </div> 
+                                        </div>
+                                        <span className="badge badge-pill">{}</span>
+                                    </li>
+                                    )
+                                }
                             </ul>  
                         </div>
                     </div>
+
                     <div className="tab-pane fade" id="nav-lookalike" role="tabpanel" aria-labelledby="nav-nav-lookalike">
                         <div className="lookalike-tab-content">
                             <form className="form mt-2">
@@ -310,136 +141,25 @@ function CustomeAudience() {
                                 </div>
                             </form>
                             <ul className="list-group mt-2">
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> Lookalike (BD, 1% to 2%) - ADN Workshop_Facebook Remarketing Audience
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> Lookalike (BD, 1% to 2%) - ADN Workshop_Facebook Remarketing Audience
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> Lookalike (BD, 1% to 2%) - ADN Workshop_Facebook Remarketing Audience
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> Lookalike (BD, 1% to 2%) - ADN Workshop_Facebook Remarketing Audience
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> Lookalike (BD, 1% to 2%) - ADN Workshop_Facebook Remarketing Audience
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> Lookalike (BD, 1% to 2%) - ADN Workshop_Facebook Remarketing Audience
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> Lookalike (BD, 1% to 2%) - ADN Workshop_Facebook Remarketing Audience
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> Lookalike (BD, 1% to 2%) - ADN Workshop_Facebook Remarketing Audience
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> Lookalike (BD, 1% to 2%) - ADN Workshop_Facebook Remarketing Audience
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
-                                <li className="list-group-item d-flex justify-content-between align-items-center">
-                                    <div className="checkbox">
-                                        <label className="custom-checkbox"> Lookalike (BD, 1% to 2%) - ADN Workshop_Facebook Remarketing Audience
-                                            <input type="checkbox" value=""/>
-                                            <span className="checkmark"></span>                                   
-                                        </label>
-                                        <div className="ready-box">
-                                                <span className="ready-icon"></span>
-                                                <span className="ready-text">Ready</span>
-                                        </div> 
-                                    </div>
-                                    <span className="badge badge-pill">Size not available</span>
-                                </li>
+                                {
+                                    lookalikeAudiences.map(audience => 
+                                        <li className="list-group-item d-flex justify-content-between align-items-center" key={audience.id}>
+                                            <div className="checkbox">
+                                                <label className="custom-checkbox">
+                                                    {audience.name}
+                                                    <input type="checkbox" onChange={customAudienceHandler} value={audience.id}/>
+                                                    <span className="checkmark"></span>                                   
+                                                </label>
+                                                <div className="ready-box">
+                                                    <span className="ready-icon"></span>
+                                                    <span className="ready-text">Ready</span>
+                                                </div> 
+                                            </div>
+                                            <span className="badge badge-pill">{}</span>
+                                        </li>
+                                        )
+                                }
+                                
                             </ul>  
                          </div>
                     </div>

@@ -103,8 +103,7 @@ function FacebookAudienceTargeting() {
         <div className="row">
             <div className="col-md-6 bg-white py-5 create-scroll">
                 <div className="row">
-                  <button onClick={estimatedAudienceSizeHandler} className="d-none">audience</button>
-                   <div className="col-md-1">                  
+                   <div className="col-md-1">
                    </div>
                     <div className="col-md-10">
                     <div className="left-ad-generation-area mr-5 ml-5">

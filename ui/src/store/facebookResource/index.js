@@ -29,4 +29,4 @@ export {
   browseUserOS
   } from './action';
   
-export { facebook, facebookSearch } from './reducer';
+export { facebook, facebookSearch, facebookCampaign } from './reducer';

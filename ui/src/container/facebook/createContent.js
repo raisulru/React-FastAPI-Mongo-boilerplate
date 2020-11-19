@@ -40,6 +40,7 @@ function CreateFacebookContent () {
     payload[name] = value
     dispatch(saveFacebookCampaign(payload))
   }
+
   return (
       <>
         <div className="lead-generation-ad">
@@ -55,7 +56,7 @@ function CreateFacebookContent () {
                         <form action="#">
                             <div className="form-group">
                                 <label htmlFor="adaccount">Ad account*</label>
-                                <select defaultValue={campaign.ad_account && campaign.ad_account.id} onChange={inputHandler} className="form-control" name="ad_account" id="adaccount">
+                                <select defaultValue={adAccounts[0] && adAccounts[0].id} onChange={inputHandler} className="form-control" name="ad_account" id="adaccount">
                                   <option>Select Ad Account</option>
                                   {
                                    adAccounts && adAccounts.map(adAccount => 

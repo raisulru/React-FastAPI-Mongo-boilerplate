@@ -2,6 +2,28 @@ import produce from 'immer';
 import _ from 'lodash';
 import * as types from './types';
 
+const facebookCampaignState = {
+  addedCustomAudience: [],
+  excludeCustomAudience: []
+}
+
+export const facebookCampaign = (state = facebookCampaignState, action) => {
+  const { type, payload } = action;
+  return produce(state, (draft) => {
+    switch (type) {
+      case types.SAVE_CUSTOM_AUDIENCE:
+        draft.addedCustomAudience = payload
+        break;
+      case types.SAVE_EXCLUDED_CUSTOM_AUDIENCE:
+        draft.excludeCustomAudience = payload
+        break;
+      default:
+        return state;
+    }
+  });
+};
+
+
 const facebookState = {
   connected: false,
   campaign: {

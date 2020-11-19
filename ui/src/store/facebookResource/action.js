@@ -156,7 +156,7 @@ export const getEstimatedAudienceSize = (access_token, adaccount_id, specificati
 export const getFacebookCustomAudience = (access_token, adAccount) => ({
   type: types.GET_CUSTOM_AUDIENCE,
   payload: {
-    path: `/facebook/custom-audience?access_token=${access_token}&adaccount=${adAccount}&fields=name`,
+    path: `/facebook/custom-audience?access_token=${access_token}&adaccount=${adAccount}&fields=name,subtype`,
     method: 'GET'
   },
   meta: {
