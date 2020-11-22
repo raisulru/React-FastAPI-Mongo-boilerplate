@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import _ from 'lodash';
-import { getFacebookCustomAudience } from '../../../store/facebookResource';
+import { 
+    getFacebookCustomAudience, 
+    addCustomAudience,
+    removeSelectedAudience
+} from '../../../store/facebookResource';
 import SearchIcon from '../../../images/search.svg'
 
 
@@ -10,14 +14,16 @@ function CustomeAudience() {
   const dispatch = useDispatch()
 
   const { customAudience } = useSelector((state) => state.facebookSearch);
-  const { user, campaign } = useSelector((state) => state.facebook);
+  const { addedCustomAudience } = useSelector((state) => state.facebookCampaign);
+  const { user, campaign, adAccounts } = useSelector((state) => state.facebook);
 
   const [customAudiences, setCustomAudience] = useState([])
   const [websiteAudiences, setWebsiteAudience] = useState([])
   const [lookalikeAudiences, setLookalikeAudience] = useState([])
 
   useEffect(() => {
-    dispatch(getFacebookCustomAudience(user.accessToken, campaign.ad_account.id))
+      const campaignId = campaign.ad_account.id || adAccounts[0].id
+    dispatch(getFacebookCustomAudience(user.accessToken, campaignId))
     const groupByAudience = _.groupBy(customAudience, audience => {
       return audience.subtype
     })
@@ -27,14 +33,21 @@ function CustomeAudience() {
   }, [dispatch])
 
   const customAudienceHandler = (e) => {
-      console.log(e.target.value)
+      const payload = {
+          id: e.target.value,
+          name: e.target.name
+      }
+      if (e.target.checked) {
+          dispatch(addCustomAudience(payload))
+      } else {
+          dispatch(removeSelectedAudience(payload))
+      }
   }
 
     return (
-
             <>
             <Modal.Header closeButton>
-                <h5 className="modal-title text-white" id="custom-audience-label">Add audience</h5>
+                <h5 className="modal-title text-white" id="custom-audience-label">Select Custom Audience</h5>
             </Modal.Header>
             <Modal.Body>
                 <nav>
@@ -64,13 +77,13 @@ function CustomeAudience() {
                             </form>
                             <ul className="list-group mt-2">
                                 {
-                                    customAudiences.map(audience => 
+                                    customAudiences && customAudiences.map(audience => 
                                         <li className="list-group-item d-flex justify-content-between align-items-center" key={audience.id}>
                                             <div className="checkbox">
                                                 <label className="custom-checkbox">
                                                     {audience.name}
-                                                    <input type="checkbox" onChange={customAudienceHandler} value={audience.id}/>
-                                                    <span className="checkmark"></span>                                   
+                                                    <input type="checkbox" checked={_.some(addedCustomAudience, {id: audience.id, name: audience.name})} onChange={customAudienceHandler} name={audience.name} value={audience.id}/>
+                                                    <span className="checkmark"></span>
                                                 </label>
                                                 <div className="ready-box">
                                                     <span className="ready-icon"></span>
@@ -103,12 +116,12 @@ function CustomeAudience() {
                             </form>
                             <ul className="list-group mt-2">
                                 {
-                                websiteAudiences.map(audience => 
+                                websiteAudiences && websiteAudiences.map(audience => 
                                     <li className="list-group-item d-flex justify-content-between align-items-center" key={audience.id}>
                                         <div className="checkbox">
                                             <label className="custom-checkbox">
                                                 {audience.name}
-                                                <input type="checkbox" onChange={customAudienceHandler} value={audience.id}/>
+                                                <input type="checkbox" checked={_.some(addedCustomAudience, {id: audience.id, name: audience.name})} name={audience.name} onChange={customAudienceHandler} value={audience.id}/>
                                                 <span className="checkmark"></span>                                   
                                             </label>
                                             <div className="ready-box">
@@ -142,12 +155,12 @@ function CustomeAudience() {
                             </form>
                             <ul className="list-group mt-2">
                                 {
-                                    lookalikeAudiences.map(audience => 
+                                    lookalikeAudiences && lookalikeAudiences.map(audience => 
                                         <li className="list-group-item d-flex justify-content-between align-items-center" key={audience.id}>
                                             <div className="checkbox">
                                                 <label className="custom-checkbox">
                                                     {audience.name}
-                                                    <input type="checkbox" onChange={customAudienceHandler} value={audience.id}/>
+                                                    <input type="checkbox" checked={_.some(addedCustomAudience, {id: audience.id, name: audience.name})} name={audience.name} onChange={customAudienceHandler} value={audience.id}/>
                                                     <span className="checkmark"></span>                                   
                                                 </label>
                                                 <div className="ready-box">

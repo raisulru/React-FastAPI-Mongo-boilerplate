@@ -12,10 +12,22 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
   return produce(state, (draft) => {
     switch (type) {
       case types.SAVE_CUSTOM_AUDIENCE:
-        draft.addedCustomAudience = payload
+        draft.addedCustomAudience = [...draft.addedCustomAudience, ...[payload]]
         break;
       case types.SAVE_EXCLUDED_CUSTOM_AUDIENCE:
-        draft.excludeCustomAudience = payload
+        draft.excludeCustomAudience = [...draft.excludeCustomAudience, ...[payload]]
+        break;
+      case types.REMOVE_SELECTED_AUDIENCE:
+        _.remove(draft.addedCustomAudience, function(item) {
+          return item.id === action.payload.id;
+        })
+        draft.addedCustomAudience = [...draft.addedCustomAudience]
+        break;
+      case types.REMOVE_EXCLUDED_AUDIENCE:
+        _.remove(draft.excludeCustomAudience, function(item) {
+          return item.id === action.payload.id;
+        })
+        draft.excludeCustomAudience = [...draft.excludeCustomAudience]
         break;
       default:
         return state;

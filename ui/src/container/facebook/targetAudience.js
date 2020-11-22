@@ -10,11 +10,13 @@ import RemoveIcon from '../../images/delete.svg'
 import {
   searchFacebookLocation,
   getEstimatedAudienceSize,
-  getFacebookCustomAudience
+  getFacebookCustomAudience,
+  removeSelectedAudience,
+  removeExcludedAudience
 } from '../../store/facebookResource';
 import CustomeAudience from './components/customAudience'
 import PersonalAttributes from './components/personalAttribute'
-import CustomAudienceExclude from './components/customAudienceExclude'
+import CustomAudienceExcludeComponent from './components/customAudienceExclude'
 import Modal from 'react-bootstrap/Modal';
 import _ from 'lodash'
 
@@ -37,7 +39,7 @@ function FacebookAudienceTargeting() {
 
   const { campaign, user } = useSelector((state) => state.facebook);
   const { estimatedAudienceSize, locations, customAudience } = useSelector((state) => state.facebookSearch);
-
+  const { addedCustomAudience, excludeCustomAudience } = useSelector((state) => state.facebookCampaign);
 
   const estimatedAudienceSizeHandler = () => {
     const accountID = 'act_552899645070172'
@@ -94,6 +96,14 @@ function FacebookAudienceTargeting() {
         return modalObj
     })
     setCards([...cards])
+  }
+
+  const removeSelectedAudienceHandler = (payload) => {
+      dispatch(removeSelectedAudience(payload))
+  }
+
+  const removeExcludedAudienceHandler = (payload) => {
+    dispatch(removeExcludedAudience(payload))
   }
   
   return (
@@ -203,20 +213,18 @@ function FacebookAudienceTargeting() {
                         <div  className="audience-filter m-b-10">
                             <div className="form-group">
                                 <span className="location-span">Have any of the following:</span>
-
                                 <br/>
                                     <label>Contact List audience</label> 
                                 <br/>
-                                <span className="tag label label-info">
-                                    <span>ADN SERVERS LEADS</span>
-                                    <button type="button" className="btn remove">× </button>
-                                </span>     
-                                <span className="tag label label-info">
-                                    <span>ADN Workshop_PIIT_audience_file_Custom</span>
-                                    <button type="button" className="btn remove">× </button>
-                                </span>  
+                                {
+                                    addedCustomAudience.map((audience, index) => 
+                                        <span className="tag label label-info" key={index}>
+                                            <span>{audience.name}</span>
+                                            <button name={audience.name} onClick={() => removeSelectedAudienceHandler(audience)} type="button" className="btn remove">× </button>
+                                        </span>
+                                    )
+                                }
                                 <br/>
-    
                                 <button type="button" className="btn add-exlusions-btn" onClick={handleCustomAudienceShow}>
                                     + Add Custom Audience
                                 </button>
@@ -268,16 +276,16 @@ function FacebookAudienceTargeting() {
                                 <span className="location-span">Have any of the following:</span>
 
                                 <br/>
-                                    <label>Contact List audience</label> 
+                                    <label>Excluded audience</label>
                                 <br/>
-                                <span className="tag label label-info">
-                                    <span>ADN SERVERS LEADS</span>
-                                    <button type="button" className="btn remove">× </button>
-                                </span>     
-                                <span className="tag label label-info">
-                                    <span>ADN Workshop_PIIT_audience_file_Custom</span>
-                                    <button type="button" className="btn remove">× </button>
-                                </span>  
+                                {
+                                    excludeCustomAudience.map((audience, index) => 
+                                        <span className="tag label label-info" key={index}>
+                                            <span>{audience.name}</span>
+                                            <button name={audience.name} onClick={() => removeExcludedAudienceHandler(audience)} type="button" className="btn remove">× </button>
+                                        </span>
+                                    )
+                                }
                                 <br/>
     
                                 <button type="button" className="btn add-exlusions-btn" onClick={handleCustomAudienceExcludeShow}>
@@ -340,7 +348,7 @@ function FacebookAudienceTargeting() {
     keyboard={false}
     className="drawer modal right-align"
     >
-        <CustomeAudience />
+        <CustomAudienceExcludeComponent />
     
         <Modal.Footer>
             <button type="button" onClick={handleCustomAudienceExcludeClose} className="btn btn-primary">Save</button>

@@ -15,16 +15,16 @@ import copyObject from '../../utils/copyObject'
 function CreateFacebookContent () {
   const dispatch = useDispatch()
   const [campaignType, setCampaignType] = useState('new')
+  const { facebookPages, user, adAccounts, CTA, campaign } = useSelector((state) => state.facebook);
+  const { estimatedAudienceSize } = useSelector((state) => state.facebookSearch);
 
   useEffect(() => {
     dispatch(getFacebookPages(user.id, user.accessToken))
     dispatch(getFacebookAdAccounts(user.accessToken))
     dispatch(getFacebookCallToActionEnums())
+    
   }, [dispatch])
   
-  const { facebookPages, user, adAccounts, CTA, campaign } = useSelector((state) => state.facebook);
-  const { estimatedAudienceSize } = useSelector((state) => state.facebookSearch);
-
   const inputHandler = (e) => {
     let value = e.target.value
     const name = e.target.name
@@ -36,7 +36,7 @@ function CreateFacebookContent () {
     } else if (name==='cta') {
       value = _.find(CTA, ['value', value])
     }
-    const payload = copyObject(campaign)
+    let payload = copyObject(campaign)
     payload[name] = value
     dispatch(saveFacebookCampaign(payload))
   }
@@ -57,7 +57,6 @@ function CreateFacebookContent () {
                             <div className="form-group">
                                 <label htmlFor="adaccount">Ad account*</label>
                                 <select defaultValue={adAccounts[0] && adAccounts[0].id} onChange={inputHandler} className="form-control" name="ad_account" id="adaccount">
-                                  <option>Select Ad Account</option>
                                   {
                                    adAccounts && adAccounts.map(adAccount => 
                                       <option key={adAccount.id} value={adAccount.id}>{adAccount.name}</option>

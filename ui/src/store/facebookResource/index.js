@@ -26,7 +26,11 @@ export {
   browseIncome,
   browseFamilyStatus,
   browseUserDevice,
-  browseUserOS
+  browseUserOS,
+  addCustomAudience,
+  addExcludeCustomAudience,
+  removeSelectedAudience,
+  removeExcludedAudience
   } from './action';
   
 export { facebook, facebookSearch, facebookCampaign } from './reducer';

@@ -16,16 +16,7 @@ export const createFacebookAds = (payload) => ({
   },
 });
 
-export const saveFacebookCampaign = (payload) => ({
-  type: types.SAVE_FACEBOOK_CAMPAIGN,
-  payload: payload,
-  meta: {
-    api: false,
-    errorMessage: "Campaign not saved",
-  },
-});
-
-
+// Facebook user connection related actions
 export const saveFacebookUser = (payload) => ({
   type: types.SAVE_FACEBOOK_USER,
   payload: {
@@ -150,7 +141,7 @@ export const getEstimatedAudienceSize = (access_token, adaccount_id, specificati
 });
 
 
-// Audience targeting api
+// Audience targeting actions
 
 
 export const getFacebookCustomAudience = (access_token, adAccount) => ({
@@ -358,5 +349,52 @@ export const browseUserOS = (access_token) => ({
   meta: {
     api: true,
     errorMessage: "Facebook Audience size not found",
+  },
+});
+
+// Campaign related actions
+
+export const saveFacebookCampaign = (payload) => ({
+  type: types.SAVE_FACEBOOK_CAMPAIGN,
+  payload: payload,
+  meta: {
+    api: false,
+    errorMessage: "Campaign not saved",
+  },
+});
+
+export const addCustomAudience = (payload) => ({
+  type: types.SAVE_CUSTOM_AUDIENCE,
+  payload: payload,
+  meta: {
+    api: false,
+    errorMessage: "Custom Audience not saved",
+  },
+});
+
+export const addExcludeCustomAudience = (payload) => ({
+  type: types.SAVE_EXCLUDED_CUSTOM_AUDIENCE,
+  payload: payload,
+  meta: {
+    api: false,
+    errorMessage: "Custome audience not excluded",
+  },
+});
+
+export const removeSelectedAudience = (payload) => ({
+  type: types.REMOVE_SELECTED_AUDIENCE,
+  payload: payload,
+  meta: {
+    api: false,
+    errorMessage: "Audience not removed",
+  },
+});
+
+export const removeExcludedAudience = (payload) => ({
+  type: types.REMOVE_EXCLUDED_AUDIENCE,
+  payload: payload,
+  meta: {
+    api: false,
+    errorMessage: "Audience not removed",
   },
 });
