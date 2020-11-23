@@ -4,13 +4,20 @@ import * as types from './types';
 
 const facebookCampaignState = {
   addedCustomAudience: [],
-  excludeCustomAudience: []
+  excludeCustomAudience: [],
+  personalAttModal: {
+    id: undefined,
+    display: 'none'
+  }
 }
 
 export const facebookCampaign = (state = facebookCampaignState, action) => {
   const { type, payload } = action;
   return produce(state, (draft) => {
     switch (type) {
+      case types.SHOW_PERSONAL_ATT_MODAL:
+        draft.personalAttModal = payload
+        break;
       case types.SAVE_CUSTOM_AUDIENCE:
         draft.addedCustomAudience = [...draft.addedCustomAudience, ...[payload]]
         break;

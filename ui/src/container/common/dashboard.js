@@ -11,7 +11,6 @@ import { getFacebookCampaigns } from '../../store/facebookResource'
 import formatNumber from '../../utils/formatNumber'
 import CampaignModal from '../facebook/CampaignModal';
 
-
 function TableHead(name) {
   return (
     <th className="table-title">{name.name} 

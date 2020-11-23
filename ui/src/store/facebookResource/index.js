@@ -30,7 +30,8 @@ export {
   addCustomAudience,
   addExcludeCustomAudience,
   removeSelectedAudience,
-  removeExcludedAudience
+  removeExcludedAudience,
+  controllPersonalAttModal
   } from './action';
   
 export { facebook, facebookSearch, facebookCampaign } from './reducer';

@@ -37,7 +37,7 @@ function FacebookBillAndSchedule() {
                                     <option>4</option>
                                     <option>5</option>
                                   </select>
-                                  <input type="text" className="form-control" value="$10"/>                        
+                                  <input type="text" className="form-control" defaultValue="$10"/>
                             </div>
                         </div>
 

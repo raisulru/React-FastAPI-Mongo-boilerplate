@@ -22,11 +22,15 @@ function CustomAudienceExcludeComponent() {
   const [lookalikeAudiences, setLookalikeAudience] = useState([])
 
   useEffect(() => {
-      const campaignId = campaign.ad_account.id || adAccounts[0].id
-    dispatch(getFacebookCustomAudience(user.accessToken, campaignId))
+    if (!customAudience.length) {
+        const campaignId = campaign.ad_account.id || adAccounts[0].id;
+        dispatch(getFacebookCustomAudience(user.accessToken, campaignId));
+    }
+
     const groupByAudience = _.groupBy(customAudience, audience => {
       return audience.subtype
     })
+    
     setCustomAudience(groupByAudience.CUSTOM)
     setWebsiteAudience(groupByAudience.WEBSITE)
     setLookalikeAudience(groupByAudience.LOOKALIKE)

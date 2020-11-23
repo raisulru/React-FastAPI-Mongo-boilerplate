@@ -1,36 +1,91 @@
-import React from 'react';
-import Modal from 'react-bootstrap/Modal';
+import React, { useEffect, useState, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import SearchIcon from '../../../images/search.svg'
+
+import {
+    browseUserOS,
+    browseUserDevice,
+    browseFamilyStatus,
+    browseIncome,
+    browseIndustries,
+    browseLifeEvents,
+    browseDemographics,
+    searchJobTitle,
+    searchWorkEmployer,
+    searchEducationMajor,
+    searchEducationSchool,
+    searchInterest,
+    browseInterest,
+    browseBehaviour,
+    getAllTargetCategory,
+    controllPersonalAttModal
+} from '../../../store/facebookResource'
 
 
 function PersonalAttributes(props) {
+    const dispatch = useDispatch()
+
+    const { 
+        targettingCategories,
+        interests,
+        behaviours,
+        schools,
+        educationMajors,
+        workEmployers,
+        jobTitles,
+        industries,
+        demographics,
+        lifeEvents,
+        income,
+        familyStatus,
+        userDevices,
+        operatingSystems
+     } = useSelector((state) => state.facebookSearch);
+
+    const { user } = useSelector((state) => state.facebook);
+    const { personalAttModal } = useSelector((state) => state.facebookCampaign);
+
+    useEffect(() => {
+       
+    }, [dispatch])
+    
+    const searchEducationSchoolHandler = (e) => {
+        dispatch(searchEducationSchool(user.accessToken, e.target.value))
+    }
+
+    const closeModal = () => {
+        dispatch(controllPersonalAttModal({
+            id: undefined,
+            display: 'none'
+        }))
+    }
+
     return (
-        <>
-            <Modal.Header closeButton>
-                <h5 className="modal-title text-white p-l-20" id="custom-audience-label">Add audience</h5>
-            </Modal.Header>
-            <Modal.Body>
-            
-                    <form className="form mt-2 mb-2">
-                        <div className="row">
-                            <div className="col-md-12">
-                                <div className="input-group">                                 
-                                    <input type="text" className="form-control search-control-filter" name="exampleFormControlSelect1" placeholder="Search for ad campaign"/>
-                                    <div className="input-group-append">
-                                        <button className="btn btn-search" type="button">
-                                            <img src={SearchIcon} className="search-icon" alt="Search"/>
-                                        </button>
-                                    </div>
-                                </div>
+        <div className="custom-modal col-md-12" style={{display: personalAttModal?personalAttModal.display:'none'}}>
+                <div onClick={closeModal} className="modal-header text-white">
+                    <h5 className="p-l-20">Add audience</h5>
+                    <span className="float-right ">
+                        x
+                    </span>
+                </div>
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="input-group">                                 
+                            <input type="text" className="form-control search-control-filter" name="exampleFormControlSelect1" placeholder="Search for ad campaign"/>
+                            <div className="input-group-append">
+                                <button className="btn btn-search" type="button">
+                                    <img src={SearchIcon} className="search-icon" alt="Search"/>
+                                </button>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                </div>
                     <div className="personal-attribute-v-tab mt-2">
                         <div className="row">
                             <div className="col-md-4">
                                 <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <p className="tab-category"><strong>Demographics</strong></p>
-                                    <a className="nav-link active" id="v-pills-education-tab" data-toggle="pill" href="#v-pills-education" role="tab" aria-controls="v-pills-education" aria-selected="true">Education</a>
+                                    <a className="nav-link active" id="v-pills-education-tab" data-toggle="pill" href="#v-pills-education" role="tab" aria-controls="v-pills-education" aria-selected="true">Education School</a>
                                     <a className="nav-link" id="v-pills-financial-tab" data-toggle="pill" href="#v-pills-financial" role="tab" aria-controls="v-pills-financial" aria-selected="false">Financial</a>
                                     <a className="nav-link" id="v-pills-lifeevents-tab" data-toggle="pill" href="#v-pills-lifeevents" role="tab" aria-controls="v-pills-lifeevents" aria-selected="false">Life Events</a>
                                     <a className="nav-link" id="v-pills-parents-tab" data-toggle="pill" href="#v-pills-parents" role="tab" aria-controls="v-pills-parents" aria-selected="false">Parents</a>
@@ -64,25 +119,39 @@ function PersonalAttributes(props) {
                             <div className="col-md-8">
                                 <div className="tab-content" id="v-pills-tabContent">
                                     <div className="tab-pane fade show active" id="v-pills-education" role="tabpanel" aria-labelledby="v-pills-education-tab">
-                                        Education
-                                        <form className="form mt-2 mb-2">
-                                            <div className="row">
-                                                <div className="col-md-12">
-                                                    <div className="input-group">                                 
-                                                        <input type="text" className="form-control search-control-filter" name="exampleFormControlSelect1" placeholder="Search for ad campaign"/>
-                                                        <div className="input-group-append">
-                                                            <button className="btn btn-search" type="button">
-                                                                <img src={SearchIcon} className="search-icon" alt="Search"/>
-                                                            </button>
-                                                        </div>
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                <div className="input-group">                                 
+                                                    <input 
+                                                        type="text"
+                                                        onChange={searchEducationSchoolHandler} 
+                                                        className="form-control search-control-filter" 
+                                                        name="education-major-search" 
+                                                        placeholder="Search for education major"
+                                                        />
+                                                    <div className="input-group-append">
+                                                        <img src={SearchIcon} className="search-icon" alt="Search"/>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </div>
                                         <div className="card">
                                         <div className="card-body">
                                             <ul className="list-group mt-2">
-                                                <li className="list-group-item d-flex justify-content-between align-items-center">
+                                                {
+                                                    educationMajors.map(major => 
+                                                        <li className="list-group-item d-flex justify-content-between align-items-center">
+                                                            <div className="checkbox">
+                                                                <label className="custom-checkbox">
+                                                                    {major.name}
+                                                                    <input type="checkbox" value=""/>
+                                                                    <span className="checkmark"></span>                                   
+                                                                </label>
+                                                            </div>
+                                                        </li>
+                                                    )
+                                                }
+                                                {/* <li className="list-group-item d-flex justify-content-between align-items-center">
                                                     <div className="checkbox">
                                                         <label className="custom-checkbox"> ADN SERVERS LEADS
                                                             <input type="checkbox" value=""/>
@@ -105,7 +174,7 @@ function PersonalAttributes(props) {
                                                             <span className="checkmark"></span>                                   
                                                         </label>
                                                     </div>
-                                                </li>
+                                                </li> */}
                                             </ul>
                                         </div>
                                         </div>
@@ -139,8 +208,10 @@ function PersonalAttributes(props) {
                             </div>
                          </div>
                     </div>
-            </Modal.Body>
-        </>
+
+                <button type="button" className="btn btn-primary">Save</button>
+                <button type="button" onClick={closeModal} className="btn btn-secondary">Cancel</button>
+        </div>
     )
 }
 

@@ -398,3 +398,12 @@ export const removeExcludedAudience = (payload) => ({
     errorMessage: "Audience not removed",
   },
 });
+
+export const controllPersonalAttModal = (payload) => ({
+  type: types.SHOW_PERSONAL_ATT_MODAL,
+  payload: payload,
+  meta: {
+    api: false,
+    errorMessage: "Modal not updated",
+  },
+});

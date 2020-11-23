@@ -11,7 +11,6 @@ import {
 import copyObject from '../../utils/copyObject'
 
 
-
 function CreateFacebookContent () {
   const dispatch = useDispatch()
   const [campaignType, setCampaignType] = useState('new')

@@ -3,22 +3,23 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Select from 'react-select';
-import { useAlert } from 'react-alert'
+import { useAlert } from 'react-alert';
 
 import PostPreview from './components/postPreview';
-import RemoveIcon from '../../images/delete.svg'
+import RemoveIcon from '../../images/delete.svg';
 import {
   searchFacebookLocation,
   getEstimatedAudienceSize,
   getFacebookCustomAudience,
   removeSelectedAudience,
-  removeExcludedAudience
+  removeExcludedAudience,
+  controllPersonalAttModal
 } from '../../store/facebookResource';
-import CustomeAudience from './components/customAudience'
-import PersonalAttributes from './components/personalAttribute'
-import CustomAudienceExcludeComponent from './components/customAudienceExclude'
+import CustomeAudience from './components/customAudience';
+import PersonalAttributes from './components/personalAttribute';
+import CustomAudienceExcludeComponent from './components/customAudienceExclude';
 import Modal from 'react-bootstrap/Modal';
-import _ from 'lodash'
+import _ from 'lodash';
 
 
 
@@ -39,7 +40,7 @@ function FacebookAudienceTargeting() {
 
   const { campaign, user } = useSelector((state) => state.facebook);
   const { estimatedAudienceSize, locations, customAudience } = useSelector((state) => state.facebookSearch);
-  const { addedCustomAudience, excludeCustomAudience } = useSelector((state) => state.facebookCampaign);
+  const { addedCustomAudience, excludeCustomAudience, personalAttModal } = useSelector((state) => state.facebookCampaign);
 
   const estimatedAudienceSizeHandler = () => {
     const accountID = 'act_552899645070172'
@@ -81,21 +82,15 @@ function FacebookAudienceTargeting() {
   }
 
   const personalAttributeModalShow = (id) => {
-    cards.map(card => {
-        let modalObj = _.find(cards, { 'id': id })
-        modalObj.show = true
-        return modalObj
-    })
-    setCards([...cards])
-  }
-
-  const personalAttributeModalClose = (id) => {
-    cards.map(card => {
-        let modalObj = _.find(cards, { 'id': id })
-        modalObj.show = false
-        return modalObj
-    })
-    setCards([...cards])
+      let modalAtt = {}
+      if (personalAttModal.id == undefined && personalAttModal.display === 'none') {
+        modalAtt = {id: id, display: 'block'}
+      } else if (personalAttModal.id == id && personalAttModal.display === 'block') {
+        modalAtt = {id: undefined, display: 'none'}
+      } else {
+          return
+      }
+      dispatch(controllPersonalAttModal(modalAtt))
   }
 
   const removeSelectedAudienceHandler = (payload) => {
@@ -122,8 +117,8 @@ function FacebookAudienceTargeting() {
                             <label htmlFor="adaccount">Special ad Category*</label>
                             <select onChange={specialCategoryHandler} className="form-control" id="adaccount">
                              {
-                               SpecialCategory.map(category => 
-                                    <option key={category} value={category}>{category.replace('_', ' ').toLowerCase()}</option>
+                               SpecialCategory.map((category, index) => 
+                                    <option key={index} value={category}>{category.replace('_', ' ').toLowerCase()}</option>
                                 )
                              }
                             </select>
@@ -234,7 +229,7 @@ function FacebookAudienceTargeting() {
                         
                         {
                             cards.map((card, index) => 
-                                <div>
+                                <div key={index}>
                                     <label htmlFor="and"><strong> And </strong></label> <br/> 
                                     <div  className="audience-filter m-b-10" key={card.id}>
                                         <div className="form-group">
@@ -355,7 +350,7 @@ function FacebookAudienceTargeting() {
             <button type="button" onClick={handleCustomAudienceExcludeClose} className="btn btn-secondary" >Cancel</button>
         </Modal.Footer>
 </Modal>
-{
+{/* {
     cards.map((card, index) => 
     <Modal 
         show={_.find(cards, { 'id': card.id }).show}
@@ -363,18 +358,13 @@ function FacebookAudienceTargeting() {
         backdrop="static"
         keyboard={false}
         className="drawer modal right-align"
+        key={index}
+        enforceFocus={true}
         >
-            <PersonalAttributes />
-        
-            <Modal.Footer>
-                <button type="button" onClick={() => personalAttributeModalClose(card.id)} className="btn btn-primary">Save</button>
-                <button type="button" onClick={() => personalAttributeModalClose(card.id)} className="btn btn-secondary" >Cancel</button>
-            </Modal.Footer>
     </Modal>
     )
-}
-
-
+} */}
+<PersonalAttributes />
 
   </>
   );
