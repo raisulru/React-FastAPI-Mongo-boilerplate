@@ -160,7 +160,7 @@ export const getFacebookCustomAudience = (access_token, adAccount) => ({
 export const getAllTargetCategory = (access_token) => ({
   type: types.GET_ALL_TARGET_CATEGORY,
   payload: {
-    path: `/facebook/targetting-category/browse/all?access_token=${access_token}`,
+    path: `/facebook/targeting-category/browse/all?access_token=${access_token}`,
     method: 'GET'
   },
   meta: {
@@ -173,7 +173,7 @@ export const getAllTargetCategory = (access_token) => ({
 export const browseBehaviour = (access_token) => ({
   type: types.BROWSE_BEHAVIOUR,
   payload: {
-    path: `/facebook/targetting-category/browse?access_token=${access_token}&class_type=behaviors`,
+    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=behaviors`,
     method: 'GET'
   },
   meta: {
@@ -186,7 +186,7 @@ export const browseBehaviour = (access_token) => ({
 export const browseInterest = (access_token) => ({
   type: types.BROWSE_INTEREST,
   payload: {
-    path: `/facebook/targetting-category/browse?access_token=${access_token}&class_type=interests`,
+    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=interests`,
     method: 'GET'
   },
   meta: {
@@ -196,10 +196,10 @@ export const browseInterest = (access_token) => ({
 });
 
 
-export const searchInterest = (access_token, keyword) => ({
+export const searchInterest = (access_token, keyword='') => ({
   type: types.SEARCH_INTEREST,
   payload: {
-    path: `/facebook/targetting-category/search?access_token=${access_token}&class_type=adinterest&search=${keyword}`,
+    path: `/facebook/targeting-category/search?access_token=${access_token}&class_type=adinterest&search=${keyword}`,
     method: 'GET'
   },
   meta: {
@@ -209,10 +209,10 @@ export const searchInterest = (access_token, keyword) => ({
 });
 
 
-export const searchEducationSchool = (access_token, keyword) => ({
+export const searchEducationSchool = (access_token, keyword='') => ({
   type: types.SEARCH_SHCOOL,
   payload: {
-    path: `/facebook/targetting-category/search?access_token=${access_token}&class_type=adeducationschool&search=${keyword}`,
+    path: `/facebook/targeting-category/search?access_token=${access_token}&class_type=adeducationschool&search=${keyword}`,
     method: 'GET'
   },
   meta: {
@@ -222,10 +222,10 @@ export const searchEducationSchool = (access_token, keyword) => ({
 });
 
 
-export const searchEducationMajor = (access_token, keyword) => ({
+export const searchEducationMajor = (access_token, keyword='') => ({
   type: types.SEARCH_EDUCATION_MAJOR,
   payload: {
-    path: `/facebook/targetting-category/search?access_token=${access_token}&class_type=adeducationmajor&search=${keyword}`,
+    path: `/facebook/targeting-category/search?access_token=${access_token}&class_type=adeducationmajor&search=${keyword}`,
     method: 'GET'
   },
   meta: {
@@ -235,10 +235,10 @@ export const searchEducationMajor = (access_token, keyword) => ({
 });
 
 
-export const searchWorkEmployer = (access_token, keyword) => ({
+export const searchWorkEmployer = (access_token, keyword='') => ({
   type: types.SEARCH_WORK_EMPLOYER,
   payload: {
-    path: `/facebook/targetting-category/search?access_token=${access_token}&class_type=adworkemployer&search=${keyword}`,
+    path: `/facebook/targeting-category/search?access_token=${access_token}&class_type=adworkemployer&search=${keyword}`,
     method: 'GET'
   },
   meta: {
@@ -248,10 +248,10 @@ export const searchWorkEmployer = (access_token, keyword) => ({
 });
 
 
-export const searchJobTitle = (access_token, keyword) => ({
+export const searchJobTitle = (access_token, keyword='') => ({
   type: types.SEARCH_JOB_TITLE,
   payload: {
-    path: `/facebook/targetting-category/search?access_token=${access_token}&class_type=adworkposition&search=${keyword}`,
+    path: `/facebook/targeting-category/search?access_token=${access_token}&class_type=adworkposition&search=${keyword}`,
     method: 'GET'
   },
   meta: {
@@ -264,7 +264,7 @@ export const searchJobTitle = (access_token, keyword) => ({
 export const browseDemographics = (access_token) => ({
   type: types.BROWSE_DEMOGRAPHICS,
   payload: {
-    path: `/facebook/targetting-category/browse?access_token=${access_token}&class_type=demographics`,
+    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=demographics`,
     method: 'GET'
   },
   meta: {
@@ -277,7 +277,7 @@ export const browseDemographics = (access_token) => ({
 export const browseLifeEvents = (access_token) => ({
   type: types.BROWSE_LIFE_EVENTS,
   payload: {
-    path: `/facebook/targetting-category/browse?access_token=${access_token}&class_type=life_events`,
+    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=life_events`,
     method: 'GET'
   },
   meta: {
@@ -290,7 +290,7 @@ export const browseLifeEvents = (access_token) => ({
 export const browseIndustries = (access_token) => ({
   type: types.BROWSE_INDUSTRIES,
   payload: {
-    path: `/facebook/targetting-category/browse?access_token=${access_token}&class_type=industries`,
+    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=industries`,
     method: 'GET'
   },
   meta: {
@@ -303,7 +303,7 @@ export const browseIndustries = (access_token) => ({
 export const browseIncome = (access_token) => ({
   type: types.BROWSE_INCOME,
   payload: {
-    path: `/facebook/targetting-category/browse?access_token=${access_token}&class_type=income`,
+    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=income`,
     method: 'GET'
   },
   meta: {
@@ -316,7 +316,7 @@ export const browseIncome = (access_token) => ({
 export const browseFamilyStatus = (access_token) => ({
   type: types.BROWSE_FAMILY_STATUS,
   payload: {
-    path: `/facebook/targetting-category/browse?access_token=${access_token}&class_type=family_statuses`,
+    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=family_statuses`,
     method: 'GET'
   },
   meta: {
@@ -329,7 +329,7 @@ export const browseFamilyStatus = (access_token) => ({
 export const browseUserDevice = (access_token) => ({
   type: types.BROWSE_USER_DEVICE,
   payload: {
-    path: `/facebook/targetting-category/browse?access_token=${access_token}&class_type=user_device`,
+    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=user_device`,
     method: 'GET'
   },
   meta: {
@@ -339,11 +339,10 @@ export const browseUserDevice = (access_token) => ({
 });
 
 
-
 export const browseUserOS = (access_token) => ({
   type: types.BROWSE_OS,
   payload: {
-    path: `/facebook/targetting-category/browse?access_token=${access_token}&class_type=user_os`,
+    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=user_os`,
     method: 'GET'
   },
   meta: {
