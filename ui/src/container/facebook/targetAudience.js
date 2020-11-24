@@ -1,6 +1,6 @@
 
 //CONTAINER
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Select from 'react-select';
 import { useAlert } from 'react-alert';
@@ -13,7 +13,9 @@ import {
   getFacebookCustomAudience,
   removeSelectedAudience,
   removeExcludedAudience,
-  controllPersonalAttModal
+  controllPersonalAttModal,
+  addNarrowCard,
+  removeNarrowCard
 } from '../../store/facebookResource';
 import CustomeAudience from './components/customAudience';
 import PersonalAttributes from './components/personalAttribute';
@@ -22,12 +24,10 @@ import Modal from 'react-bootstrap/Modal';
 import _ from 'lodash';
 
 
-
 function FacebookAudienceTargeting() {
   const SpecialCategory = ['HOUSING', 'CREDIT', 'EMPLOYMENT', 'ISSUES_ELECTIONS_POLITICS', 'NONE']
   const dispatch = useDispatch()
   const alert = useAlert()
-  const [cards, setCards] = useState([{id: 1, show: false}])
   const [audienceType, setAudienceType] = useState('new')
 
   const [customAudienceModalShow, setcustomAudienceModalShow] = useState(false);
@@ -40,7 +40,7 @@ function FacebookAudienceTargeting() {
 
   const { campaign, user } = useSelector((state) => state.facebook);
   const { estimatedAudienceSize, locations, customAudience } = useSelector((state) => state.facebookSearch);
-  const { addedCustomAudience, excludeCustomAudience, personalAttModal } = useSelector((state) => state.facebookCampaign);
+  const { addedCustomAudience, excludeCustomAudience, personalAttModal, cards } = useSelector((state) => state.facebookCampaign);
 
   const estimatedAudienceSizeHandler = () => {
     const accountID = 'act_552899645070172'
@@ -68,17 +68,22 @@ function FacebookAudienceTargeting() {
   }
 
   const addCard = () => {
-    let lastItem = cards[cards.length-1]
-    cards.push({
-        id: lastItem.id+1,
-        show: false
-    })
-    setCards([...cards])
+      let id = 1
+      if (cards.length) {
+          let lastItem = cards[cards.length-1]
+          id = lastItem.id + 1
+      }
+    const payload = {
+        id: id,
+    }
+    dispatch(addNarrowCard(payload))
   }
 
-  const deleteCard = (index) => {
-      cards.splice(index, 1)
-      setCards([...cards])
+  const deleteCard = (id) => {
+      const payload = {
+          id: id
+      }
+      dispatch(removeNarrowCard(payload))
   }
 
   const personalAttributeModalShow = (id) => {
@@ -92,6 +97,10 @@ function FacebookAudienceTargeting() {
       }
       dispatch(controllPersonalAttModal(modalAtt))
   }
+
+  useEffect(() => {
+    //    dispatch(addNarrowCard({id: 1}))
+}, [dispatch])
 
   const removeSelectedAudienceHandler = (payload) => {
       dispatch(removeSelectedAudience(payload))
@@ -228,13 +237,13 @@ function FacebookAudienceTargeting() {
                         
                         
                         {
-                            cards.map((card, index) => 
+                            cards&&cards.map((card, index) => 
                                 <div key={index}>
                                     <label htmlFor="and"><strong> And </strong></label> <br/> 
                                     <div  className="audience-filter m-b-10" key={card.id}>
                                         <div className="form-group">
                                             <span className="location-span">Have any of the following:</span>  
-                                            <button type="button" className="btn float-right" onClick={() => deleteCard(index)}> 
+                                            <button type="button" className="btn float-right" onClick={() => deleteCard(card.id)}> 
                                                 <img src={RemoveIcon} className="reomve-filter" alt="Remove"/>
                                             </button> 
                                             <br/>

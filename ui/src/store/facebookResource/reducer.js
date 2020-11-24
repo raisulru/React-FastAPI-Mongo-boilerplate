@@ -8,7 +8,12 @@ const facebookCampaignState = {
   personalAttModal: {
     id: undefined,
     display: 'none'
-  }
+  },
+  cards: [
+    {
+      id: 1
+    }
+  ]
 }
 
 export const facebookCampaign = (state = facebookCampaignState, action) => {
@@ -35,6 +40,15 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
           return item.id === action.payload.id;
         })
         draft.excludeCustomAudience = [...draft.excludeCustomAudience]
+        break;
+      case types.ADD_CARD:
+        draft.cards = [...draft.cards, ...[payload]]
+        break;
+      case types.REMOVE_CARD:
+        _.remove(draft.cards, function(item) {
+          return item.id === action.payload.id;
+        })
+        draft.cards = [...draft.cards]
         break;
       default:
         return state;

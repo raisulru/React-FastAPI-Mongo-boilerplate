@@ -406,3 +406,39 @@ export const controllPersonalAttModal = (payload) => ({
     errorMessage: "Modal not updated",
   },
 });
+
+export const addPersonalAtt = (payload) => ({
+  type: types.ADD_PERSONAL_ATTRIBUTE,
+  payload: payload,
+  meta: {
+    api: false,
+    errorMessage: "Personal attribute not added",
+  },
+});
+
+export const removePersonalAtt = (payload) => ({
+  type: types.REMOVE_PERSONAL_ATTRIBUTE,
+  payload: payload,
+  meta: {
+    api: false,
+    errorMessage: "Personal attribute not removed",
+  },
+});
+
+export const addNarrowCard = (payload) => ({
+  type: types.ADD_CARD,
+  payload: payload,
+  meta: {
+    api: false,
+    errorMessage: "Card not added",
+  },
+});
+
+export const removeNarrowCard = (payload) => ({
+  type: types.REMOVE_CARD,
+  payload: payload,
+  meta: {
+    api: false,
+    errorMessage: "Card not removed",
+  },
+});

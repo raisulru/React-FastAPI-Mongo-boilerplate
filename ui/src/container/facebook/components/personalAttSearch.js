@@ -26,6 +26,10 @@ function PersonalAttributeSearch(props) {
         }
       }, [dispatch])
 
+    const selectHandler = (e) => {
+        
+    }
+
     return (
         <div>
             <div className="row">
@@ -53,7 +57,7 @@ function PersonalAttributeSearch(props) {
                                     <div className="checkbox">
                                         <label className="custom-checkbox">
                                             {data.name}, {data.platform && data.platform}
-                                            <input type="checkbox" value={data.id}/>
+                                            <input type="checkbox" onChange={selectHandler} value={data.id}/>
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
