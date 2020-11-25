@@ -33,7 +33,9 @@ export {
   removeExcludedAudience,
   controllPersonalAttModal,
   addNarrowCard,
-  removeNarrowCard
+  removeNarrowCard,
+  addPersonalAtt,
+  removePersonalAtt
   } from './action';
   
 export { facebook, facebookSearch, facebookCampaign } from './reducer';

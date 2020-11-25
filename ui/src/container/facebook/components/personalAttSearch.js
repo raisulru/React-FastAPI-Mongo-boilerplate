@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SearchIcon from '../../../images/search.svg'
+import {addPersonalAtt, removePersonalAtt} from '../../../store/facebookResource'
+import _ from 'lodash'
 
 function PersonalAttributeSearch(props) {
     const dispatch = useDispatch()
     const { user } = useSelector((state) => state.facebook);
+    const { personalAttModal, cards } = useSelector((state) => state.facebookCampaign);
     
     const searchPersonalAttHandler = (e) => {
         if (props.search && props.browse) {
@@ -27,7 +30,30 @@ function PersonalAttributeSearch(props) {
       }, [dispatch])
 
     const selectHandler = (e) => {
-        
+        const checked = e.target.checked;
+        const target = e.target;
+        const type = target.value || props.type;
+        const payload = { 
+            cardNo: personalAttModal.id,
+            data: {
+                id: target.id,
+                name: target.name,
+                type: type
+            }}
+        if (checked) {
+            dispatch(addPersonalAtt(payload))
+        } else {
+            dispatch(removePersonalAtt(payload))
+        }
+    }
+
+    const checkedOrNot = (cards, id) => {
+        let boolValue = false;
+        const card = _.find(cards, {cardNo: personalAttModal.id})
+        if (card) {
+            boolValue = _.some(card.data, {id: id})
+        }
+        return boolValue
     }
 
     return (
@@ -56,8 +82,8 @@ function PersonalAttributeSearch(props) {
                                 <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
                                     <div className="checkbox">
                                         <label className="custom-checkbox">
-                                            {data.name}, {data.platform && data.platform}
-                                            <input type="checkbox" onChange={selectHandler} value={data.id}/>
+                                            {data.name}, {data.platform && data.platform}, <strong>{data.type && data.type}</strong>
+                                               <input type="checkbox" checked={checkedOrNot(cards, data.id)} value={data.type} name={data.name} onChange={selectHandler} id={data.id}/>
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>

@@ -68,20 +68,21 @@ function FacebookAudienceTargeting() {
   }
 
   const addCard = () => {
-      let id = 1
+      let cardNo = 1
       if (cards.length) {
           let lastItem = cards[cards.length-1]
-          id = lastItem.id + 1
+          cardNo = lastItem.cardNo + 1
       }
     const payload = {
-        id: id,
+        cardNo: cardNo,
+        data: []
     }
     dispatch(addNarrowCard(payload))
   }
 
-  const deleteCard = (id) => {
+  const deleteCard = (cardNo) => {
       const payload = {
-          id: id
+        cardNo: cardNo
       }
       dispatch(removeNarrowCard(payload))
   }
@@ -99,7 +100,9 @@ function FacebookAudienceTargeting() {
   }
 
   useEffect(() => {
-    //    dispatch(addNarrowCard({id: 1}))
+      if (!cards.length) {
+          dispatch(addNarrowCard({cardNo: 1, data: []}))
+      }
 }, [dispatch])
 
   const removeSelectedAudienceHandler = (payload) => {
@@ -237,27 +240,27 @@ function FacebookAudienceTargeting() {
                         
                         
                         {
-                            cards&&cards.map((card, index) => 
+                            cards && cards.map((card, index) => 
                                 <div key={index}>
                                     <label htmlFor="and"><strong> And </strong></label> <br/> 
-                                    <div  className="audience-filter m-b-10" key={card.id}>
+                                    <div  className="audience-filter m-b-10">
                                         <div className="form-group">
                                             <span className="location-span">Have any of the following:</span>  
-                                            <button type="button" className="btn float-right" onClick={() => deleteCard(card.id)}> 
+                                            <button type="button" className="btn float-right" onClick={() => deleteCard(card.cardNo)}> 
                                                 <img src={RemoveIcon} className="reomve-filter" alt="Remove"/>
                                             </button> 
                                             <br/>
                                             <label>Personal Attributes</label> <br/>
-                                            <span className="tag label label-info">
-                                                <span>ADN Workshop_PIIT_audience_file_Custom</span>
-                                                <button type="button" className="btn remove">× </button>
-                                            </span>
-                                            <span className="tag label label-info">
-                                                <span>ADN Servers Lead</span>
-                                                <button type="button" className="btn remove">× </button>
-                                            </span>
+                                            {
+                                                _.map(_.groupBy(card.data, i => i.type), (value, key, obj) => 
+                                                    <span className="tag label label-info" key={value}>
+                                                        <span>{obj.name}</span>
+                                                        <button type="button" className="btn remove">× </button>
+                                                    </span>
+                                                )
+                                            }
                                             <br/>
-                                            <button type="button" className="btn add-exlusions-btn" onClick={() => personalAttributeModalShow(card.id)}>
+                                            <button type="button" className="btn add-exlusions-btn" onClick={() => personalAttributeModalShow(card.cardNo)}>
                                             + Add Filter( OR )
                                             </button> 
                                         </div>
@@ -359,22 +362,8 @@ function FacebookAudienceTargeting() {
             <button type="button" onClick={handleCustomAudienceExcludeClose} className="btn btn-secondary" >Cancel</button>
         </Modal.Footer>
 </Modal>
-{/* {
-    cards.map((card, index) => 
-    <Modal 
-        show={_.find(cards, { 'id': card.id }).show}
-        onHide={() => personalAttributeModalClose(card.id)}
-        backdrop="static"
-        keyboard={false}
-        className="drawer modal right-align"
-        key={index}
-        enforceFocus={true}
-        >
-    </Modal>
-    )
-} */}
-<PersonalAttributes />
 
+<PersonalAttributes />
   </>
   );
 }

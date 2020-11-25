@@ -11,9 +11,61 @@ const facebookCampaignState = {
   },
   cards: [
     {
-      id: 1
+      cardNo: 1,
     }
-  ]
+  ],
+  campaignPayload: {
+    "facebook_positions": [
+      "feed"
+    ],
+    "age_max": 24,
+    "age_min": 20,
+    "behaviors": [
+      {
+        "id": 6002714895372,
+        "name": "All travelers"
+      }
+    ],
+    "device_platforms": [
+      "mobile"
+    ],
+    "genders": [
+      1
+    ],
+    "geo_locations": {
+      "countries": [
+        "US"
+      ],
+      "regions": [
+        {
+          "key": "4081"
+        }
+      ],
+      "cities": [
+        {
+          "key": 777934,
+          "radius": 10,
+          "distance_unit": "mile"
+        }
+      ]
+    },
+    "interests": [
+      {
+        "id": "<INTEREST_ID>",
+        "name": "<INTEREST_NAME>"
+      }
+    ],
+    "life_events": [
+      {
+        "id": 6002714398172,
+        "name": "Newlywed (1 year)"
+      }
+    ],
+    "publisher_platforms": [
+      "facebook",
+      "audience_network"
+    ]
+  }
 }
 
 export const facebookCampaign = (state = facebookCampaignState, action) => {
@@ -42,11 +94,32 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
         draft.excludeCustomAudience = [...draft.excludeCustomAudience]
         break;
       case types.ADD_CARD:
+        if (_.includes(draft.cards, payload.cardNo)) {
+          return state
+        }
         draft.cards = [...draft.cards, ...[payload]]
         break;
       case types.REMOVE_CARD:
         _.remove(draft.cards, function(item) {
-          return item.id === action.payload.id;
+          return item.cardNo === payload.cardNo;
+        })
+        draft.cards = [...draft.cards]
+        break;
+      case types.ADD_PERSONAL_ATTRIBUTE:
+        _.map(draft.cards, (card) => {
+            if (card.cardNo === payload.cardNo) {
+              card.data.push(payload.data)
+            }
+        })
+        draft.cards = [...draft.cards]
+        break;
+      case types.REMOVE_PERSONAL_ATTRIBUTE:
+        _.map(draft.cards, card => {
+          if (card.cardNo === payload.cardNo) {
+            _.remove(card.data, function(item) {
+              return item.id === payload.data.id;
+            })
+          }
         })
         draft.cards = [...draft.cards]
         break;
@@ -218,9 +291,19 @@ export const facebookSearch = (state = facebookSearchState, action) => {
         draft.familyStatus = payload.data
         break;
       case types.BROWSE_USER_DEVICE_SUCCESS:
+        let deviceID = 123456
+        _.map(payload.data, item => {
+          item.id = deviceID.toString()
+          deviceID += 1
+        })
         draft.userDevices = payload.data
         break;
       case types.BROWSE_OS_SUCCESS:
+        let osID = 654321
+        _.map(payload.data, item => {
+          item.id = osID.toString()
+          osID += 1
+        })
         draft.operatingSystems = payload.data
         break;
       default:

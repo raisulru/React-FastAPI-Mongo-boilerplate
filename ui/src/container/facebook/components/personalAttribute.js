@@ -118,6 +118,7 @@ function PersonalAttributes(props) {
                                     <div className="tab-pane fade show active" id="v-pills-education" role="tabpanel" aria-labelledby="v-pills-education-tab">
                                         <PersonalAttributeSearch 
                                             title="Education Schools"
+                                            type="education_schools"
                                             data={schools} 
                                             search={searchEducationSchool} 
                                             placeholder="Search For Education School"/>
@@ -125,6 +126,7 @@ function PersonalAttributes(props) {
                                     <div className="tab-pane fade" id="v-pills-education-major" role="tabpanel" aria-labelledby="v-pills-education-major-tab">
                                         <PersonalAttributeSearch 
                                             title="Education Major"
+                                            type="education_majors"
                                             data={educationMajors} 
                                             search={searchEducationMajor} 
                                             placeholder="Search For Education Major"
@@ -133,6 +135,7 @@ function PersonalAttributes(props) {
                                     <div className="tab-pane fade" id="v-pillsworkemployer" role="tabpanel" aria-labelledby="v-pillsworkemployer-tab">
                                     <PersonalAttributeSearch 
                                             title="Work Employer"
+                                            type="work_employers"
                                             data={workEmployers} 
                                             search={searchWorkEmployer} 
                                             placeholder="Search For Work Employer"
@@ -141,6 +144,7 @@ function PersonalAttributes(props) {
                                     <div className="tab-pane fade" id="v-pills-jobtitle" role="tabpanel" aria-labelledby="v-pills-jobtitle-tab">
                                     <PersonalAttributeSearch 
                                             title="Job Title"
+                                            type="work_positions"
                                             data={jobTitles} 
                                             search={searchJobTitle} 
                                             placeholder="Search For Job Title"
@@ -181,6 +185,7 @@ function PersonalAttributes(props) {
                                     <div className="tab-pane fade" id="v-pills-userdevice" role="tabpanel" aria-labelledby="v-pills-userdevice-tab">
                                     <PersonalAttributeSearch 
                                             title="User Device"
+                                            type="user_device"
                                             data={userDevices} 
                                             browse={browseUserDevice} 
                                             placeholder="Search For User Device"
@@ -189,6 +194,7 @@ function PersonalAttributes(props) {
                                     <div className="tab-pane fade" id="v-pills-useros" role="tabpanel" aria-labelledby="v-pills-useros-tab">
                                     <PersonalAttributeSearch 
                                             title="User OS"
+                                            type="user_os"
                                             data={operatingSystems} 
                                             browse={browseUserOS} 
                                             placeholder="Search For User OS"
