@@ -39,7 +39,8 @@ function PersonalAttributeSearch(props) {
                 id: target.id,
                 name: target.name,
                 type: type
-            }}
+            }
+        }
         if (checked) {
             dispatch(addPersonalAtt(payload))
         } else {

@@ -35,7 +35,8 @@ export {
   addNarrowCard,
   removeNarrowCard,
   addPersonalAtt,
-  removePersonalAtt
+  removePersonalAtt,
+  AddOthersTargeting
   } from './action';
   
 export { facebook, facebookSearch, facebookCampaign } from './reducer';

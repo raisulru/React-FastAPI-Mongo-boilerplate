@@ -14,6 +14,12 @@ const facebookCampaignState = {
       cardNo: 1,
     }
   ],
+  othersTargetingParam: {
+    age_max: 24,
+    age_min: 20,
+    geo_locations: [],
+    specialCategory: ""
+  },
   campaignPayload: {
     "facebook_positions": [
       "feed"
@@ -123,6 +129,9 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
         })
         draft.cards = [...draft.cards]
         break;
+      case types.ADD_OTHERS_TARGETING_PARAM:
+        draft.othersTargetingParam = payload
+        break
       default:
         return state;
     }

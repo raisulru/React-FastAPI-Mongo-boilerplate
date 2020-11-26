@@ -22,11 +22,9 @@ function CustomeAudience() {
   const [lookalikeAudiences, setLookalikeAudience] = useState([])
 
   useEffect(() => {
-    if (!customAudience.length) {
-        const campaignId = campaign.ad_account.id || adAccounts[0].id;
-        dispatch(getFacebookCustomAudience(user.accessToken, campaignId));
-    }
-
+    const campaignId = campaign.ad_account.id || adAccounts[0].id;
+    dispatch(getFacebookCustomAudience(user.accessToken, campaignId));
+    
     const groupByAudience = _.groupBy(customAudience, audience => {
       return audience.subtype
     })

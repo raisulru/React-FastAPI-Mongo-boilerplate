@@ -442,3 +442,12 @@ export const removeNarrowCard = (payload) => ({
     errorMessage: "Card not removed",
   },
 });
+
+export const AddOthersTargeting = (payload) => ({
+  type: types.ADD_OTHERS_TARGETING_PARAM,
+  payload: payload,
+  meta: {
+    api: false,
+    errorMessage: "Others targeting not Added",
+  },
+});

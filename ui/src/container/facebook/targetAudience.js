@@ -1,31 +1,65 @@
-
-//CONTAINER
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Select from 'react-select';
 import { useAlert } from 'react-alert';
-
-import PostPreview from './components/postPreview';
-import RemoveIcon from '../../images/delete.svg';
-import {
-  searchFacebookLocation,
-  getEstimatedAudienceSize,
-  getFacebookCustomAudience,
-  removeSelectedAudience,
-  removeExcludedAudience,
-  controllPersonalAttModal,
-  addNarrowCard,
-  removeNarrowCard
-} from '../../store/facebookResource';
-import CustomeAudience from './components/customAudience';
-import PersonalAttributes from './components/personalAttribute';
-import CustomAudienceExcludeComponent from './components/customAudienceExclude';
 import Modal from 'react-bootstrap/Modal';
 import _ from 'lodash';
 
+import {
+    searchFacebookLocation,
+    getEstimatedAudienceSize,
+    getFacebookCustomAudience,
+    removeSelectedAudience,
+    removeExcludedAudience,
+    controllPersonalAttModal,
+    addNarrowCard,
+    removeNarrowCard,
+    removePersonalAtt,
+    AddOthersTargeting
+} from '../../store/facebookResource';
+
+import PostPreview from './components/postPreview';
+import CustomeAudience from './components/customAudience';
+import PersonalAttributes from './components/personalAttribute';
+import CustomAudienceExcludeComponent from './components/customAudienceExclude';
+import copyObject from '../../utils/copyObject';
+import {toLowerCase} from '../../utils/changeTextAndCase';
+import RemoveIcon from '../../images/delete.svg';
+
+
+function PersonalUniqueAtt(props) {
+    const dispatch = useDispatch();
+
+    const removePersonalAttHandler = (data) => {
+        const payload = { 
+            cardNo: props.cardNo,
+            data: data
+        }
+        dispatch(removePersonalAtt(payload))
+    }
+
+    return (
+        props.value.map(item => 
+            <span className="tag label label-info">
+                <span>{item.name}</span>
+                <button 
+                    type="button" 
+                    onClick={()=>removePersonalAttHandler(item)} 
+                    className="btn remove">× </button>
+            </span>
+        )
+    )
+}
+
 
 function FacebookAudienceTargeting() {
-  const SpecialCategory = ['HOUSING', 'CREDIT', 'EMPLOYMENT', 'ISSUES_ELECTIONS_POLITICS', 'NONE']
+  const SpecialCategory = [
+      'NONE', 
+      'HOUSING', 
+      'CREDIT', 
+      'EMPLOYMENT', 
+      'ISSUES_ELECTIONS_POLITICS'
+    ]
   const dispatch = useDispatch()
   const alert = useAlert()
   const [audienceType, setAudienceType] = useState('new')
@@ -39,8 +73,16 @@ function FacebookAudienceTargeting() {
   const handleCustomAudienceExcludeShow = () => setCustomAudienceExcludeModalShow(true);
 
   const { campaign, user } = useSelector((state) => state.facebook);
-  const { estimatedAudienceSize, locations, customAudience } = useSelector((state) => state.facebookSearch);
-  const { addedCustomAudience, excludeCustomAudience, personalAttModal, cards } = useSelector((state) => state.facebookCampaign);
+  const { 
+      estimatedAudienceSize, 
+      locations, 
+      customAudience } = useSelector((state) => state.facebookSearch);
+  const { 
+      addedCustomAudience, 
+      excludeCustomAudience, 
+      personalAttModal, 
+      cards, 
+      othersTargetingParam } = useSelector((state) => state.facebookCampaign);
 
   const estimatedAudienceSizeHandler = () => {
     const accountID = 'act_552899645070172'
@@ -55,13 +97,24 @@ function FacebookAudienceTargeting() {
     dispatch(getFacebookCustomAudience(user.accessToken, campaign.ad_account.id))
   }
 
-  const geoLocationHandler = (e) => {
-    console.log(e)
+  const othersTargetingHandler = (e) => {
+      const name = e.target.name;
+      let value = e.target.value;
+
+      let payload = copyObject(othersTargetingParam)
+
+      if (name==='age_min' || name==='age_max') {
+          value = parseInt(value)
+      }
+      payload[name] = value
+    dispatch(AddOthersTargeting(payload))
   }
 
-  const specialCategoryHandler = (e) => {
-    console.log(e.target.value)
-  }
+  const locationHandler = (data) => {
+    let payload = copyObject(othersTargetingParam)
+    payload.geo_locations = data
+  dispatch(AddOthersTargeting(payload))
+}
 
   const locationSearchHandler = (string) => {
     dispatch(searchFacebookLocation(user.accessToken, string))
@@ -88,6 +141,7 @@ function FacebookAudienceTargeting() {
   }
 
   const personalAttributeModalShow = (id) => {
+
       let modalAtt = {}
       if (personalAttModal.id == undefined && personalAttModal.display === 'none') {
         modalAtt = {id: id, display: 'block'}
@@ -112,6 +166,13 @@ function FacebookAudienceTargeting() {
   const removeExcludedAudienceHandler = (payload) => {
     dispatch(removeExcludedAudience(payload))
   }
+
+  const personalAttributeData = _.map(copyObject(cards), card => {
+      card.groupBYData = _.groupBy(card.data, item => {
+          return item.type;
+      })
+      return card
+  })
   
   return (
     <>
@@ -127,10 +188,17 @@ function FacebookAudienceTargeting() {
                     <form action="#">
                         <div className="form-group">
                             <label htmlFor="adaccount">Special ad Category*</label>
-                            <select onChange={specialCategoryHandler} className="form-control" id="adaccount">
+                            <select 
+                                defaultValue={othersTargetingParam.specialCategory ? othersTargetingParam.specialCategory:"NONE"}
+                                onChange={othersTargetingHandler}
+                                name="specialCategory"
+                                className="form-control" 
+                                id="adaccount">
                              {
                                SpecialCategory.map((category, index) => 
-                                    <option key={index} value={category}>{category.replace('_', ' ').toLowerCase()}</option>
+                                    <option key={index} value={category}>
+                                        {toLowerCase(category)}
+                                    </option>
                                 )
                              }
                             </select>
@@ -140,10 +208,10 @@ function FacebookAudienceTargeting() {
                             <label htmlFor="Audience">Audience* </label> <br/>
                             <div className="form-check form-check-inline">
                                 <input 
-                                    className="form-check-input" 
-                                    type="radio" id="newAudience" 
-                                    checked={audienceType === 'new'} 
-                                    value="new" 
+                                    className="form-check-input"
+                                    type="radio" id="newAudience"
+                                    checked={audienceType === 'new'}
+                                    value="new"
                                     onChange={() => setAudienceType('new')}
                                     />
                                 <label className="form-check-label" htmlFor="newAudience">New Audience</label>
@@ -176,8 +244,9 @@ function FacebookAudienceTargeting() {
                               <span className="location-span">People living in any of the following</span>
                               <Select
                                 closeMenuOnSelect={false}
-                                onChange={geoLocationHandler}
+                                onChange={locationHandler}
                                 options={locations}
+                                defaultValue={othersTargetingParam.geo_locations}
                                 getOptionLabel={option =>
                                   `${option.name}, ${option.country_name}`
                                 }
@@ -185,6 +254,7 @@ function FacebookAudienceTargeting() {
                                 onInputChange={locationSearchHandler}
                                 isClearable={true}
                                 isSearchable={true}
+                                name="location"
                                 isMulti
                               />
                             </div>
@@ -194,20 +264,20 @@ function FacebookAudienceTargeting() {
                             <div className="form-group">
                               <label htmlFor="Location">Age range *</label> <br/>
                              <div className="form-inline">
-                             <select defaultValue={18} className="form-control-location w-70" id="Location">
+                             <select defaultValue={othersTargetingParam.age_min ? othersTargetingParam.age_min:18} onChange={othersTargetingHandler} name="age_min" className="form-control-location w-70" id="Location">
                                
                                 {
                                  Array.from({length: 48}, (v, k) => 
-                                  <option key={k+1}>{k+18}</option>
+                                  <option key={k+1} value={k+18}>{k+18}</option>
                                  )
                                 }
                                
                               </select>
                               <label htmlFor="to" className="p-r-15 ml-15">To</label>
-                              <select defaultValue={65} className="form-control-location w-70" id="Location">
+                              <select defaultValue={othersTargetingParam.age_max ? othersTargetingParam.age_max:65} onChange={othersTargetingHandler} name="age_max" className="form-control-location w-70" id="Location">
                                 {
                                  Array.from({length: 48}, (v, k) => 
-                                  <option key={k+1}>{k+18}</option>
+                                  <option key={k+1} value={k+18}>{k+18}</option>
                                  )
                                 }
                               </select>
@@ -240,7 +310,7 @@ function FacebookAudienceTargeting() {
                         
                         
                         {
-                            cards && cards.map((card, index) => 
+                            personalAttributeData && personalAttributeData.map((card, index) => 
                                 <div key={index}>
                                     <label htmlFor="and"><strong> And </strong></label> <br/> 
                                     <div  className="audience-filter m-b-10">
@@ -252,11 +322,11 @@ function FacebookAudienceTargeting() {
                                             <br/>
                                             <label>Personal Attributes</label> <br/>
                                             {
-                                                _.map(_.groupBy(card.data, i => i.type), (value, key, obj) => 
-                                                    <span className="tag label label-info" key={value}>
-                                                        <span>{obj.name}</span>
-                                                        <button type="button" className="btn remove">× </button>
-                                                    </span>
+                                                _.map(card.groupBYData, (value, key, obj) => 
+                                                    <>
+                                                        <div> <strong>{toLowerCase(key)}</strong></div>
+                                                        <PersonalUniqueAtt value={value} cardNo={card.cardNo}/>
+                                                    </>
                                                 )
                                             }
                                             <br/>

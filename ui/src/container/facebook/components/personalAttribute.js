@@ -57,7 +57,7 @@ function PersonalAttributes(props) {
     }
 
     return (
-        <div className="custom-modal col-md-12" style={{display: personalAttModal?personalAttModal.display:'none'}}>
+        <div className="custom-modal col-md-12" style={{display: personalAttModal.display}}>
                 <div onClick={closeModal} className="modal-header text-white">
                     <h5 className="p-l-20">Add audience</h5>
                     <span className="float-right ">
@@ -224,7 +224,7 @@ function PersonalAttributes(props) {
                          </div>
                     </div>
 
-                <button type="button" className="btn btn-primary">Save</button>
+                <button type="button" onClick={closeModal} className="btn btn-primary">Save</button>
                 <button type="button" onClick={closeModal} className="btn btn-secondary">Cancel</button>
         </div>
     )
