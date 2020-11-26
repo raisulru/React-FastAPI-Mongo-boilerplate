@@ -5,6 +5,12 @@ import * as types from './types';
 const facebookCampaignState = {
   addedCustomAudience: [],
   excludeCustomAudience: [],
+  budgetAndSchedule: {
+    start_time: '',
+    end_time: '',
+    budgetType: '',
+    ammount: 0
+  },
   personalAttModal: {
     id: undefined,
     display: 'none'
@@ -131,6 +137,9 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
         break;
       case types.ADD_OTHERS_TARGETING_PARAM:
         draft.othersTargetingParam = payload
+        break
+      case types.ADD_BUDGET_AND_SCHEDULE:
+        draft.budgetAndSchedule = payload
         break
       default:
         return state;

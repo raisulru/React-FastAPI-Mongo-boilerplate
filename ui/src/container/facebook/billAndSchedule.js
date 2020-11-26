@@ -1,23 +1,30 @@
-
-//CONTAINER
 import React from 'react';
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
 import PostPreview from './components/postPreview';
-/**
- * PROPERTIES & FUNCTION 
- * 
- */
+import {addBudgetAndSchedule} from '../../store/facebookResource'
+import copyObject from '../../utils/copyObject';
+
 
 function FacebookBillAndSchedule() {
+  const dispatch = useDispatch()
+
   const { campaign } = useSelector((state) => state.facebook);
   const { estimatedAudienceSize } = useSelector((state) => state.facebookSearch);
+  const { budgetAndSchedule } = useSelector((state) => state.facebookCampaign);
+
+  const inputHandler = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    const payload = copyObject(budgetAndSchedule)
+    payload[name] = value
+    dispatch(addBudgetAndSchedule(payload))
+  }
 
   return (
     <>
     <div className="lead-generation-ad">
-    <div className="container-fluid">
-        <div className="row">
+        <div className="container-fluid">
+            <div className="row">
             <div className="col-md-6 bg-white py-5">
                 <div className="row">
                     
@@ -26,40 +33,28 @@ function FacebookBillAndSchedule() {
                 </div>
                 <div className="col-md-10">
                 <div className="left-ad-generation-area mr-5 ml-5">
-                    <form action="#">
-                       <div className="form-group">
-                            <label htmlFor="Budget">Budget*  </label> <br/> 
-                            <div className="input-group">                                  
-                                  <select className="form-control" id="ammount">
-                                    <option>Daily (USD $10.00)</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                  </select>
-                                  <input type="text" className="form-control" defaultValue="$10"/>
-                            </div>
+                    <div className="form-group">
+                        <label htmlFor="Budget">Budget*</label> <br/> 
+                        <div className="input-group">                                  
+                            <select defaultValue={budgetAndSchedule.budgetType? budgetAndSchedule.budgetType:"daily_budget"} onChange={inputHandler} name="budgetType" className="form-control" id="ammount">
+                                <option value="daily_budget">Daily (USD $)</option>
+                                <option value="lifetime_budget">Life Time (USD $)</option>
+                            </select>
+                            <input type="number" onChange={inputHandler} name="ammount" className="form-control" defaultValue={budgetAndSchedule.ammount}/>
                         </div>
-
-                        <div className="form-group">
-                            <label htmlFor="Audience">Schedule*  </label> <br/> 
-                            <div className="input-group m-b-10 date">                                  
-                              <input type='date' className="form-control" />
-                                  <span className="input-group-addon">
-                                        <span className="glyphicon glyphicon-calendar">     
-                                        </span>
-                                  </span>
-                               <input type="time" className="form-control"  id="appt" name="appt"/>                        
-                            </div>                        
-                            <div className="input-group m-b-10 date">                                  
-                                <input type='date' className="form-control" />                                   
-                                <input type="time" className="form-control" id="appt2" name="appt2"/>                                                         
-                            </div> 
-                            <p>Your add will run for todays and will cost no more than $10 </p>                        
-                                          
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="Audience">Schedule*</label> <br/>
+                        <div className="input-group m-b-10 date">
+                            <input type='date' defaultValue={budgetAndSchedule.start_date} onChange={inputHandler} className="form-control" id="dateFrom" name="start_date" />
+                            <input type="time" disabled={!budgetAndSchedule.start_time} onChange={inputHandler} className="form-control" id="timeFrom" name="start_time"/>
                         </div>
-                        
-                    </form>
+                        <div className="input-group m-b-10 date">
+                            <input type="date" onChange={inputHandler} className="form-control" id="dateTo" name="end_date" />
+                            <input type="time" disabled={!budgetAndSchedule.end_date} onChange={inputHandler} className="form-control"  id="timeTo" name="end_time"/>
+                        </div> 
+                        <p>Your add will run for {7} days and will cost no more than ${10} </p>
+                    </div>
                 </div>
                 </div>
                 </div>
@@ -76,8 +71,6 @@ function FacebookBillAndSchedule() {
         </div>
     </div>
 </div>
-
-
   </>
   );
 }

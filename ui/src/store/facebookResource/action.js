@@ -451,3 +451,12 @@ export const AddOthersTargeting = (payload) => ({
     errorMessage: "Others targeting not Added",
   },
 });
+
+export const addBudgetAndSchedule = (payload) => ({
+  type: types.ADD_BUDGET_AND_SCHEDULE,
+  payload: payload,
+  meta: {
+    api: false,
+    errorMessage: "Budget And Schedule Not Added",
+  },
+});
