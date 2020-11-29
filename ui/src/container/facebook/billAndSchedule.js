@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PostPreview from './components/postPreview';
 import {addBudgetAndSchedule} from '../../store/facebookResource'
@@ -7,9 +7,9 @@ import copyObject from '../../utils/copyObject';
 
 function FacebookBillAndSchedule() {
   const dispatch = useDispatch()
-
+  const [dayDiff, setDayDiff] = useState(0)
+  const [totalAmmount, setTotalAmmount] = useState(0)
   const { campaign } = useSelector((state) => state.facebook);
-  const { estimatedAudienceSize } = useSelector((state) => state.facebookSearch);
   const { budgetAndSchedule } = useSelector((state) => state.facebookCampaign);
 
   const inputHandler = (e) => {
@@ -18,6 +18,38 @@ function FacebookBillAndSchedule() {
     const payload = copyObject(budgetAndSchedule)
     payload[name] = value
     dispatch(addBudgetAndSchedule(payload))
+    numberOfDays()
+  }
+
+  const numberOfDays = () => {
+      const {start_date, end_date} = budgetAndSchedule;
+      let startDate, endDate;
+
+      if (start_date) {
+          startDate = new Date(start_date);
+      }
+
+      if (end_date) {
+          endDate = new Date(end_date);
+      }
+
+      if (!start_date || !end_date) {
+          return
+      }
+    const diffTime = Math.abs(endDate - startDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    setDayDiff(diffDays)
+    if (diffDays) {
+        totalAmmountCalculation(diffDays)
+    }
+  }
+
+  const totalAmmountCalculation = (diffDays) => {
+      if (budgetAndSchedule.ammount) {
+          const total = diffDays*budgetAndSchedule.ammount
+          setTotalAmmount(total)
+      }
+
   }
 
   return (
@@ -53,7 +85,7 @@ function FacebookBillAndSchedule() {
                             <input type="date" onChange={inputHandler} className="form-control" id="dateTo" name="end_date" />
                             <input type="time" disabled={!budgetAndSchedule.end_date} onChange={inputHandler} className="form-control"  id="timeTo" name="end_time"/>
                         </div> 
-                        <p>Your add will run for {7} days and will cost no more than ${10} </p>
+                        <p>Your add will run for <strong>{dayDiff} days</strong> and will cost no more than <strong> ${totalAmmount}</strong> </p>
                     </div>
                 </div>
                 </div>

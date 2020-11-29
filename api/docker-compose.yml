@@ -1,15 +1,25 @@
+# services:
+#   lead_generation:
+#       build:
+#           context: .
+#           dockerfile: Dockerfile
+#       image: lead_generation
+#       ports:
+#           - "8000:8000"
+#       environment:
+#           - lead_generation_SERVICE__MODE="prod"
+      # volumes:
+      #     - type: bind
+      #       source: <LOGFOLDER_ON_HOST>
+      #       target: <LOGFOLDER_INSIDE_DOCKER_CONTAINER>
+
 version: '3.7'
 
 services:
-
   lead_generation_api:
-    container_name: lead_generation_api
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - '.:.'
+    image: lead_generation_api
     ports:
-      - 8000:8000
-networks:
-   lead_generation:
+      - "8000:8000"
