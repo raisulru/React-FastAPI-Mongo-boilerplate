@@ -14,7 +14,7 @@ import copyObject from '../../utils/copyObject'
 function CreateFacebookContent () {
   const dispatch = useDispatch()
   const [campaignType, setCampaignType] = useState('new')
-  const { facebookPages, user, adAccounts, CTA, campaign } = useSelector((state) => state.facebook);
+  const { facebookPages, user, adAccounts, CTA, campaign, campaignList } = useSelector((state) => state.facebook);
   const { estimatedAudienceSize } = useSelector((state) => state.facebookSearch);
 
   useEffect(() => {
@@ -90,9 +90,11 @@ function CreateFacebookContent () {
                                     <input onChange={inputHandler} type='text' value={campaign.new_campaign} name="new_campaign" className="form-control" /> 
                                     : 
                                     <select onChange={inputHandler} className="form-control" name="campaign" id="leadgeneration-ad">
-                                      <option>Lead generation ad- 22/ 10/2020 5:00pm</option>
-                                      <option>Lead generation ad- 23/ 10/2020 5:00pm</option>
-                                      <option>Lead generation ad- 24/ 10/2020 5:00pm</option>
+                                      {
+                                      campaignList.map(item => 
+                                          <option key={item.id} value={item.id}>{item.name}</option>
+                                        )
+                                      }
                                     </select>
                                   }
                                   

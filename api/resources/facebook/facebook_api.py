@@ -1,6 +1,7 @@
+import shutil
 import requests
 from typing import List
-from fastapi import APIRouter
+from fastapi import APIRouter, File, UploadFile
 from typing import Optional
 from facebookads.api import FacebookAdsApi
 from facebookads.adobjects.targetingsearch import TargetingSearch
@@ -135,3 +136,23 @@ async def custom_audience(access_token: str, adaccount: str, fields: str):
     )
     response = requests.get(url)
     return response.json()
+
+
+@facebook_router.post("/ads/image-upload")
+async def create_upload_file(ad_account: str, access_token: str, file: UploadFile = File(...)):
+    url = '{}/{}/adimages?access_token={}'.format(facebook_base_url, ad_account, access_token)
+
+    with open(file.filename, "wb") as buffer:
+        shutil.copyfileobj(file.filename, buffer)
+    
+    payload = {
+        'filename': file.filename
+    }
+    response = requests.post(url=url, data=payload)
+    return response.json()
+
+
+@facebook_router.post("/files/")
+async def create_file(file: bytes = File(...)):
+    url = 'https://graph.facebook.com/v2.11/act_<AD_ACCOUNT_ID>/adimages'
+    return {"file_size": len(file)}

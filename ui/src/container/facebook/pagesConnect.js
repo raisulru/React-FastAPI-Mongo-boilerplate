@@ -41,6 +41,9 @@ function PagesConnect () {
       page.user_id = user.id
       return
     })
+    if (!leadSyncSettings.length) {
+      return
+    }
     dispatch(saveFacebookPagesSettings({"page_list": leadSyncSettings}))
   }
   

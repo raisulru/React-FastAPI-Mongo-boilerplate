@@ -13,6 +13,9 @@ pymongo = "*"
 python-dotenv = "==0.14.0"
 facebook-business = "*"
 facebookads = "*"
+boto3 = "*"
+s3 = "*"
+python-multipart = "*"
 
 [requires]
 python_version = "3.8"
