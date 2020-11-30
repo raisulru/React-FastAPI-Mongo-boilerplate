@@ -21,11 +21,12 @@ const facebookCampaignState = {
     }
   ],
   othersTargetingParam: {
-    age_max: 24,
-    age_min: 20,
+    age_max: 65,
+    age_min: 18,
     geo_locations: [],
     specialCategory: ""
   },
+  adsImage: {},
   campaignPayload: {
     "facebook_positions": [
       "feed"
@@ -140,6 +141,9 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
         break
       case types.ADD_BUDGET_AND_SCHEDULE:
         draft.budgetAndSchedule = payload
+        break
+      case types.UPLOAD_ADS_IMAGE_SUCCESS:
+        draft.adsImage = payload
         break
       default:
         return state;

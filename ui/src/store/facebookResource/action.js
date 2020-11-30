@@ -1,6 +1,6 @@
- 
+import axios from 'axios';
 import * as types from './types';
-
+import { apiBaseURL } from '../../settings'
 
 export const createFacebookAds = (payload) => ({
   type: types.CREATE_CAMPAIGN,
@@ -458,5 +458,34 @@ export const addBudgetAndSchedule = (payload) => ({
   meta: {
     api: false,
     errorMessage: "Budget And Schedule Not Added",
+  },
+});
+
+// export const uploadImage = (payload, access_token, adAccount) => {
+//   const header = {
+//     headers: { 'Content-Type': 'multipart/form-data' },
+//   }
+//   axios
+//       .post(`${apiBaseURL.v1}/facebook/ads/image-upload?access_token=${access_token}&ad_account=${adAccount}`, payload, header)
+//       .then(res => {
+//         console.log(res.data, '#####################');
+//       })
+//       .catch(err => {
+//         console.log(err);
+//       });
+// };
+
+export const uploadAdsImage = (data, access_token, adAccount) => ({
+  type: types.UPLOAD_ADS_IMAGE,
+  payload: {
+    path: `/facebook/ads/image-upload?access_token=${access_token}&ad_account=${adAccount}`,
+    method: 'POST',
+    data: data
+  },
+  meta: {
+    api: true,
+    file: true,
+    successMessage: "Image Uploaded Successfully",
+    errorMessage: "Facebook page saved successfully",
   },
 });

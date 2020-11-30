@@ -5,7 +5,7 @@ const apiMiddleware = () => (next) => (action) => {
   next(action);
 
   const baseUrl = `${apiBaseURL.v1}`;
-  const { api, successMessage, errorMessage } = action.meta || {};
+  const { api, file, successMessage, errorMessage } = action.meta || {};
   const { path, mockPath, method = 'GET', data } = action.payload || {};
 
   if (!api) {
@@ -17,7 +17,28 @@ const apiMiddleware = () => (next) => (action) => {
   }
   const url = mockPath ? mockPath : baseUrl + path;
 
-  return axios({ method, url, data })
+  const header = {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  }
+
+  let requestObject;
+
+  if (file) {
+    requestObject = {
+      method,
+      url,
+      data,
+      header
+    }
+  } else {
+    requestObject = {
+      method,
+      url,
+      data
+    }
+  }
+  
+  return axios(requestObject)
     .then((res) => {
       next({
         type: `${action.type}_SUCCESS`,

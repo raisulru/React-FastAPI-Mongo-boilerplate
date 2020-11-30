@@ -1344,6 +1344,23 @@ modal drawer
     border: 0px solid #fff;
     width: 100%;
 }
+.select-image{
+    display: flex;
+    min-height: 198px;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px 20px;
+    border: 1px dashed #d9d9d9;
+}
+.select-image-btn{
+    background-color: #eaf0f6;
+    border-color: #cbd6e2;
+    color: #506e91;
+}
 /* 
 .drawer.show {
 pointer-events: auto;

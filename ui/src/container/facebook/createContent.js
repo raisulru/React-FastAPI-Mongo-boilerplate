@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import _ from 'lodash';
+import Modal from 'react-bootstrap/Modal';
+
 import PostPreview from './components/postPreview';
 import { 
   getFacebookAdAccounts, 
@@ -8,7 +10,8 @@ import {
   getFacebookCallToActionEnums,
   saveFacebookCampaign
 } from '../../store/facebookResource';
-import copyObject from '../../utils/copyObject'
+import copyObject from '../../utils/copyObject';
+import UploadImageOrVideo from './components/uploadFile';
 
 
 function CreateFacebookContent () {
@@ -16,6 +19,10 @@ function CreateFacebookContent () {
   const [campaignType, setCampaignType] = useState('new')
   const { facebookPages, user, adAccounts, CTA, campaign, campaignList } = useSelector((state) => state.facebook);
   const { estimatedAudienceSize } = useSelector((state) => state.facebookSearch);
+
+  const [uploadModal, setUploadModal] = useState(false);
+  const closeUploadModal = () => setUploadModal(false);
+  const showUploadModal = () => setUploadModal(true);
 
   useEffect(() => {
     dispatch(getFacebookPages(user.id, user.accessToken))
@@ -100,12 +107,15 @@ function CreateFacebookContent () {
                                   
                                 </div>
                             </div>
-                            <div className="form-group">
+                            <div className="form-group upload-file">
                                 <label htmlFor="image-video">
                                   image/video*
                                 <i className="fas fa-info-circle"></i>
                                 </label>
-                                <input type="file" className="form-control-file" onChange={inputHandler} name="image" id="image-video"/>
+                                <div className="select-image">
+                                    <button type="button" className="btn select-image-btn" onClick={showUploadModal}>Select Image/Video</button>
+                                </div>
+                                
                             </div>
                             <div className="form-group">
                                 <label htmlFor="text-body-copy"> Text body copy  <i className="fas fa-info-circle"></i></label>
@@ -152,6 +162,21 @@ function CreateFacebookContent () {
             </div>
         </div>
     </div>
+
+    <Modal 
+        show={uploadModal}
+        onHide={closeUploadModal}
+        backdrop="static"
+        keyboard={false}
+        className="drawer modal right-align"
+        >
+            <UploadImageOrVideo />
+        
+            <Modal.Footer>
+                <button type="button" onClick={closeUploadModal} className="btn btn-primary">Insert</button>
+                <button type="button" onClick={closeUploadModal} className="btn btn-secondary" >Cancel</button>
+            </Modal.Footer>
+    </Modal>
       </>
     );
 }
