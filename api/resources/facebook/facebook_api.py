@@ -173,5 +173,8 @@ async def create_upload_file(ad_account: str, access_token: str, file: UploadFil
 
 @facebook_router.get("/publish")
 async def publish_ads(access_token: str, payload: AdsPayload):
-    
+    campaign_url = ''
+    ads_set_url = ''
+    ads_creative_url = 'https://graph.facebook.com/v2.11/act_<AD_ACCOUNT_ID>/adcreatives'
+    ads_url = 'https://graph.facebook.com/v9.0/act_<AD_ACCOUNT_ID>/ads'
     return {}

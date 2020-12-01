@@ -26,7 +26,7 @@ const facebookCampaignState = {
     geo_locations: [],
     specialCategory: ""
   },
-  adsImage: {},
+  adsImage: undefined,
   campaignPayload: {
     "facebook_positions": [
       "feed"
