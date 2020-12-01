@@ -144,7 +144,11 @@ async def custom_audience(access_token: str, adaccount: str, fields: str):
 @facebook_router.post("/ads/image-upload")
 async def create_upload_file(ad_account: str, access_token: str, file: UploadFile = File(...)):
     directory = 'media'
-    os.mkdir(directory)
+
+    try:
+        os.mkdir(directory)
+    except FileExistsError:
+        pass
 
     filename, file_extension = os.path.splitext(file.filename)
     if file_extension.lower() not in supported_extentions:
