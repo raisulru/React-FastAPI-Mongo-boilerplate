@@ -461,20 +461,6 @@ export const addBudgetAndSchedule = (payload) => ({
   },
 });
 
-// export const uploadImage = (payload, access_token, adAccount) => {
-//   const header = {
-//     headers: { 'Content-Type': 'multipart/form-data' },
-//   }
-//   axios
-//       .post(`${apiBaseURL.v1}/facebook/ads/image-upload?access_token=${access_token}&ad_account=${adAccount}`, payload, header)
-//       .then(res => {
-//         console.log(res.data, '#####################');
-//       })
-//       .catch(err => {
-//         console.log(err);
-//       });
-// };
-
 export const uploadAdsImage = (data, access_token, adAccount) => ({
   type: types.UPLOAD_ADS_IMAGE,
   payload: {
@@ -487,5 +473,14 @@ export const uploadAdsImage = (data, access_token, adAccount) => ({
     file: true,
     successMessage: "Image Uploaded Successfully",
     errorMessage: "Facebook page saved successfully",
+  },
+});
+
+export const removeAdsImage = () => ({
+  type: types.REMOVE_ADS_IMAGE_SUCCESS,
+  payload: {},
+  meta: {
+    api: false,
+    errorMessage: "Image Not Removed",
   },
 });

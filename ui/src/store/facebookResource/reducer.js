@@ -145,6 +145,9 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
       case types.UPLOAD_ADS_IMAGE_SUCCESS:
         draft.adsImage = payload
         break
+      case types.REMOVE_ADS_IMAGE_SUCCESS:
+        draft.adsImage = undefined
+        break
       default:
         return state;
     }

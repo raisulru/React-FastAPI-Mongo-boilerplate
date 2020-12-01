@@ -8,7 +8,8 @@ import {
   getFacebookAdAccounts, 
   getFacebookPages, 
   getFacebookCallToActionEnums,
-  saveFacebookCampaign
+  saveFacebookCampaign,
+  removeAdsImage
 } from '../../store/facebookResource';
 import copyObject from '../../utils/copyObject';
 import UploadImageOrVideo from './components/uploadFile';
@@ -19,6 +20,7 @@ function CreateFacebookContent () {
   const [campaignType, setCampaignType] = useState('new')
   const { facebookPages, user, adAccounts, CTA, campaign, campaignList } = useSelector((state) => state.facebook);
   const { estimatedAudienceSize } = useSelector((state) => state.facebookSearch);
+  const { adsImage } = useSelector((state) => state.facebookCampaign);
 
   const [uploadModal, setUploadModal] = useState(false);
   const closeUploadModal = () => setUploadModal(false);
@@ -45,6 +47,10 @@ function CreateFacebookContent () {
     let payload = copyObject(campaign)
     payload[name] = value
     dispatch(saveFacebookCampaign(payload))
+  }
+
+  const removeImage = () => {
+    dispatch(removeAdsImage())
   }
 
   return (
@@ -113,7 +119,20 @@ function CreateFacebookContent () {
                                 <i className="fas fa-info-circle"></i>
                                 </label>
                                 <div className="select-image">
+                                   <div className="col-md-12">
+                                     {
+                                       adsImage && <button type="button" onClick={removeImage} className="close float-right">
+                                       <span style={{"color": 'red'}}>&times;</span>
+                                     </button>
+                                     }
+                                   </div>
+                                  {
+                                    adsImage ? 
+                                    <img style={{"height": 200}} src={adsImage.images.url} className="img-fluid" alt="Responsive image"/>
+                                    :
                                     <button type="button" className="btn select-image-btn" onClick={showUploadModal}>Select Image/Video</button>
+                                  }
+                                  
                                 </div>
                                 
                             </div>
@@ -170,12 +189,7 @@ function CreateFacebookContent () {
         keyboard={false}
         className="drawer modal right-align"
         >
-            <UploadImageOrVideo />
-        
-            <Modal.Footer>
-                <button type="button" onClick={closeUploadModal} className="btn btn-primary">Insert</button>
-                <button type="button" onClick={closeUploadModal} className="btn btn-secondary" >Cancel</button>
-            </Modal.Footer>
+            <UploadImageOrVideo closeModal={closeUploadModal}/>
     </Modal>
       </>
     );

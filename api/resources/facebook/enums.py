@@ -31,4 +31,13 @@ facebook_click_to_action = [
     {'name': 'Sotto Subscribe', 'value': 'SOTTO_SUBSCRIBE'}, {'name': 'Buy Tickets', 'value': 'BUY_TICKETS'}, 
     {'name': 'Apply Now', 'value': 'APPLY_NOW'}, {'name': 'Call', 'value': 'CALL'}, 
     {'name': 'Swipe Up Product', 'value': 'SWIPE_UP_PRODUCT'}
-] 
+]
+
+supported_extentions = [
+    '.wmv', '.jpg', '.3g2',
+    '.mpg', '.gif', '.mpeg', 
+    '.bmp', '.jpeg', '.png', 
+    '.m4v', '.flv', '.tif', 
+    '.mp4', '.asf', '.avi', 
+    '.mov', '.tiff', '.3gp'
+]

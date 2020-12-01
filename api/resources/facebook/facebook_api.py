@@ -1,11 +1,13 @@
+import os
 import shutil
 import requests
 from typing import List
-from fastapi import APIRouter, File, UploadFile
+from fastapi import APIRouter, File, UploadFile, HTTPException
 from typing import Optional
 from facebookads.api import FacebookAdsApi
 from facebookads.adobjects.targetingsearch import TargetingSearch
-from .enums import facebook_click_to_action
+from .enums import facebook_click_to_action, supported_extentions
+from resources.utilities.utils import remove_file_from_directory
 
 # my_app_id = '<APP_ID>'
 # my_app_secret = '<APP_SECRET>'
@@ -140,12 +142,29 @@ async def custom_audience(access_token: str, adaccount: str, fields: str):
 
 @facebook_router.post("/ads/image-upload")
 async def create_upload_file(ad_account: str, access_token: str, file: UploadFile = File(...)):
+    directory = 'media'
+    os.mkdir(directory)
+
+    filename, file_extension = os.path.splitext(file.filename)
+    if file_extension.lower() not in supported_extentions:
+        raise HTTPException(status_code=400, detail="File Format Not Supported")
+
     url = '{}/{}/adimages?access_token={}'.format(facebook_base_url, ad_account, access_token)
-    image_path = "media/" + file.filename
+    image_name = "{}{}".format(ad_account, file_extension)
+    image_path = "{}/{}".format(directory, image_name)
 
     with open(image_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
     
     payload = {'filename': open(image_path, 'rb')}
     response = requests.post(url=url, files=payload)
-    return response.json()
+    
+    if directory:
+        remove_file_from_directory(directory)
+
+    if response.status_code == 200:
+        response = {
+            'images': response.json()['images'][image_name]
+        }
+        return response
+    raise HTTPException(status_code=400, detail=str(response.json())) 

@@ -37,7 +37,9 @@ export {
   addPersonalAtt,
   removePersonalAtt,
   AddOthersTargeting,
-  addBudgetAndSchedule
+  addBudgetAndSchedule,
+  removeAdsImage,
+  uploadAdsImage
   } from './action';
   
 export { facebook, facebookSearch, facebookCampaign } from './reducer';

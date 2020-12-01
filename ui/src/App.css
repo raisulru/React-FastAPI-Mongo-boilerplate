@@ -1544,6 +1544,10 @@ target audience filter
 .add-exlusions-btn:hover {
     color: #2bc2e8;
 }
+
+#__react-alert__ div {
+    z-index: 999999999999999999;
+}
 /*
 =======================================================================
 media query 1

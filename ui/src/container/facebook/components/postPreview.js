@@ -7,6 +7,7 @@ import FbPostImage from '../../../images/fb-image-post.png'
 
 function PostPreview() {
   const { campaign } = useSelector((state) => state.facebook);
+  const { adsImage } = useSelector((state) => state.facebookCampaign);
   const { estimatedAudienceSize } = useSelector((state) => state.facebookSearch);
 
     return (
@@ -29,7 +30,7 @@ function PostPreview() {
             </div>
             <div className="post-body">
                 <p>{campaign.body_text ? campaign.body_text : "Write a message that clearly tells people about what you're promoting"}</p>
-                <img src={FbPostImage} alt="facebook-post"></img>
+                <img src={ adsImage ? adsImage.images.url:FbPostImage } alt="facebook-post"></img>
             </div>
             <div className="d-flex py-2 title-readmore">
                 <div className="flex-grow-1 post title">
