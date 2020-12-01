@@ -18,6 +18,7 @@ const facebookCampaignState = {
   cards: [
     {
       cardNo: 1,
+      data: []
     }
   ],
   othersTargetingParam: {

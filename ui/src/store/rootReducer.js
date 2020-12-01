@@ -11,7 +11,6 @@ const rootReducer = combineReducers({
 
 export default (state, action) => {
   if (action.type === 'RESET_APP') {
-    alert('reset App ?')
     state = undefined;
   }
   return rootReducer(state, action);
