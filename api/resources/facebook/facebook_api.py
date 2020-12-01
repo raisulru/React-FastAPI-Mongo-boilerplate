@@ -8,6 +8,7 @@ from facebookads.api import FacebookAdsApi
 from facebookads.adobjects.targetingsearch import TargetingSearch
 from .enums import facebook_click_to_action, supported_extentions
 from resources.utilities.utils import remove_file_from_directory
+from .models import AdsPayload
 
 # my_app_id = '<APP_ID>'
 # my_app_secret = '<APP_SECRET>'
@@ -167,4 +168,10 @@ async def create_upload_file(ad_account: str, access_token: str, file: UploadFil
             'images': response.json()['images'][image_name]
         }
         return response
-    raise HTTPException(status_code=400, detail=str(response.json())) 
+    raise HTTPException(status_code=400, detail=str(response.json()))
+
+
+@facebook_router.get("/publish")
+async def publish_ads(access_token: str, payload: AdsPayload):
+    
+    return {}

@@ -15,12 +15,7 @@ function UploadImageOrVideo(props) {
   const alert = useAlert()
 
   const supportedExtentions = [
-    'wmv', 'jpg', '3g2',
-    'mpg', 'gif', 'mpeg',
-    'bmp', 'jpeg', 'png',
-    'm4v', 'flv', 'tif',
-    'mp4', 'asf', 'avi',
-    'mov', 'tiff', '3gp'
+    'jpg','gif','jpeg', 'png','tif','tiff'
 ]
 
   const uploadHandler = (e) => {
@@ -49,7 +44,7 @@ function UploadImageOrVideo(props) {
             </Modal.Header>
             <Modal.Body>
                 <p>
-                Select a file to insert.Only wmv, jpg, mpg, gif, mpeg, bmp, jpeg, png, m4v, flv, tif, mp4, asf, avi, mov, tiff, 3gp, and 3g2 files are supported.
+                Select a file to insert. Only jpg, gif, bmp, jpeg, png, tif, tiff files are supported.
                 </p>
                 <input type="file" className="form-control-file" onChange={uploadHandler} name="image" id="image-video"/>
                 {

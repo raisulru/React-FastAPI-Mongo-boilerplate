@@ -87,3 +87,47 @@ class CreateCampaign(BaseModel):
     body_text: str
     heading: str
     cta: CTA
+
+
+class Campaign(BaseModel):
+    name: str
+    objective: str
+    status: str
+    special_ad_categories: List[str]
+
+
+class AdsSet(BaseModel):
+    name: str
+    optimization_goal: str
+    billing_event: str
+    daily_budget: float
+    lifetime_budget: float
+    targeting: dict
+    status: str
+    start_time: str
+    end_time: str
+
+
+class LinkData(BaseModel):
+    image_hash: str
+    link: str
+    message: str
+    call_to_action: dict
+    video_id: str
+    image_url: str
+
+
+class ObjectStorySpec(BaseModel):
+    link_data: LinkData
+    page_id: str
+
+
+class AdsCreative(BaseModel):
+    name: str
+    object_story_spec: ObjectStorySpec
+
+
+class AdsPayload(BaseModel):
+    campaign: Campaign
+    ads_set: AdsSet
+    ads_creative: AdsCreative
