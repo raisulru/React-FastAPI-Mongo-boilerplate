@@ -175,15 +175,35 @@ async def create_upload_file(ad_account: str, access_token: str, file: UploadFil
     raise HTTPException(status_code=400, detail=str(response.json()))
 
 
-@facebook_router.get("/ads/publish")
-async def publish_ads(access_token: str, ads_account: str, payload: AdsPayload):
-    campaign_url = '{}/{}/campaigns?access_token={}'.format(facebook_base_url, ads_account)
-    ads_set_url = '{}/{}/adsets?access_token={}'.format(facebook_base_url, ads_account)
-    ads_creative_url = '{}/{}/adcreatives?access_token={}'.format(facebook_base_url, ads_account)
-    ads_url = '{}/{}/ads?access_token={}'.format(facebook_base_url, ads_account)
-    campaign = AdsPayload.campaign
-    ad_set = AdsPayload.campaign
-    ad_creative = AdsPayload.campaign
+@facebook_router.post("/ads/publish")
+async def publish_ads(access_token: str, ad_account: str, ads_payload: AdsPayload):
+    campaign_url = '{}/{}/campaigns?access_token={}'.format(
+        facebook_base_url, 
+        ad_account, 
+        access_token
+    )
+    ads_set_url = '{}/{}/adsets?access_token={}'.format(
+        facebook_base_url, 
+        ad_account, 
+        access_token
+    )
+    ads_creative_url = '{}/{}/adcreatives?access_token={}'.format(
+        facebook_base_url, 
+        ad_account, 
+        access_token
+    )
+    ads_url = '{}/{}/ads?access_token={}'.format(
+        facebook_base_url, 
+        ad_account, 
+        access_token
+    )
+    campaign = ads_payload.campaign
+    ad_set = ads_payload.ads_set
+    ad_creative = ads_payload.ads_creative
+    
+    campaign_res = requests.post(url=campaign_url, data=campaign.__dict__)
+    print(campaign_res.json())
+
     ad = {
         "name": 'Test Name',
         "adset_id": 'ad_set_id',
@@ -192,6 +212,6 @@ async def publish_ads(access_token: str, ads_account: str, payload: AdsPayload):
         },
         "status": "ACTIVE"
     }
-    campaign = campaign
-    campaign = requests.post(AdsPayload.campaign)
-    return {}
+    # campaign = campaign
+    # campaign = requests.post(AdsPayload.campaign)
+    return campaign_res.json()

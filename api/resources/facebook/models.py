@@ -93,7 +93,7 @@ class Campaign(BaseModel):
     name: str
     objective: str
     status: str
-    special_ad_categories: List[str]
+    special_ad_categories: str
 
 
 class AdsSet(BaseModel):
