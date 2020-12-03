@@ -18,7 +18,7 @@ from .models import AdsPayload
 
 
 facebook_router = APIRouter()
-facebook_base_url = 'https://graph.facebook.com/v8.0'
+facebook_base_url = 'https://graph.facebook.com/v9.0'
 
 @facebook_router.get("/adaccounts")
 async def get_facebook_ad_accounts(access_token: str, fields: str):
@@ -175,10 +175,10 @@ async def create_upload_file(ad_account: str, access_token: str, file: UploadFil
     raise HTTPException(status_code=400, detail=str(response.json()))
 
 
-@facebook_router.get("/publish")
-async def publish_ads(access_token: str, payload: AdsPayload):
-    campaign_url = ''
-    ads_set_url = ''
-    ads_creative_url = 'https://graph.facebook.com/v2.11/act_<AD_ACCOUNT_ID>/adcreatives'
-    ads_url = 'https://graph.facebook.com/v9.0/act_<AD_ACCOUNT_ID>/ads'
+@facebook_router.get("/ads/publish")
+async def publish_ads(access_token: str, ads_account: str, payload: AdsPayload):
+    campaign_url = '{}/{}/campaigns'.format(facebook_base_url, ads_account)
+    ads_set_url = '{}/{}/adsets'.format(facebook_base_url, ads_account)
+    ads_creative_url = '{}/{}/adcreatives'.format(facebook_base_url, ads_account)
+    ads_url = '{}/{}/ads'.format(facebook_base_url, ads_account)
     return {}

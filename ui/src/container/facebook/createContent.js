@@ -30,13 +30,13 @@ function CreateFacebookContent () {
     dispatch(getFacebookPages(user.id, user.accessToken))
     dispatch(getFacebookAdAccounts(user.accessToken))
     dispatch(getFacebookCallToActionEnums())
+    if (!campaign.ad_account) {
+      updateContent('ad_account', adAccounts[0].id)
+    }
     
   }, [dispatch])
-  
-  const inputHandler = (e) => {
-    let value = e.target.value
-    const name = e.target.name
 
+  const updateContent = (name, value) => {
     if (name==='ad_account') {
       value = _.find(adAccounts, ['id', value])
     } else if (name==='page') {
@@ -47,6 +47,12 @@ function CreateFacebookContent () {
     let payload = copyObject(campaign)
     payload[name] = value
     dispatch(saveFacebookCampaign(payload))
+  }
+  
+  const inputHandler = (e) => {
+    let value = e.target.value
+    const name = e.target.name
+    updateContent(name, value)
   }
 
   const removeImage = () => {

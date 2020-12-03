@@ -27,59 +27,7 @@ const facebookCampaignState = {
     geo_locations: [],
     specialCategory: ""
   },
-  adsImage: undefined,
-  campaignPayload: {
-    "facebook_positions": [
-      "feed"
-    ],
-    "age_max": 24,
-    "age_min": 20,
-    "behaviors": [
-      {
-        "id": 6002714895372,
-        "name": "All travelers"
-      }
-    ],
-    "device_platforms": [
-      "mobile"
-    ],
-    "genders": [
-      1
-    ],
-    "geo_locations": {
-      "countries": [
-        "US"
-      ],
-      "regions": [
-        {
-          "key": "4081"
-        }
-      ],
-      "cities": [
-        {
-          "key": 777934,
-          "radius": 10,
-          "distance_unit": "mile"
-        }
-      ]
-    },
-    "interests": [
-      {
-        "id": "<INTEREST_ID>",
-        "name": "<INTEREST_NAME>"
-      }
-    ],
-    "life_events": [
-      {
-        "id": 6002714398172,
-        "name": "Newlywed (1 year)"
-      }
-    ],
-    "publisher_platforms": [
-      "facebook",
-      "audience_network"
-    ]
-  }
+  adsImage: undefined
 }
 
 export const facebookCampaign = (state = facebookCampaignState, action) => {
@@ -159,12 +107,12 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
 const facebookState = {
   connected: false,
   campaign: {
-    ad_account: {},
-    page: {},
+    ad_account: undefined,
+    page: undefined,
     campaign: '',
     body_text: '',
     heading: '',
-    cta: {}
+    cta: undefined
   },
   user: {
     accessToken: null,
