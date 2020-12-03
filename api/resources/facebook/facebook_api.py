@@ -177,8 +177,21 @@ async def create_upload_file(ad_account: str, access_token: str, file: UploadFil
 
 @facebook_router.get("/ads/publish")
 async def publish_ads(access_token: str, ads_account: str, payload: AdsPayload):
-    campaign_url = '{}/{}/campaigns'.format(facebook_base_url, ads_account)
-    ads_set_url = '{}/{}/adsets'.format(facebook_base_url, ads_account)
-    ads_creative_url = '{}/{}/adcreatives'.format(facebook_base_url, ads_account)
-    ads_url = '{}/{}/ads'.format(facebook_base_url, ads_account)
+    campaign_url = '{}/{}/campaigns?access_token={}'.format(facebook_base_url, ads_account)
+    ads_set_url = '{}/{}/adsets?access_token={}'.format(facebook_base_url, ads_account)
+    ads_creative_url = '{}/{}/adcreatives?access_token={}'.format(facebook_base_url, ads_account)
+    ads_url = '{}/{}/ads?access_token={}'.format(facebook_base_url, ads_account)
+    campaign = AdsPayload.campaign
+    ad_set = AdsPayload.campaign
+    ad_creative = AdsPayload.campaign
+    ad = {
+        "name": 'Test Name',
+        "adset_id": 'ad_set_id',
+        "creative": {
+            "creative_id": "120330000221295100"
+        },
+        "status": "ACTIVE"
+    }
+    campaign = campaign
+    campaign = requests.post(AdsPayload.campaign)
     return {}

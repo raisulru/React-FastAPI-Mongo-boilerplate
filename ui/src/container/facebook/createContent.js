@@ -30,9 +30,9 @@ function CreateFacebookContent () {
     dispatch(getFacebookPages(user.id, user.accessToken))
     dispatch(getFacebookAdAccounts(user.accessToken))
     dispatch(getFacebookCallToActionEnums())
-    if (!campaign.ad_account) {
-      updateContent('ad_account', adAccounts[0].id)
-    }
+    // if (!campaign.ad_account) {
+    //   updateContent('ad_account', adAccounts[0].id)
+    // }
     
   }, [dispatch])
 
@@ -74,7 +74,7 @@ function CreateFacebookContent () {
                         <form action="#">
                             <div className="form-group">
                                 <label htmlFor="adaccount">Ad account*</label>
-                                <select defaultValue={adAccounts[0] && adAccounts[0].id} onChange={inputHandler} className="form-control" name="ad_account" id="adaccount">
+                                <select onChange={inputHandler} className="form-control" name="ad_account" id="adaccount">
                                   {
                                    adAccounts && adAccounts.map(adAccount => 
                                       <option key={adAccount.id} value={adAccount.id}>{adAccount.name}</option>

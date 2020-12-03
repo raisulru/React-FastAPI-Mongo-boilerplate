@@ -100,21 +100,22 @@ class AdsSet(BaseModel):
     name: str
     optimization_goal: str
     billing_event: str
-    daily_budget: float
-    lifetime_budget: float
+    daily_budget: Optional[float]
+    lifetime_budget: Optional[float]
     targeting: dict
     status: str
+    bid_amount: float
     start_time: str
     end_time: str
 
 
 class LinkData(BaseModel):
-    image_hash: str
-    link: str
-    message: str
-    call_to_action: dict
-    video_id: str
-    image_url: str
+    image_hash: Optional[str]
+    link: Optional[str]
+    message: Optional[str]
+    call_to_action: Optional[dict]
+    video_id: Optional[str]
+    image_url: Optional[str]
 
 
 class ObjectStorySpec(BaseModel):
