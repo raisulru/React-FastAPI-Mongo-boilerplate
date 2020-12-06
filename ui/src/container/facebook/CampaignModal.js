@@ -1,9 +1,101 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import swal from 'sweetalert';
 import CreateFacebookContent from './createContent'
 import FacebookAudienceTargeting from './targetAudience'
 import FacebookBillAndSchedule from './billAndSchedule'
 
+
 function CampaignModal () {
+
+    const { facebookCampaign } = useSelector((state) => state);
+
+    const publish = (data) => {
+        console.log(data)
+    }
+
+    const publisHandler = () => {
+        console.log(facebookCampaign, '####################')
+        
+        const {
+            addedCustomAudience, 
+            adsImage, 
+            budgetAndSchedule, 
+            content, 
+            excludeCustomAudience, 
+            othersTargetingParam, 
+            personalAttModal } = facebookCampaign;
+        
+        let payload = {
+            targeting: {},
+            ads_payload: {
+                campaign: {
+                    name: content.name,
+                    objective: "REACH",
+                    status: "ACTIVE",
+                    special_ad_categories: ""
+                },
+                ads_set: {
+                    name: "",
+                    campaign_id: "",
+                    optimization_goal: "",
+                    "billing_event": "string",
+                    "daily_budget": 0,
+                    "lifetime_budget": 0,
+                    "targeting": "string",
+                    "status": "string",
+                    "bid_amount": 0,
+                    "start_time": "string",
+                    "end_time": "string"
+                },
+                "ads_creative": {
+                    "image_hash": "string",
+                    "page_id": "string",
+                    "body_text": "string",
+                    "image_url": "string"
+                },
+                "creative_id": "string"
+            }
+        }
+
+        swal({
+            title: "Are you sure?",
+            text: "Want to publish this ad?",
+            icon: "warning",
+            buttons: {
+                cancel: "Cancle",
+                publish: "Publish"
+            },
+            dangerMode: false,
+          })
+          .then((proceed) => {
+            if (proceed === 'publish') {
+                window.$('#run-ads').modal('hide');
+            }
+          });
+    }
+
+    const cancleHandler = () => {
+        swal({
+            title: "Are you sure?",
+            text: "Want to exit?",
+            icon: "warning",
+            buttons: {
+                cancel: "Cancle",
+                saveExit: "Save and Exit",
+                exit: "Exit Without Save"
+            },
+            dangerMode: true,
+          })
+          .then((proceed) => {
+            if (proceed === 'exit') {
+                window.$('#run-ads').modal('hide');
+            } else if (proceed === 'saveExit') {
+                window.$('#run-ads').modal('hide');
+            }
+          });
+    }
+
     return (
         <>
         <div className="modal fade run-ads" id="run-ads" tabIndex="-1" role="dialog" aria-labelledby="run-ads" aria-hidden="true">
@@ -13,11 +105,10 @@ function CampaignModal () {
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-md-4">
-                                    <div className="run-ads-edit-exit">                                          
+                                    <div className="run-ads-edit-exit">
                                         <div className="btn-group mr-2" role="group">
-                                            <button type="button" className="run-ads-save-btn mr-2" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" className="">Exit</span></button>
-                                            <button type="button" className="btn btn-secondary  run-ads-save-btn">Save</button>                                                           
-                                        </div>                                         
+                                            <button onClick={cancleHandler} type="button" className="run-ads-save-btn mr-2">Exit</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="col-md-4">
@@ -27,7 +118,7 @@ function CampaignModal () {
                                 </div>
                                 <div className="col-md-4">
                                     <div className="run-ads-edit-exit float-right">                                                                                                                       
-                                        <button className="btn ad-publish-btn" type="button" data-toggle="modal" data-target="#publishModal">Publish</button>                                                
+                                        <button onClick={publisHandler} className="btn ad-publish-btn" type="button">Publish</button>                                                
                                     </div>
                                 </div>
                             </div>
@@ -61,16 +152,6 @@ function CampaignModal () {
 
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div className="modal fade publish" id="publishModal" tabIndex="-1" role="dialog" aria-labelledby="publishModal" aria-hidden="true">
-            <div className="modal-dialog" role="document">
-                <div className="modal-content">
-                    <div className="text-center">
-                        <button className="btn publish-btn-yes mr-2" type="button">Yes</button>
-                        <button className="btn publish-btn-no" type="button">No</button>
-                    </div>  
                 </div>
             </div>
         </div>

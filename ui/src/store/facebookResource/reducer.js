@@ -3,6 +3,14 @@ import _ from 'lodash';
 import * as types from './types';
 
 const facebookCampaignState = {
+  content: {
+    ad_account: null,
+    page: null,
+    campaign: null,
+    body_text: null,
+    heading: null,
+    cta: null
+  },
   addedCustomAudience: [],
   excludeCustomAudience: [],
   budgetAndSchedule: {
@@ -12,7 +20,7 @@ const facebookCampaignState = {
     ammount: 0
   },
   personalAttModal: {
-    id: undefined,
+    id: null,
     display: 'none'
   },
   cards: [
@@ -27,13 +35,16 @@ const facebookCampaignState = {
     geo_locations: [],
     specialCategory: ""
   },
-  adsImage: undefined
+  adsImage: null
 }
 
 export const facebookCampaign = (state = facebookCampaignState, action) => {
   const { type, payload } = action;
   return produce(state, (draft) => {
     switch (type) {
+      case types.SAVE_FACEBOOK_CAMPAIGN:
+        draft.content = payload
+        break;
       case types.SHOW_PERSONAL_ATT_MODAL:
         draft.personalAttModal = payload
         break;
@@ -95,7 +106,7 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
         draft.adsImage = payload
         break
       case types.REMOVE_ADS_IMAGE_SUCCESS:
-        draft.adsImage = undefined
+        draft.adsImage = null
         break
       default:
         return state;
@@ -106,14 +117,6 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
 
 const facebookState = {
   connected: false,
-  campaign: {
-    ad_account: undefined,
-    page: undefined,
-    campaign: '',
-    body_text: '',
-    heading: '',
-    cta: undefined
-  },
   user: {
     accessToken: null,
     data_access_expiration_time: 0,
@@ -135,9 +138,6 @@ export const facebook = (state = facebookState, action) => {
   const { type, payload } = action;
   return produce(state, (draft) => {
     switch (type) {
-      case types.SAVE_FACEBOOK_CAMPAIGN:
-        draft.campaign = payload
-        break;
       case types.GET_FACEBOOK_AD_ACCOUNTS_SUCCESS:
         const modifiedAdAccounts = _.map(payload.data, (account) => {
           account.connected = false

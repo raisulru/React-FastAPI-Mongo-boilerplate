@@ -6,9 +6,8 @@ import FbPostImage from '../../../images/fb-image-post.png'
 
 
 function PostPreview() {
-  const { campaign } = useSelector((state) => state.facebook);
-  const { adsImage } = useSelector((state) => state.facebookCampaign);
-  const { estimatedAudienceSize } = useSelector((state) => state.facebookSearch);
+  const { adsImage, content } = useSelector((state) => state.facebookCampaign);
+  const { estimatedAudienceSize  } = useSelector((state) => state.facebookSearch);
 
     return (
     <>
@@ -24,24 +23,24 @@ function PostPreview() {
                     <img className="media-object photo-profile" src={PostProfile} width="40" height="40" alt="page"/>
                 </div>
                 <div className="media-body">
-                    <h6 className="media-heading">{campaign.page ? campaign.page.name : 'Select Page'}</h6>
+                    <h6 className="media-heading">{content.page ? content.page.name : 'Select Page'}</h6>
                     <span className="sponsored">Sponsored</span>
                 </div>
             </div>
             <div className="post-body">
-                <p>{campaign.body_text ? campaign.body_text : "Write a message that clearly tells people about what you're promoting"}</p>
+                <p>{content.body_text ? content.body_text : "Write a message that clearly tells people about what you're promoting"}</p>
                 <img src={ adsImage ? adsImage.images.url:FbPostImage } alt="facebook-post"></img>
             </div>
             <div className="d-flex py-2 title-readmore">
                 <div className="flex-grow-1 post title">
                     <p>
-                        {campaign.heading ? campaign.heading : 'Write a clear and concise headline to capture viewers attention.'}
+                        {content.heading ? content.heading : 'Write a clear and concise headline to capture viewers attention.'}
                     </p>
                 </div>
                 <div className="flex-grow-2 text-right">
                     {
-                        campaign.cta && <button className="btn preview-readmore">
-                            {campaign.cta.name}
+                        content.cta && <button className="btn preview-readmore">
+                            {content.cta.name}
                         </button>
                     }
                     

@@ -9,7 +9,6 @@ function FacebookBillAndSchedule() {
   const dispatch = useDispatch()
   const [dayDiff, setDayDiff] = useState(0)
   const [totalAmmount, setTotalAmmount] = useState(0)
-  const { campaign } = useSelector((state) => state.facebook);
   const { budgetAndSchedule } = useSelector((state) => state.facebookCampaign);
 
   const inputHandler = (e) => {

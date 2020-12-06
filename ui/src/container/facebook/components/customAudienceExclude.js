@@ -14,8 +14,8 @@ function CustomAudienceExcludeComponent() {
   const dispatch = useDispatch()
 
   const { customAudience } = useSelector((state) => state.facebookSearch);
-  const { excludeCustomAudience } = useSelector((state) => state.facebookCampaign);
-  const { user, campaign, adAccounts } = useSelector((state) => state.facebook);
+  const { excludeCustomAudience, content } = useSelector((state) => state.facebookCampaign);
+  const { user, adAccounts } = useSelector((state) => state.facebook);
 
   const [customAudiences, setCustomAudience] = useState([])
   const [websiteAudiences, setWebsiteAudience] = useState([])
@@ -23,7 +23,7 @@ function CustomAudienceExcludeComponent() {
 
   useEffect(() => {
     if (!customAudience.length) {
-        const campaignId = campaign.ad_account.id || adAccounts[0].id;
+        const campaignId = content.ad_account.id || adAccounts[0].id;
         dispatch(getFacebookCustomAudience(user.accessToken, campaignId));
     }
 

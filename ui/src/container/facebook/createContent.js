@@ -18,9 +18,9 @@ import UploadImageOrVideo from './components/uploadFile';
 function CreateFacebookContent () {
   const dispatch = useDispatch()
   const [campaignType, setCampaignType] = useState('new')
-  const { facebookPages, user, adAccounts, CTA, campaign, campaignList } = useSelector((state) => state.facebook);
+  const { facebookPages, user, adAccounts, CTA, campaignList } = useSelector((state) => state.facebook);
   const { estimatedAudienceSize } = useSelector((state) => state.facebookSearch);
-  const { adsImage } = useSelector((state) => state.facebookCampaign);
+  const { adsImage, content } = useSelector((state) => state.facebookCampaign);
 
   const [uploadModal, setUploadModal] = useState(false);
   const closeUploadModal = () => setUploadModal(false);
@@ -44,7 +44,7 @@ function CreateFacebookContent () {
     } else if (name==='cta') {
       value = _.find(CTA, ['value', value])
     }
-    let payload = copyObject(campaign)
+    let payload = copyObject(content)
     payload[name] = value
     dispatch(saveFacebookCampaign(payload))
   }
@@ -84,7 +84,7 @@ function CreateFacebookContent () {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="pages">Facebook page* <i className="fas fa-info-circle"></i> </label>
-                                <select defaultValue={campaign.page && campaign.page.id} className="form-control" onChange={inputHandler} name="page" id="pages">
+                                <select defaultValue={content.page && content.page.id} className="form-control" onChange={inputHandler} name="page" id="pages">
                                   <option selected_value={undefined}>Select Page</option>
                                   {
                                     facebookPages.map(page => 
@@ -106,7 +106,7 @@ function CreateFacebookContent () {
                                 <div className="form-group">
                                   {
                                     campaignType === 'new' ? 
-                                    <input onChange={inputHandler} type='text' value={campaign.new_campaign} name="new_campaign" className="form-control" /> 
+                                    <input onChange={inputHandler} type='text' value={content.new_campaign} name="new_campaign" className="form-control" /> 
                                     : 
                                     <select onChange={inputHandler} className="form-control" name="campaign" id="leadgeneration-ad">
                                       {
@@ -147,7 +147,7 @@ function CreateFacebookContent () {
                                 <textarea 
                                 onChange={inputHandler} 
                                 name="body_text" 
-                                value={campaign.body_text}
+                                value={content.body_text}
                                 className="form-control" 
                                 rows="5" 
                                 id="text-body-copy" 
@@ -157,11 +157,11 @@ function CreateFacebookContent () {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="adaccount">Headline* <i className="fas fa-info-circle"></i> </label>
-                                <input value={campaign.heading} onChange={inputHandler} name="heading" type='text' className="form-control" />
+                                <input value={content.heading} onChange={inputHandler} name="heading" type='text' className="form-control" />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="adaccount">Call to action* </label>
-                                <select defaultValue={campaign.cta && campaign.cta.value} onChange={inputHandler} name="cta" className="form-control" id="adaccount">
+                                <select defaultValue={content.cta && content.cta.value} onChange={inputHandler} name="cta" className="form-control" id="adaccount">
                                    {
                                     CTA ? CTA.map(ct => 
                                     <option key={ct.name} value={ct.value}>{ct.name}</option>

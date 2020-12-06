@@ -10,8 +10,8 @@ function UploadImageOrVideo(props) {
   const dispatch = useDispatch()
   const [fileObject, setFileObject] = useState()
   const [file, setFile] = useState()
-  const { user, adAccounts, campaign } = useSelector((state) => state.facebook);
-  const { adsImage } = useSelector((state) => state.facebookCampaign);
+  const { user, adAccounts } = useSelector((state) => state.facebook);
+  const { adsImage, content } = useSelector((state) => state.facebookCampaign);
   const alert = useAlert()
 
   const supportedExtentions = [
@@ -31,7 +31,10 @@ function UploadImageOrVideo(props) {
   }
 
   const insertFile = () => {
-    dispatch(uploadAdsImage(file, user.accessToken, campaign.ad_account.id))
+      if (!content.ad_account) {
+          return
+      }
+    dispatch(uploadAdsImage(file, user.accessToken, content.ad_account.id))
     props.closeModal()
   }
 

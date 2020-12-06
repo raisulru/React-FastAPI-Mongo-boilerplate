@@ -14,15 +14,15 @@ function CustomeAudience() {
   const dispatch = useDispatch()
 
   const { customAudience } = useSelector((state) => state.facebookSearch);
-  const { addedCustomAudience } = useSelector((state) => state.facebookCampaign);
-  const { user, campaign, adAccounts } = useSelector((state) => state.facebook);
+  const { addedCustomAudience, content } = useSelector((state) => state.facebookCampaign);
+  const { user, adAccounts } = useSelector((state) => state.facebook);
 
   const [customAudiences, setCustomAudience] = useState([])
   const [websiteAudiences, setWebsiteAudience] = useState([])
   const [lookalikeAudiences, setLookalikeAudience] = useState([])
 
   useEffect(() => {
-    const campaignId = campaign.ad_account.id || adAccounts[0].id;
+    const campaignId = content.ad_account.id || adAccounts[0].id;
     dispatch(getFacebookCustomAudience(user.accessToken, campaignId));
     
     const groupByAudience = _.groupBy(customAudience, audience => {

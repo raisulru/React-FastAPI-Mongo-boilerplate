@@ -72,7 +72,7 @@ function FacebookAudienceTargeting() {
   const handleCustomAudienceExcludeClose = () => setCustomAudienceExcludeModalShow(false);
   const handleCustomAudienceExcludeShow = () => setCustomAudienceExcludeModalShow(true);
 
-  const { campaign, user } = useSelector((state) => state.facebook);
+  const { user } = useSelector((state) => state.facebook);
   const { 
       estimatedAudienceSize, 
       locations, 
@@ -82,7 +82,8 @@ function FacebookAudienceTargeting() {
       excludeCustomAudience, 
       personalAttModal, 
       cards, 
-      othersTargetingParam } = useSelector((state) => state.facebookCampaign);
+      othersTargetingParam,
+      content  } = useSelector((state) => state.facebookCampaign);
 
   const estimatedAudienceSizeHandler = () => {
     const accountID = 'act_552899645070172'
@@ -91,10 +92,10 @@ function FacebookAudienceTargeting() {
   }
 
   const getCustomAudience = () => {
-      if (!campaign.ad_account) {
+      if (!content.ad_account) {
           return
       }
-    dispatch(getFacebookCustomAudience(user.accessToken, campaign.ad_account.id))
+    dispatch(getFacebookCustomAudience(user.accessToken, content.ad_account.id))
   }
 
   const othersTargetingHandler = (e) => {
@@ -224,12 +225,12 @@ function FacebookAudienceTargeting() {
                                     checked={audienceType === 'existing'} 
                                     value="existing" 
                                     onChange={() => setAudienceType('existing')}
-                                    disabled={!campaign.ad_account ? true:false}
+                                    disabled={!content.ad_account ? true:false}
                                     onClick={getCustomAudience}
                                     />
                                 <label data-toggle="tooltip" 
                                     data-placement="top" 
-                                    title={!campaign.ad_account ? "Please ad an account!":''} 
+                                    title={!content.ad_account ? "Please ad an account!":''} 
                                     className="form-check-label" 
                                     htmlFor="existingAudience">Select a saved audience</label>
                             </div>
