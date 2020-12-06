@@ -1,9 +1,12 @@
 import os
+import json
 import shutil
 import requests
 from typing import List
 from fastapi import APIRouter, File, UploadFile, HTTPException
 from typing import Optional
+from fastapi.encoders import jsonable_encoder
+
 from facebookads.api import FacebookAdsApi
 from facebookads.adobjects.targetingsearch import TargetingSearch
 from .enums import facebook_click_to_action, supported_extentions
@@ -176,7 +179,15 @@ async def create_upload_file(ad_account: str, access_token: str, file: UploadFil
 
 
 @facebook_router.post("/ads/publish")
-async def publish_ads(access_token: str, ad_account: str, ads_payload: AdsPayload):
+async def publish_ads(
+    access_token: str, 
+    ad_account: str, 
+    targeting: dict, 
+    ads_payload: AdsPayload):
+
+    if not ads_payload.creative_id and not ads_payload.ads_creative:
+        return HTTPException(status_code=400, detail="You Must give creative information!")
+    
     campaign_url = '{}/{}/campaigns?access_token={}'.format(
         facebook_base_url, 
         ad_account, 
@@ -197,21 +208,48 @@ async def publish_ads(access_token: str, ad_account: str, ads_payload: AdsPayloa
         ad_account, 
         access_token
     )
+
     campaign = ads_payload.campaign
     ad_set = ads_payload.ads_set
     ad_creative = ads_payload.ads_creative
+    creative_id = ads_payload.creative_id
+
+    if not creative_id and ad_creative:
+        ad_creative_payload = {
+            'name': campaign.name,
+            'object_story_spec': str({
+                "page_id": ad_creative.page_id,
+                "link_data": {
+                    "image_hash": ad_creative.image_hash,
+                    "message": ad_creative.body_text,
+                    "link": ad_creative.image_url
+                }
+            })
+        }
+        ad_creative_res = requests.post(url=ads_creative_url, data=ad_creative_payload)
+        if ad_creative_res.status_code != 200:
+            return HTTPException(status_code=400, detail=str(ad_creative_res.json()))
+        creative_id = ad_creative_res.json()['id']
+        
     
     campaign_res = requests.post(url=campaign_url, data=campaign.__dict__)
-    print(campaign_res.json())
+    if campaign_res.status_code != 200:
+        return HTTPException(status_code=campaign_res.status_code, detail=str(campaign_res.json()))
+
+    ad_set.campaign_id = campaign_res.json()['id']
+    ad_set.targeting = str(targeting)
+    adset_res = requests.post(url=ads_set_url, data=ad_set.__dict__)
+    if adset_res.status_code != 200:
+        return HTTPException(status_code=adset_res.status_code, detail=str(adset_res.json()))
 
     ad = {
         "name": 'Test Name',
-        "adset_id": 'ad_set_id',
-        "creative": {
-            "creative_id": "120330000221295100"
-        },
+        "adset_id": adset_res.json()['id'],
+        "creative": str({"creative_id": creative_id}),
         "status": "ACTIVE"
     }
-    # campaign = campaign
-    # campaign = requests.post(AdsPayload.campaign)
-    return campaign_res.json()
+    ad_res = requests.post(url=ads_url, data=ad)
+    if ad_res.status_code != 200:
+        return HTTPException(status_code=ad_res.status_code, detail=str(ad_res.json()))
+
+    return ad_res.json()

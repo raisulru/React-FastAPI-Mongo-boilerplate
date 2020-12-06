@@ -1,9 +1,10 @@
 import uuid
+import json
 from uuid import UUID
 from typing import Optional, Set, List
 
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Json
 
 app = FastAPI()
 
@@ -98,37 +99,27 @@ class Campaign(BaseModel):
 
 class AdsSet(BaseModel):
     name: str
+    campaign_id: Optional[str]
     optimization_goal: str
     billing_event: str
     daily_budget: Optional[float]
     lifetime_budget: Optional[float]
-    targeting: dict
+    targeting: Optional[str]
     status: str
-    bid_amount: float
+    bid_amount: int
     start_time: str
     end_time: str
 
 
-class LinkData(BaseModel):
-    image_hash: Optional[str]
-    link: Optional[str]
-    message: Optional[str]
-    call_to_action: Optional[dict]
-    video_id: Optional[str]
-    image_url: Optional[str]
-
-
-class ObjectStorySpec(BaseModel):
-    link_data: LinkData
-    page_id: str
-
-
 class AdsCreative(BaseModel):
-    name: str
-    object_story_spec: ObjectStorySpec
-
+    image_hash: str
+    page_id: str
+    body_text: str
+    image_url: str
+    
 
 class AdsPayload(BaseModel):
     campaign: Campaign
     ads_set: AdsSet
-    ads_creative: AdsCreative
+    ads_creative: Optional[AdsCreative]
+    creative_id: Optional[str]
