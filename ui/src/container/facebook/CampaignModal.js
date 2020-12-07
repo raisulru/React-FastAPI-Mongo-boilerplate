@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import swal from 'sweetalert';
 import CreateFacebookContent from './createContent'
@@ -8,6 +8,7 @@ import { publishAd } from '../../store/facebookResource'
 
 function CampaignModal () {
     const dispatch = useDispatch()
+    const [disabled, setDisability] = useState(true)
     const { facebookCampaign, facebook } = useSelector((state) => state);
     const {
         addedCustomAudience, 
@@ -17,6 +18,18 @@ function CampaignModal () {
         excludeCustomAudience, 
         othersTargetingParam, 
         personalAttModal } = facebookCampaign;
+    
+    const validatePayload = () => {
+        if (!content.ad_account || !content.page || (!content.new_campaign || !content.campaign)) {
+            setDisability(false)
+        }
+
+        if (!budgetAndSchedule.start_time || !budgetAndSchedule.end_time || !budgetAndSchedule.budgetType || budgetAndSchedule.ammount) {
+            setDisability(false)
+        }
+        
+        setDisability(true)
+    }
 
     const publish = (data) => {
         dispatch(publishAd(data, facebook.user.accessToken, content.ad_account.id))
@@ -112,7 +125,7 @@ function CampaignModal () {
                                 </div>
                                 <div className="col-md-4">
                                     <div className="run-ads-edit-exit float-right">                                                                                                                       
-                                        <button onClick={publisHandler} className="btn ad-publish-btn" type="button">Publish</button>                                                
+                                        <button onMouseOver={validatePayload} onClick={publisHandler} className="btn ad-publish-btn" type="button" disabled={disabled}>Publish</button>                                                
                                     </div>
                                 </div>
                             </div>

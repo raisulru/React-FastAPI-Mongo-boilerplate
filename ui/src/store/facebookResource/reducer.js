@@ -7,6 +7,7 @@ const facebookCampaignState = {
     ad_account: null,
     page: null,
     campaign: null,
+    new_campaign: null,
     body_text: null,
     heading: null,
     cta: null
