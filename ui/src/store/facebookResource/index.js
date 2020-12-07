@@ -39,7 +39,8 @@ export {
   AddOthersTargeting,
   addBudgetAndSchedule,
   removeAdsImage,
-  uploadAdsImage
+  uploadAdsImage,
+  publishAd
   } from './action';
   
 export { facebook, facebookSearch, facebookCampaign } from './reducer';

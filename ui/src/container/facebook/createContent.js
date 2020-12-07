@@ -13,9 +13,11 @@ import {
 } from '../../store/facebookResource';
 import copyObject from '../../utils/copyObject';
 import UploadImageOrVideo from './components/uploadFile';
+import { objectives } from '../../utils/staticData'
 
 
 function CreateFacebookContent () {
+ 
   const dispatch = useDispatch()
   const [campaignType, setCampaignType] = useState('new')
   const { facebookPages, user, adAccounts, CTA, campaignList } = useSelector((state) => state.facebook);
@@ -30,9 +32,6 @@ function CreateFacebookContent () {
     dispatch(getFacebookPages(user.id, user.accessToken))
     dispatch(getFacebookAdAccounts(user.accessToken))
     dispatch(getFacebookCallToActionEnums())
-    // if (!campaign.ad_account) {
-    //   updateContent('ad_account', adAccounts[0].id)
-    // }
     
   }, [dispatch])
 
@@ -75,6 +74,7 @@ function CreateFacebookContent () {
                             <div className="form-group">
                                 <label htmlFor="adaccount">Ad account*</label>
                                 <select onChange={inputHandler} className="form-control" name="ad_account" id="adaccount">
+                                <option selected_value={undefined}>Select Ad Account</option>
                                   {
                                    adAccounts && adAccounts.map(adAccount => 
                                       <option key={adAccount.id} value={adAccount.id}>{adAccount.name}</option>
@@ -119,6 +119,20 @@ function CreateFacebookContent () {
                                   
                                 </div>
                             </div>
+                            {
+                              campaignType === 'new' && <div className="form-group">
+                                  <label htmlFor="pages">Objective* <i className="fas fa-info-circle"></i> </label>
+                                  <select defaultValue={content.objective && content.objective} className="form-control" onChange={inputHandler} name="objective" id="objective">
+                                    <option selected_value={undefined}>Select Objective</option>
+                                    {
+                                      objectives.map(objective => 
+                                        <option key={objective.name} value={objective.value}>{objective.name}</option>
+                                      )
+                                    }
+                                  </select>
+                              </div>
+                            }
+                            
                             <div className="form-group upload-file">
                                 <label htmlFor="image-video">
                                   image/video*
@@ -159,17 +173,19 @@ function CreateFacebookContent () {
                                 <label htmlFor="adaccount">Headline* <i className="fas fa-info-circle"></i> </label>
                                 <input value={content.heading} onChange={inputHandler} name="heading" type='text' className="form-control" />
                             </div>
-                            <div className="form-group">
+                            {
+                              content.objective === 'LEAD_GENERATION' && <div className="form-group">
                                 <label htmlFor="adaccount">Call to action* </label>
                                 <select defaultValue={content.cta && content.cta.value} onChange={inputHandler} name="cta" className="form-control" id="adaccount">
-                                   {
+                                  {
                                     CTA ? CTA.map(ct => 
                                     <option key={ct.name} value={ct.value}>{ct.name}</option>
                                     ) : ""
                                   } 
                                 </select>
                             </div>
-
+                            }
+                            
                         </form>
                     </div>
                     </div>

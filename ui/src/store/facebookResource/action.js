@@ -484,3 +484,17 @@ export const removeAdsImage = () => ({
     errorMessage: "Image Not Removed",
   },
 });
+
+export const publishAd = (payload, access_token, adAccount) => ({
+  type: types.PUBLISH_AD,
+  payload: {
+    path: `/facebook/ads/publish?access_token=${access_token}&ad_account=${adAccount}`,
+    method: 'POST',
+    data: payload,
+  },
+  meta: {
+    api: true,
+    successMessage: 'Published successfully',
+    errorMessage: "Published Faild",
+  },
+});

@@ -61,7 +61,7 @@ function DashBoard() {
                             <div className="dropdown show">
                                 <Link className="btn btn-secondary create-ad-campaign dropdown-toggle" to="/ads/onboarding" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                   Create Ad campaign
-                                 </Link>
+                                </Link>
 
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <button className="btn create-ac-btn" type="button" data-toggle="modal" data-target="#run-ads"> <img src={FacebookLogo} alt="Facebook" />Facebook ads</button>

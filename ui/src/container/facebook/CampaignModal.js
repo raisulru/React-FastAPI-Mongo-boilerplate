@@ -4,57 +4,50 @@ import swal from 'sweetalert';
 import CreateFacebookContent from './createContent'
 import FacebookAudienceTargeting from './targetAudience'
 import FacebookBillAndSchedule from './billAndSchedule'
-
+import { publishAd } from '../../store/facebookResource'
 
 function CampaignModal () {
-
-    const { facebookCampaign } = useSelector((state) => state);
+    const dispatch = useDispatch()
+    const { facebookCampaign, facebook } = useSelector((state) => state);
+    const {
+        addedCustomAudience, 
+        adsImage, 
+        budgetAndSchedule, 
+        content, 
+        excludeCustomAudience, 
+        othersTargetingParam, 
+        personalAttModal } = facebookCampaign;
 
     const publish = (data) => {
-        console.log(data)
+        dispatch(publishAd(data, facebook.user.accessToken, content.ad_account.id))
     }
 
     const publisHandler = () => {
-        console.log(facebookCampaign, '####################')
         
-        const {
-            addedCustomAudience, 
-            adsImage, 
-            budgetAndSchedule, 
-            content, 
-            excludeCustomAudience, 
-            othersTargetingParam, 
-            personalAttModal } = facebookCampaign;
-        
+        const startDateTime = '2020-12-06T15:41:30+0000'
+        const endDateTime = '2020-12-06T15:41:30+0000'
+
         let payload = {
-            targeting: {},
+            targeting: {"geo_locations":{"countries":["US"]}},
             ads_payload: {
                 campaign: {
-                    name: content.name,
+                    name: content.new_campaign,
                     objective: "REACH",
                     status: "ACTIVE",
-                    special_ad_categories: ""
+                    special_ad_categories: 'NONE'
                 },
                 ads_set: {
-                    name: "",
-                    campaign_id: "",
-                    optimization_goal: "",
-                    "billing_event": "string",
-                    "daily_budget": 0,
-                    "lifetime_budget": 0,
-                    "targeting": "string",
-                    "status": "string",
-                    "bid_amount": 0,
-                    "start_time": "string",
-                    "end_time": "string"
+                    name: content.new_campaign + 'Ad set',
+                    optimization_goal: "REACH",
+                    billing_event: "IMPRESSIONS",
+                    daily_budget: 100,
+                    "lifetime_budget": null,
+                    "status": "ACTIVE",
+                    "bid_amount": 2,
+                    "start_time": '2020-12-07T15:41:30+0000',
+                    "end_time": '2020-12-10T15:41:30+0000'
                 },
-                "ads_creative": {
-                    "image_hash": "string",
-                    "page_id": "string",
-                    "body_text": "string",
-                    "image_url": "string"
-                },
-                "creative_id": "string"
+                "creative_id": "120330000221295100"
             }
         }
 
@@ -70,6 +63,7 @@ function CampaignModal () {
           })
           .then((proceed) => {
             if (proceed === 'publish') {
+                publish(payload)
                 window.$('#run-ads').modal('hide');
             }
           });

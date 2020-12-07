@@ -42,6 +42,8 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
   const { type, payload } = action;
   return produce(state, (draft) => {
     switch (type) {
+      case types.PUBLISH_AD_SUCCESS:
+        return facebookCampaignState
       case types.SAVE_FACEBOOK_CAMPAIGN:
         draft.content = payload
         break;
