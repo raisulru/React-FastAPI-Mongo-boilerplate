@@ -40,7 +40,8 @@ export {
   addBudgetAndSchedule,
   removeAdsImage,
   uploadAdsImage,
-  publishAd
+  publishAd,
+  updateImageFromCreative
   } from './action';
   
 export { facebook, facebookSearch, facebookCampaign } from './reducer';

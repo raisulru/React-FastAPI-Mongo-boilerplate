@@ -5,10 +5,13 @@ import CreateFacebookContent from './createContent'
 import FacebookAudienceTargeting from './targetAudience'
 import FacebookBillAndSchedule from './billAndSchedule'
 import { publishAd } from '../../store/facebookResource'
+import { useAlert } from 'react-alert'
+
 
 function CampaignModal () {
     const dispatch = useDispatch()
-    const [disabled, setDisability] = useState(true)
+    const alert = useAlert()
+    const [required, setRequired] = useState(true)
     const { facebookCampaign, facebook } = useSelector((state) => state);
     const {
         addedCustomAudience, 
@@ -18,17 +21,23 @@ function CampaignModal () {
         excludeCustomAudience, 
         othersTargetingParam, 
         personalAttModal } = facebookCampaign;
-    
-    const validatePayload = () => {
-        if (!content.ad_account || !content.page || (!content.new_campaign || !content.campaign)) {
-            setDisability(false)
+        
+        const validatePayload = () => {
+        if (!content.ad_account || !content.ad_creative) {
+            setRequired(true)
+            return
         }
 
-        if (!budgetAndSchedule.start_time || !budgetAndSchedule.end_time || !budgetAndSchedule.budgetType || budgetAndSchedule.ammount) {
-            setDisability(false)
+        if (!content.new_campaign && !content.campaign) {
+            setRequired(true)
+            return
         }
-        
-        setDisability(true)
+
+        if (!budgetAndSchedule.start_date || !budgetAndSchedule.ammount) {
+            setRequired(true)
+            return
+        }
+        setRequired(false)
     }
 
     const publish = (data) => {
@@ -36,34 +45,45 @@ function CampaignModal () {
     }
 
     const publisHandler = () => {
-        
-        const startDateTime = '2020-12-06T15:41:30+0000'
-        const endDateTime = '2020-12-06T15:41:30+0000'
+        if (required) {
+            alert.error('Please Fill the required field!')
+            return
+        }
+
+        const startDateTime = `${budgetAndSchedule.start_date}T${budgetAndSchedule.start_time}:30+0000`
+        const endDateTime = `${budgetAndSchedule.end_date}T${budgetAndSchedule.end_time}:30+0000`
 
         let payload = {
-            targeting: {"geo_locations":{"countries":["US"]}},
+            targeting: {"geo_locations": {"countries": ["US"]}},
             ads_payload: {
                 campaign: {
                     name: content.new_campaign,
-                    objective: "REACH",
+                    objective: content.objective,
                     status: "ACTIVE",
-                    special_ad_categories: 'NONE'
+                    special_ad_categories: othersTargetingParam.specialCategory || 'NONE'
                 },
                 ads_set: {
                     name: content.new_campaign + 'Ad set',
                     optimization_goal: "REACH",
                     billing_event: "IMPRESSIONS",
-                    daily_budget: 100,
-                    "lifetime_budget": null,
-                    "status": "ACTIVE",
-                    "bid_amount": 2,
-                    "start_time": '2020-12-07T15:41:30+0000',
-                    "end_time": '2020-12-10T15:41:30+0000'
+                    status: "ACTIVE",
+                    bid_amount: 2,
+                    start_time: startDateTime,
+                    end_time: endDateTime
                 },
-                "creative_id": "120330000221295100"
+                creative_id: content.ad_creative
             }
         }
 
+        let budgetType = ''
+        if (!budgetAndSchedule.budgetType) {
+            budgetType = 'daily_budget'
+        } else {
+            budgetType = budgetAndSchedule.budgetType
+        }
+        
+        payload.ads_payload.ads_set[budgetType] = budgetAndSchedule.ammount
+        console.log(payload, '##################################')
         swal({
             title: "Are you sure?",
             text: "Want to publish this ad?",
@@ -77,7 +97,7 @@ function CampaignModal () {
           .then((proceed) => {
             if (proceed === 'publish') {
                 publish(payload)
-                window.$('#run-ads').modal('hide');
+                // window.$('#run-ads').modal('hide');
             }
           });
     }
@@ -125,7 +145,12 @@ function CampaignModal () {
                                 </div>
                                 <div className="col-md-4">
                                     <div className="run-ads-edit-exit float-right">                                                                                                                       
-                                        <button onMouseOver={validatePayload} onClick={publisHandler} className="btn ad-publish-btn" type="button" disabled={disabled}>Publish</button>                                                
+                                        <button 
+                                            onMouseOver={validatePayload} 
+                                            onClick={publisHandler} 
+                                            className="btn ad-publish-btn" 
+                                            type="button"
+                                            >Publish</button>
                                     </div>
                                 </div>
                             </div>

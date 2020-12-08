@@ -9,7 +9,8 @@ import {
   getFacebookPages, 
   getFacebookCallToActionEnums,
   saveFacebookCampaign,
-  removeAdsImage
+  removeAdsImage,
+  updateImageFromCreative
 } from '../../store/facebookResource';
 import copyObject from '../../utils/copyObject';
 import UploadImageOrVideo from './components/uploadFile';
@@ -20,6 +21,7 @@ function CreateFacebookContent () {
  
   const dispatch = useDispatch()
   const [campaignType, setCampaignType] = useState('new')
+  const [creatives, setCreatives] = useState([])
   const { facebookPages, user, adAccounts, CTA, campaignList } = useSelector((state) => state.facebook);
   const { estimatedAudienceSize } = useSelector((state) => state.facebookSearch);
   const { adsImage, content } = useSelector((state) => state.facebookCampaign);
@@ -35,8 +37,46 @@ function CreateFacebookContent () {
     
   }, [dispatch])
 
+  const callCreatives = (ad_account) => {
+    fetch(`https://graph.facebook.com/v9.0/${ad_account}/adcreatives?access_token=${user.accessToken}&fields=name,body,image_hash,image_url,title,account_id,call_to_action_type,object_story_spec`)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setCreatives(result.data)
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
+  }
+
+  const creativeHandler = (e) => {
+    if (e.target.value ==='none' ) {
+      return
+    }
+    const creative = _.find(creatives, ['id', e.target.value])
+
+    let payload = copyObject(content)
+    payload['body_text'] = creative.body
+    payload['heading'] = creative.title
+    payload['cta'] = _.find(CTA, ['value', creative.call_to_action_type])
+    payload['page'] = _.find(facebookPages, ['id', creative.object_story_spec.page_id])
+    payload['ad_creative'] = e.target.value
+    dispatch(saveFacebookCampaign(payload))
+    const imagePayload = {
+      images: {
+        hash: creative.image_hash,
+        url: creative.image_url
+      }
+    }
+    dispatch(updateImageFromCreative(imagePayload))
+  }
+
   const updateContent = (name, value) => {
     if (name==='ad_account') {
+      if (value!=='none') {
+        callCreatives(value)
+      }
       value = _.find(adAccounts, ['id', value])
     } else if (name==='page') {
       value = _.find(facebookPages, ['id', value])
@@ -73,8 +113,8 @@ function CreateFacebookContent () {
                         <form action="#">
                             <div className="form-group">
                                 <label htmlFor="adaccount">Ad account*</label>
-                                <select onChange={inputHandler} className="form-control" name="ad_account" id="adaccount">
-                                <option selected_value={undefined}>Select Ad Account</option>
+                                <select defaultValue='none' onChange={inputHandler} className="form-control" name="ad_account" id="adaccount">
+                                <option value="none">Select Ad Account</option>
                                   {
                                    adAccounts && adAccounts.map(adAccount => 
                                       <option key={adAccount.id} value={adAccount.id}>{adAccount.name}</option>
@@ -82,7 +122,7 @@ function CreateFacebookContent () {
                                   }
                                 </select>
                             </div>
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <label htmlFor="pages">Facebook page* <i className="fas fa-info-circle"></i> </label>
                                 <select defaultValue={content.page && content.page.id} className="form-control" onChange={inputHandler} name="page" id="pages">
                                   <option selected_value={undefined}>Select Page</option>
@@ -92,7 +132,7 @@ function CreateFacebookContent () {
                                     )
                                   }
                                 </select>
-                            </div>
+                            </div> */}
                             <div className="campaign">
                                 <label htmlFor="Campaign">Campaign* </label> <br/>
                                 <div className="form-check form-check-inline">
@@ -133,7 +173,7 @@ function CreateFacebookContent () {
                               </div>
                             }
                             
-                            <div className="form-group upload-file">
+                            {/* <div className="form-group upload-file">
                                 <label htmlFor="image-video">
                                   image/video*
                                 <i className="fas fa-info-circle"></i>
@@ -184,6 +224,20 @@ function CreateFacebookContent () {
                                   } 
                                 </select>
                             </div>
+                            } */}
+
+                            {
+                              content.ad_account && <div className="form-group">
+                                <label htmlFor="adaccount">Ad Creative*</label>
+                                <select onChange={creativeHandler} className="form-control" name="ad_creative" id="adcreatives">
+                                <option value='none'>Select Ad Creative</option>
+                                  {
+                                  creatives.map(creative => 
+                                      <option key={creative.id} value={creative.id}>{creative.name}</option>
+                                    )
+                                  }
+                                </select>
+                              </div>
                             }
                             
                         </form>

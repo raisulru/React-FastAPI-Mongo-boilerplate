@@ -82,7 +82,7 @@ export const getFacebookCampaigns = (accessToken, adsAccountIdList) => ({
 export const getFacebookPages = (userID, accessToken) => ({
   type: types.GET_FACEBOOK_PAGES,
   payload: {
-    path: `/facebook/pages?userID=${userID}&access_token=${accessToken}&fields=id,name,about,category,access_token,tasks`,
+    path: `/facebook/pages?userID=${userID}&access_token=${accessToken}&fields=id,name,about,category,access_token,tasks,picture`,
     method: 'GET'
   },
   meta: {
@@ -482,6 +482,15 @@ export const removeAdsImage = () => ({
   meta: {
     api: false,
     errorMessage: "Image Not Removed",
+  },
+});
+
+export const updateImageFromCreative = (payload) => ({
+  type: types.UPDATE_IMAGE_FROM_CREATIVE,
+  payload: payload,
+  meta: {
+    api: false,
+    errorMessage: "Image Not Updated",
   },
 });
 

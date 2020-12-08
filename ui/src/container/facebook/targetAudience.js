@@ -195,6 +195,7 @@ function FacebookAudienceTargeting() {
                                 name="specialCategory"
                                 className="form-control" 
                                 id="adaccount">
+
                              {
                                SpecialCategory.map((category, index) => 
                                     <option key={index} value={category}>

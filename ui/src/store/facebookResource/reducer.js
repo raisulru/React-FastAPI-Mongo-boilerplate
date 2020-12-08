@@ -10,14 +10,17 @@ const facebookCampaignState = {
     new_campaign: null,
     body_text: null,
     heading: null,
-    cta: null
+    cta: null,
+    ad_creative: null
   },
   addedCustomAudience: [],
   excludeCustomAudience: [],
   budgetAndSchedule: {
-    start_time: '',
-    end_time: '',
-    budgetType: '',
+    start_date: null,
+    end_date: null,
+    start_time: null,
+    end_time: null,
+    budgetType: null,
     ammount: 0
   },
   personalAttModal: {
@@ -34,7 +37,7 @@ const facebookCampaignState = {
     age_max: 65,
     age_min: 18,
     geo_locations: [],
-    specialCategory: ""
+    specialCategory: null
   },
   adsImage: null
 }
@@ -47,6 +50,9 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
         return facebookCampaignState
       case types.SAVE_FACEBOOK_CAMPAIGN:
         draft.content = payload
+        break;
+      case types.UPDATE_IMAGE_FROM_CREATIVE:
+        draft.adsImage = payload
         break;
       case types.SHOW_PERSONAL_ATT_MODAL:
         draft.personalAttModal = payload

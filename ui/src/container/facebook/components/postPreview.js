@@ -20,7 +20,7 @@ function PostPreview() {
         <div className="right-ad-generation-area mr-5 ml-5">
             <div className="media">
                 <div className="media-left mr-2">
-                    <img className="media-object photo-profile" src={PostProfile} width="40" height="40" alt="page"/>
+                    <img className="media-object photo-profile" src={content.page ? content.page.picture.data.url:PostProfile} width="40" height="40" alt="page"/>
                 </div>
                 <div className="media-body">
                     <h6 className="media-heading">{content.page ? content.page.name : 'Select Page'}</h6>
