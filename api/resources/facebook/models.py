@@ -27,6 +27,8 @@ class FacebookUser(BaseModel):
     accessToken: str
     graphDomain: str
     userID: str
+    roboket_username: str
+    roboket_email: str
     image: Optional[Picture] = None
 
 

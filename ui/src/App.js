@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { transitions, positions, Provider as AlertProvider } from 'react-alert'
+import { transitions, positions, Provider as AlertProvider } from 'react-alert';
+import { useAlert } from 'react-alert';
+
 import './App.css';
-import { CommonRouter, FacebookRouter } from './router'
-import { Header, Footer } from './container/common'
-import keycloak from './utils/keycloak'
-import { saveAuthUser } from './store/auth'
-import {AlertTemplate} from './utils/allertMessages'
-import { useAlert } from 'react-alert'
+import { CommonRouter, FacebookRouter } from './router';
+import { Header, Footer } from './container/common';
+import keycloak from './utils/keycloak';
+import { saveAuthUser } from './store/auth';
+import { getFacebookUser } from './store/facebookResource';
+import { AlertTemplate } from './utils/allertMessages';
 
 
-function AppRouter() {
+function AppRouter(props) {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const [authenticated, setAuthenticated] = useState(false)
   const alert = useAlert()
+  const { authInfo, facebook } = useSelector((state) => state)
 
   useEffect(() => {
     keycloak.init({
@@ -29,13 +32,12 @@ function AppRouter() {
         console.log('Not Authenticated')
       }
         dispatch(saveAuthUser(keycloak));
-    }).catch(function() {
+      }).catch(function() {
         alert.error('failed to initialize');
-    });
-
+      });
+      dispatch(getFacebookUser(authInfo.userInfo.preferred_username))
   }, [dispatch]);
 
-  const { authInfo, facebook } = useSelector((state) => state);
   return (
     authenticated ? 
     <>

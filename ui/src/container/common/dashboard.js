@@ -7,7 +7,7 @@ import FacebookLogo from '../../images/fb-icon.png'
 import GoogleLogo from '../../images/google-ads.png'
 import LinkedinLogo from '../../images/linkedin.png'
 import SearchIcon from '../../images/search.svg'
-import { getFacebookCampaigns } from '../../store/facebookResource'
+import { getFacebookCampaigns, getFacebookUser } from '../../store/facebookResource'
 import formatNumber from '../../utils/formatNumber'
 import CampaignModal from '../facebook/CampaignModal';
 
@@ -23,11 +23,13 @@ function TableHead(name) {
   )
 }
 
-function DashBoard() {
+function DashBoard(props) {
   let totalImpressions = 0
   let totalAmmountSpent = 0
 
   const dispatch = useDispatch();
+  const { campaignList, adAccounts, user, connected } = useSelector((state) => state.facebook);
+  const { userInfo } = useSelector((state) => state.authInfo);
 
   useEffect(() => {
       let adsAccountIdList = []
@@ -35,9 +37,13 @@ function DashBoard() {
           adsAccountIdList.push(adAccount.id)
       })
     dispatch(getFacebookCampaigns(user.accessToken, adsAccountIdList))
+    dispatch(getFacebookUser(userInfo.preferred_username))
+
+    if (!connected) {
+        props.history.push("/ads/onboarding")
+    }
   }, [dispatch]);
 
-  const { campaignList, adAccounts, user } = useSelector((state) => state.facebook);
 
   _.forEach(adAccounts, adAccount => {
       if (adAccount.insights) {

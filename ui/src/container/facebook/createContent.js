@@ -31,7 +31,7 @@ function CreateFacebookContent () {
   const showUploadModal = () => setUploadModal(true);
 
   useEffect(() => {
-    dispatch(getFacebookPages(user.id, user.accessToken))
+    dispatch(getFacebookPages(user.userID, user.accessToken))
     dispatch(getFacebookAdAccounts(user.accessToken))
     dispatch(getFacebookCallToActionEnums())
     

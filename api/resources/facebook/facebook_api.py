@@ -3,7 +3,9 @@ import json
 import shutil
 import requests
 from typing import List
-from fastapi import APIRouter, File, UploadFile, HTTPException
+from fastapi import APIRouter, File, UploadFile
+from fastapi.responses import JSONResponse
+
 from typing import Optional
 from fastapi.encoders import jsonable_encoder
 
@@ -30,7 +32,7 @@ async def get_facebook_ad_accounts(access_token: str, fields: str):
         fields
     )
     response = requests.get(url)
-    return response.json()
+    return JSONResponse(status_code=response.status_code, content=response.json())
 
 
 @facebook_router.post("/campaigns")
@@ -53,20 +55,15 @@ async def get_facebook_campaigns(access_token: str, ads_account_list: List[str],
 
 @facebook_router.get("/pages")
 async def get_facebook_pages(userID: str, access_token: str, fields: str=None):
-    try:
-        url = '{}/{}/accounts?access_token={}&fields={}'.format(
-            facebook_base_url, 
-            userID, 
-            access_token, 
-            fields
-        )
-        response = requests.get(url)
-        if response.status_code==200:
-            return response.json()
-        print(response.json())
-        return {'data': []}
-    except Exception as e:
-        return {'error': str(e)}
+    url = '{}/{}/accounts?access_token={}&fields={}'.format(
+        facebook_base_url, 
+        userID, 
+        access_token, 
+        fields
+    )
+    response = requests.get(url)
+    return JSONResponse(status_code=response.status_code, content=response.json())
+        
 
 
 @facebook_router.get("/cta")
@@ -83,8 +80,7 @@ async def search_location(access_token: str, search: str):
         search
     )
     response = requests.get(url)
-    return response.json()
-
+    return JSONResponse(status_code=response.status_code, content=response.json())
 
 @facebook_router.get("/audience-size")
 async def target_audience_size(adaccount_id: str, access_token: str, specification: str):
@@ -95,7 +91,7 @@ async def target_audience_size(adaccount_id: str, access_token: str, specificati
         specification
     )
     response = requests.get(url)
-    return response.json()
+    return JSONResponse(status_code=response.status_code, content=response.json())
 
 
 @facebook_router.get("/targeting-category/browse/all")
@@ -105,7 +101,7 @@ async def browse_targeting_category(access_token: str):
         access_token,
     )
     response = requests.get(url)
-    return response.json()
+    return JSONResponse(status_code=response.status_code, content=response.json())
 
 
 @facebook_router.get("/targeting-category/browse")
@@ -116,7 +112,7 @@ async def browse_targeting_category_with_class(access_token: str, class_type: st
         class_type
     )
     response = requests.get(url)
-    return response.json()
+    return JSONResponse(status_code=response.status_code, content=response.json())
 
 
 @facebook_router.get("/targeting-category/search")
@@ -128,7 +124,7 @@ async def search_targeting_category(access_token: str, class_type: str, search: 
         search
     )
     response = requests.get(url)
-    return response.json()
+    return JSONResponse(status_code=response.status_code, content=response.json())
 
 
 @facebook_router.get("/custom-audience")
@@ -140,7 +136,7 @@ async def custom_audience(access_token: str, adaccount: str, fields: str):
         access_token
     )
     response = requests.get(url)
-    return response.json()
+    return JSONResponse(status_code=response.status_code, content=response.json())
 
 
 @facebook_router.post("/ads/image-upload")
@@ -174,7 +170,7 @@ async def create_upload_file(ad_account: str, access_token: str, file: UploadFil
             'images': response.json()['images'][image_name]
         }
         return response
-    raise HTTPException(status_code=400, detail=str(response.json()))
+    return JSONResponse(status_code=response.status_code, content=response.json())
 
 
 @facebook_router.post("/ads/publish")
@@ -185,7 +181,7 @@ async def publish_ads(
     ads_payload: AdsPayload):
 
     if not ads_payload.creative_id and not ads_payload.ads_creative:
-        return HTTPException(status_code=400, detail="You Must give creative information!")
+        return JSONResponse(status_code=400, content={'msg': "You Must give creative information!"})
     
     campaign_url = '{}/{}/campaigns?access_token={}'.format(
         facebook_base_url, 
@@ -227,19 +223,19 @@ async def publish_ads(
         }
         ad_creative_res = requests.post(url=ads_creative_url, data=ad_creative_payload)
         if ad_creative_res.status_code != 200:
-            return HTTPException(status_code=400, detail=str(ad_creative_res.json()))
+            return JSONResponse(status_code=ad_creative_res.status_code, content=ad_creative_res.json())
         creative_id = ad_creative_res.json()['id']
         
     
     campaign_res = requests.post(url=campaign_url, data=campaign.__dict__)
     if campaign_res.status_code != 200:
-        return HTTPException(status_code=campaign_res.status_code, detail=str(campaign_res.json()))
+        return JSONResponse(status_code=campaign_res.status_code, content=campaign_res.json())
 
     ad_set.campaign_id = campaign_res.json()['id']
     ad_set.targeting = str(targeting)
     adset_res = requests.post(url=ads_set_url, data=ad_set.__dict__)
     if adset_res.status_code != 200:
-        return HTTPException(status_code=adset_res.status_code, detail=str(adset_res.json()))
+        return JSONResponse(status_code=adset_res.status_code, content=adset_res.json())
 
     ad = {
         "name": 'Test Name',
@@ -248,7 +244,5 @@ async def publish_ads(
         "status": "ACTIVE"
     }
     ad_res = requests.post(url=ads_url, data=ad)
-    if ad_res.status_code != 200:
-        return HTTPException(status_code=ad_res.status_code, detail=str(ad_res.json()))
-
-    return ad_res.json()
+    
+    return JSONResponse(status_code=ad_res.status_code, content=ad_res.json())

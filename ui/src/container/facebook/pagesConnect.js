@@ -12,7 +12,7 @@ function PagesConnect () {
 
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getFacebookPages(user.id, user.accessToken))
+    dispatch(getFacebookPages(user.userID, user.accessToken))
   }, [dispatch])
 
   const { facebookPages, user } = useSelector((state) => state.facebook);
@@ -38,7 +38,7 @@ function PagesConnect () {
         page.lead_sync = true
       }
       page.page_id = page.id
-      page.user_id = user.id
+      page.user_id = user.userID
       return
     })
     if (!leadSyncSettings.length) {

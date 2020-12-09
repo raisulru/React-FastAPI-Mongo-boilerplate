@@ -172,6 +172,14 @@ export const facebook = (state = facebookState, action) => {
         draft.user = payload.data
         draft.connected = true
         break;
+      case types.GET_FACEBOOK_USER_SUCCESS:
+        draft.user = payload
+        draft.connected = true
+        break;
+      case types.GET_FACEBOOK_USER_FAILED:
+        draft.user = facebookState.user
+        draft.connected = false
+        break;
       case types.GET_FACEBOOK_CTA_SUCCESS:
         draft.CTA = payload.data
         break;

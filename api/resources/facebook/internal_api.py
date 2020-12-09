@@ -1,6 +1,8 @@
 import requests
 import uuid
-from fastapi import APIRouter
+from fastapi import APIRouter, status
+from fastapi.responses import JSONResponse
+
 from .models import (
     FacebookUser, 
     FacebookAdAccountlist, 
@@ -18,21 +20,44 @@ facebook_campaign = db['facebook_campaign']
 facebook_internal_router = APIRouter()
 
 
-@facebook_internal_router.post("/save-user")
-async def create_facebook_user(user: FacebookUser):
+@facebook_internal_router.post("/users")
+async def create_facebook_user(user_payload: FacebookUser):
     long_lived_access_token_url = '{}/oauth/access_token?grant_type=fb_exchange_token&client_id={}&client_secret={}&fb_exchange_token={}'.format(
         facebook_base_url,
         client_id,
         client_secret,
-        user.accessToken
+        user_payload.accessToken
     )
 
     response = requests.get(long_lived_access_token_url)
-    if response.status_code == 200:
-        user.accessToken = response.json()['access_token']
-    created_user = facebook_user_collection.insert_one(user.dict(by_alias=True))
+    if response.status_code != 200:
+        return JSONResponse(status_code=response.status_code, content=response.json())
+    user_payload.accessToken = response.json()['access_token']
 
-    return user
+    user_exist = facebook_user_collection.find_one({"roboket_username": user_payload.roboket_username})
+    if user_exist:
+        user = facebook_user_collection.update_one(
+            {"roboket_username": user_payload.roboket_username},
+            { "$set": user_payload.dict(by_alias=True) }
+        )
+    else:
+        user = facebook_user_collection.insert_one(user_payload.dict(by_alias=True))
+    
+    user = facebook_user_collection.find_one({"roboket_username": user_payload.roboket_username})
+
+    if user:
+        user = FacebookUser(**user)
+        return user
+    return JSONResponse(status_code=400, content={'msg': 'User Not Created'})
+
+
+@facebook_internal_router.get("/users/{roboket_username}")
+async def get_facebook_user(roboket_username: str):
+    user = facebook_user_collection.find_one({"roboket_username": roboket_username})
+    if user:
+        user = FacebookUser(**user)
+        return user
+    return JSONResponse(status_code=404, content={'msg': 'User Not Found'})
 
 
 @facebook_internal_router.post("/save-adaccounts")
@@ -42,8 +67,6 @@ async def create_facebook_adaccounts(ad_accounts: FacebookAdAccountlist):
         ad_account_list.append(item.dict(by_alias=True))
     created_ad_accounts = facebook_ad_accounts_collection.insert_many(ad_account_list)
     return ad_accounts
-
-
 
 @facebook_internal_router.post("/pages/settings")
 async def save_facebook_pages_settings(pages: FacebookPages):

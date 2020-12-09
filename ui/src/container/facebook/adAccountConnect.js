@@ -48,7 +48,7 @@ function AdAccountConnect (props) {
     const adAccountList = JSON.parse(JSON.stringify(adAccounts))
 
     adAccountList.map(adAccount => {
-      adAccount.user_id = user.id
+      adAccount.user_id = user.userID
       return adAccount
     })
 

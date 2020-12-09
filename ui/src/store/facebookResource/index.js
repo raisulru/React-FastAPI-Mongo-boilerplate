@@ -41,7 +41,8 @@ export {
   removeAdsImage,
   uploadAdsImage,
   publishAd,
-  updateImageFromCreative
+  updateImageFromCreative,
+  getFacebookUser
   } from './action';
   
 export { facebook, facebookSearch, facebookCampaign } from './reducer';

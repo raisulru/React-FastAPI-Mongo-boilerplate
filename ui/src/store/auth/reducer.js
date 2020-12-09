@@ -3,7 +3,8 @@ import * as types from './types';
 
 const initialState = {
   userInfo: {
-    
+    preferred_username: null,
+    email: null
   },
 };
 

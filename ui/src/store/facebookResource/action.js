@@ -20,7 +20,7 @@ export const createFacebookAds = (payload) => ({
 export const saveFacebookUser = (payload) => ({
   type: types.SAVE_FACEBOOK_USER,
   payload: {
-    path: `/facebook/save-user`,
+    path: `/facebook/users`,
     method: 'POST',
     data: payload,
   },
@@ -28,6 +28,19 @@ export const saveFacebookUser = (payload) => ({
     api: true,
     successMessage: 'User connected successfully',
     errorMessage: "User coudn't connect",
+  },
+});
+
+export const getFacebookUser = (roboketUserName) => ({
+  type: types.GET_FACEBOOK_USER,
+  payload: {
+    path: `/facebook/users/${roboketUserName}`,
+    method: 'GET'
+  },
+  meta: {
+    api: true,
+    successMessage: 'User get successfully',
+    errorMessage: "User Not Found",
   },
 });
 

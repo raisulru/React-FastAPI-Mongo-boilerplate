@@ -1,31 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
-import { bindActionCreators } from "redux";
-import { connect } from 'react-redux';
 import FacebookAuth from 'react-facebook-auth';
 import { saveFacebookUser } from '../../store/facebookResource';
 import { facebookAppId } from '../../settings';
 import { FacebookButton } from './components/button';
-import GoogleLogo from '../../images/google-ads.png'
-import LinkedinLogo from '../../images/linkedin.png'
+import GoogleLogo from '../../images/google-ads.png';
+import LinkedinLogo from '../../images/linkedin.png';
 import { AdsBar } from './components/adsBar';
 
 
-class OnBoardingProcess extends React.Component {
-  constructor(props) {
-    super(props);
+function OnBoardingProcess (props) {
+  const dispatch = useDispatch()
+  const { connected } = useSelector((state) => state.facebook);
+  const { userInfo } = useSelector((state) => state.authInfo);
 
-    this.handleAuthorization = this.handleAuthorization.bind(this)
+  const handleAuthorization = (response) => {
+    response.roboket_username = userInfo.preferred_username
+    response.roboket_email = userInfo.email
+    dispatch(saveFacebookUser(response))
   }
 
-  handleAuthorization(response) {
-    this.props.saveFacebookUser(response)
-    if (this.props.facebookConnected) {
-      this.props.history.push("/ads/facebook/connect")
-    }
+  if (connected) {
+    props.history.push("/ads/dashboard")
   }
 
-  render() {
     return (
       <div>
         <AdsBar name="Ads Platform"/>
@@ -40,7 +39,7 @@ class OnBoardingProcess extends React.Component {
                             <div className="btn-group text-center">
                                 <FacebookAuth
                                   appId={facebookAppId}
-                                  callback={this.handleAuthorization}
+                                  callback={handleAuthorization}
                                   component={FacebookButton}
                                 />
                                 <button type="button" className="btn btn-connect mr-2"><img src={GoogleLogo} alt="Google"/>Google ads</button>
@@ -65,21 +64,5 @@ class OnBoardingProcess extends React.Component {
       </div>
     );
   }
-}
 
-const mapStateToProps = state => (
-  {
-    facebookConnected: state.facebook.connected
-  }
-)
-
-const mapActionToProps = dispatch => {
-  return bindActionCreators(
-    {
-      saveFacebookUser
-    },
-    dispatch
-  );
-};
-
-export default connect(mapStateToProps, mapActionToProps)(OnBoardingProcess)
+export default OnBoardingProcess
