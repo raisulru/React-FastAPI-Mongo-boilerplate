@@ -202,6 +202,7 @@ const locationHandler = (data) => {
           return
       }
       dispatch(controllPersonalAttModal(modalAtt))
+
   }
 
   useEffect(() => {
@@ -442,7 +443,7 @@ const locationHandler = (data) => {
                     </div>
                 </div>
             </div>
-            <div className="col-md-6 bg-body py-5">
+            <div className="col-md-6 bg-body py-5 create-scroll">
                 <div className="row">
                   <div className="col-md-1">
                   </div>
