@@ -3,6 +3,7 @@ import _ from 'lodash';
 import * as types from './types';
 
 const facebookCampaignState = {
+  publishFailed: null,
   content: {
     ad_account: null,
     page: null,
@@ -43,11 +44,14 @@ const facebookCampaignState = {
 }
 
 export const facebookCampaign = (state = facebookCampaignState, action) => {
-  const { type, payload } = action;
+  const { type, payload, errorMsg } = action;
   return produce(state, (draft) => {
     switch (type) {
       case types.PUBLISH_AD_SUCCESS:
         return facebookCampaignState
+      case types.PUBLISH_AD_FAILED:
+        draft.publishFailed = errorMsg.toString()
+        break;
       case types.SAVE_FACEBOOK_CAMPAIGN:
         draft.content = payload
         break;

@@ -12,17 +12,12 @@ import { AdsBar } from './components/adsBar';
 
 function OnBoardingProcess (props) {
   const dispatch = useDispatch()
-  const { connected } = useSelector((state) => state.facebook);
   const { userInfo } = useSelector((state) => state.authInfo);
 
   const handleAuthorization = (response) => {
     response.roboket_username = userInfo.preferred_username
     response.roboket_email = userInfo.email
     dispatch(saveFacebookUser(response))
-  }
-
-  if (connected) {
-    props.history.push("/ads/dashboard")
   }
 
     return (
@@ -42,8 +37,14 @@ function OnBoardingProcess (props) {
                                   callback={handleAuthorization}
                                   component={FacebookButton}
                                 />
-                                <button type="button" className="btn btn-connect mr-2"><img src={GoogleLogo} alt="Google"/>Google ads</button>
-                                <button type="button" className="btn btn-connect"><img src={LinkedinLogo} alt="Likedin"/>Linkedin</button>
+                                <button type="button" className="btn btn-connect mr-2">
+                                  <img src={GoogleLogo} alt="Google"/>
+                                  Google ads
+                                  </button>
+                                <button type="button" className="btn btn-connect">
+                                  <img src={LinkedinLogo} alt="Likedin"/>
+                                  Linkedin
+                                  </button>
                             </div>
                         </div>
                     </div>

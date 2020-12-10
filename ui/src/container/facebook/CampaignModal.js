@@ -20,9 +20,11 @@ function CampaignModal () {
         content, 
         excludeCustomAudience, 
         othersTargetingParam, 
-        personalAttModal } = facebookCampaign;
+        personalAttModal,
+        publishFailed
+     } = facebookCampaign;
         
-        const validatePayload = () => {
+    const validatePayload = () => {
         if (!content.ad_account || !content.ad_creative) {
             setRequired(true)
             return
@@ -121,6 +123,10 @@ function CampaignModal () {
                 window.$('#run-ads').modal('hide');
             }
           });
+    }
+
+    if (publishFailed) {
+        alert.error(publishFailed)
     }
 
     return (

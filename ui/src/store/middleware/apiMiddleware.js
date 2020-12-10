@@ -44,16 +44,27 @@ const apiMiddleware = () => (next) => (action) => {
         type: `${action.type}_SUCCESS`,
         payload: res.data,
         meta: action.meta,
+        successMessage: successMessage && successMessage
       });
       successMessage && console.log(successMessage);
     })
     .catch((error) => {
-      console.log(
-        error.response || errorMessage || 'Something went wrong'
-      );
-      console.error(error);
+      let errorMsg = ''
+
+      if (error.response.data.error) {
+        errorMsg = error.response.data.error.error_user_msg
+      } else if (error.response.data.msg) {
+        errorMsg = error.response.data.msg
+      } else if (errorMessage) {
+        errorMsg = errorMessage
+      } else {
+        errorMsg = 'Something went wrong'
+      }
+      console.error(errorMsg);
+      
       next({
         type: `${action.type}_FAILED`,
+        errorMsg: errorMsg
       });
     });
 };

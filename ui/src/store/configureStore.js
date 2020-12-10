@@ -7,11 +7,12 @@ import monitorReducersEnhancer from './enhancers/monitorReducers'
 import loggerMiddleware from './middleware/logger'
 import apiMiddleware from './middleware/apiMiddleware'
 import rootReducer from './rootReducer'
-import storage from 'redux-persist/lib/storage' 
+import storage from 'redux-persist/lib/storage'
 
 const persistConfig = {
   key: 'root',
   storage,
+  whitelist: ['authInfo', 'facebook']
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
