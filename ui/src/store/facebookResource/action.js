@@ -507,6 +507,22 @@ export const updateImageFromCreative = (payload) => ({
   },
 });
 
+export const deleteMessages = () => ({
+  type: types.DELETE_MESSAGE,
+  meta: {
+    api: false,
+    errorMessage: "Messae Not Deleted",
+  },
+});
+
+export const modalInitialEvent = () => ({
+  type: types.DELETE_MESSAGE,
+  meta: {
+    api: false,
+    errorMessage: "Messae Not Deleted",
+  },
+});
+
 export const publishAd = (payload, access_token, adAccount) => ({
   type: types.PUBLISH_AD,
   payload: {

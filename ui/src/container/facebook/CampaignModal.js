@@ -4,7 +4,7 @@ import swal from 'sweetalert';
 import CreateFacebookContent from './createContent'
 import FacebookAudienceTargeting from './targetAudience'
 import FacebookBillAndSchedule from './billAndSchedule'
-import { publishAd } from '../../store/facebookResource'
+import { publishAd, deleteMessages } from '../../store/facebookResource'
 import { useAlert } from 'react-alert'
 
 
@@ -21,7 +21,9 @@ function CampaignModal () {
         excludeCustomAudience, 
         othersTargetingParam, 
         personalAttModal,
-        publishFailed
+        errorMessage,
+        successMessage,
+        loading
      } = facebookCampaign;
         
     const validatePayload = () => {
@@ -40,6 +42,10 @@ function CampaignModal () {
             return
         }
         setRequired(false)
+
+        if (errorMessage || successMessage) {
+            dispatch(deleteMessages())
+        }
     }
 
     const publish = (data) => {
@@ -125,8 +131,8 @@ function CampaignModal () {
           });
     }
 
-    if (publishFailed) {
-        alert.error(publishFailed)
+    if (errorMessage || successMessage) {
+        alert.error(errorMessage || successMessage)
     }
 
     return (
@@ -150,13 +156,25 @@ function CampaignModal () {
                                     </div>
                                 </div>
                                 <div className="col-md-4">
-                                    <div className="run-ads-edit-exit float-right">                                                                                                                       
-                                        <button 
-                                            onMouseOver={validatePayload} 
-                                            onClick={publisHandler} 
-                                            className="btn ad-publish-btn" 
-                                            type="button"
-                                            >Publish</button>
+                                    <div className="run-ads-edit-exit float-right">
+                                        {
+                                            loading ? 
+                                            <button 
+                                                className="btn ad-publish-btn" 
+                                                type="button"
+                                                >
+
+                                                <div className="spinner-border text-success"></div>
+                                                </button>
+                                            :
+                                            <button 
+                                                onMouseOver={validatePayload} 
+                                                onClick={publisHandler} 
+                                                className="btn ad-publish-btn" 
+                                                type="button"
+                                                >Publish</button>
+                                        }
+                                        
                                     </div>
                                 </div>
                             </div>

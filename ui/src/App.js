@@ -59,7 +59,7 @@ function AppRouter(props) {
 
 const alertOptions = {
   position: positions.TOP_CENTER,
-  timeout: 5000,
+  timeout: 15000,
   containerStyle: {
     display: 'block',
     textAlign: 'center'
