@@ -51,8 +51,14 @@ const apiMiddleware = () => (next) => (action) => {
     .catch((error) => {
       let errorMsg = ''
 
-      if (error.response.data.error) {
-        errorMsg = error.response.data.error.error_user_msg
+      if (error.response) {
+
+        if (error.response.data.error) {
+          errorMsg = error.response.data.error.error_user_msg
+        } else {
+          errorMessage = error.response
+        }
+        
       } else if (error.response.data.msg) {
         errorMsg = error.response.data.msg
       } else if (errorMessage) {
