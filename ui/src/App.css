@@ -1214,6 +1214,37 @@ login page
         overflow-x: hidden;
         overflow-y: hidden!important;
     }
+    
+    .custom-modal {
+        display: none;
+    }
+    
+    .showmodal {}
+    
+    .hidemodal {}
+    
+    .showmodal .custom-modal-dialog {
+        position: absolute;
+        z-index: 9999;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 0px 20px 20px 0px;
+        /* width: 50%; */
+        height: 100%;
+        top: 0px;
+        background-color: #e8e8e8;
+        left: 50%;
+        transform: translate(0, 0);
+    }
+    
+    .hidemodal .custom-modal-dialog {
+        margin: 0px;
+        display: flex;
+        flex: auto;
+        transform: translate(25%, 0);
+    }
+    
+    .hidemodal {}
     /*
 =======================================================================
 facebook post style
@@ -1390,20 +1421,6 @@ modal drawer
 pointer-events: auto;
 }
 */
-    
-    .custom-modal {
-        position: absolute;
-        display: none;
-        z-index: 9999;
-        width: 50%;
-        height: 100%;
-        top: 0px;
-        background-color: #e8e8e8;
-        left: 50%;
-        overflow-y: auto;
-        overflow-x: hidden;
-        padding: 0px 20px 20px 0px;
-    }
     
     .drawer.show * {
         pointer-events: auto;

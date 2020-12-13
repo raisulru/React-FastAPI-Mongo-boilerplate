@@ -57,8 +57,9 @@ function PersonalAttributes(props) {
     }
 
     return (
-        <div className="custom-modal col-md-12" style={{ display: personalAttModal.display} }>
-                <div onClick={closeModal} className="modal-header text-white">
+        <div className={`custom-modal col-md-12 ${personalAttModal.display === 'none' ? 'hidemodal':'showmodal'}`} style={{ display: personalAttModal.display} }>
+               <div className="custom-modal-dialog">
+               <div onClick={closeModal} className="modal-header text-white">
                     <h5 className="p-l-20">Add audience</h5>
                     <span className="float-right ">
                         x
@@ -226,6 +227,7 @@ function PersonalAttributes(props) {
 
                 <button type="button" onClick={closeModal} className="btn btn-primary">Save</button>
                 <button type="button" onClick={closeModal} className="btn btn-secondary">Cancel</button>
+               </div>
         </div>
     )
 }
