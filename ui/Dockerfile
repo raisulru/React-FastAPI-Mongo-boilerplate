@@ -1,9 +1,11 @@
-FROM node:10
+FROM node:alpine
 
-WORKDIR /usr/src/app/lead_ui
+WORKDIR /ads_ui
 
-COPY package*.json ./
+COPY package.json /ads_ui
 
 RUN npm install
+
+COPY . /ads_ui
 
 CMD ["npm", "start"]

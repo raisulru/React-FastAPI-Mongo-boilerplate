@@ -89,6 +89,8 @@ function CampaignModal () {
         } else {
             budgetType = budgetAndSchedule.budgetType
         }
+
+        console.log()
         
         payload.ads_payload.ads_set[budgetType] = budgetAndSchedule.ammount
         console.log(payload, '##################################')

@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  ads_ui:
+    container_name: ads_ui
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    volumes:
+      - ./:/ads_ui
+      - /ads_ui/node_modules
+
+networks:
+   lead_generation:
