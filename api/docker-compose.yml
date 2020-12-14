@@ -1,10 +1,34 @@
 version: '3.7'
 
+volumes:
+    mongo_data:
+
 services:
-  lead_generation_api:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    environment: 
+      - MONGO_INITDB_DATABASE=lead_generation
+      # - MONGO_INITDB_ROOT_USERNAME=RAISUL
+      # - MONGO_INITDB_ROOT_PASSWORD=SECRET
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+    networks: 
+      - lead_gen_network
+  ads_api:
     build:
       context: .
       dockerfile: Dockerfile
-    image: lead_generation_api
+    image: ads_api_image
+    container_name: ads_api
     ports:
       - "8000:8000"
+    networks: 
+      - lead_gen_network
+    depends_on:
+      - mongodb
+
+networks:
+   lead_gen_network:

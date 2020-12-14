@@ -14,7 +14,7 @@ from facebookads.adobjects.targetingsearch import TargetingSearch
 from .enums import facebook_click_to_action, supported_extentions
 from resources.utilities.utils import remove_file_from_directory
 from .models import AdsPayload
-from . import facebook_base_url
+from resources import facebook_base_url
 # my_app_id = '<APP_ID>'
 # my_app_secret = '<APP_SECRET>'
 # my_access_token = '<ACCESS_TOKEN>'

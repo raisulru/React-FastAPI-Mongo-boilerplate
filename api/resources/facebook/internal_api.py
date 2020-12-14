@@ -9,8 +9,12 @@ from .models import (
     FacebookPages, 
     CreateCampaign
 )
-from resources import db
-from . import facebook_base_url, client_id, client_secret
+from resources import (
+    db, 
+    facebook_base_url, 
+    client_id, 
+    client_secret
+)
 
 facebook_user_collection = db['facebook_user']
 facebook_ad_accounts_collection = db['facebook_user_ad_accounts']
