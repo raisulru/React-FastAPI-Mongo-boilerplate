@@ -77,6 +77,7 @@ function FacebookAudienceTargeting() {
       estimatedAudienceSize, 
       locations, 
       customAudience } = useSelector((state) => state.facebookSearch);
+    
   const { 
       addedCustomAudience, 
       excludeCustomAudience, 
@@ -86,9 +87,54 @@ function FacebookAudienceTargeting() {
       content  } = useSelector((state) => state.facebookCampaign);
 
   const estimatedAudienceSizeHandler = () => {
-    const accountID = 'act_552899645070172'
-    const specification = '{"geo_locations": {"countries": ["BD"]},"age_min": 18,"age_max": 65}'
-    dispatch(getEstimatedAudienceSize(user.accessToken, accountID, specification))
+    console.log(othersTargetingParam, '##################')
+
+    let specification = {
+        geo_locations: {
+            countries: [],
+            regions: [],
+            cities: [],
+            subcities: []
+        },
+        age_min: 0,
+        age_max: 0
+    }
+    if (othersTargetingParam.geo_locations) {
+        _.forEach(othersTargetingParam.geo_locations, item => {
+            if (item.supports_region || item.supports_city) {
+                if (item.type === 'country') {
+                    specification.geo_locations.countries.push(item.country_code)
+                }
+
+                if (item.type === 'region') {
+                    specification.geo_locations.regions.push({key: item.key})              
+                }
+
+                if (item.type === 'city') {
+                    specification.geo_locations.cities.push({key: item.key})              
+                }
+
+                if (item.type === 'subcity') {
+                    specification.geo_locations.subcities.push({key: item.key})
+                }
+            }
+        })
+    }
+
+    if (othersTargetingParam.age_max) {
+        specification.age_max = othersTargetingParam.age_max
+    } else {
+        specification.age_max = 65
+    }
+
+    if (othersTargetingParam.age_min) {
+        specification.age_min = othersTargetingParam.age_min
+    } else {
+        specification.age_min = 18
+    }
+
+    console.log(specification, '##################')
+    dispatch(getEstimatedAudienceSize(user.accessToken, content.ad_account.id, JSON.stringify(specification)))
   }
 
   const getCustomAudience = () => {
@@ -98,23 +144,29 @@ function FacebookAudienceTargeting() {
     dispatch(getFacebookCustomAudience(user.accessToken, content.ad_account.id))
   }
 
-  const othersTargetingHandler = (e) => {
-      const name = e.target.name;
-      let value = e.target.value;
+const othersTargetingHandler = (e) => {
+    const name = e.target.name;
+    let value = e.target.value;
 
-      let payload = copyObject(othersTargetingParam)
+    let payload = copyObject(othersTargetingParam)
 
-      if (name==='age_min' || name==='age_max') {
-          value = parseInt(value)
-      }
-      payload[name] = value
+    if (name==='age_min' || name==='age_max') {
+        value = parseInt(value)
+    }
+    payload[name] = value
     dispatch(AddOthersTargeting(payload))
-  }
+    setTimeout(function(){
+        estimatedAudienceSizeHandler()
+    }, 2000);
+}
 
-  const locationHandler = (data) => {
+const locationHandler = (data) => {
     let payload = copyObject(othersTargetingParam)
     payload.geo_locations = data
-  dispatch(AddOthersTargeting(payload))
+    dispatch(AddOthersTargeting(payload))
+    setTimeout(function(){
+        estimatedAudienceSizeHandler()
+    }, 5000);
 }
 
   const locationSearchHandler = (string) => {
