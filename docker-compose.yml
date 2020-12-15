@@ -17,9 +17,10 @@ services:
       - "27017:27017"
     networks: 
       - lead_gen_network
+
   ads_api:
     build:
-      context: .
+      context: ./api
       dockerfile: Dockerfile
     image: ads_api_image
     container_name: ads_api
@@ -31,6 +32,19 @@ services:
       - mongodb
     links:
       - mongodb
+
+  ads_ui:
+    container_name: ads_ui
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    image: ads_ui_image
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./ui:/ads_ui
+      - /ads_ui/node_modules
 
 networks:
    lead_gen_network:
