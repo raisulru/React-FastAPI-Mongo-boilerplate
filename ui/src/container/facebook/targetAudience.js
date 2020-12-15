@@ -40,7 +40,7 @@ function PersonalUniqueAtt(props) {
 
     return (
         props.value.map(item => 
-            <span className="tag label label-info">
+            <span className="tag label label-info" key={item.id}>
                 <span>{item.name}</span>
                 <button 
                     type="button" 
@@ -86,8 +86,7 @@ function FacebookAudienceTargeting() {
       othersTargetingParam,
       content  } = useSelector((state) => state.facebookCampaign);
 
-  const estimatedAudienceSizeHandler = () => {
-    console.log(othersTargetingParam, '##################')
+  const estimatedAudienceSizeHandler = (payload) => {
 
     let specification = {
         geo_locations: {
@@ -99,8 +98,9 @@ function FacebookAudienceTargeting() {
         age_min: 0,
         age_max: 0
     }
-    if (othersTargetingParam.geo_locations) {
-        _.forEach(othersTargetingParam.geo_locations, item => {
+
+    if (payload.geo_locations) {
+        _.forEach(payload.geo_locations, item => {
             if (item.supports_region || item.supports_city) {
                 if (item.type === 'country') {
                     specification.geo_locations.countries.push(item.country_code)
@@ -119,16 +119,18 @@ function FacebookAudienceTargeting() {
                 }
             }
         })
+    } else {
+        return
     }
 
-    if (othersTargetingParam.age_max) {
-        specification.age_max = othersTargetingParam.age_max
+    if (payload.age_max) {
+        specification.age_max = payload.age_max
     } else {
         specification.age_max = 65
     }
 
-    if (othersTargetingParam.age_min) {
-        specification.age_min = othersTargetingParam.age_min
+    if (payload.age_min) {
+        specification.age_min = payload.age_min
     } else {
         specification.age_min = 18
     }
@@ -155,18 +157,14 @@ const othersTargetingHandler = (e) => {
     }
     payload[name] = value
     dispatch(AddOthersTargeting(payload))
-    setTimeout(function(){
-        estimatedAudienceSizeHandler()
-    }, 2000);
+    estimatedAudienceSizeHandler(payload)
 }
 
 const locationHandler = (data) => {
     let payload = copyObject(othersTargetingParam)
     payload.geo_locations = data
     dispatch(AddOthersTargeting(payload))
-    setTimeout(function(){
-        estimatedAudienceSizeHandler()
-    }, 5000);
+    estimatedAudienceSizeHandler(payload)
 }
 
   const locationSearchHandler = (string) => {
@@ -221,11 +219,14 @@ const locationHandler = (data) => {
   }
 
   const personalAttributeData = _.map(copyObject(cards), card => {
+    estimatedAudienceSizeHandler(card.data)
       card.groupBYData = _.groupBy(card.data, item => {
           return item.type;
       })
       return card
   })
+
+//   console.log(personalAttributeData, '######################')
   
   return (
     <>
@@ -377,10 +378,10 @@ const locationHandler = (data) => {
                                             <label>Personal Attributes</label> <br/>
                                             {
                                                 _.map(card.groupBYData, (value, key, obj) => 
-                                                    <>
+                                                    <span key={key}>
                                                         <div> <strong>{toLowerCase(key)}</strong></div>
                                                         <PersonalUniqueAtt value={value} cardNo={card.cardNo}/>
-                                                    </>
+                                                    </span>
                                                 )
                                             }
                                             <br/>
