@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from "react-router-dom";
 import FacebookAuth from 'react-facebook-auth';
 import { saveFacebookUser } from '../../store/facebookResource';
 import { facebookAppId } from '../../settings';
@@ -12,12 +12,17 @@ import { AdsBar } from './components/adsBar';
 
 function OnBoardingProcess (props) {
   const dispatch = useDispatch()
+  let history = useHistory();
+
   const { userInfo } = useSelector((state) => state.authInfo);
 
   const handleAuthorization = (response) => {
     response.roboket_username = userInfo.preferred_username
     response.roboket_email = userInfo.email
     dispatch(saveFacebookUser(response))
+    if (response.accessToken) {
+      history.push("/ads/facebook/connect")
+    }
   }
 
     return (
@@ -47,17 +52,6 @@ function OnBoardingProcess (props) {
                                   </button>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div className="back-next">
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-lg-6 text-center text-lg-left ">
-                        <Link to='/ads/onboarding'>Cancel</Link>
                     </div>
                 </div>
             </div>

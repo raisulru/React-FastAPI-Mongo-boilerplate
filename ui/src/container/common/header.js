@@ -1,25 +1,38 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-
-import { Link } from "react-router-dom";
+import React, { useState, useEffect }  from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation } from "react-router-dom";
 import userImage from '../../images/user.svg'
 import LogoImage from '../../images/pictogram.svg'
 import keycloak from '../../utils/keycloak'
 import {clearState} from '../../store/auth'
+import _ from 'lodash'
+import routes from '../../router'
 
 function Header (props) {
   const dispatch = useDispatch()
+  const [isRouteMatch, setIsMatch] = useState(false)
+  const currentLocation = useLocation()
+  const { authInfo } = useSelector((state) => state)
 
   const logoutAndClear = () => {
     keycloak.logout()
     dispatch(clearState())
   }
 
+  useEffect(() => {
+    _.forEach(routes, route => {
+      console.log(currentLocation.pathname, route.path, '##################')
+      if (currentLocation.pathname === route.path || '/ads' === route.path) {
+        setIsMatch(true)
+      }
+    })
+  }, [dispatch])
 
-  const userInfo = props.userInfo
+  const userInfo = authInfo.userInfo
 
     return (
-      <div className="menu_area">
+      
+        isRouteMatch ? <div className="menu_area">
         <div className="container-fluid">
           <div className="row">
             <nav className="navbar navbar-expand-lg navbar-light bg-light menu-width">
@@ -46,7 +59,7 @@ function Header (props) {
                       Marketing
               </Link>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <Link className="dropdown-item" to="/">Ads</Link>
+                      <Link className="dropdown-item" to="/ads">Ads</Link>
 
                     </div>
                   </li>
@@ -54,33 +67,6 @@ function Header (props) {
                     <Link className="nav-link dropdown-toggle" to="/ads/onboarding" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Sales
             </Link>
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <Link className="dropdown-item" to="/ads/onboarding">Action</Link>
-
-                    </div>
-                  </li>
-                  <li className="nav-item dropdown">
-                    <Link className="nav-link dropdown-toggle" to="/ads/onboarding" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Service
-          </Link>
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <Link className="dropdown-item" to="/ads/onboarding">Action</Link>
-
-                    </div>
-                  </li>
-                  <li className="nav-item dropdown">
-                    <Link className="nav-link dropdown-toggle" to="/ads/onboarding" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Automation
-              </Link>
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <Link className="dropdown-item" to="/ads/onboarding">Action</Link>
-
-                    </div>
-                  </li>
-                  <li className="nav-item dropdown">
-                    <Link className="nav-link dropdown-toggle" to="/ads/onboarding" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Reports
-                    </Link>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                       <Link className="dropdown-item" to="/ads/onboarding">Action</Link>
 
@@ -123,6 +109,9 @@ function Header (props) {
         </div>
       </div>
     </div >
+    :
+    ''
+      
     );
 }
 

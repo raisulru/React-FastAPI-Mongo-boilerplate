@@ -219,7 +219,6 @@ const locationHandler = (data) => {
   }
 
   const personalAttributeData = _.map(copyObject(cards), card => {
-    estimatedAudienceSizeHandler(card.data)
       card.groupBYData = _.groupBy(card.data, item => {
           return item.type;
       })
