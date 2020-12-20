@@ -11,6 +11,18 @@ import {
     OnBoardingProcess
 } from '../container/common';
 
+export const allRoutes = [
+    '/ads',
+    '/ads/dashboard',
+    '/ads/onboarding',
+    '/ads/onboarding-process',
+    '/ads/facebook/connect',
+    '/ads/facebook/lead-sync',
+    '/ads/facebook/pixel',
+    '/ads/facebook/adset',
+    '/ads/facebook/ads-list'
+]
+
 const routes = [
     {
         path: "/ads/dashboard",

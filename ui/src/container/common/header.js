@@ -6,7 +6,7 @@ import LogoImage from '../../images/pictogram.svg'
 import keycloak from '../../utils/keycloak'
 import {clearState} from '../../store/auth'
 import _ from 'lodash'
-import routes from '../../router'
+import { allRoutes } from '../../router'
 
 function Header (props) {
   const dispatch = useDispatch()
@@ -20,13 +20,10 @@ function Header (props) {
   }
 
   useEffect(() => {
-    _.forEach(routes, route => {
-      console.log(currentLocation.pathname, route.path, '##################')
-      if (currentLocation.pathname === route.path || '/ads' === route.path) {
-        setIsMatch(true)
-      }
-    })
-  }, [dispatch])
+    if (_.includes(allRoutes, currentLocation.pathname)) {
+      setIsMatch(true)
+    }
+  })
 
   const userInfo = authInfo.userInfo
 
