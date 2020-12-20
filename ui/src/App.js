@@ -14,27 +14,27 @@ import routes from './router'
 
 function AppRouter() {
   const dispatch = useDispatch()
-  const [authenticated, setAuthenticated] = useState(false)
+  const [authenticated, setAuthenticated] = useState(true)
   const alert = useAlert()
   const { authInfo, facebook } = useSelector((state) => state)
 
-  useEffect(() => {
-    keycloak.init({
-      onLoad: 'login-required',
-      promiseType: 'native'
-    }).then(function(authenticated) {
-      if(authenticated) {
-        setAuthenticated(true)
-        console.log('authenticated')
-      } else {
-        console.log('Not Authenticated')
-      }
-        dispatch(saveAuthUser(keycloak));
-      }).catch(function() {
-        alert.error('failed to initialize');
-      });
-      dispatch(getFacebookUser(authInfo.userInfo.preferred_username))
-  }, [dispatch]);
+  // useEffect(() => {
+  //   keycloak.init({
+  //     onLoad: 'login-required',
+  //     promiseType: 'native'
+  //   }).then(function(authenticated) {
+  //     if(authenticated) {
+  //       setAuthenticated(true)
+  //       console.log('authenticated')
+  //     } else {
+  //       console.log('Not Authenticated')
+  //     }
+  //       dispatch(saveAuthUser(keycloak));
+  //     }).catch(function() {
+  //       alert.error('failed to initialize');
+  //     });
+  //     dispatch(getFacebookUser(authInfo.userInfo.preferred_username))
+  // }, [dispatch]);
 
   return (
     authenticated ? 
