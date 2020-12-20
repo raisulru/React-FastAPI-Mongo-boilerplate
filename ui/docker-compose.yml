@@ -11,6 +11,7 @@ services:
     volumes:
       - ./:/ads_ui
       - /ads_ui/node_modules
+      - /ads_ui/build
 
 networks:
    lead_generation:
