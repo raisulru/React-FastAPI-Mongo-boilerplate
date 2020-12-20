@@ -57,19 +57,20 @@ function PersonalAttributes(props) {
     }
 
     return (
-        <div className="custom-modal col-md-12" style={{display: personalAttModal.display}}>
-                <div onClick={closeModal} className="modal-header text-white">
+        <div className={`custom-modal col-md-12 ${personalAttModal.display === 'none' ? 'hidemodal':'showmodal'}`} style={{ display: personalAttModal.display} }>
+               <div className="custom-modal-dialog">
+               <div onClick={closeModal} className="modal-header text-white">
                     <h5 className="p-l-20">Add audience</h5>
                     <span className="float-right ">
                         x
                     </span>
                 </div>
-                <div className="row">
+                <div className="row mt-2 mr-3">
                     <div className="col-md-12">
                         <div className="input-group">                                 
                             <input type="text" className="form-control search-control-filter" name="exampleFormControlSelect1" placeholder="Search for ad campaign"/>
-                            <div className="input-group-append">
-                                <button className="btn btn-search" type="button">
+                            <div className="input-group-append m-">
+                                <button className="btn btn-search mb-2" type="button">
                                     <img src={SearchIcon} className="search-icon" alt="Search"/>
                                 </button>
                             </div>
@@ -226,6 +227,7 @@ function PersonalAttributes(props) {
 
                 <button type="button" onClick={closeModal} className="btn btn-primary">Save</button>
                 <button type="button" onClick={closeModal} className="btn btn-secondary">Cancel</button>
+               </div>
         </div>
     )
 }
