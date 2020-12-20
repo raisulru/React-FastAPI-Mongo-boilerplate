@@ -33,6 +33,7 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "PUBLIC_URL=https://dev.roboket.com/ads react-scripts build",
+        "build-local": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },

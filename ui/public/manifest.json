@@ -11,14 +11,9 @@
       "src": "Logo_110x110.png",
       "type": "image/png",
       "sizes": "110x110"
-    },
-    {
-      "src": "Logo_110x110.png",
-      "type": "image/png",
-      "sizes": "110x110"
     }
   ],
-  "start_url": ".",
+  "start_url": "./ads",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
