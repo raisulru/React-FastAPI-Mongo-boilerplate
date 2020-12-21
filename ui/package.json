@@ -37,6 +37,7 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },
+    "homepage": "/ads/",
     "eslintConfig": {
         "extends": "react-app"
     },
