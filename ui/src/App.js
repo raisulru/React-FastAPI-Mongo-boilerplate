@@ -47,8 +47,8 @@ function AppRouter() {
             </Route>
 
             {
-              routes.map(route => 
-                <Route exact={route.exact} path={route.path} component={route.component} />
+              routes.map((route, index) => 
+                <Route key={index} exact={route.exact} path={route.path} component={route.component} />
                 )
             }
 
@@ -61,7 +61,6 @@ function AppRouter() {
     <div className="spinner-border text-success spinner"></div>
   );
 }
-
 
 const alertOptions = {
   position: positions.TOP_CENTER,
