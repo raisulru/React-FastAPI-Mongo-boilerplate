@@ -13,7 +13,8 @@
       "sizes": "110x110"
     }
   ],
-  "start_url": "./ads",
+  "start_url": "./",
+  "scope": ".",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
