@@ -225,8 +225,6 @@ const locationHandler = (data) => {
       })
       return card
   })
-
-//   console.log(personalAttributeData, '######################')
   
   return (
     <>

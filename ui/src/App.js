@@ -14,7 +14,7 @@ import routes from './router'
 
 function AppRouter() {
   const dispatch = useDispatch()
-  const [authenticated, setAuthenticated] = useState(true)
+  const [authenticated, setAuthenticated] = useState(false)
   const alert = useAlert()
   const { authInfo, facebook } = useSelector((state) => state)
 
