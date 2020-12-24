@@ -112,7 +112,7 @@ function CreateFacebookContent () {
                     <div className="left-ad-generation-area mr-5 ml-5">
                         <form action="#">
                             <div className="form-group">
-                                <label htmlFor="adaccount">Ad account*</label>
+                                <label htmlFor="adaccount">Ad account<span style={{'color': 'red'}}>*</span></label>
                                 <select defaultValue='none' onChange={inputHandler} className="form-control" name="ad_account" id="adaccount">
                                 <option value="none">Select Ad Account</option>
                                   {
@@ -134,7 +134,7 @@ function CreateFacebookContent () {
                                 </select>
                             </div> */}
                             <div className="campaign">
-                                <label htmlFor="Campaign">Campaign* </label> <br/>
+                                <label htmlFor="Campaign">Campaign<span style={{'color': 'red'}}>*</span></label> <br/>
                                 <div className="form-check form-check-inline">
                                     <input className="form-check-input" type="radio" id="new" checked={campaignType === 'new'} value="new" onChange={() => setCampaignType('new')}/>
                                     <label className="form-check-label" htmlFor="new">Create new campaign</label>
@@ -161,9 +161,9 @@ function CreateFacebookContent () {
                             </div>
                             {
                               campaignType === 'new' && <div className="form-group">
-                                  <label htmlFor="pages">Objective* <i className="fas fa-info-circle"></i> </label>
-                                  <select defaultValue={content.objective && content.objective} className="form-control" onChange={inputHandler} name="objective" id="objective">
-                                    <option selected_value={undefined}>Select Objective</option>
+                                  <label htmlFor="pages">Objective<span style={{'color': 'red'}}>*</span><i className="fas fa-info-circle"></i> </label>
+                                  <select defaultValue={content.objective && content.objective.value} className="form-control" onChange={inputHandler} name="objective" id="objective">
+                                    <option value={undefined}>Select Objective</option>
                                     {
                                       objectives.map(objective => 
                                         <option key={objective.name} value={objective.value}>{objective.name}</option>
@@ -228,7 +228,7 @@ function CreateFacebookContent () {
 
                             {
                               content.ad_account && <div className="form-group">
-                                <label htmlFor="adaccount">Ad Creative*</label>
+                                <label htmlFor="adaccount">Ad Creative<span style={{'color': 'red'}}>*</span></label>
                                 <select onChange={creativeHandler} className="form-control" name="ad_creative" id="adcreatives">
                                 <option value='none'>Select Ad Creative</option>
                                   {

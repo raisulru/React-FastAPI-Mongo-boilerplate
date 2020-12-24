@@ -1,5 +1,6 @@
 import produce from 'immer';
 import _ from 'lodash';
+import copyObject from '../../utils/copyObject';
 import * as types from './types';
 
 const facebookCampaignState = {
@@ -15,7 +16,8 @@ const facebookCampaignState = {
     body_text: null,
     heading: null,
     cta: null,
-    ad_creative: null
+    ad_creative: null,
+    objective: null
   },
   addedCustomAudience: [],
   excludeCustomAudience: [],
@@ -38,8 +40,8 @@ const facebookCampaignState = {
     }
   ],
   othersTargetingParam: {
-    age_max: 65,
-    age_min: 18,
+    age_max: null,
+    age_min: null,
     geo_locations: [],
     specialCategory: null
   },
@@ -51,9 +53,11 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
   return produce(state, (draft) => {
     switch (type) {
       case types.PUBLISH_AD_SUCCESS:
-        facebookState.publishedPrevious = true
-        draft = facebookState
-        break
+        let newState = copyObject(facebookCampaignState)
+        newState.publishedPrevious = true
+        newState.successMessage = "Successfully Published"
+        newState.loading = false
+        return newState
       case types.DELETE_MESSAGE:
         draft.errorMessage = null
         draft.successMessage = null

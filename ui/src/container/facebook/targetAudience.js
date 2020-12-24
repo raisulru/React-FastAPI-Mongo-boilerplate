@@ -293,7 +293,7 @@ const locationHandler = (data) => {
                           <label htmlFor="Audience">Target people who matched the following criteria </label> <br/> 
                         <div  className="location">
                             <div className="form-group">
-                              <label htmlFor="Location">Location*</label> <br/>
+                              <label htmlFor="Location">Location<span style={{'color': 'red'}}>*</span></label> <br/>
                               <span className="location-span">People living in any of the following</span>
                               <Select
                                 closeMenuOnSelect={false}
@@ -317,7 +317,7 @@ const locationHandler = (data) => {
                             <div className="form-group">
                               <label htmlFor="Location">Age range *</label> <br/>
                              <div className="form-inline">
-                             <select defaultValue={othersTargetingParam.age_min ? othersTargetingParam.age_min:18} onChange={othersTargetingHandler} name="age_min" className="form-control-location w-70" id="Location">
+                             <select defaultValue={18} onChange={othersTargetingHandler} name="age_min" className="form-control-location w-70" id="Location">
                                
                                 {
                                  Array.from({length: 48}, (v, k) => 
@@ -327,7 +327,7 @@ const locationHandler = (data) => {
                                
                               </select>
                               <label htmlFor="to" className="p-r-15 ml-15">To</label>
-                              <select defaultValue={othersTargetingParam.age_max ? othersTargetingParam.age_max:65} onChange={othersTargetingHandler} name="age_max" className="form-control-location w-70" id="Location">
+                              <select defaultValue={65} onChange={othersTargetingHandler} name="age_max" className="form-control-location w-70" id="Location">
                                 {
                                  Array.from({length: 48}, (v, k) => 
                                   <option key={k+1} value={k+18}>{k+18}</option>

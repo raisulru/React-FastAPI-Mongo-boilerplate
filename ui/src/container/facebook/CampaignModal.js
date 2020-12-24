@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import swal from 'sweetalert';
-import CreateFacebookContent from './createContent'
-import FacebookAudienceTargeting from './targetAudience'
-import FacebookBillAndSchedule from './billAndSchedule'
-import { publishAd, deleteMessages } from '../../store/facebookResource'
-import { useAlert } from 'react-alert'
+import CreateFacebookContent from './createContent';
+import FacebookAudienceTargeting from './targetAudience';
+import FacebookBillAndSchedule from './billAndSchedule';
+import { publishAd, deleteMessages } from '../../store/facebookResource';
+import { useAlert } from 'react-alert';
+import _ from 'lodash';
 
 
 function CampaignModal () {
@@ -27,7 +28,7 @@ function CampaignModal () {
      } = facebookCampaign;
         
     const validatePayload = () => {
-        if (!content.ad_account || !content.ad_creative) {
+        if (!content.ad_account || !content.ad_creative || !content.objective) {
             setRequired(true)
             return
         }
@@ -41,11 +42,12 @@ function CampaignModal () {
             setRequired(true)
             return
         }
-        setRequired(false)
 
-        if (errorMessage || successMessage) {
-            dispatch(deleteMessages())
+        if (!othersTargetingParam.geo_locations) {
+            setRequired(true)
+            return
         }
+        setRequired(false)
     }
 
     const publish = (data) => {
@@ -90,7 +92,54 @@ function CampaignModal () {
             budgetType = budgetAndSchedule.budgetType
         }
 
-        console.log()
+        let specification = {
+            geo_locations: {
+                countries: [],
+                regions: [],
+                cities: [],
+                subcities: []
+            },
+            age_min: 0,
+            age_max: 0
+        }
+    
+        if (othersTargetingParam.geo_locations) {
+            _.forEach(othersTargetingParam.geo_locations, item => {
+                if (item.supports_region || item.supports_city) {
+                    if (item.type === 'country') {
+                        specification.geo_locations.countries.push(item.country_code)
+                    }
+    
+                    if (item.type === 'region') {
+                        specification.geo_locations.regions.push({key: item.key})              
+                    }
+    
+                    if (item.type === 'city') {
+                        specification.geo_locations.cities.push({key: item.key})              
+                    }
+    
+                    if (item.type === 'subcity') {
+                        specification.geo_locations.subcities.push({key: item.key})
+                    }
+                }
+            })
+        } else {
+            return
+        }
+    
+        if (othersTargetingParam.age_max) {
+            specification.age_max = othersTargetingParam.age_max
+        } else {
+            specification.age_max = 65
+        }
+    
+        if (othersTargetingParam.age_min) {
+            specification.age_min = othersTargetingParam.age_min
+        } else {
+            specification.age_min = 18
+        }
+
+        payload.targeting = specification
         
         payload.ads_payload.ads_set[budgetType] = budgetAndSchedule.ammount
         console.log(payload, '##################################')
@@ -107,9 +156,13 @@ function CampaignModal () {
           .then((proceed) => {
             if (proceed === 'publish') {
                 publish(payload)
-                // window.$('#run-ads').modal('hide');
             }
           });
+    }
+
+    const closeModal = () => {
+        window.$('#run-ads').modal('hide');
+        dispatch(deleteMessages())
     }
 
     const cancleHandler = () => {
@@ -133,8 +186,12 @@ function CampaignModal () {
           });
     }
 
-    if (errorMessage || successMessage) {
-        alert.error(errorMessage || successMessage)
+    if (errorMessage) {
+        alert.error(errorMessage)
+        dispatch(deleteMessages())
+    } else if (successMessage) {
+        alert.success(successMessage)
+        closeModal()
     }
 
     return (

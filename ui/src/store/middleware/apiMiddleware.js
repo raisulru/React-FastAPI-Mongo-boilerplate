@@ -49,6 +49,8 @@ const apiMiddleware = () => (next) => (action) => {
       successMessage && console.log(successMessage);
     })
     .catch((error) => {
+      console.error(error);
+
       let errorMsg = ''
 
       if (error.response) {

@@ -1217,6 +1217,17 @@ login page
     
     .custom-modal {
         display: none;
+        position: absolute;
+        z-index: 9999;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 0px 20px 20px 0px;
+        height: 100%;
+        top: 0px;
+        background-color: #e8e8e8;
+        left: 50%;
+        transform: translate(0, 0);
+        width: 50%;
     }
     
     .showmodal {}
@@ -1224,17 +1235,17 @@ login page
     .hidemodal {}
     
     .showmodal .custom-modal-dialog {
-        position: absolute;
+        /* position: absolute;
         z-index: 9999;
         overflow-y: auto;
         overflow-x: hidden;
-        padding: 0px 20px 20px 0px;
+        padding: 0px 20px 20px 0px; */
         /* width: 50%; */
-        height: 100%;
+        /* height: 100%;
         top: 0px;
         background-color: #e8e8e8;
         left: 50%;
-        transform: translate(0, 0);
+        transform: translate(0, 0); */
     }
     
     .hidemodal .custom-modal-dialog {
