@@ -1,13 +1,17 @@
 version: '3.7'
 
+volumes:
+    mongo_data:
+
 services:
   mongodb:
     image: mongo
-    container_name: mongodb
-    restart: always
-    environment:
-      MONGO_INITDB_DATABASE: lead_generation
-      # MONGO_INITDB_ROOT_USERNAME: admin
-      # MONGO_INITDB_ROOT_PASSWORD: adnads2020
+    container_name: mongodb_ads
+    environment: 
+      - MONGO_INITDB_DATABASE=lead_generation
+      - MONGO_INITDB_ROOT_USERNAME=raisul
+      - MONGO_INITDB_ROOT_PASSWORD=redhat
+    volumes:
+      - mongo_data:/data/db
     ports:
       - "27017:27017"
