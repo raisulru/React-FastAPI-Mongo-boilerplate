@@ -199,6 +199,9 @@ menu area
         background: #f0f7f1!important;
         color: #222!important;
     }
+    .dropdown-toggle::after {
+        display:none;
+    }
     /*
 =======================================================================
 ads area

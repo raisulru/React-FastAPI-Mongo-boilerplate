@@ -1,6 +1,9 @@
+export const apiCrmBaseURL = {
+  v1: process.env.REACT_APP_API_CRM_BASE_URL,
+};
 export const apiBaseURL = {
-    v1: process.env.REACT_APP_API_BASE_URL,
-  };
+  v1: process.env.REACT_APP_API_BASE_URL,
+};
 export const facebookAppId = process.env.REACT_APP_FACEBOOK_APP_ID
 
 export const keycloakCredentials = {
