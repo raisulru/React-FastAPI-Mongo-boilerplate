@@ -7,6 +7,7 @@ import FacebookBillAndSchedule from './billAndSchedule';
 import { publishAd, deleteMessages } from '../../store/facebookResource';
 import { useAlert } from 'react-alert';
 import _ from 'lodash';
+import copyObject from '../../utils/copyObject';
 
 
 function CampaignModal () {
@@ -24,7 +25,8 @@ function CampaignModal () {
         personalAttModal,
         errorMessage,
         successMessage,
-        loading
+        loading,
+        cards
      } = facebookCampaign;
         
     const validatePayload = () => {
@@ -137,6 +139,26 @@ function CampaignModal () {
             specification.age_min = othersTargetingParam.age_min
         } else {
             specification.age_min = 18
+        }
+
+        if (cards) {
+            let allItem = []
+            _.forEach(copyObject(cards), card => {
+                allItem = [...allItem, ...card.data]
+            })
+
+            let groupByData = _.groupBy(allItem, item => {
+                return item.type
+            })
+
+            _.map(groupByData, (value, key, obj) => {
+                return obj[key] = _.map(value, item=> {
+                    delete item.type
+                    return item
+                })
+            })
+
+            specification = {...specification, ...groupByData}
         }
 
         payload.targeting = specification

@@ -65,22 +65,22 @@ function FacebookBillAndSchedule() {
                             <div className="form-group">
                                 <label htmlFor="Budget">Budget<span style={{'color': 'red'}}>*</span></label> <br/> 
                                 <div className="input-group">                                  
-                                    <select value={budgetAndSchedule.budgetType ? budgetAndSchedule.budgetType:"daily_budget"} onChange={inputHandler} name="budgetType" className="form-control" id="ammount">
+                                    <select defaultValue="daily_budget" onChange={inputHandler} name="budgetType" className="form-control" id="ammount">
                                         <option value="daily_budget">Daily (USD $)</option>
                                         <option value="lifetime_budget">Life Time (USD $)</option>
                                     </select>
-                                    <input type="number" onChange={inputHandler} name="ammount" className="form-control" value={budgetAndSchedule.ammount}/>
+                                    <input type="number" onChange={inputHandler} name="ammount" className="form-control" defaultValue={0}/>
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="Audience">Schedule<span style={{'color': 'red'}}>*</span></label> <br/>
                                 <div className="input-group m-b-10 date">
-                                    <input type='date' value={budgetAndSchedule.start_date} onChange={inputHandler} className="form-control" id="dateFrom" name="start_date" />
-                                    <input type="time" value={budgetAndSchedule.start_time} onChange={inputHandler} className="form-control" id="timeFrom" name="start_time"/>
+                                    <input type='date' onChange={inputHandler} className="form-control" id="dateFrom" name="start_date" />
+                                    <input type="time" onChange={inputHandler} className="form-control" id="timeFrom" name="start_time"/>
                                 </div>
                                 <div className="input-group m-b-10 date">
-                                    <input type="date" value={budgetAndSchedule.end_date} onChange={inputHandler} className="form-control" id="dateTo" name="end_date" />
-                                    <input type="time" value={budgetAndSchedule.end_time} onChange={inputHandler} className="form-control"  id="timeTo" name="end_time"/>
+                                    <input type="date" onChange={inputHandler} className="form-control" id="dateTo" name="end_date" />
+                                    <input type="time" onChange={inputHandler} className="form-control"  id="timeTo" name="end_time"/>
                                 </div> 
                                 {/* <p>Your add will run for <strong>{dayDiff} days</strong> and will cost no more than <strong> ${totalAmmount}</strong> </p> */}
                             </div>
