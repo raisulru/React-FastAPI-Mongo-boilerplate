@@ -121,7 +121,8 @@ function PersonalAttributes(props) {
                                             title="Education Schools"
                                             type="education_schools"
                                             data={schools} 
-                                            search={searchEducationSchool} 
+                                            search={searchEducationSchool}
+                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Education School"/>
                                     </div>
                                     <div className="tab-pane fade" id="v-pills-education-major" role="tabpanel" aria-labelledby="v-pills-education-major-tab">
@@ -130,6 +131,7 @@ function PersonalAttributes(props) {
                                             type="education_majors"
                                             data={educationMajors} 
                                             search={searchEducationMajor} 
+                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Education Major"
                                             />
                                     </div>
@@ -139,6 +141,7 @@ function PersonalAttributes(props) {
                                             type="work_employers"
                                             data={workEmployers} 
                                             search={searchWorkEmployer} 
+                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Work Employer"
                                             />
                                     </div>
@@ -148,6 +151,7 @@ function PersonalAttributes(props) {
                                             type="work_positions"
                                             data={jobTitles} 
                                             search={searchJobTitle} 
+                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Job Title"
                                             />
                                     </div>
@@ -156,6 +160,7 @@ function PersonalAttributes(props) {
                                             title="Life Events"
                                             data={lifeEvents} 
                                             browse={browseLifeEvents} 
+                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Life Events"
                                             />
                                     </div>
@@ -164,6 +169,7 @@ function PersonalAttributes(props) {
                                             title="Industries"
                                             data={industries} 
                                             browse={browseIndustries} 
+                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Industries"
                                             />
                                     </div>
@@ -172,6 +178,7 @@ function PersonalAttributes(props) {
                                             title="Income"
                                             data={income} 
                                             browse={browseIncome} 
+                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Income"
                                             />
                                     </div>
@@ -180,6 +187,7 @@ function PersonalAttributes(props) {
                                             title="Family Status"
                                             data={familyStatus} 
                                             browse={browseFamilyStatus} 
+                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Family Status"
                                             />
                                     </div>
@@ -188,6 +196,7 @@ function PersonalAttributes(props) {
                                             title="User Device"
                                             type="user_device"
                                             data={userDevices} 
+                                            audienceSize={props.audienceSize} 
                                             browse={browseUserDevice} 
                                             placeholder="Search For User Device"
                                             />
@@ -198,6 +207,7 @@ function PersonalAttributes(props) {
                                             type="user_os"
                                             data={operatingSystems} 
                                             browse={browseUserOS} 
+                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For User OS"
                                             />
                                     </div>
@@ -208,6 +218,7 @@ function PersonalAttributes(props) {
                                             data={interests}
                                             search={searchInterest}
                                             browse={browseInterest}
+                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For User Interests"
                                             />
                                     </div>
@@ -217,6 +228,7 @@ function PersonalAttributes(props) {
                                             title="User Behaviours"
                                             data={behaviours}
                                             browse={browseBehaviour}
+                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For User Behaviours"
                                             />
                                     </div>

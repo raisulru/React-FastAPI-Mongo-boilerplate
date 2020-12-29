@@ -43,7 +43,8 @@ export {
   publishAd,
   updateImageFromCreative,
   getFacebookUser,
-  deleteMessages
+  deleteMessages,
+  saveTargetingAudience
   } from './action';
   
 export { facebook, facebookSearch, facebookCampaign } from './reducer';

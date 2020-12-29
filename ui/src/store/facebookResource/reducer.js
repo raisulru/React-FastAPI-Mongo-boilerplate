@@ -45,7 +45,17 @@ const facebookCampaignState = {
     geo_locations: [],
     specialCategory: null
   },
-  adsImage: null
+  adsImage: null,
+  savedAudience: {
+    geo_locations: {
+        countries: [],
+        regions: [],
+        cities: [],
+        subcities: []
+    },
+    age_min: 18,
+    age_max: 65
+  }
 }
 
 export const facebookCampaign = (state = facebookCampaignState, action) => {
@@ -68,6 +78,9 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
       case types.PUBLISH_AD_FAILED:
         draft.errorMessage = errorMsg.toString()
         draft.loading = false
+        break;
+      case types.SAVE_TARGETING_AUDIENCE:
+        draft.savedAudience = payload
         break;
       case types.SAVE_FACEBOOK_CAMPAIGN:
         draft.content = payload
@@ -177,7 +190,7 @@ export const facebook = (state = facebookState, action) => {
         draft.adAccounts = modifiedAdAccounts
         break;
       case types.UPDATE_AD_ACCOUNT_CONNECTION:
-        const adAccountList = JSON.parse(JSON.stringify(payload.adAccounts))
+        const adAccountList = copyObject(payload.adAccounts)
         adAccountList.map(adAccount => {
           if (adAccount.id === payload.data.id) {
             adAccount.connected = payload.data.connected

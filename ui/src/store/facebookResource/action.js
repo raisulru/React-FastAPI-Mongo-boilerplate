@@ -141,6 +141,9 @@ export const searchFacebookLocation = (access_token, search) => ({
   },
 });
 
+
+// Audience targeting actions
+
 export const getEstimatedAudienceSize = (access_token, adaccount_id, specification) => ({
   type: types.GET_AUDIENCE_SIZE,
   payload: {
@@ -153,9 +156,14 @@ export const getEstimatedAudienceSize = (access_token, adaccount_id, specificati
   },
 });
 
-
-// Audience targeting actions
-
+export const saveTargetingAudience = (payload) => ({
+  type: types.SAVE_TARGETING_AUDIENCE,
+  payload: payload,
+  meta: {
+    api: false,
+    errorMessage: "Audience not saved",
+  },
+});
 
 export const getFacebookCustomAudience = (access_token, adAccount) => ({
   type: types.GET_CUSTOM_AUDIENCE,

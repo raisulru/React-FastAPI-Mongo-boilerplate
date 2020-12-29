@@ -90,6 +90,7 @@ async def target_audience_size(adaccount_id: str, access_token: str, specificati
         access_token, 
         specification
     )
+    print(specification)
     response = requests.get(url)
     return JSONResponse(status_code=response.status_code, content=response.json())
 

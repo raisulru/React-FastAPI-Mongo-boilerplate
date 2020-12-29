@@ -41,11 +41,14 @@ function PersonalAttributeSearch(props) {
                 type: type
             }
         }
+
         if (checked) {
             dispatch(addPersonalAtt(payload))
         } else {
             dispatch(removePersonalAtt(payload))
         }
+
+        props.audienceSize(payload.data, checked)
     }
 
     const checkedOrNot = (cards, id) => {
@@ -82,11 +85,21 @@ function PersonalAttributeSearch(props) {
                             props.data && props.data.map((data, index) => 
                                 <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
                                     <div className="checkbox">
-                                        <label className="custom-checkbox">
-                                            {data.name}, {data.platform && data.platform}, <strong>{data.type && data.type}</strong>
-                                               <input type="checkbox" checked={checkedOrNot(cards, data.id)} value={data.type} name={data.name} onChange={selectHandler} id={data.id}/>
-                                            <span className="checkmark"></span>
-                                        </label>
+                                        {
+                                            data.type === 'user_os' ? 
+                                        
+                                            <label className="custom-checkbox">
+                                                {data.platform}
+                                                <input type="checkbox" checked={checkedOrNot(cards, data.id)} value={data.type} name={data.platform} onChange={selectHandler} id={data.id}/>
+                                                <span className="checkmark"></span>
+                                            </label>
+                                            :
+                                            <label className="custom-checkbox">
+                                                {data.name}
+                                                <input type="checkbox" checked={checkedOrNot(cards, data.id)} value={data.type} name={data.name} onChange={selectHandler} id={data.id}/>
+                                                <span className="checkmark"></span>
+                                            </label>
+                                        }
                                     </div>
                                 </li>
                             )

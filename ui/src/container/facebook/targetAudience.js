@@ -15,7 +15,8 @@ import {
     addNarrowCard,
     removeNarrowCard,
     removePersonalAtt,
-    AddOthersTargeting
+    AddOthersTargeting,
+    saveTargetingAudience
 } from '../../store/facebookResource';
 
 import PostPreview from './components/postPreview';
@@ -36,6 +37,7 @@ function PersonalUniqueAtt(props) {
             data: data
         }
         dispatch(removePersonalAtt(payload))
+        props.audienceSize(payload.data, false)
     }
 
     return (
@@ -82,61 +84,102 @@ function FacebookAudienceTargeting() {
       addedCustomAudience, 
       excludeCustomAudience, 
       personalAttModal, 
-      cards, 
+      cards,
+      savedAudience,
       othersTargetingParam,
       content  } = useSelector((state) => state.facebookCampaign);
 
-  const estimatedAudienceSizeHandler = (payload) => {
+  const estimatedAudienceSizeHandler = (payload, addedAttribute) => {
+      let specification = copyObject(savedAudience)
+      const {subcities, countries, regions, cities} = specification.geo_locations
 
-    let specification = {
-        geo_locations: {
+    if (!subcities.length && !countries.length && !regions.length && !cities.length && !payload.geo_locations.length) {
+        alert.error('Select Location First!')
+        return
+    }
+
+    if (payload.geo_locations) {
+        let geo_locations = {
             countries: [],
             regions: [],
             cities: [],
             subcities: []
-        },
-        age_min: 0,
-        age_max: 0
-    }
-
-    if (payload.geo_locations) {
+        }
         _.forEach(payload.geo_locations, item => {
             if (item.supports_region || item.supports_city) {
                 if (item.type === 'country') {
-                    specification.geo_locations.countries.push(item.country_code)
+                    geo_locations.countries.push(item.country_code)
                 }
 
                 if (item.type === 'region') {
-                    specification.geo_locations.regions.push({key: item.key})              
+                    geo_locations.regions.push({key: item.key})              
                 }
 
                 if (item.type === 'city') {
-                    specification.geo_locations.cities.push({key: item.key})              
+                    geo_locations.cities.push({key: item.key})              
                 }
 
                 if (item.type === 'subcity') {
-                    specification.geo_locations.subcities.push({key: item.key})
+                    geo_locations.subcities.push({key: item.key})
                 }
             }
         })
-    } else {
-        return
+
+        specification.geo_locations = geo_locations
     }
 
     if (payload.age_max) {
         specification.age_max = payload.age_max
-    } else {
-        specification.age_max = 65
     }
 
     if (payload.age_min) {
         specification.age_min = payload.age_min
-    } else {
-        specification.age_min = 18
     }
 
-    console.log(specification, '##################')
+    if (payload.type && payload.name) {
+
+        const targetingObj = {
+            id: payload.id,
+            name: payload.name
+        }
+
+        let arrayType = ['user_os', 'user_device']
+
+        _.map(specification, (value, key, obj) => {
+            if (_.includes(arrayType, payload.type)) {
+                if (payload.type === key) {
+                    if (addedAttribute) {
+                        value.push(payload.name)
+                    } else {
+                        _.remove(value, item => {
+                            return item === payload.name
+                        })
+                    }
+                } else {
+                    obj[payload.type] = [payload.name]
+                }
+            } else {
+                if (payload.type === key) {
+                    if (addedAttribute) {
+                        value.push(targetingObj)
+                    } else {
+                        _.remove(value, item => {
+                            return item.id === payload.id
+                        })
+                    }
+                } else {
+                    obj[payload.type] = [targetingObj]
+                }
+            }
+            
+            return obj
+        })
+    }
+
+    console.log(specification, '#########################')
+
     dispatch(getEstimatedAudienceSize(user.accessToken, content.ad_account.id, JSON.stringify(specification)))
+    dispatch(saveTargetingAudience(specification))
   }
 
   const getCustomAudience = () => {
@@ -378,7 +421,7 @@ const locationHandler = (data) => {
                                                 _.map(card.groupBYData, (value, key, obj) => 
                                                     <span key={key}>
                                                         <div> <strong>{toLowerCase(key)}</strong></div>
-                                                        <PersonalUniqueAtt value={value} cardNo={card.cardNo}/>
+                                                        <PersonalUniqueAtt audienceSize={estimatedAudienceSizeHandler} value={value} cardNo={card.cardNo}/>
                                                     </span>
                                                 )
                                             }
@@ -486,7 +529,7 @@ const locationHandler = (data) => {
         </Modal.Footer>
 </Modal>
 
-<PersonalAttributes />
+<PersonalAttributes audienceSize={estimatedAudienceSizeHandler} />
   </>
   );
 }
