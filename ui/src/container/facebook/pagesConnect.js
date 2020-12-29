@@ -73,10 +73,10 @@ function PagesConnect () {
                       </thead>
                       <tbody>
                         {
-                          formData ? formData.map(page => 
+                          facebookPages ? facebookPages.map(page => 
                             <tr key={page.id}>
                               <td>
-                                  <img src={FacebookLogo} alt="Facebook"/>
+                                  <img src={page.picture.data.url} alt="Facebook"/>
                                   {page.name}
                               </td>
                               <td>
