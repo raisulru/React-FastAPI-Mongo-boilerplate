@@ -84,8 +84,11 @@ function CustomeAudience(props) {
                             </form>
                             <ul className="list-group mt-2">
                                 {
-                                    customAudiences && customAudiences.map(audience => 
-                                        <li className="list-group-item d-flex justify-content-between align-items-center" key={audience.id}>
+                                    customAudience.map(audience => 
+                                        <>
+                                        {
+                                            audience.subtype === 'CUSTOM' ?
+                                            <li className="list-group-item d-flex justify-content-between align-items-center" key={audience.id}>
                                             <div className="checkbox">
                                                 <label className="custom-checkbox">
                                                     {audience.name}
@@ -99,6 +102,10 @@ function CustomeAudience(props) {
                                             </div>
                                             <span className="badge badge-pill">{}</span>
                                         </li>
+                                        :
+                                        ''
+                                        }
+                                        </>
                                     )
                                 }
                             </ul>  
@@ -123,21 +130,28 @@ function CustomeAudience(props) {
                             </form>
                             <ul className="list-group mt-2">
                                 {
-                                websiteAudiences && websiteAudiences.map(audience => 
-                                    <li className="list-group-item d-flex justify-content-between align-items-center" key={audience.id}>
-                                        <div className="checkbox">
-                                            <label className="custom-checkbox">
-                                                {audience.name}
-                                                <input type="checkbox" checked={_.some(addedCustomAudience, {id: audience.id, name: audience.name})} name={audience.name} onChange={customAudienceHandler} value={audience.id}/>
-                                                <span className="checkmark"></span>                                   
-                                            </label>
-                                            <div className="ready-box">
+                                customAudience.map(audience => 
+                                        <>
+                                        {
+                                            audience.subtype === 'WEBSITE' ?
+                                            <li className="list-group-item d-flex justify-content-between align-items-center" key={audience.id}>
+                                            <div className="checkbox">
+                                                <label className="custom-checkbox">
+                                                    {audience.name}
+                                                    <input type="checkbox" checked={_.some(addedCustomAudience, {id: audience.id, name: audience.name})} onChange={customAudienceHandler} name={audience.name} value={audience.id}/>
+                                                    <span className="checkmark"></span>
+                                                </label>
+                                                <div className="ready-box">
                                                     <span className="ready-icon"></span>
                                                     <span className="ready-text">Ready</span>
-                                            </div> 
-                                        </div>
-                                        <span className="badge badge-pill">{}</span>
-                                    </li>
+                                                </div>
+                                            </div>
+                                            <span className="badge badge-pill">{}</span>
+                                        </li>
+                                        :
+                                        ''
+                                        }
+                                        </>
                                     )
                                 }
                             </ul>  
@@ -162,21 +176,28 @@ function CustomeAudience(props) {
                             </form>
                             <ul className="list-group mt-2">
                                 {
-                                    lookalikeAudiences && lookalikeAudiences.map(audience => 
-                                        <li className="list-group-item d-flex justify-content-between align-items-center" key={audience.id}>
+                                    customAudience.map(audience => 
+                                        <>
+                                        {
+                                            audience.subtype === 'LOOKALIKE' ?
+                                            <li className="list-group-item d-flex justify-content-between align-items-center" key={audience.id}>
                                             <div className="checkbox">
                                                 <label className="custom-checkbox">
                                                     {audience.name}
-                                                    <input type="checkbox" checked={_.some(addedCustomAudience, {id: audience.id, name: audience.name})} name={audience.name} onChange={customAudienceHandler} value={audience.id}/>
-                                                    <span className="checkmark"></span>                                   
+                                                    <input type="checkbox" checked={_.some(addedCustomAudience, {id: audience.id, name: audience.name})} onChange={customAudienceHandler} name={audience.name} value={audience.id}/>
+                                                    <span className="checkmark"></span>
                                                 </label>
                                                 <div className="ready-box">
                                                     <span className="ready-icon"></span>
                                                     <span className="ready-text">Ready</span>
-                                                </div> 
+                                                </div>
                                             </div>
                                             <span className="badge badge-pill">{}</span>
                                         </li>
+                                        :
+                                        ''
+                                        }
+                                        </>
                                         )
                                 }
                                 

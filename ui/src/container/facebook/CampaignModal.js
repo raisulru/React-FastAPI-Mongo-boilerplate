@@ -26,7 +26,8 @@ function CampaignModal () {
         errorMessage,
         successMessage,
         loading,
-        cards
+        cards,
+        savedAudience
      } = facebookCampaign;
         
     const validatePayload = () => {
@@ -94,74 +95,7 @@ function CampaignModal () {
             budgetType = budgetAndSchedule.budgetType
         }
 
-        let specification = {
-            geo_locations: {
-                countries: [],
-                regions: [],
-                cities: [],
-                subcities: []
-            },
-            age_min: 0,
-            age_max: 0
-        }
-    
-        if (othersTargetingParam.geo_locations) {
-            _.forEach(othersTargetingParam.geo_locations, item => {
-                if (item.supports_region || item.supports_city) {
-                    if (item.type === 'country') {
-                        specification.geo_locations.countries.push(item.country_code)
-                    }
-    
-                    if (item.type === 'region') {
-                        specification.geo_locations.regions.push({key: item.key})              
-                    }
-    
-                    if (item.type === 'city') {
-                        specification.geo_locations.cities.push({key: item.key})              
-                    }
-    
-                    if (item.type === 'subcity') {
-                        specification.geo_locations.subcities.push({key: item.key})
-                    }
-                }
-            })
-        } else {
-            return
-        }
-    
-        if (othersTargetingParam.age_max) {
-            specification.age_max = othersTargetingParam.age_max
-        } else {
-            specification.age_max = 65
-        }
-    
-        if (othersTargetingParam.age_min) {
-            specification.age_min = othersTargetingParam.age_min
-        } else {
-            specification.age_min = 18
-        }
-
-        if (cards) {
-            let allItem = []
-            _.forEach(copyObject(cards), card => {
-                allItem = [...allItem, ...card.data]
-            })
-
-            let groupByData = _.groupBy(allItem, item => {
-                return item.type
-            })
-
-            _.map(groupByData, (value, key, obj) => {
-                return obj[key] = _.map(value, item=> {
-                    delete item.type
-                    return item
-                })
-            })
-
-            specification = {...specification, ...groupByData}
-        }
-
-        payload.targeting = specification
+        payload.targeting = savedAudience
         
         payload.ads_payload.ads_set[budgetType] = budgetAndSchedule.ammount
         console.log(payload, '##################################')
