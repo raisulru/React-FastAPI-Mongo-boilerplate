@@ -265,7 +265,7 @@ const facebookSearchState = {
 }
 
 export const facebookSearch = (state = facebookSearchState, action) => {
-  const { type, payload } = action;
+  const { type, payload, meta } = action;
   return produce(state, (draft) => {
     switch (type) {
       case types.GET_AUDIENCE_SIZE_SUCCESS:
@@ -308,7 +308,11 @@ export const facebookSearch = (state = facebookSearchState, action) => {
         draft.demographics = payload.data
         break;
       case types.BROWSE_LIFE_EVENTS_SUCCESS:
-        draft.lifeEvents = payload.data
+        if(meta.keyword!=''){
+          const filtered = payload.data.filter(entry => Object.values(entry.name).some(val => val.includes(meta.keyword)));
+          draft.lifeEvents=filtered;
+          console.log(filtered)
+        }else {draft.lifeEvents = payload.data; console.log(payload.data)}
         break;
       case types.BROWSE_INCOME_SUCCESS:
         draft.income = payload.data

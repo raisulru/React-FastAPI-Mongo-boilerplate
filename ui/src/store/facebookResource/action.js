@@ -295,7 +295,7 @@ export const browseDemographics = (access_token) => ({
 });
 
 
-export const browseLifeEvents = (access_token) => ({
+export const browseLifeEvents = (access_token, keyword='') => ({
   type: types.BROWSE_LIFE_EVENTS,
   payload: {
     path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=life_events`,
@@ -304,6 +304,7 @@ export const browseLifeEvents = (access_token) => ({
   meta: {
     api: true,
     errorMessage: "Facebook Audience size not found",
+    keyword: keyword,
   },
 });
 
