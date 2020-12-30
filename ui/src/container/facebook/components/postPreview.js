@@ -9,12 +9,19 @@ function PostPreview() {
   const { adsImage, content } = useSelector((state) => state.facebookCampaign);
   const { estimatedAudienceSize  } = useSelector((state) => state.facebookSearch);
 
+  const restrictAudienceSize = (users) => {
+    if (users < 0 || users == undefined) {
+        return "The estimated audience size isn't available."
+    }
+    return users
+  }
+
     return (
     <>
         <div className="right-ad-generation-area mr-5 ml-5 mb-5">
             <div className="estimated-audience py-3 px-3 text-center">
                 <p>Estimated audience size</p>
-                <span>{estimatedAudienceSize.users}</span>
+                <span>{restrictAudienceSize(estimatedAudienceSize.users)}</span>
             </div>
         </div>
         <div className="right-ad-generation-area mr-5 ml-5">

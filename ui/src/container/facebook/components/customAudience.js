@@ -8,9 +8,10 @@ import {
     removeSelectedAudience
 } from '../../../store/facebookResource';
 import SearchIcon from '../../../images/search.svg'
+import copyObject from '../../../utils/copyObject';
 
 
-function CustomeAudience() {
+function CustomeAudience(props) {
   const dispatch = useDispatch()
 
   const { customAudience } = useSelector((state) => state.facebookSearch);
@@ -35,15 +36,19 @@ function CustomeAudience() {
   }, [dispatch])
 
   const customAudienceHandler = (e) => {
-      const payload = {
+      let payload = {
           id: e.target.value,
           name: e.target.name
       }
-      if (e.target.checked) {
+      let checked = e.target.checked
+      if (checked) {
           dispatch(addCustomAudience(payload))
       } else {
           dispatch(removeSelectedAudience(payload))
       }
+      payload = copyObject(payload)
+      payload.included_custom_audience = true
+      props.audienceSize(payload, checked)
   }
 
     return (

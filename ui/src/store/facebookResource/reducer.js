@@ -54,7 +54,8 @@ const facebookCampaignState = {
         subcities: []
     },
     age_min: 18,
-    age_max: 65
+    age_max: 65,
+    exclusions: {}
   }
 }
 

@@ -40,7 +40,8 @@ function PersonalAttributes(props) {
         income,
         familyStatus,
         userDevices,
-        operatingSystems
+        operatingSystems,
+        estimatedAudienceSize
      } = useSelector((state) => state.facebookSearch);
 
     const { personalAttModal } = useSelector((state) => state.facebookCampaign);
@@ -67,7 +68,13 @@ function PersonalAttributes(props) {
                 </div>
                 <div className="row mt-2 mr-3">
                     <div className="col-md-12">
-                        <div className="input-group">                                 
+                        <div className="right-ad-generation-area mr-5 ml-5 mb-5">
+                            <div className="estimated-audience py-3 px-3 text-center">
+                                <p>Estimated audience size</p>
+                                <span>{estimatedAudienceSize.users}</span>
+                            </div>
+                        </div>
+                        <div className="input-group ml-2">                                 
                             <input type="text" className="form-control search-control-filter" name="exampleFormControlSelect1" placeholder="Search for ad campaign"/>
                             <div className="input-group-append m-">
                                 <button className="btn btn-search mb-2" type="button">
@@ -238,7 +245,7 @@ function PersonalAttributes(props) {
                     </div>
 
                 <button type="button" onClick={closeModal} className="btn btn-primary">Save</button>
-                <button type="button" onClick={closeModal} className="btn btn-secondary">Cancel</button>
+                <button type="button" onClick={closeModal} className="btn btn-secondary">Close</button>
                </div>
         </div>
     )

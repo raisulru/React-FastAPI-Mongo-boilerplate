@@ -8,9 +8,10 @@ import {
     removeExcludedAudience
 } from '../../../store/facebookResource';
 import SearchIcon from '../../../images/search.svg'
+import copyObject from '../../../utils/copyObject';
 
 
-function CustomAudienceExcludeComponent() {
+function CustomAudienceExcludeComponent(props) {
   const dispatch = useDispatch()
 
   const { customAudience } = useSelector((state) => state.facebookSearch);
@@ -37,15 +38,19 @@ function CustomAudienceExcludeComponent() {
   }, [dispatch])
 
   const customAudienceHandler = (e) => {
-      const payload = {
+      let payload = {
           id: e.target.value,
           name: e.target.name
       }
-      if (e.target.checked) {
+      const checked = e.target.checked
+      if (checked) {
           dispatch(addExcludeCustomAudience(payload))
       } else {
           dispatch(removeExcludedAudience(payload))
       }
+      payload = copyObject(payload)
+      payload.excluded_audience = true
+      props.audienceSize(payload, checked)
   }
 
     return (

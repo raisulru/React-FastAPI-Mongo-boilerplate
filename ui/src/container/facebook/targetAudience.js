@@ -93,7 +93,7 @@ function FacebookAudienceTargeting() {
       let specification = copyObject(savedAudience)
       const {subcities, countries, regions, cities} = specification.geo_locations
 
-    if (!subcities.length && !countries.length && !regions.length && !cities.length && !payload.geo_locations.length) {
+    if (!subcities.length && !countries.length && !regions.length && !cities.length && !payload.geo_locations) {
         alert.error('Select Location First!')
         return
     }
@@ -145,35 +145,70 @@ function FacebookAudienceTargeting() {
 
         let arrayType = ['user_os', 'user_device']
 
-        _.map(specification, (value, key, obj) => {
-            if (_.includes(arrayType, payload.type)) {
-                if (payload.type === key) {
-                    if (addedAttribute) {
-                        value.push(payload.name)
-                    } else {
-                        _.remove(value, item => {
-                            return item === payload.name
-                        })
-                    }
+        let value = specification[payload.type]
+        if (_.includes(arrayType, payload.type)) {
+            if (value) {
+                if (addedAttribute) {
+                    value.push(payload.name)
                 } else {
-                    obj[payload.type] = [payload.name]
+                    _.remove(value, item => {
+                        return item === payload.name
+                    })
                 }
             } else {
-                if (payload.type === key) {
-                    if (addedAttribute) {
-                        value.push(targetingObj)
-                    } else {
-                        _.remove(value, item => {
-                            return item.id === payload.id
-                        })
-                    }
-                } else {
-                    obj[payload.type] = [targetingObj]
-                }
+                specification[payload.type] = [payload.name]
             }
-            
-            return obj
-        })
+        } else {
+            if (value) {
+                if (addedAttribute) {
+                    value.push(targetingObj)
+                } else {
+                    _.remove(value, item => {
+                        return item.id === payload.id
+                    })
+                }
+            } else {
+                specification[payload.type] = [targetingObj]
+            }
+        }
+    }
+
+    if (payload.included_custom_audience) {
+        let value = specification['custom_audiences']
+        const customAduence = {
+            id: payload.id
+        }
+        if (value) {
+            if (addedAttribute) {
+                value.push(customAduence)
+            } else {
+                _.remove(value, item => {
+                    return item.id === customAduence.id
+                })
+            }
+        } else {
+            specification['custom_audiences'] = [customAduence]
+        }
+    }
+
+    if (payload.excluded_audience) {
+        let value = specification.exclusions['custom_audiences']
+
+        const customAduence = {
+            id: payload.id
+        }
+
+        if (value) {
+            if (addedAttribute) {
+                value.push(customAduence)
+            } else {
+                _.remove(value, item => {
+                    return item.id === customAduence.id
+                })
+            }
+        } else {
+            specification.exclusions['custom_audiences'] = [customAduence]
+        }
     }
 
     console.log(specification, '#########################')
@@ -256,10 +291,16 @@ const locationHandler = (data) => {
 
   const removeSelectedAudienceHandler = (payload) => {
       dispatch(removeSelectedAudience(payload))
+      let newPayload = copyObject(payload)
+      newPayload.included_custom_audience = true
+      estimatedAudienceSizeHandler(newPayload, false)
   }
 
   const removeExcludedAudienceHandler = (payload) => {
     dispatch(removeExcludedAudience(payload))
+    let newPayload = copyObject(payload)
+    newPayload.excluded_audience = true
+    estimatedAudienceSizeHandler(newPayload, false)
   }
 
   const personalAttributeData = _.map(copyObject(cards), card => {
@@ -322,6 +363,7 @@ const locationHandler = (data) => {
                                     onChange={() => setAudienceType('existing')}
                                     disabled={!content.ad_account ? true:false}
                                     onClick={getCustomAudience}
+                                    disabled
                                     />
                                 <label data-toggle="tooltip" 
                                     data-placement="top" 
@@ -505,11 +547,11 @@ const locationHandler = (data) => {
     keyboard={false}
     className="drawer modal right-align"
     >
-        <CustomeAudience />
+        <CustomeAudience audienceSize={estimatedAudienceSizeHandler}/>
     
         <Modal.Footer>
             <button type="button" onClick={handleCustomAudienceClose} className="btn btn-primary">Save</button>
-            <button type="button" onClick={handleCustomAudienceClose} className="btn btn-secondary" >Cancel</button>
+            <button type="button" onClick={handleCustomAudienceClose} className="btn btn-secondary" >Close</button>
         </Modal.Footer>
 </Modal>
 
@@ -521,11 +563,11 @@ const locationHandler = (data) => {
     keyboard={false}
     className="drawer modal right-align"
     >
-        <CustomAudienceExcludeComponent />
+        <CustomAudienceExcludeComponent audienceSize={estimatedAudienceSizeHandler}/>
     
         <Modal.Footer>
             <button type="button" onClick={handleCustomAudienceExcludeClose} className="btn btn-primary">Save</button>
-            <button type="button" onClick={handleCustomAudienceExcludeClose} className="btn btn-secondary" >Cancel</button>
+            <button type="button" onClick={handleCustomAudienceExcludeClose} className="btn btn-secondary" >Close</button>
         </Modal.Footer>
 </Modal>
 
