@@ -7,6 +7,7 @@ import keycloak from '../../utils/keycloak'
 import {clearState} from '../../store/auth'
 import _ from 'lodash'
 import { allRoutes } from '../../router'
+import {apiCrmBaseURL} from '../../settings'
 
 function Header (props) {
   const dispatch = useDispatch()
@@ -47,8 +48,8 @@ function Header (props) {
                       Contacts
                     </Link>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <Link className="dropdown-item" to="/ads/onboarding">Action</Link>
-
+                      <a className="dropdown-item" href={apiCrmBaseURL.v1+"/contact"}>Contacts</a>
+                      <a className="dropdown-item" href={apiCrmBaseURL.v1+"/company"}>Companies</a>
                     </div>
                   </li>
                   <li className="nav-item dropdown">
@@ -65,7 +66,9 @@ function Header (props) {
                       Sales
             </Link>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <Link className="dropdown-item" to="/ads/onboarding">Action</Link>
+                      <a className="dropdown-item" href={apiCrmBaseURL.v1+"/tickets"}>Tickets</a>
+                      <a className="dropdown-item" href={apiCrmBaseURL.v1+"/conversion"}>Conversion</a>
+
 
                     </div>
                   </li>
