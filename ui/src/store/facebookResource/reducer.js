@@ -258,6 +258,7 @@ const facebookSearchState = {
   industries: [],
   demographics: [],
   lifeEvents: [],
+  searchedLifeEvents: [],
   income: [],
   familyStatus: [],
   userDevices: [],
@@ -309,10 +310,16 @@ export const facebookSearch = (state = facebookSearchState, action) => {
         break;
       case types.BROWSE_LIFE_EVENTS_SUCCESS:
         if(meta.keyword!=''){
-          const filtered = payload.data.filter(entry => Object.values(entry.name).some(val => val.includes(meta.keyword)));
-          draft.lifeEvents=filtered;
-          console.log(filtered)
-        }else {draft.lifeEvents = payload.data; console.log(payload.data)}
+          console.log(draft.lifeEvents)
+          var results = _.filter(draft.lifeEvents, function(obj) {
+            return obj.name.toLowerCase().indexOf(meta.keyword.toLowerCase()) > -1;
+          });
+          draft.searchedLifeEvents=results;
+          console.log(draft.searchedLifeEvents)
+        }else {
+          draft.lifeEvents = payload.data
+          draft.searchedLifeEvents=payload.data;
+        }
         break;
       case types.BROWSE_INCOME_SUCCESS:
         draft.income = payload.data

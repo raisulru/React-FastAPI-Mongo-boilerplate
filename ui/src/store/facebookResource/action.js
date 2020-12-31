@@ -217,7 +217,7 @@ export const browseInterest = (access_token) => ({
 });
 
 
-export const searchInterest = (access_token, keyword='') => ({
+export const searchInterest = (access_token, keyword = '') => ({
   type: types.SEARCH_INTEREST,
   payload: {
     path: `/facebook/targeting-category/search?access_token=${access_token}&class_type=adinterest&search=${keyword}`,
@@ -230,7 +230,7 @@ export const searchInterest = (access_token, keyword='') => ({
 });
 
 
-export const searchEducationSchool = (access_token, keyword='') => ({
+export const searchEducationSchool = (access_token, keyword = '') => ({
   type: types.SEARCH_SHCOOL,
   payload: {
     path: `/facebook/targeting-category/search?access_token=${access_token}&class_type=adeducationschool&search=${keyword}`,
@@ -243,7 +243,7 @@ export const searchEducationSchool = (access_token, keyword='') => ({
 });
 
 
-export const searchEducationMajor = (access_token, keyword='') => ({
+export const searchEducationMajor = (access_token, keyword = '') => ({
   type: types.SEARCH_EDUCATION_MAJOR,
   payload: {
     path: `/facebook/targeting-category/search?access_token=${access_token}&class_type=adeducationmajor&search=${keyword}`,
@@ -256,7 +256,7 @@ export const searchEducationMajor = (access_token, keyword='') => ({
 });
 
 
-export const searchWorkEmployer = (access_token, keyword='') => ({
+export const searchWorkEmployer = (access_token, keyword = '') => ({
   type: types.SEARCH_WORK_EMPLOYER,
   payload: {
     path: `/facebook/targeting-category/search?access_token=${access_token}&class_type=adworkemployer&search=${keyword}`,
@@ -269,7 +269,7 @@ export const searchWorkEmployer = (access_token, keyword='') => ({
 });
 
 
-export const searchJobTitle = (access_token, keyword='') => ({
+export const searchJobTitle = (access_token, keyword = '') => ({
   type: types.SEARCH_JOB_TITLE,
   payload: {
     path: `/facebook/targeting-category/search?access_token=${access_token}&class_type=adworkposition&search=${keyword}`,
@@ -295,18 +295,30 @@ export const browseDemographics = (access_token) => ({
 });
 
 
-export const browseLifeEvents = (access_token, keyword='') => ({
-  type: types.BROWSE_LIFE_EVENTS,
-  payload: {
-    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=life_events`,
-    method: 'GET'
-  },
-  meta: {
-    api: true,
-    errorMessage: "Facebook Audience size not found",
-    keyword: keyword,
-  },
-});
+export const browseLifeEvents = (access_token, keyword = '') => {
+  if (keyword) {
+    return ({
+      type: types.BROWSE_LIFE_EVENTS_SUCCESS,
+      meta: {
+        api: false,
+        keyword: keyword,
+      },
+    })
+  } else {
+    return ({
+      type: types.BROWSE_LIFE_EVENTS,
+      payload: {
+        path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=life_events`,
+        method: 'GET'
+      },
+      meta: {
+        api: true,
+        errorMessage: "Facebook Audience size not found",
+        keyword: keyword,
+      },
+    })
+  }
+};
 
 
 export const browseIndustries = (access_token) => ({

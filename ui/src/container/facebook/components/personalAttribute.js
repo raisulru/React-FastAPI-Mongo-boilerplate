@@ -37,6 +37,7 @@ function PersonalAttributes(props) {
         industries,
         demographics,
         lifeEvents,
+        searchedLifeEvents,
         income,
         familyStatus,
         userDevices,
@@ -165,7 +166,7 @@ function PersonalAttributes(props) {
                                     <div className="tab-pane fade" id="v-pills-lifeevents" role="tabpanel" aria-labelledby="v-pills-lifeevents-tab">
                                     <PersonalAttributeSearch 
                                             title="Life Events"
-                                            data={lifeEvents} 
+                                            data={searchedLifeEvents} 
                                             browse={browseLifeEvents} 
                                             audienceSize={props.audienceSize} 
                                             placeholder="Search For Life Events"
