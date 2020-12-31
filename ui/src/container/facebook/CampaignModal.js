@@ -67,7 +67,7 @@ function CampaignModal () {
         const endDateTime = `${budgetAndSchedule.end_date}T${budgetAndSchedule.end_time}:30+0000`
 
         let payload = {
-            targeting: {"geo_locations": {"countries": ["US"]}},
+            targeting: {},
             ads_payload: {
                 campaign: {
                     name: content.new_campaign,
@@ -76,11 +76,11 @@ function CampaignModal () {
                     special_ad_categories: othersTargetingParam.specialCategory || 'NONE'
                 },
                 ads_set: {
-                    name: content.new_campaign + 'Ad set',
+                    name: content.new_campaign + ' Ad set',
                     optimization_goal: "REACH",
                     billing_event: "IMPRESSIONS",
                     status: "ACTIVE",
-                    bid_amount: 2,
+                    // bid_amount: 2,
                     start_time: startDateTime,
                     end_time: endDateTime
                 },
