@@ -191,17 +191,30 @@ export const getAllTargetCategory = (access_token) => ({
 });
 
 
-export const browseBehaviour = (access_token) => ({
-  type: types.BROWSE_BEHAVIOUR,
-  payload: {
-    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=behaviors`,
-    method: 'GET'
-  },
-  meta: {
-    api: true,
-    errorMessage: "Facebook Audience size not found",
-  },
-});
+export const browseBehaviour = (access_token, keyword='') => {
+  if (keyword) {
+    return ({
+      type: types.BROWSE_BEHAVIOUR_SUCCESS,
+      meta: {
+        api: false,
+        keyword: keyword,
+      },
+    })
+  } else {
+    return ({
+      type: types.BROWSE_BEHAVIOUR,
+      payload: {
+        path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=behaviors`,
+        method: 'GET'
+      },
+      meta: {
+        api: true,
+        errorMessage: "Facebook Audience size not found",
+        keyword: keyword,
+      },
+    })
+  }
+};
 
 
 export const browseInterest = (access_token) => ({
@@ -321,69 +334,134 @@ export const browseLifeEvents = (access_token, keyword = '') => {
 };
 
 
-export const browseIndustries = (access_token) => ({
-  type: types.BROWSE_INDUSTRIES,
-  payload: {
-    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=industries`,
-    method: 'GET'
-  },
-  meta: {
-    api: true,
-    errorMessage: "Facebook Audience size not found",
-  },
-});
+export const browseIndustries = (access_token, keyword='') => {
+  if (keyword) {
+    return ({
+      type: types.BROWSE_INDUSTRIES_SUCCESS,
+      meta: {
+        api: false,
+        keyword: keyword,
+      },
+    })
+  } else {
+    return ({
+      type: types.BROWSE_INDUSTRIES,
+      payload: {
+        path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=industries`,
+        method: 'GET'
+      },
+      meta: {
+        api: true,
+        errorMessage: "Facebook Audience size not found",
+        keyword: keyword,
+      },
+    })
+  }
+};
 
 
-export const browseIncome = (access_token) => ({
-  type: types.BROWSE_INCOME,
-  payload: {
-    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=income`,
-    method: 'GET'
-  },
-  meta: {
-    api: true,
-    errorMessage: "Facebook Audience size not found",
-  },
-});
+export const browseIncome = (access_token, keyword='') => {
+  if (keyword) {
+    return ({
+      type: types.BROWSE_INCOME_SUCCESS,
+      meta: {
+        api: false,
+        keyword: keyword,
+      },
+    })
+  } else {
+    return ({
+      type: types.BROWSE_INCOME,
+      payload: {
+        path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=income`,
+        method: 'GET'
+      },
+      meta: {
+        api: true,
+        errorMessage: "Facebook Audience size not found",
+        keyword: keyword,
+      },
+    })
+  }
+};
 
 
-export const browseFamilyStatus = (access_token) => ({
-  type: types.BROWSE_FAMILY_STATUS,
-  payload: {
-    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=family_statuses`,
-    method: 'GET'
-  },
-  meta: {
-    api: true,
-    errorMessage: "Facebook Audience size not found",
-  },
-});
+export const browseFamilyStatus = (access_token, keyword='') => {
+  if (keyword) {
+    return ({
+      type: types.BROWSE_FAMILY_STATUS_SUCCESS,
+      meta: {
+        api: false,
+        keyword: keyword,
+      },
+    })
+  } else {
+    return ({
+      type: types.BROWSE_FAMILY_STATUS,
+      payload: {
+        path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=family_statuses`,
+        method: 'GET'
+      },
+      meta: {
+        api: true,
+        errorMessage: "Facebook Audience size not found",
+        keyword: keyword,
+      },
+    })
+  }
+};
 
 
-export const browseUserDevice = (access_token) => ({
-  type: types.BROWSE_USER_DEVICE,
-  payload: {
-    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=user_device`,
-    method: 'GET'
-  },
-  meta: {
-    api: true,
-    errorMessage: "Facebook Audience size not found",
-  },
-});
+export const browseUserDevice = (access_token, keyword='') => {
+  if (keyword) {
+    return ({
+      type: types.BROWSE_USER_DEVICE_SUCCESS,
+      meta: {
+        api: false,
+        keyword: keyword,
+      },
+    })
+  } else {
+    return ({
+      type: types.BROWSE_USER_DEVICE,
+      payload: {
+        path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=user_device`,
+        method: 'GET'
+      },
+      meta: {
+        api: true,
+        errorMessage: "Facebook Audience size not found",
+        keyword: keyword,
+      },
+    })
+  }
+};
 
 
-export const browseUserOS = (access_token) => ({
-  type: types.BROWSE_OS,
-  payload: {
-    path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=user_os`,
-    method: 'GET'
-  },
-  meta: {
-    api: true,
-    errorMessage: "Facebook Audience size not found",
-  },
-});
+export const browseUserOS = (access_token, keyword='') => {
+  if (keyword) {
+    return ({
+      type: types.BROWSE_OS_SUCCESS,
+      meta: {
+        api: false,
+        keyword: keyword,
+      },
+    })
+  } else {
+    return ({
+      type: types.BROWSE_OS,
+      payload: {
+        path: `/facebook/targeting-category/browse?access_token=${access_token}&class_type=user_os`,
+        method: 'GET'
+      },
+      meta: {
+        api: true,
+        errorMessage: "Facebook Audience size not found",
+        keyword: keyword,
+      },
+    })
+  }
+};
 
 // Campaign related actions
 
