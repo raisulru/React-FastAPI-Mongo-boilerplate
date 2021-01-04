@@ -30,18 +30,25 @@ function PersonalAttributes(props) {
         targettingCategories,
         interests,
         behaviours,
+        searchedBehaviours,
         educationMajors,
         schools,
         workEmployers,
         jobTitles,
         industries,
+        searchedIndustries,
         demographics,
         lifeEvents,
+        searchedLifeEvents,
         income,
+        searchedIncome,
         familyStatus,
+        searchedFamilyStatus,
         userDevices,
+        estimatedAudienceSize,
+        searchedUserDevices,
         operatingSystems,
-        estimatedAudienceSize
+        searchedOperatingSystems
      } = useSelector((state) => state.facebookSearch);
 
     const { personalAttModal } = useSelector((state) => state.facebookCampaign);
@@ -165,7 +172,7 @@ function PersonalAttributes(props) {
                                     <div className="tab-pane fade" id="v-pills-lifeevents" role="tabpanel" aria-labelledby="v-pills-lifeevents-tab">
                                     <PersonalAttributeSearch 
                                             title="Life Events"
-                                            data={lifeEvents} 
+                                            data={searchedLifeEvents} 
                                             browse={browseLifeEvents} 
                                             audienceSize={props.audienceSize} 
                                             placeholder="Search For Life Events"
@@ -174,7 +181,7 @@ function PersonalAttributes(props) {
                                     <div className="tab-pane fade" id="v-pills-industries" role="tabpanel" aria-labelledby="v-pills-industries-tab">
                                     <PersonalAttributeSearch 
                                             title="Industries"
-                                            data={industries} 
+                                            data={searchedIndustries} 
                                             browse={browseIndustries} 
                                             audienceSize={props.audienceSize} 
                                             placeholder="Search For Industries"
@@ -183,7 +190,7 @@ function PersonalAttributes(props) {
                                     <div className="tab-pane fade" id="v-pills-income" role="tabpanel" aria-labelledby="v-pills-income-tab">
                                     <PersonalAttributeSearch 
                                             title="Income"
-                                            data={income} 
+                                            data={searchedIncome} 
                                             browse={browseIncome} 
                                             audienceSize={props.audienceSize} 
                                             placeholder="Search For Income"
@@ -192,7 +199,7 @@ function PersonalAttributes(props) {
                                     <div className="tab-pane fade" id="v-pills-familystatus" role="tabpanel" aria-labelledby="v-pills-familystatus-tab">
                                     <PersonalAttributeSearch 
                                             title="Family Status"
-                                            data={familyStatus} 
+                                            data={searchedFamilyStatus} 
                                             browse={browseFamilyStatus} 
                                             audienceSize={props.audienceSize} 
                                             placeholder="Search For Family Status"
@@ -202,7 +209,7 @@ function PersonalAttributes(props) {
                                     <PersonalAttributeSearch 
                                             title="User Device"
                                             type="user_device"
-                                            data={userDevices} 
+                                            data={searchedUserDevices} 
                                             audienceSize={props.audienceSize} 
                                             browse={browseUserDevice} 
                                             placeholder="Search For User Device"
@@ -212,7 +219,7 @@ function PersonalAttributes(props) {
                                     <PersonalAttributeSearch 
                                             title="User OS"
                                             type="user_os"
-                                            data={operatingSystems} 
+                                            data={searchedOperatingSystems} 
                                             browse={browseUserOS} 
                                             audienceSize={props.audienceSize} 
                                             placeholder="Search For User OS"
@@ -233,7 +240,7 @@ function PersonalAttributes(props) {
                                     <div className="tab-pane fade" id="v-pills-behaviours" role="tabpanel" aria-labelledby="v-pills-behaviours-tab">
                                     <PersonalAttributeSearch 
                                             title="User Behaviours"
-                                            data={behaviours}
+                                            data={searchedBehaviours}
                                             browse={browseBehaviour}
                                             audienceSize={props.audienceSize} 
                                             placeholder="Search For User Behaviours"

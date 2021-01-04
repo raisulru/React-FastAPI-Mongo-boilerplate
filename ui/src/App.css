@@ -279,6 +279,11 @@ welcome and connect  area
     .dashboard-section .card-deck .card {
         border: 0px!important;
     }
+
+    .card {
+        max-height: 522px;
+        overflow-y: auto;
+    }
     
     .dashboard-section .card-deck .card::after {}
     
@@ -1222,12 +1227,11 @@ login page
         overflow-y: auto;
         overflow-x: hidden;
         padding: 0px 20px 20px 0px;
-        height: 100%;
         top: 0px;
         background-color: #e8e8e8;
-        left: 42%;
+        left: 45%;
         transform: translate(0, 0);
-        width: 58%;
+        width: 55%;
     }
     
     .showmodal {}
