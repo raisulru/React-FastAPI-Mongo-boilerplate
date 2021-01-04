@@ -45,7 +45,6 @@ function PersonalAttributes(props) {
         familyStatus,
         searchedFamilyStatus,
         userDevices,
-        operatingSystems,
         estimatedAudienceSize,
         searchedUserDevices,
         operatingSystems,
