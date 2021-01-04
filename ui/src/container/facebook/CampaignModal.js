@@ -80,7 +80,7 @@ function CampaignModal () {
                     optimization_goal: "REACH",
                     billing_event: "IMPRESSIONS",
                     status: "ACTIVE",
-                    // bid_amount: 2,
+                    bid_amount: 2,
                     start_time: startDateTime,
                     end_time: endDateTime
                 },
