@@ -45,14 +45,11 @@ function PersonalAttributes(props) {
         familyStatus,
         searchedFamilyStatus,
         userDevices,
-<<<<<<< HEAD
         operatingSystems,
-        estimatedAudienceSize
-=======
+        estimatedAudienceSize,
         searchedUserDevices,
         operatingSystems,
         searchedOperatingSystems
->>>>>>> all custom filter for audience
      } = useSelector((state) => state.facebookSearch);
 
     const { personalAttModal } = useSelector((state) => state.facebookCampaign);
