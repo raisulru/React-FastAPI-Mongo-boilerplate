@@ -19,7 +19,7 @@ function PersonalAttributeSearch(props) {
         } else if (props.search && !props.browse) {
             dispatch(props.search(user.accessToken, e.target.value))
         } else {
-            dispatch(props.browse(user.accessToken))
+            dispatch(props.browse(user.accessToken, e.target.value))
         }
     }
 

@@ -251,21 +251,28 @@ const facebookSearchState = {
   customAudience: [],
   interests: [],
   behaviours: [],
+  searchedBehaviours: [],
   schools: [],
   educationMajors: [],
   workEmployers: [],
   jobTitles: [],
   industries: [],
+  searchedIndustries: [],
   demographics: [],
   lifeEvents: [],
+  searchedLifeEvents: [],
   income: [],
+  searchedIncome: [],
   familyStatus: [],
+  searchedFamilyStatus: [],
   userDevices: [],
-  operatingSystems: []
+  searchedUserDevices: [],
+  operatingSystems: [],
+  searchedOperatingSystems: []
 }
 
 export const facebookSearch = (state = facebookSearchState, action) => {
-  const { type, payload } = action;
+  const { type, payload, meta } = action;
   return produce(state, (draft) => {
     switch (type) {
       case types.GET_AUDIENCE_SIZE_SUCCESS:
@@ -284,7 +291,15 @@ export const facebookSearch = (state = facebookSearchState, action) => {
         draft.interests = payload.data
         break;
       case types.BROWSE_BEHAVIOUR_SUCCESS:
-        draft.behaviours = payload.data
+        if(meta.keyword!=''){
+          var results = _.filter(draft.behaviours, function(obj) {
+            return obj.name.toLowerCase().indexOf(meta.keyword.toLowerCase()) > -1;
+          });
+          draft.searchedBehaviours=results;
+        }else {
+          draft.behaviours = payload.data
+          draft.searchedBehaviours=payload.data;
+        }
         break;
       case types.BROWSE_INTEREST_SUCCESS:
         draft.interests = payload.data
@@ -302,35 +317,83 @@ export const facebookSearch = (state = facebookSearchState, action) => {
         draft.jobTitles = payload.data
         break;
       case types.BROWSE_INDUSTRIES_SUCCESS:
-        draft.industries = payload.data
+        if(meta.keyword!=''){
+          var results = _.filter(draft.industries, function(obj) {
+            return obj.name.toLowerCase().indexOf(meta.keyword.toLowerCase()) > -1;
+          });
+          draft.searchedIndustries=results;
+        }else {
+          draft.industries = payload.data
+          draft.searchedIndustries=payload.data;
+        }
         break;
       case types.BROWSE_DEMOGRAPHICS_SUCCESS:
         draft.demographics = payload.data
         break;
       case types.BROWSE_LIFE_EVENTS_SUCCESS:
-        draft.lifeEvents = payload.data
+        if(meta.keyword!=''){
+          var results = _.filter(draft.lifeEvents, function(obj) {
+            return obj.name.toLowerCase().indexOf(meta.keyword.toLowerCase()) > -1;
+          });
+          draft.searchedLifeEvents=results;
+        }else {
+          draft.lifeEvents = payload.data
+          draft.searchedLifeEvents=payload.data;
+        }
         break;
       case types.BROWSE_INCOME_SUCCESS:
-        draft.income = payload.data
+        if(meta.keyword!=''){
+          var results = _.filter(draft.income, function(obj) {
+            return obj.name.toLowerCase().indexOf(meta.keyword.toLowerCase()) > -1;
+          });
+          draft.searchedIncome=results;
+        }else {
+          draft.income = payload.data
+          draft.searchedIncome=payload.data;
+        }
         break;
       case types.BROWSE_FAMILY_STATUS_SUCCESS:
-        draft.familyStatus = payload.data
+        if(meta.keyword!=''){
+          var results = _.filter(draft.familyStatus, function(obj) {
+            return obj.name.toLowerCase().indexOf(meta.keyword.toLowerCase()) > -1;
+          });
+          draft.searchedFamilyStatus=results;
+        }else {
+          draft.familyStatus = payload.data
+          draft.searchedFamilyStatus=payload.data;
+        }
         break;
       case types.BROWSE_USER_DEVICE_SUCCESS:
-        let deviceID = 123456
-        _.map(payload.data, item => {
-          item.id = deviceID.toString()
-          deviceID += 1
-        })
-        draft.userDevices = payload.data
+        if(meta.keyword!=''){
+          var results = _.filter(draft.userDevices, function(obj) {
+            return obj.name.toLowerCase().indexOf(meta.keyword.toLowerCase()) > -1;
+          });
+          draft.searchedUserDevices=results;
+        }else {
+          let deviceID = 123456
+          _.map(payload.data, item => {
+            item.id = deviceID.toString()
+            deviceID += 1
+          })
+          draft.userDevices = payload.data
+          draft.searchedUserDevices=payload.data;
+        }
         break;
       case types.BROWSE_OS_SUCCESS:
-        let osID = 654321
-        _.map(payload.data, item => {
-          item.id = osID.toString()
-          osID += 1
-        })
-        draft.operatingSystems = payload.data
+        if(meta.keyword!=''){
+          var results = _.filter(draft.operatingSystems, function(obj) {
+            return obj.platform.toLowerCase().indexOf(meta.keyword.toLowerCase()) > -1;
+          });
+          draft.searchedOperatingSystems=results;
+        }else {
+          let osID = 654321
+          _.map(payload.data, item => {
+            item.id = osID.toString()
+            osID += 1
+          })
+          draft.operatingSystems = payload.data
+          draft.searchedOperatingSystems=payload.data;
+        }
         break;
       default:
         return state;
