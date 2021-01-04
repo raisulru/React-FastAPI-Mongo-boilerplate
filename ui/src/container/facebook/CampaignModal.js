@@ -203,8 +203,8 @@ function CampaignModal () {
                                     <nav>
                                         <div className="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
                                             <a className="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#ad" role="tab" aria-controls="ad" aria-selected="true">Create Content</a>
-                                            <a className="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#targeting" role="tab" aria-controls="targeting" aria-selected="false">Audience Targeting</a>
-                                            <a className="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#budgetnschedule" role="tab" aria-controls="budgetnschedule" aria-selected="false">Budget and Schedule</a>
+                                            <a className={`nav-item nav-link ${content.ad_account? '': 'disabled'}`} id="nav-profile-tab" data-toggle="tab" href="#targeting" role="tab" aria-controls="targeting" aria-selected="false">Audience Targeting</a>
+                                            <a className={`nav-item nav-link ${content.ad_account? '': 'disabled'}`} id="nav-contact-tab" data-toggle="tab" href="#budgetnschedule" role="tab" aria-controls="budgetnschedule" aria-selected="false">Budget and Schedule</a>
                                         </div>
                                     </nav>
                                 </div>
