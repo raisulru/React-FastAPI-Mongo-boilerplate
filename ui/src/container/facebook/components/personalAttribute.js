@@ -81,14 +81,14 @@ function PersonalAttributes(props) {
                                 <span>{estimatedAudienceSize.users}</span>
                             </div>
                         </div>
-                        <div className="input-group ml-2">                                 
+                        {/* <div className="input-group ml-2">                                 
                             <input type="text" className="form-control search-control-filter" name="exampleFormControlSelect1" placeholder="Search for ad campaign"/>
                             <div className="input-group-append m-">
                                 <button className="btn btn-search mb-2" type="button">
                                     <img src={SearchIcon} className="search-icon" alt="Search"/>
                                 </button>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                     <div className="personal-attribute-v-tab mt-2">

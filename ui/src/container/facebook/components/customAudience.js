@@ -68,7 +68,7 @@ function CustomeAudience(props) {
                 <div className="tab-content" id="nav-tabContent">
                     <div className="tab-pane fade show active" id="nav-contact-list" role="tabpanel" aria-labelledby="nav-contact-list-tabe">
                          <div className="contact-list-tab-content">
-                            <form className="form mt-2">
+                            {/* <form className="form mt-2">
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="input-group">                                 
@@ -81,7 +81,7 @@ function CustomeAudience(props) {
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </form> */}
                             <ul className="list-group mt-2">
                                 {
                                     customAudience.map(audience => 
@@ -114,7 +114,7 @@ function CustomeAudience(props) {
 
                     <div className="tab-pane fade" id="nav-website" role="tabpanel" aria-labelledby="nav-website-tab">
                         <div className="website-tab-content">
-                            <form className="form mt-2">
+                            {/* <form className="form mt-2">
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="input-group">                                 
@@ -127,7 +127,7 @@ function CustomeAudience(props) {
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </form> */}
                             <ul className="list-group mt-2">
                                 {
                                 customAudience.map(audience => 
@@ -160,7 +160,7 @@ function CustomeAudience(props) {
 
                     <div className="tab-pane fade" id="nav-lookalike" role="tabpanel" aria-labelledby="nav-nav-lookalike">
                         <div className="lookalike-tab-content">
-                            <form className="form mt-2">
+                            {/* <form className="form mt-2">
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="input-group">                                 
@@ -173,7 +173,7 @@ function CustomeAudience(props) {
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </form> */}
                             <ul className="list-group mt-2">
                                 {
                                     customAudience.map(audience => 

@@ -160,6 +160,7 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
 
 
 const facebookState = {
+  loading: false,
   connected: false,
   user: {
     accessToken: null,
@@ -228,11 +229,15 @@ export const facebook = (state = facebookState, action) => {
       case types.SAVE_FACEBOOK_PAGES_SETTINGS_SUCCESS:
         draft.facebookPages = payload.page_list
         break;
-      case types.GET_FACEBOOK_CAMPAIGN_LIST_SUCCESS:
-        draft.campaignList = payload
+      case types.GET_FACEBOOK_CAMPAIGN_LIST:
+        draft.loading = true
         break
       case types.GET_FACEBOOK_CAMPAIGN_LIST_SUCCESS:
         draft.campaignList = payload
+        draft.loading = false
+        break
+      case types.GET_FACEBOOK_CAMPAIGN_LIST_FAILED:
+        draft.loading = false
         break
       default:
         return state;

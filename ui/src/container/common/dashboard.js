@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import _, { initial } from "lodash"
+import moment from "moment";
 import SortIcon from "../../images/sort.png"
 import FacebookLogo from '../../images/fb-icon.png'
 import GoogleLogo from '../../images/google-ads.png'
@@ -28,7 +29,7 @@ function DashBoard(props) {
   let totalAmmountSpent = 0
 
   const dispatch = useDispatch();
-  const { campaignList, adAccounts, user, connected } = useSelector((state) => state.facebook);
+  const { campaignList, adAccounts, user, connected, loading } = useSelector((state) => state.facebook);
   const { userInfo } = useSelector((state) => state.authInfo);
 
   useEffect(() => {
@@ -44,6 +45,9 @@ function DashBoard(props) {
     }
   }, [dispatch]);
 
+  const campaignStatusHandler = (e) => {
+      console.log(e.target.id, '##################')
+  }
 
   _.forEach(adAccounts, adAccount => {
       if (adAccount.insights) {
@@ -215,7 +219,7 @@ function DashBoard(props) {
                                             <div className="row">
                                                 <div className="input-group">
                                                     <label htmlFor="exampleFormControlSelect1" className="manage-collumns"><i className="far fa-edit mr-2"></i> Manage collums</label>
-                                                    <input type="text" className="form-control search-control" name="exampleFormControlSelect1" placeholder="Search for ad campaign"/>
+                                                    <input type="text" className="form-control search-control" name="exampleFormControlSelect1" placeholder="Search for ad campaign" disabled/>
                                                     <div className="input-group-append">
                                                         <button className="btn btn-search" type="button">
                                                             <img src={SearchIcon} className="search-icon" alt="Search"/>
@@ -237,12 +241,12 @@ function DashBoard(props) {
                                                 <TableHead name="Account Name" />
                                                 <TableHead name="Type" />
                                                 <TableHead name="Impressions" />
-                                                <TableHead name="Stop Date" />
+                                                <TableHead name="Start Date" />
                                                 <TableHead name="Spend" />
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {campaignList.map(campaign => 
+                                            {!loading ? campaignList.map(campaign => 
                                                 
                                                 <tr key={campaign.id}>
                                                     <td>
@@ -255,7 +259,7 @@ function DashBoard(props) {
                                                     </td>
                                                     <td>
                                                         <label className="switch">
-                                                            <input defaultChecked={1} type="checkbox"/>
+                                                            <input onChange={campaignStatusHandler} id={campaign.id} checked={campaign.status==='ACTIVE' ? true:false} type="checkbox"/>
                                                             <span className="slider round"></span>
                                                         </label>
                                                     </td>
@@ -269,10 +273,14 @@ function DashBoard(props) {
                                                     </td>
                                                     <td>{campaign.objective.replace('_',' ').toLowerCase()}</td>
                                                     <td>{campaign.insights ? campaign.insights.data[0].impressions:0}</td>
-                                                    <td>{campaign.insights ? campaign.insights.data[0].date_stop:'-'}</td>
+                                                    <td>{campaign.start_time}</td>
                                                     <td>${campaign.insights ? campaign.insights.data[0].spend:0}</td>
                                                 </tr>
-                                            )}
+                                            )
+                                            :
+                                            // eslint-disable-next-line
+                                            <div className="spinner-border text-success spinner"></div>
+                                        }
                                             
                                         </tbody>
                                         <tfoot>

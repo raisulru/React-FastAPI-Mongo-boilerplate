@@ -82,7 +82,7 @@ export const saveFacebookAdsAccount = (payload) => ({
 export const getFacebookCampaigns = (accessToken, adsAccountIdList) => ({
   type: types.GET_FACEBOOK_CAMPAIGN_LIST,
   payload: {
-    path: `/facebook/campaigns?access_token=${accessToken}&fields=id,name,account_id,insights,objective`,
+    path: `/facebook/campaigns?access_token=${accessToken}&fields=id,name,account_id,insights,objective,created_time,status,start_time`,
     method: 'POST',
     data: adsAccountIdList
   },
