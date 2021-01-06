@@ -55,7 +55,7 @@ const routes = [
         component: FacebookPixel
     },
     {
-        path: "/ads/facebook/adset",
+        path: "/ads/facebook/adset/:campaignID",
         exact: true,
         component: FacebookAdSet
     },

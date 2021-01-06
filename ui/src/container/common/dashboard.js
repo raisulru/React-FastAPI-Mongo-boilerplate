@@ -252,7 +252,7 @@ function DashBoard(props) {
                                                 <TableHead name="Name" />
                                                 <th></th>
                                                 <TableHead name="Account Name" />
-                                                <TableHead name="Type" />
+                                                <TableHead name="Objective" />
                                                 <TableHead name="Impressions" />
                                                 <TableHead name="Start Date" />
                                                 <TableHead name="Spend" />
@@ -264,7 +264,7 @@ function DashBoard(props) {
                                                 <tr key={campaign.id}>
                                                     <td>
                                                         <div className="input-group">
-                                                            <Link to="/" className="btn table-social-btn m-r-30"> 
+                                                            <Link to={`/ads/facebook/adset/${campaign.id}`} className="btn table-social-btn m-r-30"> 
                                                                 <img src={FacebookLogo} className="mr-2" alt="Facebook"/>
                                                                 {campaign.name}
                                                             </Link>

@@ -177,7 +177,8 @@ const facebookState = {
   adAccounts: [],
   campaignList: [],
   facebookPages: [],
-  CTA: []
+  CTA: [],
+  adSet: []
 };
 
 export const facebook = (state = facebookState, action) => {
@@ -205,6 +206,9 @@ export const facebook = (state = facebookState, action) => {
         })
         draft.adAccounts = adAccountList
         break;
+      case types.GET_AD_SET_SUCCESS:
+        draft.adSet = payload.data
+        break
       case types.SAVE_FACEBOOK_USER:
         draft.user = payload.data
         draft.connected = true

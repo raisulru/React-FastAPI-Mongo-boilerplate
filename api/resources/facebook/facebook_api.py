@@ -258,3 +258,15 @@ async def update_campaign(campaign_id: str, access_token: str, campaign: Campaig
     )
     response = requests.post(url, json=campaign.dict())
     return JSONResponse(status_code=response.status_code, content=response.json())
+
+
+@facebook_router.get("/ad-set")
+async def update_campaign(campaign_id: str, access_token: str, fields: str):
+    url = '{}/{}/adsets?access_token={}&fields={}'.format(
+        facebook_base_url,
+        campaign_id,
+        access_token,
+        fields
+    )
+    response = requests.get(url)
+    return JSONResponse(status_code=response.status_code, content=response.json())
