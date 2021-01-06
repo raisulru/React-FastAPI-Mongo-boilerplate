@@ -161,6 +161,7 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
 
 const facebookState = {
   loading: false,
+  updateLoader: false,
   connected: false,
   user: {
     accessToken: null,
@@ -180,7 +181,7 @@ const facebookState = {
 };
 
 export const facebook = (state = facebookState, action) => {
-  const { type, payload } = action;
+  const { type, payload, meta } = action;
   return produce(state, (draft) => {
     switch (type) {
       case types.GET_FACEBOOK_AD_ACCOUNTS_SUCCESS:
@@ -235,6 +236,21 @@ export const facebook = (state = facebookState, action) => {
       case types.GET_FACEBOOK_CAMPAIGN_LIST_SUCCESS:
         draft.campaignList = payload
         draft.loading = false
+        break
+      case types.UPDATE_FACEBOOK_CAMPAIGN:
+        draft.campaignList = _.map(copyObject(draft.campaignList), item => {
+          if (item.id === meta.id) {
+            item = {...item, ...meta.data}
+          }
+          return item
+        })
+        draft.updateLoader = true
+        break
+      case types.UPDATE_FACEBOOK_CAMPAIGN_SUCCESS:
+        draft.updateLoader = false
+        break
+      case types.UPDATE_FACEBOOK_CAMPAIGN_FAILED:
+        draft.updateLoader = false
         break
       case types.GET_FACEBOOK_CAMPAIGN_LIST_FAILED:
         draft.loading = false

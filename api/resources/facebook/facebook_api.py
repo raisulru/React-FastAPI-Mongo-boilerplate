@@ -13,7 +13,7 @@ from facebookads.api import FacebookAdsApi
 from facebookads.adobjects.targetingsearch import TargetingSearch
 from .enums import facebook_click_to_action, supported_extentions
 from resources.utilities.utils import remove_file_from_directory
-from .models import AdsPayload
+from .models import AdsPayload, Campaign
 from resources import facebook_base_url
 # my_app_id = '<APP_ID>'
 # my_app_secret = '<APP_SECRET>'
@@ -247,3 +247,14 @@ async def publish_ads(
     ad_res = requests.post(url=ads_url, data=ad)
     
     return JSONResponse(status_code=ad_res.status_code, content=ad_res.json())
+
+
+@facebook_router.post("/update/campaign/{campaign_id}")
+async def update_campaign(campaign_id: str, access_token: str, campaign: Campaign):
+    url = '{}/{}?access_token={}'.format(
+        facebook_base_url,
+        campaign_id,
+        access_token
+    )
+    response = requests.post(url, json=campaign.dict())
+    return JSONResponse(status_code=response.status_code, content=response.json())

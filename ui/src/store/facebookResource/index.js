@@ -44,7 +44,8 @@ export {
   updateImageFromCreative,
   getFacebookUser,
   deleteMessages,
-  saveTargetingAudience
+  saveTargetingAudience,
+  updateFacebookCampaign
   } from './action';
   
 export { facebook, facebookSearch, facebookCampaign } from './reducer';

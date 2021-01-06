@@ -8,7 +8,10 @@ import FacebookLogo from '../../images/fb-icon.png'
 import GoogleLogo from '../../images/google-ads.png'
 import LinkedinLogo from '../../images/linkedin.png'
 import SearchIcon from '../../images/search.svg'
-import { getFacebookCampaigns, getFacebookUser } from '../../store/facebookResource'
+import { 
+    getFacebookCampaigns, 
+    getFacebookUser, 
+    updateFacebookCampaign } from '../../store/facebookResource'
 import formatNumber from '../../utils/formatNumber'
 import CampaignModal from '../facebook/CampaignModal';
 
@@ -29,7 +32,7 @@ function DashBoard(props) {
   let totalAmmountSpent = 0
 
   const dispatch = useDispatch();
-  const { campaignList, adAccounts, user, connected, loading } = useSelector((state) => state.facebook);
+  const { campaignList, adAccounts, user, connected, loading, updateLoader } = useSelector((state) => state.facebook);
   const { userInfo } = useSelector((state) => state.authInfo);
 
   useEffect(() => {
@@ -46,7 +49,17 @@ function DashBoard(props) {
   }, [dispatch]);
 
   const campaignStatusHandler = (e) => {
-      console.log(e.target.id, '##################')
+      const checked = e.target.checked
+      const id = e.target.id
+      let payload = {}
+
+      if (checked) {
+        payload.status = 'ACTIVE'
+      } else {
+        payload.status = 'PAUSED'
+      }
+
+      dispatch(updateFacebookCampaign(user.accessToken, e.target.id, payload))
   }
 
   _.forEach(adAccounts, adAccount => {
@@ -262,6 +275,7 @@ function DashBoard(props) {
                                                             <input onChange={campaignStatusHandler} id={campaign.id} checked={campaign.status==='ACTIVE' ? true:false} type="checkbox"/>
                                                             <span className="slider round"></span>
                                                         </label>
+                                                        
                                                     </td>
                                                     <td>
                                                         {adAccounts.map(adAccount => {

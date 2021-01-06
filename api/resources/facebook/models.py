@@ -93,10 +93,10 @@ class CreateCampaign(BaseModel):
 
 
 class Campaign(BaseModel):
-    name: str
-    objective: str
-    status: str
-    special_ad_categories: str
+    name: Optional[str]
+    objective: Optional[str]
+    status: Optional[str]
+    special_ad_categories: Optional[str]
 
 
 class AdsSet(BaseModel):

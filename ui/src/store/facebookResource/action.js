@@ -92,6 +92,21 @@ export const getFacebookCampaigns = (accessToken, adsAccountIdList) => ({
   },
 });
 
+export const updateFacebookCampaign = (accessToken, campaignId, data) => ({
+  type: types.UPDATE_FACEBOOK_CAMPAIGN,
+  payload: {
+    path: `/facebook/update/campaign/${campaignId}?access_token=${accessToken}`,
+    method: 'POST',
+    data: data
+  },
+  meta: {
+    api: true,
+    id: campaignId,
+    data: data,
+    errorMessage: "Campaign Update Failed",
+  },
+});
+
 export const getFacebookPages = (userID, accessToken) => ({
   type: types.GET_FACEBOOK_PAGES,
   payload: {
