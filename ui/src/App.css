@@ -231,6 +231,10 @@ ads area
         font-weight: 500;
         line-height: 22px;
     }
+    .media-table{
+        min-height: 77vh;
+        align-content: center;
+    }
     /*
 =======================================================================
 welcome and connect  area

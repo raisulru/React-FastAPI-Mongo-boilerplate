@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert';
 import { useAlert } from 'react-alert';
 import './App.css';
-import { Header, Footer } from './container/common';
+import { Header, Footer, DisconnectAds } from './container/common';
 import keycloak from './utils/keycloak';
 import { saveAuthUser } from './store/auth';
 import { getFacebookUser } from './store/facebookResource';
@@ -36,6 +36,7 @@ function AppRouter() {
       dispatch(getFacebookUser(authInfo.userInfo.preferred_username))
   }, [dispatch]);
 
+  console.log(routes);
   return (
     authenticated ? 
     <>
@@ -51,7 +52,7 @@ function AppRouter() {
                 <Route key={index} exact={route.exact} path={route.path} component={route.component} />
                 )
             }
-
+            <Route exact={true} path={"/ads/disconnect-ad-account"} component={DisconnectAds} />
             <Route component={InvalidPage} />
           </Switch>
           <Footer/>
