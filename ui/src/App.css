@@ -917,7 +917,11 @@ login page
     }
     
     .input-group img {
-        width: 13px;
+        height: 28px;
+    }
+
+    .disconnect-btn {
+        width: 100px;
     }
     
     .timeicon {

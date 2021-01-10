@@ -185,6 +185,8 @@ export const facebook = (state = facebookState, action) => {
   const { type, payload, meta } = action;
   return produce(state, (draft) => {
     switch (type) {
+      case types.DISCONNECT_ACCOUNT_SUCCESS:
+        return facebookState
       case types.GET_FACEBOOK_AD_ACCOUNTS_SUCCESS:
         const modifiedAdAccounts = _.map(payload.data, (account) => {
           account.connected = false

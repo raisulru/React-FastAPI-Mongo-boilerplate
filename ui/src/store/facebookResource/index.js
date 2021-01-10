@@ -46,7 +46,8 @@ export {
   deleteMessages,
   saveTargetingAudience,
   updateFacebookCampaign,
-  getAdSet
+  getAdSet,
+  DisconnectAccount
   } from './action';
   
 export { facebook, facebookSearch, facebookCampaign } from './reducer';

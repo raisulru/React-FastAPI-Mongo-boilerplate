@@ -168,6 +168,17 @@ export const getAdSet = (access_token, campaignID) => ({
   },
 });
 
+export const DisconnectAccount = (roboketUserName) => ({
+  type: types.DISCONNECT_ACCOUNT,
+  payload: {
+    path: `/facebook/disconnect/${roboketUserName}`,
+    method: 'POST'
+  },
+  meta: {
+    api: true,
+    errorMessage: "Disconnection Failed",
+  },
+});
 
 // Audience targeting actions
 
