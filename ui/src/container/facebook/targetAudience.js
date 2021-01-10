@@ -137,6 +137,7 @@ function FacebookAudienceTargeting() {
     }
 
     if (payload.type && payload.name) {
+        console.log(cards, '################')
 
         const targetingObj = {
             id: payload.id,

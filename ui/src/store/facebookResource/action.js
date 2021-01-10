@@ -159,7 +159,7 @@ export const searchFacebookLocation = (access_token, search) => ({
 export const getAdSet = (access_token, campaignID) => ({
   type: types.GET_AD_SET,
   payload: {
-    path: `/facebook/ad-set?access_token=${access_token}&campaign_id=${campaignID}&fields=name,start_time,end_time,daily_budget,lifetime_budget,status`,
+    path: `/facebook/ad-set?access_token=${access_token}&campaign_id=${campaignID}&fields=name,start_time,end_time,daily_budget,lifetime_budget,status,bid_amount,billing_event,targeting`,
     method: 'GET'
   },
   meta: {

@@ -4,18 +4,17 @@ import FacebookLogo from '../../images/fb-icon.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import _ from "lodash"
+import { getAdSet } from "../../store/facebookResource"
 
 
 function FacebookAdSet (props) {
-    console.log(props.match.params.campaignID, '########################')
     const { campaignID } = props.match.params
     const dispatch = useDispatch()
-    const { userInfo } = useSelector((state) => state.authInfo);
-
-
+    const { user, adSet } = useSelector((state) => state.facebook);
+    
     useEffect(() => {
-    //   dispatch(getFacebookUser(userInfo.preferred_username))
-    }, [dispatch]);
+        dispatch(getAdSet(user.accessToken, campaignID))
+    }, [dispatch]);    
 
     return (
         <>
@@ -133,29 +132,47 @@ function FacebookAdSet (props) {
                                         <thead>
                                             <tr>
                                                 <th className="table-title">Name <span><button className="btn-short" type="btn">  <img src={SortIcon} className="mr-2" alt="sort"/></button></span></th>
-                                                <th className="table-title">CTR <span><button className="btn-short" type="btn"><img src={SortIcon} className="mr-2" alt="sort"/></button></span></th>
-                                                <th className="table-title">Impressions <i className="fas fa-info-circle"></i> <span><button className="btn-short" type="btn"><img src={SortIcon} className="mr-2" alt="sort"/></button></span></th>
-                                                <th className="table-title">Clicks <i className="fas fa-info-circle"></i> <span><button className="btn-short" type="btn"><img src={SortIcon} className="mr-2" alt="sort"/></button></span></th>
-                                                <th className="table-title">Total Contacts <i className="fas fa-info-circle"></i> <span><button className="btn-short" type="btn"><img src={SortIcon} className="mr-2" alt="sort"/></button></span></th>
+                                                <th className="table-title"></th>
+                                                <th className="table-title">Life Time Budget <i className="fas fa-info-circle"></i> <span><button className="btn-short" type="btn"><img src={SortIcon} className="mr-2" alt="sort"/></button></span></th>
+                                                <th className="table-title">Start Time <i className="fas fa-info-circle"></i> <span><button className="btn-short" type="btn"><img src={SortIcon} className="mr-2" alt="sort"/></button></span></th>
+                                                <th className="table-title">End Time <i className="fas fa-info-circle"></i> <span><button className="btn-short" type="btn"><img src={SortIcon} className="mr-2" alt="sort"/></button></span></th>
                                                 <th className="table-title">Cost Per Contact <i className="fas fa-info-circle"></i> <span><button className="btn-short" type="btn"><img src={SortIcon} className="mr-2" alt="sort"/></button></span></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                <div className="input-group">
+                                            {
+                                                adSet.map(ad => 
+                                                    <tr key={ad.id}>
+                                                        <td>
+                                                        <div className="input-group">
                                                             <Link to="/" className="btn table-social-btn m-r-30"> 
                                                                 <img src={FacebookLogo} className="mr-2" alt="Facebook"/>
-                                                                Raisuls add 
+                                                                {ad.name} 
                                                             </Link>
                                                         </div>
-                                                </td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
+                                                        </td>
+                                                        <td>
+                                                            <label className="switch">
+                                                                <input id={ad.id} type="checkbox"/>
+                                                                <span className="slider round"></span>
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            {ad.lifetime_budget}
+                                                        </td>
+                                                        <td>
+                                                            {ad.start_time}
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                ad.end_time
+                                                            }
+                                                        </td>
+                                                        <td>$320,800</td>
+                                                    </tr>
+                                                )
+                                            }
+                                            
                                         </tbody>
                                         <tfoot>
                                             <tr>
