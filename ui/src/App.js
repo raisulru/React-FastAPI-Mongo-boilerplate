@@ -36,7 +36,6 @@ function AppRouter() {
       dispatch(getFacebookUser(authInfo.userInfo.preferred_username))
   }, [dispatch]);
 
-  console.log(routes);
   return (
     authenticated ? 
     <>

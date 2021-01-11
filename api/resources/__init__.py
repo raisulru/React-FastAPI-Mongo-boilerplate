@@ -3,7 +3,6 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 load_dotenv()
 
-
 mongoclient = MongoClient(os.getenv('MONGODB_URI'))
 db = mongoclient["lead_generation"]
 facebook_base_url = 'https://graph.facebook.com/v9.0'
