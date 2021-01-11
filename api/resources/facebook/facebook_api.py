@@ -14,13 +14,14 @@ from facebookads.adobjects.targetingsearch import TargetingSearch
 from .enums import facebook_click_to_action, supported_extentions
 from resources.utilities.utils import remove_file_from_directory
 from .models import AdsPayload, Campaign
-from resources import facebook_base_url
+from resources import facebook_base_url, db
 # my_app_id = '<APP_ID>'
 # my_app_secret = '<APP_SECRET>'
 # my_access_token = '<ACCESS_TOKEN>'
 # proxies = {'http': '<HTTP_PROXY>', 'https': '<HTTPS_PROXY>'}
 # FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token, proxies)
 
+facebook_ad = db['facebook_ad']
 
 facebook_router = APIRouter()
 
@@ -184,6 +185,22 @@ async def publish_ads(
     if not ads_payload.creative_id and not ads_payload.ads_creative:
         return JSONResponse(status_code=400, content={'msg': "You Must give creative information!"})
     
+    campaign = ads_payload.campaign
+    ad_set = ads_payload.ads_set
+    ad_creative = ads_payload.ads_creative
+    creative_id = ads_payload.creative_id
+
+    ad_set_with_targeting = ad_set.__dict__
+    ad_set_with_targeting['targeting'] = targeting
+    campaign_payload = {
+        "campaign": campaign.__dict__,
+        "ad_set": ad_set_with_targeting,
+        "ad_creative": ad_creative.__dict__ if ad_creative else None,
+        "creative_id": creative_id if creative_id else None
+    }
+    
+    facebook_ad.insert_one(campaign_payload)
+    
     campaign_url = '{}/{}/campaigns?access_token={}'.format(
         facebook_base_url, 
         ad_account, 
@@ -204,11 +221,6 @@ async def publish_ads(
         ad_account, 
         access_token
     )
-
-    campaign = ads_payload.campaign
-    ad_set = ads_payload.ads_set
-    ad_creative = ads_payload.ads_creative
-    creative_id = ads_payload.creative_id
 
     if not creative_id and ad_creative:
         ad_creative_payload = {

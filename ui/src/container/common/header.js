@@ -58,6 +58,7 @@ function Header (props) {
               </Link>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                       <Link className="dropdown-item" to="/ads">Ads</Link>
+                      <Link className="dropdown-item" to="/ads/disconnect-ad-account">Disconnect Accounts</Link>
 
                     </div>
                   </li>

@@ -85,3 +85,10 @@ async def save_facebook_pages_settings(pages: FacebookPages):
 async def create_campaign(campaign: CreateCampaign):
     created_campaign = facebook_campaign.insert_one(campaign.dict(by_alias=True))
     return campaign
+
+
+@facebook_internal_router.post("/disconnect/{roboket_username}")
+async def disconnect_facebook_account(roboket_username: str):
+    user_exist = facebook_user_collection.delete_one({"roboket_username": roboket_username})
+
+    return roboket_username

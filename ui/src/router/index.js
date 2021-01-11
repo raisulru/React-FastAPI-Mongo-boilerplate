@@ -6,9 +6,10 @@ import {
     FacebookAds
 } from '../container/facebook'
 import {
+    DisconnectAds,
     LandingPage,
     DashBoard,
-    OnBoardingProcess
+    OnBoardingProcess,
 } from '../container/common';
 
 export const allRoutes = [
@@ -20,7 +21,8 @@ export const allRoutes = [
     '/ads/facebook/lead-sync',
     '/ads/facebook/pixel',
     '/ads/facebook/adset',
-    '/ads/facebook/ads-list'
+    '/ads/facebook/ads-list',
+    '/ads/disconnect-ad-account'
 ]
 
 const routes = [
@@ -63,7 +65,12 @@ const routes = [
         path: "/ads/facebook/ads-list",
         exact: true,
         component: FacebookAds
-    }
+    },
+    // {
+    //     path: "/ads/disconnect-ad-account",
+    //     exact: true,
+    //     component: DisconnectAds
+    // }
 ];
 
 export default routes
