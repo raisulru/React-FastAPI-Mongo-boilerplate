@@ -48,9 +48,6 @@ function CustomAudienceExcludeComponent(props) {
       } else {
           dispatch(removeExcludedAudience(payload))
       }
-      payload = copyObject(payload)
-      payload.excluded_audience = true
-      props.audienceSize(payload, checked)
   }
 
     return (

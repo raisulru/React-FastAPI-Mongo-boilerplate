@@ -1,34 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import swal from 'sweetalert';
 import CreateFacebookContent from './createContent';
 import FacebookAudienceTargeting from './targetAudience';
 import FacebookBillAndSchedule from './billAndSchedule';
-import { publishAd, deleteMessages } from '../../store/facebookResource';
+import { publishAd, deleteMessages, getFacebookCampaigns } from '../../store/facebookResource';
 import { useAlert } from 'react-alert';
 import _ from 'lodash';
-import copyObject from '../../utils/copyObject';
 
 
 function CampaignModal () {
     const dispatch = useDispatch()
     const alert = useAlert()
     const [required, setRequired] = useState(true)
+    const [adAccountIdList, setAdAccountIdList] = useState([])
     const { facebookCampaign, facebook } = useSelector((state) => state);
     const {
-        addedCustomAudience, 
         adsImage, 
         budgetAndSchedule, 
         content, 
-        excludeCustomAudience, 
         othersTargetingParam, 
-        personalAttModal,
         errorMessage,
         successMessage,
         loading,
-        cards,
         savedAudience
      } = facebookCampaign;
+
+     useEffect(() => {
+         let adsAccountIdList = []
+        _.forEach(facebook.adAccounts, adAccount => {
+            adsAccountIdList.push(adAccount.id)
+        })
+        setAdAccountIdList(adsAccountIdList)
+    }, [dispatch]);
         
     const validatePayload = () => {
         if (!content.ad_account || !content.ad_creative || !content.objective) {
@@ -46,7 +50,7 @@ function CampaignModal () {
             return
         }
 
-        if (!othersTargetingParam.geo_locations) {
+        if (!othersTargetingParam.selectedLocation) {
             setRequired(true)
             return
         }
@@ -119,6 +123,7 @@ function CampaignModal () {
     const closeModal = () => {
         window.$('#run-ads').modal('hide');
         dispatch(deleteMessages())
+        dispatch(getFacebookCampaigns(facebook.user.accessToken, adAccountIdList))
     }
 
     const cancleHandler = () => {

@@ -46,9 +46,6 @@ function CustomeAudience(props) {
       } else {
           dispatch(removeSelectedAudience(payload))
       }
-      payload = copyObject(payload)
-      payload.included_custom_audience = true
-      props.audienceSize(payload, checked)
   }
 
     return (

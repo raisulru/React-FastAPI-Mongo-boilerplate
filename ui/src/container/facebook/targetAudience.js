@@ -16,7 +16,8 @@ import {
     removeNarrowCard,
     removePersonalAtt,
     AddOthersTargeting,
-    saveTargetingAudience
+    saveTargetingAudience,
+    resolveUpdatingTargetAudience
 } from '../../store/facebookResource';
 
 import PostPreview from './components/postPreview';
@@ -37,7 +38,6 @@ function PersonalUniqueAtt(props) {
             data: data
         }
         dispatch(removePersonalAtt(payload))
-        props.audienceSize(payload.data, false)
     }
 
     return (
@@ -80,142 +80,123 @@ function FacebookAudienceTargeting() {
       locations, 
       customAudience } = useSelector((state) => state.facebookSearch);
     
-  const { 
+    const { 
       addedCustomAudience, 
       excludeCustomAudience, 
       personalAttModal, 
       cards,
       savedAudience,
       othersTargetingParam,
+      updateTargetingAudience,
       content  } = useSelector((state) => state.facebookCampaign);
-
-  const estimatedAudienceSizeHandler = (payload, addedAttribute) => {
-      let specification = copyObject(savedAudience)
-      const {subcities, countries, regions, cities} = specification.geo_locations
-
-    if (!subcities.length && !countries.length && !regions.length && !cities.length && !payload.geo_locations) {
-        alert.error('Select Location First!')
-        return
-    }
-
-    if (payload.geo_locations) {
-        let geo_locations = {
-            countries: [],
-            regions: [],
-            cities: [],
-            subcities: []
+      
+    const estimatedAudienceSizeHandler = () => {
+        let specification = {}
+        const { age_max, age_min, selectedLocation, specialCategory } = othersTargetingParam
+          
+        if (!selectedLocation.length) {
+            return
         }
-        _.forEach(payload.geo_locations, item => {
-            if (item.supports_region || item.supports_city) {
-                if (item.type === 'country') {
-                    geo_locations.countries.push(item.country_code)
-                }
 
-                if (item.type === 'region') {
-                    geo_locations.regions.push({key: item.key})              
-                }
-
-                if (item.type === 'city') {
-                    geo_locations.cities.push({key: item.key})              
-                }
-
-                if (item.type === 'subcity') {
-                    geo_locations.subcities.push({key: item.key})
-                }
+        if (selectedLocation) {
+            let geo_locations = {
+                countries: [],
+                regions: [],
+                cities: [],
+                subcities: []
             }
+            _.forEach(selectedLocation, item => {
+                if (item.supports_region || item.supports_city) {
+                    if (item.type === 'country') {
+                        geo_locations.countries.push(item.country_code)
+                    }
+
+                    if (item.type === 'region') {
+                        geo_locations.regions.push({key: item.key})              
+                    }
+
+                    if (item.type === 'city') {
+                        geo_locations.cities.push({key: item.key})              
+                    }
+
+                    if (item.type === 'subcity') {
+                        geo_locations.subcities.push({key: item.key})
+                    }
+                }
+            })
+
+            specification.geo_locations = geo_locations
+        }
+
+    specification.age_max = age_max || 65
+    specification.age_min = age_min || 18
+
+    if (cards) {
+        let flexibleSpec = []
+        _.forEach(cards, card => {
+            let obj = {}
+            _.forEach(_.groupBy(card.data, item => item.type), (value, key) => {
+                obj[key] = []
+                _.forEach(value, item => {
+                    obj[key].push({
+                        id: item.id,
+                        name: item.name
+                    })
+                })
+            })
+
+            flexibleSpec.push(obj)
         })
-
-        specification.geo_locations = geo_locations
+        specification.flexible_spec = flexibleSpec
     }
 
-    if (payload.age_max) {
-        specification.age_max = payload.age_max
-    }
+    // if (payload.included_custom_audience) {
+    //     let value = specification['custom_audiences']
+    //     const customAduence = {
+    //         id: payload.id
+    //     }
+    //     if (value) {
+    //         if (addedAttribute) {
+    //             value.push(customAduence)
+    //         } else {
+    //             _.remove(value, item => {
+    //                 return item.id === customAduence.id
+    //             })
+    //         }
+    //     } else {
+    //         specification['custom_audiences'] = [customAduence]
+    //     }
+    // }
 
-    if (payload.age_min) {
-        specification.age_min = payload.age_min
-    }
+    // if (payload.excluded_audience) {
+    //     let value = specification.exclusions['custom_audiences']
 
-    if (payload.type && payload.name) {
-        console.log(cards, '################')
+    //     const customAduence = {
+    //         id: payload.id
+    //     }
 
-        const targetingObj = {
-            id: payload.id,
-            name: payload.name
-        }
-
-        let arrayType = ['user_os', 'user_device']
-
-        let value = specification[payload.type]
-        if (_.includes(arrayType, payload.type)) {
-            if (value) {
-                if (addedAttribute) {
-                    value.push(payload.name)
-                } else {
-                    _.remove(value, item => {
-                        return item === payload.name
-                    })
-                }
-            } else {
-                specification[payload.type] = [payload.name]
-            }
-        } else {
-            if (value) {
-                if (addedAttribute) {
-                    value.push(targetingObj)
-                } else {
-                    _.remove(value, item => {
-                        return item.id === payload.id
-                    })
-                }
-            } else {
-                specification[payload.type] = [targetingObj]
-            }
-        }
-    }
-
-    if (payload.included_custom_audience) {
-        let value = specification['custom_audiences']
-        const customAduence = {
-            id: payload.id
-        }
-        if (value) {
-            if (addedAttribute) {
-                value.push(customAduence)
-            } else {
-                _.remove(value, item => {
-                    return item.id === customAduence.id
-                })
-            }
-        } else {
-            specification['custom_audiences'] = [customAduence]
-        }
-    }
-
-    if (payload.excluded_audience) {
-        let value = specification.exclusions['custom_audiences']
-
-        const customAduence = {
-            id: payload.id
-        }
-
-        if (value) {
-            if (addedAttribute) {
-                value.push(customAduence)
-            } else {
-                _.remove(value, item => {
-                    return item.id === customAduence.id
-                })
-            }
-        } else {
-            specification.exclusions['custom_audiences'] = [customAduence]
-        }
-    }
+    //     if (value) {
+    //         if (addedAttribute) {
+    //             value.push(customAduence)
+    //         } else {
+    //             _.remove(value, item => {
+    //                 return item.id === customAduence.id
+    //             })
+    //         }
+    //     } else {
+    //         specification.exclusions['custom_audiences'] = [customAduence]
+    //     }
+    // }
 
     console.log(specification, '#########################')
 
     dispatch(getEstimatedAudienceSize(user.accessToken, content.ad_account.id, JSON.stringify(specification)))
     dispatch(saveTargetingAudience(specification))
+    dispatch(resolveUpdatingTargetAudience())
+  }
+
+  if (updateTargetingAudience) {
+      estimatedAudienceSizeHandler()
   }
 
   const getCustomAudience = () => {
@@ -236,14 +217,12 @@ const othersTargetingHandler = (e) => {
     }
     payload[name] = value
     dispatch(AddOthersTargeting(payload))
-    estimatedAudienceSizeHandler(payload)
 }
 
 const locationHandler = (data) => {
     let payload = copyObject(othersTargetingParam)
-    payload.geo_locations = data
+    payload.selectedLocation = data
     dispatch(AddOthersTargeting(payload))
-    estimatedAudienceSizeHandler(payload)
 }
 
   const locationSearchHandler = (string) => {
@@ -292,16 +271,10 @@ const locationHandler = (data) => {
 
   const removeSelectedAudienceHandler = (payload) => {
       dispatch(removeSelectedAudience(payload))
-      let newPayload = copyObject(payload)
-      newPayload.included_custom_audience = true
-      estimatedAudienceSizeHandler(newPayload, false)
   }
 
   const removeExcludedAudienceHandler = (payload) => {
     dispatch(removeExcludedAudience(payload))
-    let newPayload = copyObject(payload)
-    newPayload.excluded_audience = true
-    estimatedAudienceSizeHandler(newPayload, false)
   }
 
   const personalAttributeData = _.map(copyObject(cards), card => {
@@ -385,7 +358,7 @@ const locationHandler = (data) => {
                                 closeMenuOnSelect={false}
                                 onChange={locationHandler}
                                 options={locations}
-                                defaultValue={othersTargetingParam.geo_locations}
+                                // defaultValue={othersTargetingParam.selectedLocation}
                                 getOptionLabel={option =>
                                   `${option.name}, ${option.country_name}`
                                 }
@@ -463,8 +436,10 @@ const locationHandler = (data) => {
                                             {
                                                 _.map(card.groupBYData, (value, key, obj) => 
                                                     <span key={key}>
-                                                        <div> <strong>{toLowerCase(key)}</strong></div>
-                                                        <PersonalUniqueAtt audienceSize={estimatedAudienceSizeHandler} value={value} cardNo={card.cardNo}/>
+                                                        <div>{toLowerCase(key)}</div>
+                                                        <PersonalUniqueAtt value={value} cardNo={card.cardNo}/>
+                                                        <br/>
+                                                        <strong>Or</strong>
                                                     </span>
                                                 )
                                             }
@@ -548,7 +523,7 @@ const locationHandler = (data) => {
     keyboard={false}
     className="drawer modal right-align"
     >
-        <CustomeAudience audienceSize={estimatedAudienceSizeHandler}/>
+        <CustomeAudience />
     
         <Modal.Footer>
             <button type="button" onClick={handleCustomAudienceClose} className="btn btn-primary">Save</button>
@@ -564,7 +539,7 @@ const locationHandler = (data) => {
     keyboard={false}
     className="drawer modal right-align"
     >
-        <CustomAudienceExcludeComponent audienceSize={estimatedAudienceSizeHandler}/>
+        <CustomAudienceExcludeComponent />
     
         <Modal.Footer>
             <button type="button" onClick={handleCustomAudienceExcludeClose} className="btn btn-primary">Save</button>
@@ -572,7 +547,7 @@ const locationHandler = (data) => {
         </Modal.Footer>
 </Modal>
 
-<PersonalAttributes audienceSize={estimatedAudienceSizeHandler} />
+<PersonalAttributes />
   </>
   );
 }

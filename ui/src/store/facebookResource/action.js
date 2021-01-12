@@ -512,6 +512,14 @@ export const saveFacebookCampaign = (payload) => ({
   },
 });
 
+export const resolveUpdatingTargetAudience = () => ({
+  type: types.RESOLVED_UPDATING_TARGET_AUDIENCE,
+  meta: {
+    api: false,
+    errorMessage: "Updating Failed",
+  },
+});
+
 export const addCustomAudience = (payload) => ({
   type: types.SAVE_CUSTOM_AUDIENCE,
   payload: payload,

@@ -48,7 +48,6 @@ function PersonalAttributeSearch(props) {
             dispatch(removePersonalAtt(payload))
         }
 
-        props.audienceSize(payload.data, checked)
     }
 
     const checkedOrNot = (cards, id) => {

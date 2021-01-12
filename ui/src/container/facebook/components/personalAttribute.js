@@ -112,10 +112,10 @@ function PersonalAttributes(props) {
                                     Income</a>
                                     <a className="nav-link" id="v-pills-familystatus-tab" data-toggle="pill" href="#v-pills-familystatus" role="tab" aria-controls="v-pills-familystatus" aria-selected="false">
                                     Family Status</a>
-                                    <a className="nav-link" id="v-pills-userdevice-tab" data-toggle="pill" href="#v-pills-userdevice" role="tab" aria-controls="v-pills-userdevice" aria-selected="false">
+                                    {/* <a className="nav-link" id="v-pills-userdevice-tab" data-toggle="pill" href="#v-pills-userdevice" role="tab" aria-controls="v-pills-userdevice" aria-selected="false">
                                     User Device</a>
                                     <a className="nav-link" id="v-pills-useros-tab" data-toggle="pill" href="#v-pills-useros" role="tab" aria-controls="v-pills-useros" aria-selected="false">
-                                    User OS</a>
+                                    User OS</a> */}
 
                                     <p className="tab-category"><strong>Interests</strong></p>
                                     <a className="nav-link" id="v-pills-interest-tab" data-toggle="pill" href="#v-pills-interest" role="tab" aria-controls="v-pills-interest" aria-selected="false">
@@ -136,7 +136,6 @@ function PersonalAttributes(props) {
                                             type="education_schools"
                                             data={schools} 
                                             search={searchEducationSchool}
-                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Education School"/>
                                     </div>
                                     <div className="tab-pane fade" id="v-pills-education-major" role="tabpanel" aria-labelledby="v-pills-education-major-tab">
@@ -145,7 +144,6 @@ function PersonalAttributes(props) {
                                             type="education_majors"
                                             data={educationMajors} 
                                             search={searchEducationMajor} 
-                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Education Major"
                                             />
                                     </div>
@@ -155,7 +153,6 @@ function PersonalAttributes(props) {
                                             type="work_employers"
                                             data={workEmployers} 
                                             search={searchWorkEmployer} 
-                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Work Employer"
                                             />
                                     </div>
@@ -165,7 +162,6 @@ function PersonalAttributes(props) {
                                             type="work_positions"
                                             data={jobTitles} 
                                             search={searchJobTitle} 
-                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Job Title"
                                             />
                                     </div>
@@ -174,7 +170,6 @@ function PersonalAttributes(props) {
                                             title="Life Events"
                                             data={searchedLifeEvents} 
                                             browse={browseLifeEvents} 
-                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Life Events"
                                             />
                                     </div>
@@ -183,7 +178,6 @@ function PersonalAttributes(props) {
                                             title="Industries"
                                             data={searchedIndustries} 
                                             browse={browseIndustries} 
-                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Industries"
                                             />
                                     </div>
@@ -192,7 +186,6 @@ function PersonalAttributes(props) {
                                             title="Income"
                                             data={searchedIncome} 
                                             browse={browseIncome} 
-                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Income"
                                             />
                                     </div>
@@ -201,16 +194,14 @@ function PersonalAttributes(props) {
                                             title="Family Status"
                                             data={searchedFamilyStatus} 
                                             browse={browseFamilyStatus} 
-                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For Family Status"
                                             />
                                     </div>
-                                    <div className="tab-pane fade" id="v-pills-userdevice" role="tabpanel" aria-labelledby="v-pills-userdevice-tab">
+                                    {/* <div className="tab-pane fade" id="v-pills-userdevice" role="tabpanel" aria-labelledby="v-pills-userdevice-tab">
                                     <PersonalAttributeSearch 
                                             title="User Device"
                                             type="user_device"
                                             data={searchedUserDevices} 
-                                            audienceSize={props.audienceSize} 
                                             browse={browseUserDevice} 
                                             placeholder="Search For User Device"
                                             />
@@ -221,10 +212,9 @@ function PersonalAttributes(props) {
                                             type="user_os"
                                             data={searchedOperatingSystems} 
                                             browse={browseUserOS} 
-                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For User OS"
                                             />
-                                    </div>
+                                    </div> */}
 
                                     <div className="tab-pane fade" id="v-pills-interest" role="tabpanel" aria-labelledby="v-pills-interest-tab">
                                     <PersonalAttributeSearch 
@@ -232,7 +222,6 @@ function PersonalAttributes(props) {
                                             data={interests}
                                             search={searchInterest}
                                             browse={browseInterest}
-                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For User Interests"
                                             />
                                     </div>
@@ -242,7 +231,6 @@ function PersonalAttributes(props) {
                                             title="User Behaviours"
                                             data={searchedBehaviours}
                                             browse={browseBehaviour}
-                                            audienceSize={props.audienceSize} 
                                             placeholder="Search For User Behaviours"
                                             />
                                     </div>

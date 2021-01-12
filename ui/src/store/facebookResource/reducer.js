@@ -42,7 +42,7 @@ const facebookCampaignState = {
   othersTargetingParam: {
     age_max: null,
     age_min: null,
-    geo_locations: [],
+    selectedLocation: [],
     specialCategory: null
   },
   adsImage: null,
@@ -55,8 +55,10 @@ const facebookCampaignState = {
     },
     age_min: 18,
     age_max: 65,
-    exclusions: {}
-  }
+    exclusions: {},
+    flexible_spec: []
+  },
+  updateTargetingAudience: false
 }
 
 export const facebookCampaign = (state = facebookCampaignState, action) => {
@@ -121,6 +123,7 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
           return item.cardNo === payload.cardNo;
         })
         draft.cards = [...draft.cards]
+        draft.updateTargetingAudience = true
         break;
       case types.ADD_PERSONAL_ATTRIBUTE:
         _.map(draft.cards, (card) => {
@@ -129,6 +132,7 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
             }
         })
         draft.cards = [...draft.cards]
+        draft.updateTargetingAudience = true
         break;
       case types.REMOVE_PERSONAL_ATTRIBUTE:
         _.map(draft.cards, card => {
@@ -139,9 +143,11 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
           }
         })
         draft.cards = [...draft.cards]
+        draft.updateTargetingAudience = true
         break;
       case types.ADD_OTHERS_TARGETING_PARAM:
         draft.othersTargetingParam = payload
+        draft.updateTargetingAudience = true
         break
       case types.ADD_BUDGET_AND_SCHEDULE:
         draft.budgetAndSchedule = payload
@@ -151,6 +157,9 @@ export const facebookCampaign = (state = facebookCampaignState, action) => {
         break
       case types.REMOVE_ADS_IMAGE_SUCCESS:
         draft.adsImage = null
+        break
+      case types.RESOLVED_UPDATING_TARGET_AUDIENCE:
+        draft.updateTargetingAudience = false
         break
       default:
         return state;

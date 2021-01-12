@@ -122,7 +122,7 @@ function CreateFacebookContent () {
                                   }
                                 </select>
                             </div>
-                            {/* <div className="form-group">
+                            <div className="form-group">
                                 <label htmlFor="pages">Facebook page* <i className="fas fa-info-circle"></i> </label>
                                 <select defaultValue={content.page && content.page.id} className="form-control" onChange={inputHandler} name="page" id="pages">
                                   <option selected_value={undefined}>Select Page</option>
@@ -132,7 +132,7 @@ function CreateFacebookContent () {
                                     )
                                   }
                                 </select>
-                            </div> */}
+                            </div>
                             <div className="campaign">
                                 <label htmlFor="Campaign">Campaign<span style={{'color': 'red'}}>*</span></label> <br/>
                                 <div className="form-check form-check-inline">
@@ -173,7 +173,7 @@ function CreateFacebookContent () {
                               </div>
                             }
                             
-                            {/* <div className="form-group upload-file">
+                            <div className="form-group upload-file">
                                 <label htmlFor="image-video">
                                   image/video*
                                 <i className="fas fa-info-circle"></i>
@@ -224,7 +224,7 @@ function CreateFacebookContent () {
                                   } 
                                 </select>
                             </div>
-                            } */}
+                            }
 
                             {
                               content.ad_account && <div className="form-group">
