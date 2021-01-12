@@ -21,6 +21,7 @@ function CreateFacebookContent () {
  
   const dispatch = useDispatch()
   const [campaignType, setCampaignType] = useState('new')
+  const [creative, setCreative] = useState('new_creative')
   const [creatives, setCreatives] = useState([])
   const { facebookPages, user, adAccounts, CTA, campaignList } = useSelector((state) => state.facebook);
   const { estimatedAudienceSize } = useSelector((state) => state.facebookSearch);
@@ -111,6 +112,7 @@ function CreateFacebookContent () {
                     <div className="col-md-10">
                     <div className="left-ad-generation-area mr-5 ml-5">
                         <form action="#">
+                          
                             <div className="form-group">
                                 <label htmlFor="adaccount">Ad account<span style={{'color': 'red'}}>*</span></label>
                                 <select defaultValue='none' onChange={inputHandler} className="form-control" name="ad_account" id="adaccount">
@@ -122,27 +124,21 @@ function CreateFacebookContent () {
                                   }
                                 </select>
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="pages">Facebook page* <i className="fas fa-info-circle"></i> </label>
-                                <select defaultValue={content.page && content.page.id} className="form-control" onChange={inputHandler} name="page" id="pages">
-                                  <option selected_value={undefined}>Select Page</option>
-                                  {
-                                    facebookPages.map(page => 
-                                      <option key={page.id} value={page.id}>{page.name}</option>
-                                    )
-                                  }
-                                </select>
-                            </div>
+                            
                             <div className="campaign">
                                 <label htmlFor="Campaign">Campaign<span style={{'color': 'red'}}>*</span></label> <br/>
                                 <div className="form-check form-check-inline">
                                     <input className="form-check-input" type="radio" id="new" checked={campaignType === 'new'} value="new" onChange={() => setCampaignType('new')}/>
                                     <label className="form-check-label" htmlFor="new">Create new campaign</label>
                                 </div>
+
+
                                 <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type='radio' id="existing" checked={campaignType === 'existing'} value="existing" onChange={() => setCampaignType('existing')}/>
+                                    <input disabled className="form-check-input" type='radio' id="existing" checked={campaignType === 'existing'} value="existing" onChange={() => setCampaignType('existing')}/>
                                     <label className="form-check-label" htmlFor="existing">Select from existing </label>
                                 </div>
+
+
                                 <div className="form-group">
                                   {
                                     campaignType === 'new' ? 
@@ -159,6 +155,8 @@ function CreateFacebookContent () {
                                   
                                 </div>
                             </div>
+
+
                             {
                               campaignType === 'new' && <div className="form-group">
                                   <label htmlFor="pages">Objective<span style={{'color': 'red'}}>*</span><i className="fas fa-info-circle"></i> </label>
@@ -172,74 +170,107 @@ function CreateFacebookContent () {
                                   </select>
                               </div>
                             }
-                            
-                            <div className="form-group upload-file">
-                                <label htmlFor="image-video">
-                                  image/video*
-                                <i className="fas fa-info-circle"></i>
-                                </label>
-                                <div className="select-image">
-                                   <div className="col-md-12">
-                                     {
-                                       adsImage && <button type="button" onClick={removeImage} className="close float-right">
-                                       <span style={{"color": 'red'}}>&times;</span>
-                                     </button>
-                                     }
-                                   </div>
-                                  {
-                                    adsImage ? 
-                                    <img style={{"height": 200}} src={adsImage.images.url} className="img-fluid" alt="Responsive image"/>
-                                    :
-                                    <button type="button" className="btn select-image-btn" onClick={showUploadModal}>Select Image/Video</button>
-                                  }
-                                  
+
+
+                            <div>
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type="radio" id="new_creative" checked={creative === 'new_creative'} value="new_creative" onChange={() => setCreative('new_creative')}/>
+                                    <label className="form-check-label" htmlFor="new_creative">New Creative</label>
                                 </div>
-                                
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" type='radio' id="existing_creative" checked={creative === 'existing_creative'} value="existing_creative" onChange={() => setCreative('existing_creative')}/>
+                                    <label className="form-check-label" htmlFor="existing_creative">Select existing Creative</label>
+                                </div>
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="text-body-copy"> Text body copy  <i className="fas fa-info-circle"></i></label>
-                                <textarea 
-                                onChange={inputHandler} 
-                                name="body_text" 
-                                value={content.body_text}
-                                className="form-control" 
-                                rows="5" 
-                                id="text-body-copy" 
-                                placeholder="write a message that clearly tells people about what you are promoting">
 
-                                </textarea>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="adaccount">Headline* <i className="fas fa-info-circle"></i> </label>
-                                <input value={content.heading} onChange={inputHandler} name="heading" type='text' className="form-control" />
-                            </div>
-                            {
-                              content.objective === 'LEAD_GENERATION' && <div className="form-group">
-                                <label htmlFor="adaccount">Call to action* </label>
-                                <select defaultValue={content.cta && content.cta.value} onChange={inputHandler} name="cta" className="form-control" id="adaccount">
-                                  {
-                                    CTA ? CTA.map(ct => 
-                                    <option key={ct.name} value={ct.value}>{ct.name}</option>
-                                    ) : ""
-                                  } 
-                                </select>
-                            </div>
-                            }
 
                             {
-                              content.ad_account && <div className="form-group">
-                                <label htmlFor="adaccount">Ad Creative<span style={{'color': 'red'}}>*</span></label>
-                                <select onChange={creativeHandler} className="form-control" name="ad_creative" id="adcreatives">
-                                <option value='none'>Select Ad Creative</option>
+                              creative === 'new_creative' ?
+
+                              <>
+                              <div className="form-group">
+                                <label htmlFor="pages">Facebook page* <i className="fas fa-info-circle"></i> </label>
+                                <select defaultValue={content.page && content.page.id} className="form-control" onChange={inputHandler} name="page" id="pages">
+                                  <option selected_value={undefined}>Select Page</option>
                                   {
-                                  creatives.map(creative => 
-                                      <option key={creative.id} value={creative.id}>{creative.name}</option>
+                                    facebookPages.map(page => 
+                                      <option key={page.id} value={page.id}>{page.name}</option>
                                     )
                                   }
                                 </select>
-                              </div>
-                            }
+                            </div>
                             
+                              <div className="form-group upload-file">
+                                  <label htmlFor="image-video">
+                                    image/video*
+                                  <i className="fas fa-info-circle"></i>
+                                  </label>
+                                  <div className="select-image">
+                                    <div className="col-md-12">
+                                      {
+                                        adsImage && <button type="button" onClick={removeImage} className="close float-right">
+                                        <span style={{"color": 'red'}}>&times;</span>
+                                      </button>
+                                      }
+                                    </div>
+                                    {
+                                      adsImage ? 
+                                      <img style={{"height": 200}} src={adsImage.images.url} className="img-fluid" alt="Responsive image"/>
+                                      :
+                                      <button type="button" className="btn select-image-btn" onClick={showUploadModal}>Select Image/Video</button>
+                                    }
+                                    
+                                  </div>
+                                  
+                              </div>
+                              <div className="form-group">
+                                  <label htmlFor="text-body-copy"> Text body copy  <i className="fas fa-info-circle"></i></label>
+                                  <textarea 
+                                  onChange={inputHandler} 
+                                  name="body_text" 
+                                  value={content.body_text}
+                                  className="form-control" 
+                                  rows="5" 
+                                  id="text-body-copy" 
+                                  placeholder="write a message that clearly tells people about what you are promoting">
+
+                                  </textarea>
+                              </div>
+                              <div className="form-group">
+                                  <label htmlFor="adaccount">Headline* <i className="fas fa-info-circle"></i> </label>
+                                  <input value={content.heading} onChange={inputHandler} name="heading" type='text' className="form-control" />
+                              </div>
+                              {
+                                content.objective === 'LEAD_GENERATION' && <div className="form-group">
+                                  <label htmlFor="adaccount">Call to action* </label>
+                                  <select defaultValue={content.cta && content.cta.value} onChange={inputHandler} name="cta" className="form-control" id="adaccount">
+                                    {
+                                      CTA ? CTA.map(ct => 
+                                      <option key={ct.name} value={ct.value}>{ct.name}</option>
+                                      ) : ""
+                                    } 
+                                  </select>
+                                </div>
+                              }
+                              </>
+                              :
+                              <>
+                                {
+                                  content.ad_account && <div className="form-group">
+                                    <label htmlFor="adaccount">Ad Creative<span style={{'color': 'red'}}>*</span></label>
+                                    <select onChange={creativeHandler} className="form-control" name="ad_creative" id="adcreatives">
+                                    <option value='none'>Select Ad Creative</option>
+                                      {
+                                      creatives.map(creative => 
+                                          <option key={creative.id} value={creative.id}>{creative.name}</option>
+                                        )
+                                      }
+                                    </select>
+                                  </div>
+                                }
+                              </>
+                            }
+
                         </form>
                     </div>
                     </div>
