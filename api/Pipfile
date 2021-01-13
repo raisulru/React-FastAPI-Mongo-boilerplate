@@ -16,6 +16,7 @@ facebookads = "*"
 boto3 = "*"
 s3 = "*"
 python-multipart = "*"
+python-keycloak = "*"
 
 [requires]
 python_version = "3.8"

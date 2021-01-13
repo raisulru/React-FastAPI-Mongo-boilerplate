@@ -112,7 +112,7 @@ function CreateFacebookContent () {
                     <div className="col-md-10">
                     <div className="left-ad-generation-area mr-5 ml-5">
                         <form action="#">
-                          
+
                             <div className="form-group">
                                 <label htmlFor="adaccount">Ad account<span style={{'color': 'red'}}>*</span></label>
                                 <select defaultValue='none' onChange={inputHandler} className="form-control" name="ad_account" id="adaccount">
@@ -240,8 +240,8 @@ function CreateFacebookContent () {
                                   <label htmlFor="adaccount">Headline* <i className="fas fa-info-circle"></i> </label>
                                   <input value={content.heading} onChange={inputHandler} name="heading" type='text' className="form-control" />
                               </div>
-                              {
-                                content.objective === 'LEAD_GENERATION' && <div className="form-group">
+                              
+                                <div className="form-group">
                                   <label htmlFor="adaccount">Call to action* </label>
                                   <select defaultValue={content.cta && content.cta.value} onChange={inputHandler} name="cta" className="form-control" id="adaccount">
                                     {
@@ -251,7 +251,7 @@ function CreateFacebookContent () {
                                     } 
                                   </select>
                                 </div>
-                              }
+                              
                               </>
                               :
                               <>
