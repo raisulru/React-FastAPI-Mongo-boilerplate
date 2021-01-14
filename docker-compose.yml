@@ -6,8 +6,8 @@ services:
     container_name: mongodb_ads
     environment: 
       - MONGO_INITDB_DATABASE=lead_generation
-      - MONGO_INITDB_ROOT_USERNAME=raisul
-      - MONGO_INITDB_ROOT_PASSWORD=redhat
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
     ports:
       - "27017:27017"
 
