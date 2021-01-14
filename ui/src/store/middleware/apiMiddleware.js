@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { apiBaseURL } from '../../settings';
+import store from '../index'
 
 const apiMiddleware = () => (next) => (action) => {
   next(action);
@@ -37,6 +38,8 @@ const apiMiddleware = () => (next) => (action) => {
       data
     }
   }
+
+  axios.defaults.headers.common['Authorization'] = `Bearer ${store.getState().authInfo.userInfo.token}`
   
   return axios(requestObject)
     .then((res) => {

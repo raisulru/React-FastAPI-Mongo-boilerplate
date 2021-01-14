@@ -26,10 +26,10 @@ function AppRouter() {
       if(authenticated) {
         setAuthenticated(true)
         console.log('authenticated')
+        dispatch(saveAuthUser(keycloak));
       } else {
         console.log('Not Authenticated')
       }
-        dispatch(saveAuthUser(keycloak));
       }).catch(function() {
         alert.error('failed to initialize');
       });
